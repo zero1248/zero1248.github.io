@@ -6,18 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019/2 | Isaac前进4</title>
+  <title>MSP430 时钟系统 | Isaac前进4</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="学习笔记 思考感悟">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Isaac前进4">
-<meta property="og:url" content="http://yoursite.com/archives/2019/02/index.html">
+  <meta name="description" content="系统时钟是一个程序运行的指挥官，时序和中断也是整个程序的核心和中轴线。">
+<meta name="keywords" content="硬件拾忆,MSP430">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MSP430 时钟系统">
+<meta property="og:url" content="http://yoursite.com/blog/2019/02/22/MSP430-时钟系统/index.html">
 <meta property="og:site_name" content="Isaac前进4">
-<meta property="og:description" content="学习笔记 思考感悟">
+<meta property="og:description" content="系统时钟是一个程序运行的指挥官，时序和中断也是整个程序的核心和中轴线。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-02-22T16:03:32.967Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Isaac前进4">
-<meta name="twitter:description" content="学习笔记 思考感悟">
+<meta name="twitter:title" content="MSP430 时钟系统">
+<meta name="twitter:description" content="系统时钟是一个程序运行的指挥官，时序和中断也是整个程序的核心和中轴线。">
   
   
     <link rel="icon" href="/favicon.png">
@@ -167,16 +169,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-MSP430-时钟系统" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-MSP430-时钟系统" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/22/MSP430-时钟系统/">MSP430 时钟系统</a>
+    <h1 class="article-title" itemprop="name">
+      MSP430 时钟系统
     </h1>
   
 
@@ -191,9 +191,33 @@
       
         <hr>
 <p>系统时钟是一个程序运行的指挥官，时序和中断也是整个程序的核心和中轴线。</p>
-        
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-时钟系统/#more">more >></a>
-        
+<a id="more"></a>
+<p>MSP430 最多有三个振荡器：</p>
+<p>DCO：内部数字控制振荡器，它的频率可以通过 DCOCLK 进行配置。在系统 PUC 之后，DCOx=7，MODx=3。在系统 PUC 之后，SMCLK 与 MCLK 都以 DCO 作为时钟源，震荡频率在 1.1M 左右，ACLK 以 LFXT1 作为时钟源，工作在 LF 模式下内部 6pF 的负载电容。</p>
+<p>LFXT1：可接高速和低速晶振，在低速模式下，它可以外接 32k 的晶振而不需要负载电容，在单片机内部已经集成了几个电容供选择。同时，通过寄存器进行配置，它还可以接内部的 VLOCLK，这个晶振是一个 12k 的低速晶振。高速模式下它可以接 0.4~16M（有的是 8M） 的晶振。通常将 LFXT1 配置成一个 32k 的振荡源，为 ACLK 提供低速的时钟信号。</p>
+<p>XT2：高速振荡器，它可以接一个 0.4~16M（有的是 8M） 的晶振，需要外接电容，它相当于高速模式下的 LFXT1。通常将它配置成一个高速的振荡源，为 MCLK 和 SMCLK 提供高速时钟信号。</p>
+<p>经验发现，接 XT2 时，需要注意自己开启 XT2，并延时 50us 等待 XT2 起振，然后手工清除 IFG1 中的 OFIFG 位，其操作顺序为：打开 XT2 -&gt; 等待 XT2 稳定 -&gt; 切换系统时钟为 XT2。</p>
+<p>MSP430 有三种时钟信号：MCLK 系统主时钟，可分频1 2 4 8，供 cpu 使用，其他外围模块在有选择情况下也可使用；SMCLK 系统子时钟，供高速外设使用，可选择不同振荡器产生的时钟信号；ACLK 辅助时钟，只能由 LFXT1 产生，供低速外设使用。</p>
+<p>DIVS0~DIVS1：DIVS=0,1,2,3 对应 SMCLK 的分频因子为 1,2,4,8</p>
+<p>SELS：选择 SMCLK 的时钟源，0：COCLK；1：XT2CLK/LFXTCLK</p>
+<p>DIVM0~1：选择 MCLK 的分频因子</p>
+<p>DIVM=0,1,2,3：对应分频因子为 1,2,4,8</p>
+<p>SELM0~1：选择 MCLK 的时钟源，0, 1：COCLK,    2：XT2CLK,   3：FXT1CL</p>
+<p>其它：</p>
+<p>1、LFXT1：一次有效的 PUC 信号将使 OSCOFF 复位，允许 LFXT1 工作，如果 LFXT1 信号没有用作 SMCLK 或 MCLK，可软件置 OSCOFF 关闭 LFXT1。</p>
+<p>2、XT2：XT2 产生 XT2CLK 时钟信号，如果 XT2CLK 信号没有用作时钟 MCLK 和 SMCLK，可以通过置 XT2OFF 关闭 XT2，PUC 信号后置 XT2OFF，即 XT2 的关闭的。</p>
+<p>3、振荡器失效时，DCO振荡器会自动被选做 MCLK 的时钟源。如果 DCO 信号没有用作 SMCLK 和 MCLK 时钟信号时，可置SCG0 位关闭 DCO 直流发生器。</p>
+<p>4、在 PUC 信号后，由 DCOCLK 作为 MCLK 的时钟信号，根据需要可将 MCLK 的时钟源另外设置为 LFXT1 或 XT2，设置顺序如下：</p>
+<p><1> 清 OSCOFF/XT2。</1></p>
+<p><2> 清 OFIFG。</2></p>
+<p><3> 延时等待至少 50us。</3></p>
+<p><4> 再次检查 OFIFG，如果仍置位，则重复(1)-(4)步，直到 OFIFG=0 为止。</4></p>
+<p><5> 设置 BCSCTL2 的相应 SELM。</5></p>
+<p>注意：</p>
+<p><1> 最好将 IFG1&amp;=~OFIFG; 放入 do-while 循环中</1></p>
+<p><2> 在 XT2 出现错误的情况下将 XT2 设定为 MCLK SMCLK 的时钟源，单片机会自动的把时钟源更换为 DCO 振荡器。当时钟信号丢失 50us 时，振荡器失效。如果 MCLK 信号来自 LFXT1 或者 XT2，那么 MSP430 自动把 MCLK 的信号切换为 DCO，这样可以保证程序继续运行。MSP430 不对低频模式的 LFXT1 进行监测。</2></p>
+<p><3> BCSCTL2=SELM_2+SELS; 语句必须放在 while 之后，因为当 XT2 没有起振之前，XT2 处于错误阶段，因此在 XT2 没有起振之前将它设定为主时钟与子系统时钟后，单片机会自动的将 DCO 设定为 SMCLK MCLK 的时钟源。</3></p>
+
       
 
       
@@ -219,16 +243,24 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-时钟系统/">展开全文 >></a>
-        </p>
-      
 
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/blog/2019/02/22/2018-随笔/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">2018 随笔</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -243,422 +275,34 @@
         </div>
         
         
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2018-随笔" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/22/2018-随笔/">2018 随笔</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/02/22/2018-随笔/" class="archive-article-date">
-  	<time datetime="2019-02-22T13:53:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p><img src="https://i.loli.net/2019/02/22/5c7009ac95f91.jpg" alt="214599.jpg"></p>
-        
-          <a class="article-more-a" href="/blog/2019/02/22/2018-随笔/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">心花路放</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/22/2018-随笔/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    目录，不存在的…
+                    </div>
+                </span>
             </div>
         </div>
         
-        
     </div>
 </aside>
 
 
 
-
-  
-    <article id="post-MSP430-串口" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/22/MSP430-串口/">MSP430 串口</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/02/22/MSP430-串口/" class="archive-article-date">
-  	<time datetime="2019-02-22T08:46:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>MSP430 常见的 USART（universal synchronous/asynchronous receive/ransmit）接口通常有三种：UART、IIC、SPI。其中 UART（串口）是调试过程中最常用的接口，这里根据 User’s Guide 谈谈 MSP430x1xx 系列串口的使用。</p>
-        
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-串口/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">MSP430</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-串口/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MSP430-IO" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/22/MSP430-IO/">MSP430 IO</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/02/22/MSP430-IO/" class="archive-article-date">
-  	<time datetime="2019-02-22T08:11:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>上电后寄存器状态为输入高电平。</p>
-<p>改变 PxOUT 或 PxDIR 时 PxIFG 标志将置位。</p>
-<p>向 PxIES 写入数据将导致相应的中断标志置位。</p>
-        
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-IO/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">MSP430</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-IO/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MSP430-单片机入门指北" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/22/MSP430-单片机入门指北/">MSP430 单片机入门指北</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/02/22/MSP430-单片机入门指北/" class="archive-article-date">
-  	<time datetime="2019-02-22T06:11:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>在介绍 MSP430 的学习方法前，先简略介绍一下MSP430 吧。</p>
-<p>MSP430 系列单片机是美国 TI 公司 1996 年开始推向市场的一种 16 位超低功耗、具有精简指令集（RISC）的混合信号处理器（Mixed Signal Processor）。</p>
-        
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-单片机入门指北/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">MSP430</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-单片机入门指北/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Git 与 Github" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/20/Git 与 Github/">Git 与 Github</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/02/20/Git 与 Github/" class="archive-article-date">
-  	<time datetime="2019-02-20T05:43:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h3 id="〇、Github-与-Git-的关系"><a href="#〇、Github-与-Git-的关系" class="headerlink" title="〇、Github 与 Git 的关系"></a>〇、Github 与 Git 的关系</h3><h4 id="1、Git-与-Github-简介"><a href="#1、Git-与-Github-简介" class="headerlink" title="1、Git 与 Github 简介"></a>1、Git 与 Github 简介</h4><ul>
-<li>Git 是一款免费、开源的分布式版本控制系统</li>
-<li>GitHub 是一个面向开源及私有软件项目的托管平台，因为只支持 Git 作为唯一的版本库格式进行托管，故名 GitHub。另外还有其他的平台，如国内的 <a href="https://gitee.com/" target="_blank" rel="noopener">码云</a> </li>
-<li>Git 负责本地的代码版本控制，而 Github 负责远程托管</li>
-</ul>
-        
-          <a class="article-more-a" href="/blog/2019/02/20/Git 与 Github/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">软件使用</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Github</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/20/Git 与 Github/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
+  
+
+  
+
+  
+
+  
+
 
           </div>
         </div>
@@ -680,8 +324,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
