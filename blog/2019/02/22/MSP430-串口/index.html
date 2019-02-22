@@ -6,18 +6,36 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Isaac前进4</title>
+  <title>MSP430 串口 | Isaac前进4</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="学习笔记 思考感悟">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Isaac前进4">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="MSP430 常见的 USART（universal synchronous/asynchronous receive/ransmit）接口通常有三种：UART、IIC、SPI。其中 UART（串口）是调试过程中最常用的接口，这里根据 User’s Guide 谈谈 MSP430x1xx 系列串口的使用。">
+<meta name="keywords" content="硬件拾忆,MSP430">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MSP430 串口">
+<meta property="og:url" content="http://yoursite.com/blog/2019/02/22/MSP430-串口/index.html">
 <meta property="og:site_name" content="Isaac前进4">
-<meta property="og:description" content="学习笔记 思考感悟">
+<meta property="og:description" content="MSP430 常见的 USART（universal synchronous/asynchronous receive/ransmit）接口通常有三种：UART、IIC、SPI。其中 UART（串口）是调试过程中最常用的接口，这里根据 User’s Guide 谈谈 MSP430x1xx 系列串口的使用。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.loli.net/2019/02/22/5c6fb7ad78699.png">
+<meta property="og:image" content="https://i.loli.net/2019/02/22/5c6fb8b4147a0.png">
+<meta property="og:image" content="https://i.loli.net/2019/02/22/5c6fb8ed393ef.png">
+<meta property="og:image" content="https://i.loli.net/2019/02/22/5c6fb93cad626.png">
+<meta property="og:image" content="https://i.loli.net/2019/02/22/5c6fb9e5da6c4.png">
+<meta property="og:image" content="https://i.loli.net/2019/02/22/5c6fbb36cc550.png">
+<meta property="og:image" content="https://i.loli.net/2019/02/22/5c6fbbf2bfed8.png">
+<meta property="og:image" content="https://i.loli.net/2019/02/22/5c6fbd113b5d8.png">
+<meta property="og:image" content="https://i.loli.net/2019/02/22/5c6fbd4edc15d.png">
+<meta property="og:image" content="https://i.loli.net/2019/02/22/5c6fbdb591472.png">
+<meta property="og:image" content="https://i.loli.net/2019/02/22/5c6fbeb2cc5f3.png">
+<meta property="og:image" content="https://i.loli.net/2019/02/22/5c6fbecf62cd1.png">
+<meta property="og:image" content="https://i.loli.net/2019/02/22/5c6fbf177d762.png">
+<meta property="og:image" content="https://i.loli.net/2019/02/22/5c6fbf6c3b1f2.png">
+<meta property="og:image" content="https://i.loli.net/2019/02/22/5c6fbfa5e7432.png">
+<meta property="og:updated_time" content="2019-02-22T09:40:23.889Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Isaac前进4">
-<meta name="twitter:description" content="学习笔记 思考感悟">
+<meta name="twitter:title" content="MSP430 串口">
+<meta name="twitter:description" content="MSP430 常见的 USART（universal synchronous/asynchronous receive/ransmit）接口通常有三种：UART、IIC、SPI。其中 UART（串口）是调试过程中最常用的接口，这里根据 User’s Guide 谈谈 MSP430x1xx 系列串口的使用。">
+<meta name="twitter:image" content="https://i.loli.net/2019/02/22/5c6fb7ad78699.png">
   
   
     <link rel="icon" href="/favicon.png">
@@ -167,16 +185,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-MSP430-串口" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-MSP430-串口" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/22/MSP430-串口/">MSP430 串口</a>
+    <h1 class="article-title" itemprop="name">
+      MSP430 串口
     </h1>
   
 
@@ -191,9 +207,86 @@
       
         <hr>
 <p>MSP430 常见的 USART（universal synchronous/asynchronous receive/ransmit）接口通常有三种：UART、IIC、SPI。其中 UART（串口）是调试过程中最常用的接口，这里根据 User’s Guide 谈谈 MSP430x1xx 系列串口的使用。</p>
-        
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-串口/#more">more >></a>
-        
+<a id="more"></a>
+<p>在 UART 一章的开始，有这样一段文字：</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fb7ad78699.png" alt="img"></p>
+<p>可见，在 X14X 和 X16X 中，有两组串口，而 X12X 、X13X 和 X15X 中只有 UART0。使用不同型号，务必先查看手册中的资源介绍。</p>
+<h3 id="一、Introduction"><a href="#一、Introduction" class="headerlink" title="一、Introduction"></a>一、Introduction</h3><p>本节一开始，有这样一段话：</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fb8b4147a0.png" alt="img"></p>
+<p>说明了UART提供两个接口：UTXD（发送）和URXD（接收），使用时只需要这两个引脚就可以与其他串口设备通信，但要注意的一点是，除了这两个引脚的连接外，两设备还必须共地，也就是说他们的GND也要连在一起，这是两设备成功通信的关键！</p>
+<p>接下来介绍了该模块的特性：</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fb8ed393ef.png" alt="img"></p>
+<p>值得关注的几点是：</p>
+<p>1、430 UART 的发送和接收移位寄存器都是独立的</p>
+<p>2、发射和接收缓冲器是分离的，这一点不同于 51 单片机</p>
+<p>3、低位优先发送和接收</p>
+<h3 id="二、Operation"><a href="#二、Operation" class="headerlink" title="二、Operation"></a>二、Operation</h3><p>发送和接收使用相同的波特率。</p>
+<p>PUC（上电清除）或SWRST置位会导致USART复位。</p>
+<h4 id="1、上电复位后各位状态"><a href="#1、上电复位后各位状态" class="headerlink" title="1、上电复位后各位状态"></a>1、上电复位后各位状态</h4><p><img src="https://i.loli.net/2019/02/22/5c6fb93cad626.png" alt="img"></p>
+<p>上面这段话给出了上电后，各标志位的初始状态：</p>
+<p>1）USART 自动置位（置1）</p>
+<p>2） URXIEx、UTXIEx、URXIFGx、RXWAKE、TXWAKE、RXERR、BRK、PE、OE 和 FE 复位（置0）</p>
+<p>3） UTXIFGx、TXEPT 置位</p>
+<p>4） URXEx 和 UTXEx 不受影响</p>
+<p>清除 SWRST 将允许操作 USART。</p>
+<h4 id="2、初始化或重配置顺序"><a href="#2、初始化或重配置顺序" class="headerlink" title="2、初始化或重配置顺序"></a>2、初始化或重配置顺序</h4><p><img src="https://i.loli.net/2019/02/22/5c6fb9e5da6c4.png" alt="img"></p>
+<p>1）SWRST 置位（置1）</p>
+<p>2）在 SWRST=1 的前提下初试化各个 USART 寄存器</p>
+<p>3）通过 MEx 特殊功能寄存器使能 USART 模块</p>
+<p>4）软件清除 SWRST（置0）</p>
+<p>5）通过 IEx 特殊功能寄存器使能中断</p>
+<h4 id="3、字符格式"><a href="#3、字符格式" class="headerlink" title="3、字符格式"></a>3、字符格式</h4><p><img src="https://i.loli.net/2019/02/22/5c6fbb36cc550.png" alt="img"></p>
+<p>起始位 – 7 或 8 位数据位 – 地址位 – 奇偶校验位 – 1 或 2 位停止位。由波特率寄存器设置。</p>
+<h4 id="4、异步通信格式"><a href="#4、异步通信格式" class="headerlink" title="4、异步通信格式"></a>4、异步通信格式</h4><p>双机通信时，使用空闲总线模式。多机通信时，支持空闲总线模式和地址位处理模式。</p>
+<h5 id="1）空闲总线多处理机模式（MM-0）"><a href="#1）空闲总线多处理机模式（MM-0）" class="headerlink" title="1）空闲总线多处理机模式（MM=0）"></a>1）空闲总线多处理机模式（MM=0）</h5><p><img src="https://i.loli.net/2019/02/22/5c6fbbf2bfed8.png" alt="img"></p>
+<p>两个数据块之间隔了一个大于 10 个时钟的空闲时间，而数据块内的数据之间的间隔小于 10 个时钟。在前一个字符的的第一个停止位之后又接收了 10 或者更多连续的时钟后，将检测接收总线。当使用 2 个地址位时，第二个地址位将作为空闲周期的第一个标志。</p>
+<p>一个空闲周期之后的第一个接收到的数据是地址字符。RXWAKE 位用来标志每个数据块的地址位。空闲总线模式下，当接收到地址并且传送至 UxRXBUF 时，该位将置位。</p>
+<p>URXWIE 位用来控制数据接收。当该位置位时，所有的非地址字符被收集，但是不移送至 UxRXBUF 中，也不触发中断。接收到地址字符时接收器将暂时激活将字符传送至 UxRXBUF 中并且置位 URXIFGx 中断标志。任何满足条件的错误标志位也将置位。用户可以验证接收地址。</p>
+<p>如果接收到一个地址字符，用户可以软件验证地址，并且必须复位 URXWIE 以保证继续接收数据。如果保持置位，将只接收地址字符。URXWIE 位不会由硬件自动修改。</p>
+<p>在空闲总线模式下，可以由 USART 产生一个精准的空闲周期去产生 UTXDx 中的地址字符标志符来传送地址。WUT 暂时唤醒标志是一个由用户可访问的TXWAKE位双缓存的内部标志。当发送器从 UxTXBUF 中载入数据，WUT 也从 TXWAKE 中载入，并复位 TXWAKE。</p>
+<p>以下步骤可以传送一个空闲帧表明后面是地址字符：</p>
+<p>1&gt; 置位 TXWAKE，然后向 UxTXBUF 写入任意字符。UxTXBUF 必须准备好接收新字符（UTXIFGx = 1）。</p>
+<p>TXWAKE 值移入 WUT，当 UxTXBUF 准备好接收新数据时，UxTXBUF 的内容被移入发送移位寄存器。这将置位WUT，抑制正常传输中的起始位、数据位、奇偶校验位。然后发送大约十一位的空闲周期。当使用两个地址位时，第二个地址位将作为空闲周期的第一个标志。TXWAKE 自动复位。</p>
+<p>2&gt; 向 UxTXBUF 中写入所需地址字符。UxTXBUF 必须准备好接收新字符（UTXIFGx = 1）。</p>
+<p>在 UTXDx 的地址标志空闲周期之后，代表了特殊地址的新字符被发出。必须向 UxTXBUF 写入第一个任意字符，这是为了将 TXWAKE 位移入 WUT 并触发空闲总线条件。这个数据并不重要，也不会出现在 UTXDx 上。</p>
+<h5 id="2）地址位多处理机模式（MM-1）"><a href="#2）地址位多处理机模式（MM-1）" class="headerlink" title="2）地址位多处理机模式（MM=1）"></a>2）地址位多处理机模式（MM=1）</h5><p>每个数据包含一个额外的位用于地址表示。数据块中的第一个字符带有一个置位的地址位表明这个字符是地址。当接收到字符是一个有效的地址字符且被移入 UxRXBUF 中，USART 的 RXWAKE 位将被置位。</p>
+<p>URXWIE 位用来控制数据接收。当该位置位时，数据字符（地址位=0）将被接收器接收但不送入 UxRXBUF 并且不触发中断。当收到一个包含了地址位置位的字符时，接收器暂时唤醒将字符传送到 UxRXBUF 并将 URXIFGx 置位。所有满足条件的状态错误标志也会被置位。</p>
+<p>如果接收到一个地址，用户必须软件复位URXWIE以保证继续接收数据。如果 URXWIE 保持置位，值有地址字符（地址位=1）可以倍接收。URXWIE 位不会有 USART 硬件自动改变。</p>
+<p>在地址位模式下发送地址数据时，一个字符的地址位可以通过写入 TXWAKE 位来控制。TXWAKE 位的值将被载入从UxTXBUF 传送到移位寄存器的字符的地址位，然后自动清除 TXWAKE 位。TXWAKE 不能软件复位，它将在传送至 WUT 或被 SWRST 置位后有 USART 硬件清零。</p>
+<h5 id="3）自动错误检测"><a href="#3）自动错误检测" class="headerlink" title="3）自动错误检测"></a>3）自动错误检测</h5><p>参看User’s Guide。</p>
+<h4 id="5、USART接收使能"><a href="#5、USART接收使能" class="headerlink" title="5、USART接收使能"></a>5、USART接收使能</h4><p><img src="https://i.loli.net/2019/02/22/5c6fbd113b5d8.png" alt="img"></p>
+<p>从状态转移图可以清楚的看出 URXEx 对接收的影响。</p>
+<h4 id="6、USART发送使能"><a href="#6、USART发送使能" class="headerlink" title="6、USART发送使能"></a>6、USART发送使能</h4><p><img src="https://i.loli.net/2019/02/22/5c6fbd4edc15d.png" alt="img"></p>
+<p>​     </p>
+<p>当 UTXEx 置位时，UART 发送器使能。向 UxTXBUF 写入数据将发起发送。数据将在 TX 移位寄存器置空的下一个 BITCLK 被送进去，然后发送开始。</p>
+<p>当 UTXEx 位复位时发送终止。任何移入 UxTXBUF 的数据和任何正在发送移位寄存器中进行的数据发送，若先于清空 UTXEx 的操作，都将继续进行发送，直到所有的数据发送完毕。</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fbdb591472.png" alt="img"></p>
+<p>当发送器被使能（UTXEx=1），数据不应该被写入 UxTXBUF，除非 UxTXBUF 已经准备好接收新数据，表现为 UTXIFGx=1。如果 UxTXBUF 中的数据在它将被送至发送寄存器时被修改，这一扰乱将导致错误的发送。</p>
+<p>完成所有发送后，发送器需要关闭（UTXEx=0），表现为发送器清空标志位置位（TXEPT = 1）。在发送器关闭时，任何写入 UxTXBUF 的数据都将被保存在缓冲器中，但是不会移入发送移位寄存器或者被发送。一旦 UTXEx 被置位，发送缓存里的数据立即被载入发送移位寄存器中，而且数据发送重新开始。</p>
+<h4 id="7、UART波特率产生"><a href="#7、UART波特率产生" class="headerlink" title="7、UART波特率产生"></a>7、UART波特率产生</h4><p>USART 波特率发生器是由不标准的时钟频率产生标准的波特率。波特率发生器使用一个预定标器/除法器和一个调制器。这个组合为波特率发生器提供小数除数因子。USART 的最大波特率是 UART 时钟频率 BRCLK 的三分之一。</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fbeb2cc5f3.png" alt="img"></p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fbecf62cd1.png" alt="img"></p>
+<p>波特率配置常数及误差：</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fbf177d762.png" alt="img"></p>
+<h4 id="8、USART中断"><a href="#8、USART中断" class="headerlink" title="8、USART中断"></a>8、USART中断</h4><p>USART有一个发送中断向量和一个接收中断向量。</p>
+<h5 id="1）发送中断操作"><a href="#1）发送中断操作" class="headerlink" title="1）发送中断操作"></a>1）发送中断操作</h5><p>发送器置位 UTXIFGx 中断标志位，表明 UxTXBUF 准备好接收另一个字符。如果 UTXIEx 和GIE 置位，也会触发一个中断请求。若中断请求得到响应或者一个字符写入 UxTXBUF，UTXIFGx 将自动复位。</p>
+<p>UTXIFGx 在 PUC 之后或 SWRST=1 时都会被置位。</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fbf6c3b1f2.png" alt="img"></p>
+<h5 id="2）接收中断操作"><a href="#2）接收中断操作" class="headerlink" title="2）接收中断操作"></a>2）接收中断操作</h5><p>每次接收到一个数据并载入 UxRXBUF 都会置位 URXIFGx 中断标志。如果 URXIEx 和 GIE 置位，也会触发一个中断请求。URXIFGx 和 URXIEx 会在系统复位信号 PUC 之后或 SWRST=1 时复位。若悬而未决的中断得到响应（当 URXSE=0）或者当 UxRXBUF 被读取时，URXIFGx 将自动复位。</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fbfa5e7432.png" alt="img"></p>
+<p>URXEIE 用来使能或关闭置位 URXIFGx 造成的错误字符。在使用地址位模式时，URXWIE 用来自动检测有效的地址字符和拒绝不需要的数据字符。</p>
+<p>两种字符不能置位 URXIFGx：当 URXEIE=0 时的错误字符，当 URXWIE=1 时的非地址字符。</p>
+<p>当 URXEIE=1 一个 break 条件将置位 BRK 位和 URXIFGx 标志。</p>
+<h5 id="3）接收起始边沿检测操作"><a href="#3）接收起始边沿检测操作" class="headerlink" title="3）接收起始边沿检测操作"></a>3）接收起始边沿检测操作</h5><p>URXSE 位使能接收起始边沿检测特性。当 BRCLK 由 DCO 提供，以及当 DCO 因为低功耗模式而关闭时，推荐使用接收开始边沿特性。DCO 的超快振荡允许在起始边沿检测之后接收字符。</p>
+<p>当 URXSE，URXIEx 和 GIE 置位，并且一个起始边沿出现在 URXDx，内部信号 URXS 将会置位。当 URXS 置位，将会触发一个接收中断请求，但 URXIFGx 不会置位。用户在接收中断服务程序中可以检测 URXIFGx 来判断中断源。当 URXIFGx=0，检测起始边沿；当 URXIFGx=1，接收一个有效的字符（或 break）。</p>
+<p>当中断服务函数判断中断请求来自起始边沿，用户软件触发 URXSE，而且必须从中断服务函数中返回有效的模式或一个 BRCLK 激活的低功耗模式，以使能 BRCLK。如果中断服务函数返回到一个 BRCLK 未激活的低功耗模式，字符不能被接收。触发 URXSE 清除 URXS 信号并将为未来的字符重新使能起始边沿检测。</p>
+<p>当前激活的 BRCLK 允许 USART 接收字符。接收完一个字符并送入 UxRXBUF 之后，URXIFGx 将置位，并请求一个中断服务。在中断服务函数入口，URXIFGx=1 表明接收到一个字符。当用户软件读取 UxRXBUF 时 URXIFGx 标志被清除。</p>
+<p>当使用接收边沿检测时，若BRCLK关闭，将不能检测到break条件。</p>
+<h5 id="4）接收起始边沿检测条件"><a href="#4）接收起始边沿检测条件" class="headerlink" title="4）接收起始边沿检测条件"></a>4）接收起始边沿检测条件</h5><p>当 URXSE=1 时，故障将抑制阻止 USART 被意外启动。URXDs 的任何一个比抗尖峰脉冲时间（大约300ns）短的低电平都会被 USART 忽视而不会触发中断请求。</p>
+<p>当一个故障时间长于抗尖峰脉冲时间，或一个有效的起始位出现在 URXDx，USART 接收将启动，且会进行一个多数投票。如果多数投票认为没有检测到的不是起始位，将会中断字符接收。</p>
+<p>如果字符接收中断，就没有必要激活 BRCLK。软件可以通过一个比字符接收持续时间长的延时周期来表明没有在预期周期内接收到字符，且软件可以关闭 BRCLK。</p>
+<h3 id="三、Registers"><a href="#三、Registers" class="headerlink" title="三、Registers"></a>三、Registers</h3><p>寄存器详细内容参考相应手册。</p>
+
       
 
       
@@ -219,16 +312,24 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-串口/">展开全文 >></a>
-        </p>
-      
 
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/blog/2019/02/22/MSP430-IO/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MSP430 IO</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -243,263 +344,32 @@
         </div>
         
         
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MSP430-IO" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/22/MSP430-IO/">MSP430 IO</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/02/22/MSP430-IO/" class="archive-article-date">
-  	<time datetime="2019-02-22T08:11:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>上电后寄存器状态为输入高电平。</p>
-<p>改变 PxOUT 或 PxDIR 时 PxIFG 标志将置位。</p>
-<p>向 PxIES 写入数据将导致相应的中断标志置位。</p>
-        
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-IO/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">MSP430</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-IO/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、Introduction"><span class="toc-number">1.</span> <span class="toc-text">一、Introduction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、Operation"><span class="toc-number">2.</span> <span class="toc-text">二、Operation</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、上电复位后各位状态"><span class="toc-number">2.1.</span> <span class="toc-text">1、上电复位后各位状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、初始化或重配置顺序"><span class="toc-number">2.2.</span> <span class="toc-text">2、初始化或重配置顺序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3、字符格式"><span class="toc-number">2.3.</span> <span class="toc-text">3、字符格式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4、异步通信格式"><span class="toc-number">2.4.</span> <span class="toc-text">4、异步通信格式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1）空闲总线多处理机模式（MM-0）"><span class="toc-number">2.4.1.</span> <span class="toc-text">1）空闲总线多处理机模式（MM=0）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2）地址位多处理机模式（MM-1）"><span class="toc-number">2.4.2.</span> <span class="toc-text">2）地址位多处理机模式（MM=1）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3）自动错误检测"><span class="toc-number">2.4.3.</span> <span class="toc-text">3）自动错误检测</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5、USART接收使能"><span class="toc-number">2.5.</span> <span class="toc-text">5、USART接收使能</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6、USART发送使能"><span class="toc-number">2.6.</span> <span class="toc-text">6、USART发送使能</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7、UART波特率产生"><span class="toc-number">2.7.</span> <span class="toc-text">7、UART波特率产生</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8、USART中断"><span class="toc-number">2.8.</span> <span class="toc-text">8、USART中断</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1）发送中断操作"><span class="toc-number">2.8.1.</span> <span class="toc-text">1）发送中断操作</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2）接收中断操作"><span class="toc-number">2.8.2.</span> <span class="toc-text">2）接收中断操作</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3）接收起始边沿检测操作"><span class="toc-number">2.8.3.</span> <span class="toc-text">3）接收起始边沿检测操作</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4）接收起始边沿检测条件"><span class="toc-number">2.8.4.</span> <span class="toc-text">4）接收起始边沿检测条件</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、Registers"><span class="toc-number">3.</span> <span class="toc-text">三、Registers</span></a></li></ol>
+                    </div>
+                </span>
             </div>
         </div>
         
-        
     </div>
 </aside>
 
 
 
-
   
-    <article id="post-MSP430 单片机入门指北" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/22/MSP430 单片机入门指北/">MSP430 单片机入门指北</a>
-    </h1>
   
 
-        
-        <a href="/blog/2019/02/22/MSP430 单片机入门指北/" class="archive-article-date">
-  	<time datetime="2019-02-22T06:11:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>在介绍 MSP430 的学习方法前，先简略介绍一下MSP430 吧。</p>
-<p>MSP430 系列单片机是美国 TI 公司 1996 年开始推向市场的一种 16 位超低功耗、具有精简指令集（RISC）的混合信号处理器（Mixed Signal Processor）。</p>
-        
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430 单片机入门指北/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">MSP430</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430 单片机入门指北/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Git 与 Github" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/20/Git 与 Github/">Git 与 Github</a>
-    </h1>
   
 
-        
-        <a href="/blog/2019/02/20/Git 与 Github/" class="archive-article-date">
-  	<time datetime="2019-02-20T05:43:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h3 id="〇、Github-与-Git-的关系"><a href="#〇、Github-与-Git-的关系" class="headerlink" title="〇、Github 与 Git 的关系"></a>〇、Github 与 Git 的关系</h3><h4 id="1、Git-与-Github-简介"><a href="#1、Git-与-Github-简介" class="headerlink" title="1、Git 与 Github 简介"></a>1、Git 与 Github 简介</h4><ul>
-<li>Git 是一款免费、开源的分布式版本控制系统</li>
-<li>GitHub 是一个面向开源及私有软件项目的托管平台，因为只支持 Git 作为唯一的版本库格式进行托管，故名 GitHub。另外还有其他的平台，如国内的 <a href="https://gitee.com/" target="_blank" rel="noopener">码云</a> </li>
-<li>Git 负责本地的代码版本控制，而 Github 负责远程托管</li>
-</ul>
-        
-          <a class="article-more-a" href="/blog/2019/02/20/Git 与 Github/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">软件使用</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Github</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/20/Git 与 Github/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
+
   
 
 
@@ -522,8 +392,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
