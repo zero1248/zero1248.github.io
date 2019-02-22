@@ -6,18 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: 硬件拾忆 | Isaac前进4</title>
+  <title>MSP 仿真与下载 | Isaac前进4</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="学习笔记 思考感悟">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Isaac前进4">
-<meta property="og:url" content="http://yoursite.com/tags/硬件拾忆/index.html">
+  <meta name="description" content="对于 MSP430 来说，无论仿真还是烧写程序一般可以通过：JTAG、SBW、BSL 接口进行。 JTAG、SBW 接口可以用于仿真接口，BSL 接口不能用于仿真。而编程器则三种接口都支持。  所以并不能说 JTAG 只支持仿真不支持编程，这是概念错误，JTAG 仅仅是一种接口协议而已。">
+<meta name="keywords" content="硬件拾忆,MSP430">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MSP 仿真与下载">
+<meta property="og:url" content="http://yoursite.com/blog/2019/02/23/MSP-仿真与下载/index.html">
 <meta property="og:site_name" content="Isaac前进4">
-<meta property="og:description" content="学习笔记 思考感悟">
+<meta property="og:description" content="对于 MSP430 来说，无论仿真还是烧写程序一般可以通过：JTAG、SBW、BSL 接口进行。 JTAG、SBW 接口可以用于仿真接口，BSL 接口不能用于仿真。而编程器则三种接口都支持。  所以并不能说 JTAG 只支持仿真不支持编程，这是概念错误，JTAG 仅仅是一种接口协议而已。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-02-22T17:06:19.868Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Isaac前进4">
-<meta name="twitter:description" content="学习笔记 思考感悟">
+<meta name="twitter:title" content="MSP 仿真与下载">
+<meta name="twitter:description" content="对于 MSP430 来说，无论仿真还是烧写程序一般可以通过：JTAG、SBW、BSL 接口进行。 JTAG、SBW 接口可以用于仿真接口，BSL 接口不能用于仿真。而编程器则三种接口都支持。  所以并不能说 JTAG 只支持仿真不支持编程，这是概念错误，JTAG 仅仅是一种接口协议而已。">
   
   
     <link rel="icon" href="/favicon.png">
@@ -167,16 +169,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-MSP-仿真与下载" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-MSP-仿真与下载" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/23/MSP-仿真与下载/">MSP 仿真与下载</a>
+    <h1 class="article-title" itemprop="name">
+      MSP 仿真与下载
     </h1>
   
 
@@ -193,9 +193,17 @@
 <p>对于 MSP430 来说，无论仿真还是烧写程序一般可以通过：JTAG、SBW、BSL 接口进行。</p>
 <p>JTAG、SBW 接口可以用于仿真接口，BSL 接口不能用于仿真。而编程器则三种接口都支持。 </p>
 <p>所以并不能说 JTAG 只支持仿真不支持编程，这是概念错误，JTAG 仅仅是一种接口协议而已。 </p>
-        
-          <a class="article-more-a" href="/blog/2019/02/23/MSP-仿真与下载/#more">more >></a>
-        
+<a id="more"></a>
+<p>J-TAG  6线</p>
+<p>SBW    2线</p>
+<p>BSL      2线（UART）</p>
+<p>下面简单描述一下三种接口的区别： </p>
+<p>1、JTAG 是边界扫描技术，其在 430 内部有逻辑接口给 JTAG 使用，内部有若干个寄存器连接到了 430 的内部数据地址总线上，所以可以用JTAG访问 430 内部的所有资源，包括对 FLASH 的读写操作。所以可以用于对 MSP430 的仿真及编程。主要连接线有 TMS、TCK、TDI、TDO、RST、TEST。 </p>
+<p>2、SBW 是 SPY-BI-WIRE，可以简称两线制 JTAG，主要用 SBWTCK（连接到 JTAG 仿真器的 7 脚 TCK）与 SBWTDIO（连接到 JTAG 仿真器的 1 脚 TDO/TDI），该接口主要用于小于 28 脚的 2 系列的 430 单片机，因为 28 脚以内的 2 系列单片机的 JTAG 接口一般与 IO 口复用，为了给用户预留更多的 IO 口，才推出了 SBW 接口。同样 SBW 接口可以用于仿真器及编程器。 </p>
+<p>3、BSL 是 TI 在对 MSP430 出厂时预先固化到MCU内部的一段代码，有点类似 bootloader，但又与 bootloader 有明显的区别，BSL 只能用于对 MCU 内部的 FLASH 访问，不能对其他的资源访问，所以只能用作编程器接口。BSL 通过UART协议与编程器连接通信。编程器可以发送不同的通信命令来对 MCU 的存储器做不同的操作。BSL 的启动有些特殊，一般 430 复位启动时 PC 指针指向 FFFE 复位向量，但可以通过特殊的启动方式可以使 MCU 在启动是让 PC 指向 BSL 内部固化的程序。启动方式一般是由 RST 引脚与 TEST（或TCK）引脚做一个稍复杂的启动逻辑后产生。 BSL 启动后，就可以对 MCU 进行访问了。 </p>
+<p>一般的 MCU 都有代码加密功能，430 是如何实现的呢？外部对 430 内部的代码读写只能通过上述的三种方式，所以又引入了熔丝位，熔丝位只存在于 JTAG、SBW接口逻辑内。BSL内部没有熔丝。当熔丝烧断时（物理破坏，且不可恢复）JTAG 与 SBW 的访问将被禁止，此时只有 BSL 可以访问。而通过 BSL 对 MCU 的访问是需要 32 个字节的密码，该密码就是用户代码的中断向量表。所以 430 的加密系统到目前为止尚无被解密的报告。一般个人学习用，不熔丝操作，只有成熟产品推向市场的时候，防止被其他人破解，才会熔丝。 </p>
+<p>仿真器的型号一般有 UIF（USB 接口，支持 JTAG、SBW）、PIF（并口，只支持 JTAG）、EZ430（USB 接口的，只支持 SBW 模式）。专业编程器有 GANG430（串口、一拖 8 个，支持 JTAG、SBW，不支持 BSL）；多功能编程器（JTAG、SBW、BSL）。这些编程器都可以做离线烧写，即脱离计算机来对目标板烧写。</p>
+
       
 
       
@@ -221,16 +229,24 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/23/MSP-仿真与下载/">展开全文 >></a>
-        </p>
-      
 
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/blog/2019/02/23/MSP430-中断系统/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MSP430 中断系统</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -245,422 +261,34 @@
         </div>
         
         
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MSP430-中断系统" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/23/MSP430-中断系统/">MSP430 中断系统</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/02/23/MSP430-中断系统/" class="archive-article-date">
-  	<time datetime="2019-02-22T16:38:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>中断是 MSP430 的一大特色，因为几乎每个外设模块都能产生中断，MSP430 可以在没有任务时进入超低功耗状态，有事件时中断唤醒 cpu，处理完毕再次进入超低功耗状态。 </p>
-        
-          <a class="article-more-a" href="/blog/2019/02/23/MSP430-中断系统/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">MSP430</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/23/MSP430-中断系统/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    目录，不存在的…
+                    </div>
+                </span>
             </div>
         </div>
         
-        
     </div>
 </aside>
 
 
 
-
-  
-    <article id="post-MSP430-时钟系统" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/22/MSP430-时钟系统/">MSP430 时钟系统</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/02/22/MSP430-时钟系统/" class="archive-article-date">
-  	<time datetime="2019-02-22T15:59:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>系统时钟是一个程序运行的指挥官，时序和中断也是整个程序的核心和中轴线。</p>
-        
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-时钟系统/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">MSP430</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-时钟系统/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MSP430-串口" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/22/MSP430-串口/">MSP430 串口</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/02/22/MSP430-串口/" class="archive-article-date">
-  	<time datetime="2019-02-22T08:46:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>MSP430 常见的 USART（universal synchronous/asynchronous receive/ransmit）接口通常有三种：UART、IIC、SPI。其中 UART（串口）是调试过程中最常用的接口，这里根据 User’s Guide 谈谈 MSP430x1xx 系列串口的使用。</p>
-        
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-串口/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">MSP430</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-串口/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MSP430-IO" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/22/MSP430-IO/">MSP430 IO</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/02/22/MSP430-IO/" class="archive-article-date">
-  	<time datetime="2019-02-22T08:11:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>上电后寄存器状态为输入高电平。</p>
-<p>改变 PxOUT 或 PxDIR 时 PxIFG 标志将置位。</p>
-<p>向 PxIES 写入数据将导致相应的中断标志置位。</p>
-        
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-IO/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">MSP430</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-IO/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MSP430-单片机入门指北" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/22/MSP430-单片机入门指北/">MSP430 单片机入门指北</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/02/22/MSP430-单片机入门指北/" class="archive-article-date">
-  	<time datetime="2019-02-22T06:11:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>在介绍 MSP430 的学习方法前，先简略介绍一下MSP430 吧。</p>
-<p>MSP430 系列单片机是美国 TI 公司 1996 年开始推向市场的一种 16 位超低功耗、具有精简指令集（RISC）的混合信号处理器（Mixed Signal Processor）。</p>
-        
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-单片机入门指北/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">MSP430</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-单片机入门指北/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
+  
+
+  
+
+  
+
+  
+
 
           </div>
         </div>
@@ -682,9 +310,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
