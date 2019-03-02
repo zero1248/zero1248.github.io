@@ -6,27 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Git 与 Github | Isaac前进4</title>
+  <title>UVa1583（DigitGenerator）解决思路 | Isaac前进4</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="〇、Github 与 Git 的关系1、Git 与 Github 简介 Git 是一款免费、开源的分布式版本控制系统 GitHub 是一个面向开源及私有软件项目的托管平台，因为只支持 Git 作为唯一的版本库格式进行托管，故名 GitHub。另外还有其他的平台，如国内的 码云  Git 负责本地的代码版本控制，而 Github 负责远程托管">
-<meta name="keywords" content="软件使用,Github">
+  <meta name="description" content="问题描述如果x加上x的各个位数字之和得到y，就说x是y的生成元；给出n（1≤n≤100000），求最小生成元。无解输出0。例如，n=216，121，2005时的解分别为198 , 0, 1979。">
+<meta name="keywords" content="算法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Git 与 Github">
-<meta property="og:url" content="http://yoursite.com/blog/2019/02/20/Git 与 Github/index.html">
+<meta property="og:title" content="UVa1583（DigitGenerator）解决思路">
+<meta property="og:url" content="http://yoursite.com/blog/2019/03/02/UVa1583（DigitGenerator）解决思路/index.html">
 <meta property="og:site_name" content="Isaac前进4">
-<meta property="og:description" content="〇、Github 与 Git 的关系1、Git 与 Github 简介 Git 是一款免费、开源的分布式版本控制系统 GitHub 是一个面向开源及私有软件项目的托管平台，因为只支持 Git 作为唯一的版本库格式进行托管，故名 GitHub。另外还有其他的平台，如国内的 码云  Git 负责本地的代码版本控制，而 Github 负责远程托管">
+<meta property="og:description" content="问题描述如果x加上x的各个位数字之和得到y，就说x是y的生成元；给出n（1≤n≤100000），求最小生成元。无解输出0。例如，n=216，121，2005时的解分别为198 , 0, 1979。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://i.loli.net/2019/02/22/5c6f7b352931b.png">
-<meta property="og:image" content="https://i.loli.net/2019/02/22/5c6f7b3522b74.png">
-<meta property="og:image" content="https://i.loli.net/2019/02/22/5c6f7b3519899.png">
-<meta property="og:image" content="https://i.loli.net/2019/02/22/5c6f7b3540ee4.png">
-<meta property="og:image" content="https://i.loli.net/2019/02/22/5c6f7c69a0e58.png">
-<meta property="og:image" content="https://i.loli.net/2019/02/22/5c6f7b3549236.png">
-<meta property="og:updated_time" content="2019-02-22T04:51:20.059Z">
+<meta property="og:updated_time" content="2019-03-02T14:47:36.067Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Git 与 Github">
-<meta name="twitter:description" content="〇、Github 与 Git 的关系1、Git 与 Github 简介 Git 是一款免费、开源的分布式版本控制系统 GitHub 是一个面向开源及私有软件项目的托管平台，因为只支持 Git 作为唯一的版本库格式进行托管，故名 GitHub。另外还有其他的平台，如国内的 码云  Git 负责本地的代码版本控制，而 Github 负责远程托管">
-<meta name="twitter:image" content="https://i.loli.net/2019/02/22/5c6f7b352931b.png">
+<meta name="twitter:title" content="UVa1583（DigitGenerator）解决思路">
+<meta name="twitter:description" content="问题描述如果x加上x的各个位数字之和得到y，就说x是y的生成元；给出n（1≤n≤100000），求最小生成元。无解输出0。例如，n=216，121，2005时的解分别为198 , 0, 1979。">
   
   
     <link rel="icon" href="/favicon.png">
@@ -176,20 +169,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Git 与 Github" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-UVa1583（DigitGenerator）解决思路" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Git 与 Github
+      UVa1583（DigitGenerator）解决思路
     </h1>
   
 
         
-        <a href="/blog/2019/02/20/Git 与 Github/" class="archive-article-date">
-  	<time datetime="2019-02-20T05:43:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-20</time>
+        <a href="/blog/2019/03/02/UVa1583（DigitGenerator）解决思路/" class="archive-article-date">
+  	<time datetime="2019-03-02T14:46:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-02</time>
 </a>
         
       </header>
@@ -197,118 +190,14 @@
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<h3 id="〇、Github-与-Git-的关系"><a href="#〇、Github-与-Git-的关系" class="headerlink" title="〇、Github 与 Git 的关系"></a>〇、Github 与 Git 的关系</h3><h4 id="1、Git-与-Github-简介"><a href="#1、Git-与-Github-简介" class="headerlink" title="1、Git 与 Github 简介"></a>1、Git 与 Github 简介</h4><ul>
-<li>Git 是一款免费、开源的分布式版本控制系统</li>
-<li>GitHub 是一个面向开源及私有软件项目的托管平台，因为只支持 Git 作为唯一的版本库格式进行托管，故名 GitHub。另外还有其他的平台，如国内的 <a href="https://gitee.com/" target="_blank" rel="noopener">码云</a> </li>
-<li>Git 负责本地的代码版本控制，而 Github 负责远程托管</li>
-</ul>
+<h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><p>如果x加上x的各个位数字之和得到y，就说x是y的生成元；给出n（1≤n≤100000），求最小生成元。无解输出0。例如，n=216，121，2005时的解分别为198 , 0, 1979。</p>
 <a id="more"></a>
-<h4 id="2、Git-的工作流程："><a href="#2、Git-的工作流程：" class="headerlink" title="2、Git 的工作流程："></a>2、Git 的工作流程：</h4><ul>
-<li><p>1）在工作目录（Working Directory）中修改文件。</p>
-</li>
-<li><p>2）暂存文件，将文件的快照放入暂存区域（Staging Area）。</p>
-</li>
-<li><p>3）提交更新，找到暂存区域的文件，将快照永久性存储到 Git 仓库目录（Repository）。</p>
-</li>
-<li><p>其中：</p>
-<ul>
-<li>Git <strong>仓库目录 </strong> 是 Git 用来保存项目的元数据和对象数据库的地方。 这是 Git 中最重要的部分，从其它计算机克隆仓库时，拷贝的就是这里的数据。</li>
-<li><strong>工作目录</strong> 是对项目的某个版本独立提取出来的内容。 这些从 Git 仓库的压缩数据库中提取出来的文件，放在磁盘上供你使用或修改。</li>
-<li><strong>暂存区域</strong> 是一个文件，保存了下次将提交的文件列表信息，一般在 Git 仓库目录中。 有时候也被称作`‘索引’’，不过一般说法还是叫暂存区域。</li>
-</ul>
-<p><a href><img src="https://i.loli.net/2019/02/22/5c6f7b352931b.png" alt="1550655399046"></a></p>
-</li>
-</ul>
-<h4 id="3、Git-与-Github关系图示："><a href="#3、Git-与-Github关系图示：" class="headerlink" title="3、Git 与 Github关系图示："></a>3、Git 与 Github关系图示：</h4><p><img src="https://i.loli.net/2019/02/22/5c6f7b3522b74.png" alt="1550656393570"></p>
-<hr>
-<h3 id="一、注册-Github-账号"><a href="#一、注册-Github-账号" class="headerlink" title="一、注册 Github 账号"></a>一、注册 Github 账号</h3><p>注册没有难度，这里不赘述，建议使用简单大方的用户名和注册邮箱，方便后期使用。</p>
-<p>网址： <a href="https://github.com/" target="_blank" rel="noopener">Github</a></p>
-<hr>
-<h3 id="二、下载安装-Git"><a href="#二、下载安装-Git" class="headerlink" title="二、下载安装 Git"></a>二、下载安装 Git</h3><p>网址： <a href="https://book.git-scm.com/downloads" target="_blank" rel="noopener">Git</a> （如果链接打不开可在网上搜索其他下载站点）</p>
-<p>软件安装也没有什么难度，安装完成之后在任意文件夹下右键出现 Git Bash Here 说明安装成功。</p>
-<p>在任意文件夹中都可以使用 Git Bash Here，既可以将所有需要代码版本管理的项目放在同一个文件夹中，也可以分散在任意地方，建议前者。</p>
-<p>关于 Git 的一些资料</p>
-<p><a href="https://book.git-scm.com/docs" target="_blank" rel="noopener">Reference Manual</a>（可查看各种 Git 指令的说明）</p>
-<p><a href="https://book.git-scm.com/book" target="_blank" rel="noopener">Pro Git</a> （Git 的详细介绍）</p>
-<hr>
-<h3 id="三、安装-Git-后的配置"><a href="#三、安装-Git-后的配置" class="headerlink" title="三、安装 Git 后的配置"></a>三、安装 Git 后的配置</h3><h4 id="1、如果是个人使用"><a href="#1、如果是个人使用" class="headerlink" title="1、如果是个人使用"></a>1、如果是个人使用</h4><p>大部分配置可以暂时忽略，仅设置用户名称和邮件地址即可：</p>
-<p>通过 Git Bash Here 进入命令行界面，输入：</p>
-<p><code>git config --global user.name &quot;YourName&quot;</code>  （引号不可省略）</p>
-<p><code>git config --global user.email YourEmail</code></p>
-<p>YourName 和 YourEmail 设置成你 Github 里注册的用户名和邮箱。</p>
-<p><strong>这里的设置是为了让 Github 根据用户名和邮箱去确定代码上传者的信息，也可以只设置其中一个。</strong></p>
-<h4 id="2、如果是团队使用"><a href="#2、如果是团队使用" class="headerlink" title="2、如果是团队使用"></a>2、如果是团队使用</h4><p>若需要设置统一的提交信息格式，可以创建一个模板文件，通过 commit.template 来设置模板文件。</p>
-<p>也可以通过 core.editor 修改编辑<strong>提交信息</strong>的默认编辑器。</p>
-<p>详情都请查看 <a href="https://book.git-scm.com/docs" target="_blank" rel="noopener">Reference Manual</a> 中的 <a href="https://book.git-scm.com/book/zh/v2/%E8%87%AA%E5%AE%9A%E4%B9%89-Git-%E9%85%8D%E7%BD%AE-Git" target="_blank" rel="noopener">自定义 Git - 配置 Git</a> ，也可以输入 <code>git config</code> 自行探索。</p>
-<hr>
-<h3 id="四、创建自己的代码仓库"><a href="#四、创建自己的代码仓库" class="headerlink" title="四、创建自己的代码仓库"></a>四、创建自己的代码仓库</h3><h4 id="1、在-Github-上创建-Repository"><a href="#1、在-Github-上创建-Repository" class="headerlink" title="1、在 Github 上创建 Repository"></a>1、在 Github 上创建 Repository</h4><p>1）点击 Github 页面右上角 “+” 号，点击 New repository</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6f7b3519899.png" alt="1550660057745"></p>
-<p>2）填写基本信息后，点击 Create repository</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6f7b3540ee4.png" alt="1550660339034"></p>
-<p>3）建成的仓库如下图</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6f7c69a0e58.png" alt="1550660390202"></p>
-<ul>
-<li><p>README.md 文件是 markdown 格式的文件，通常用来描述项目信息（可以看看其他人是怎么写的），可以后期自己建立并上传。Github 会显示根目录下的 md 文件内容。</p>
-</li>
-<li><p>如果需要删除代码仓库，点击上图中的 Settings，在页面最下方的 Danger Zone 中有 Delete  this repository 按钮。</p>
-</li>
-</ul>
-<h4 id="2、在本地建立-Repository"><a href="#2、在本地建立-Repository" class="headerlink" title="2、在本地建立 Repository"></a>2、在本地建立 Repository</h4><h5 id="添加-SSH-key"><a href="#添加-SSH-key" class="headerlink" title="添加 SSH key"></a>添加 SSH key</h5><h6 id="Github-的仓库链接有两种格式："><a href="#Github-的仓库链接有两种格式：" class="headerlink" title="Github 的仓库链接有两种格式："></a>Github 的仓库链接有两种格式：</h6><ul>
-<li>https 格式，例如 <a href="https://github.com/YourName/YourRepo.git" target="_blank" rel="noopener">https://github.com/YourName/YourRepo.git</a> </li>
-<li><p>SSH 格式，例如 <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:YourName/YourRepo.git</p>
-</li>
-<li><p>两种形式的地址都可以用于 Github 与本地 Git 建立连接，但是如果用的是 https，每次上传代码的时候，都需要输入 Github 用户名和密码，因此<strong>建议使用 SSH</strong>。</p>
-</li>
-</ul>
-<h6 id="生成-SSH-key-的步骤："><a href="#生成-SSH-key-的步骤：" class="headerlink" title="生成 SSH key 的步骤："></a>生成 SSH key 的步骤：</h6><ul>
-<li>提示： Git Bash 命令行界面中，复制/粘贴的快捷键分别是 Ctrl+Ins 和 Shift+Ins</li>
-</ul>
-<p>1&gt; 在任意文件夹内右击，选择 Git Bash Here，进入命令行界面。</p>
-<p>2&gt; 输入 <code>ssh-keygen -t rsa -C &quot;YourEmail@YourEmail.com&quot;</code></p>
-<p>​    引号内是 Github 的登录邮箱，引号不能省略。</p>
-<p>3&gt; 一般不建议修改 SSH Key 的保存目录，因此连按三下回车，选择默认路径以及无密码。从提示信息中可以找到你的电脑上 SSH Key 的保存位置。</p>
-<p>4&gt; 从 3&gt; 中的保存位置找到 id_rsa.pub 文件，通常路径为 <code>C:\Users\Administrator\.ssh</code>，用记事本或其他编辑软件打开并复制里面的内容。也可以在 Git Bash 命令行界面中输入 clip &lt; ~/.ssh/id_rsa.pub 后按回车，若无错误提示表示复制成功。</p>
-<p>5&gt; 打开 Github，鼠标指向自己的头像，选择 Settings。</p>
-<p>6&gt; 在左边栏中选择 SSH and GPG keys，点击 New SSH Key，添加复制的 SSH Key 即可。如果个人有多台电脑，为了方便区分，SSH Key 的 Title 取一个辨识度较高的名字。</p>
-<p>7&gt; Git Bash 命令行界面中输入 <code>ssh -T git@github.com</code></p>
-<p>​    问是否继续连接，输入 yes ，按回车。</p>
-<p>​    如果出现 <code>Hi YourName! You&#39;ve successfully authenticated, but GitHub does not ...</code> 说明设置成功了。</p>
-<h5 id="本地建立-Repository"><a href="#本地建立-Repository" class="headerlink" title="本地建立 Repository"></a>本地建立 Repository</h5><h6 id="方法一：（git-clone-指令）"><a href="#方法一：（git-clone-指令）" class="headerlink" title="方法一：（git clone 指令）"></a>方法一：（git clone 指令）</h6><p>使用 git clone 指令可以直接将 Github 上的代码仓库（可以是新建的，也可以是已经有内容的） clone 到本地仓库。</p>
-<p>步骤如下：</p>
-<p>1&gt; 在 Github 页面进入准备 clone 到本地的代码仓库，点击如下图①位置的 Clone or download 即可复制代码仓库链接。注意应使用 SSH 格式的链接，在②位置可以切换两种格式。</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6f7b3549236.png" alt="1550770191930"></p>
-<p>2&gt; 在欲存放代码的地方进入 Git Bash（不需要自己再建立文件夹），输入 <code>git clone git@github.com:YourName/YourRepo.git</code>（复制的仓库链接），即可完成本地仓库的建立。此时可直接上传新的代码文件至 Github，具体操作见后文。 </p>
-<p>注意：如果选择了 https 格式的地址，想修改成 SSH 格式的地址，可以按照以下步骤操作：</p>
-<p>git remote rm origin # 移除当前远端服务器</p>
-<p>git remote -v # 查看当前 Github 仓库服务器地址，无返回信息说明已移除</p>
-<p>git remote add origin <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:YourName/YourRepo.git # 添加 SSH 格式地址</p>
-<p>git remote -v # 再次查看当前 Github 仓库服务器地址，是否已修改成功</p>
-<h6 id="方法二：（git-init-指令）"><a href="#方法二：（git-init-指令）" class="headerlink" title="方法二：（git init 指令）"></a>方法二：（git init 指令）</h6><p>使用 git init 指令可以在本地初始化一个代码仓库，然后与 Github 上的代码仓库进行连接，操作如下：</p>
-<p>1&gt; 在欲存放代码的地方建立项目文件夹，进入该文件夹后右击进入 Git Bash，输入 <code>git init</code>，可以看到此时在文件夹中生成了一个隐藏的 .git 文件夹，此文件夹内存放着此代码仓库的各种信息。</p>
-<p>2&gt; 如果在安装好 Git 后已经配置了用户名和邮箱，此步骤可跳过，否则输入</p>
-<p><code>git config --global user.name &quot;YourName&quot;</code>  （引号不可省略）</p>
-<p><code>git config --global user.email YourEmail</code>    </p>
-<p>3&gt; 输入 <code>git remote add origin git@github.com:yourName/yourRepo.git</code>，依旧建议使用 SSH 格式地址。此时就建立起了与 Github 服务器的连接。</p>
-<p>在方法一中，由于是直接 clone 远端的 Github 仓库的内容，所以无论是新建的 Github 仓库，还是已经上传过内容的 Github 仓库，都可以完整地克隆到本地。</p>
-<p>但在方法二中，由于是从本地先初始化了一个代码仓库，仓库中无任何内容，所以如果本地仓库中的内容和 Github 仓库中的内容不一致（例如 Github 仓库初始化时生成了 README.md 文件），就需要先把 Github 仓库中的内容下载（pull）到本地，保持两者的一致性之后，才能上传（push）代码到 Github 仓库，具体操作是输入 <code>git pull origin master</code> ，等代码下载完成，即可添加新内容并上传。</p>
-<hr>
-<h3 id="五、简单-Git-操作指令"><a href="#五、简单-Git-操作指令" class="headerlink" title="五、简单 Git 操作指令"></a>五、简单 Git 操作指令</h3><h4 id="1、push-代码到-Github"><a href="#1、push-代码到-Github" class="headerlink" title="1、push 代码到 Github"></a>1、push 代码到 Github</h4><p>假设要 push 一个名为 123.txt 的文件，在项目文件夹中进入 Git Bash，分别输入以下内容：</p>
-<p><code>git add 123.txt  # 将文件内容添加到缓存区快照</code></p>
-<p><code>git commit -m &quot;123.txt&quot; # 将改动点记录到代码仓</code></p>
-<p><code>git push origin master # 将改动提交到 Github 远端服务器，分支为 master</code></p>
-<p>说明：</p>
-<ul>
-<li><p>若一次提交多个文件，可使用 <code>git add .</code> ，注意 “.” 不能省略</p>
-</li>
-<li><p>第二行中引号内的内容是提交信息，会显示在 Github 上，如果需要提交很多信息，输入 <code>git commit</code> 即可，会弹出默认编辑器 GUN nano，如果不会使用该编辑器，可以运行 <code>git config --global core.editor &quot;F：\Program Files\Sublime Text 3\sublime text.exe&quot;</code> ，其中引号中是想修改的新编辑器的路径，根据自己电脑上的位置修改。</p>
-</li>
-<li><p>master 是指该仓库的 master 分支，关于分支的概念请参考 Git 官网。</p>
-</li>
-</ul>
-<h4 id="2、从-Github-pull-代码"><a href="#2、从-Github-pull-代码" class="headerlink" title="2、从 Github pull 代码"></a>2、从 Github pull 代码</h4><p><code>git pull origin master</code></p>
-<h4 id="3、查看工作目录状态"><a href="#3、查看工作目录状态" class="headerlink" title="3、查看工作目录状态"></a>3、查看工作目录状态</h4><p><code>git status</code></p>
-<p>以上几个指令是个人使用时最常用的指令，如果多人合作，或 fork 其他人的项目，可以从官网查询其他指令。</p>
-
+<h4 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h4><p>本题核心部分在于判断是否存在小于给定数字的一个数字，其本身与其各位数字之和等于给定数字，并不复杂。</p>
+<p>由于输入数字范围并不大，因此可以考虑用事先计算好范围内所有数字的最小元，然后通过查表的方式输出。而且建立查找表的过程也很简单，不需要计算生成元，而是从小到大遍历数值范围一遍，将数字与各位数值相加，便可作为生成元存放到对应的表中。</p>
+<p>另外，也可以每次都直接根据输入值来计算其生成元，省去了存放查找表的内存开销，但是每次都要重新计算。如果每次计算是用暴力方法遍历计算，会导致时间溢出，因此可根据题目的特点进行优化：</p>
+<p>由于生成元的数值本身加上各位数值即为输入数字，因此，根据输入数字的数量级，生成元最多比输入数值小 9x6=54（其实是9x5=45）。因此在求解生成元时，无需从 1 开始遍历，只需从比输入数值小 50 的数值开始遍历即可。至于输入小于 50 的情况也无需考虑，只是在负数的地方浪费了一点时间，不会影响平均时间复杂度。</p>
+<h4 id="解法一：查表"><a href="#解法一：查表" class="headerlink" title="解法一：查表"></a>解法一：查表</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">#define MAXM 100005</span><br><span class="line">int ans[MAXM];</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line"></span><br><span class="line">    int t, n;</span><br><span class="line">    memset(ans, 0, sizeof(ans));</span><br><span class="line">    for(int m=1; m&lt;MAXM; m++)&#123;</span><br><span class="line">        int x=m, y=m;</span><br><span class="line">        while(x&gt;0)&#123;</span><br><span class="line">            y += x%10;</span><br><span class="line">            x /= 10;</span><br><span class="line">        &#125;</span><br><span class="line">        if(y&gt;MAXM)</span><br><span class="line">            continue;</span><br><span class="line">        if(ans[y]==0 || m&lt;ans[y])</span><br><span class="line">            ans[y] = m;</span><br><span class="line">    &#125;</span><br><span class="line">//    for(int i=1; i&lt;MAXM; i++)&#123;</span><br><span class="line">//        printf(&quot;%7d %7d\n&quot;, i, ans[i]);</span><br><span class="line">//    &#125;</span><br><span class="line">    scanf(&quot;%d&quot;, &amp;t);</span><br><span class="line">    while(t--)&#123;</span><br><span class="line">        scanf(&quot;%d&quot;, &amp;n);</span><br><span class="line">        printf(&quot;%d\n&quot;, ans[n]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="解法二：暴力枚举"><a href="#解法二：暴力枚举" class="headerlink" title="解法二：暴力枚举"></a>解法二：暴力枚举</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line"></span><br><span class="line">    int t, n;</span><br><span class="line">    scanf(&quot;%d&quot;, &amp;t);</span><br><span class="line">    while(t--)&#123;</span><br><span class="line">        scanf(&quot;%d&quot;, &amp;n);</span><br><span class="line">        int x = 0;</span><br><span class="line">        int sum = 0;</span><br><span class="line">        int ans = 0;</span><br><span class="line">        for(int i=n-50; i&lt;n; i++)&#123;</span><br><span class="line">            x = i;</span><br><span class="line">            sum = x;</span><br><span class="line">            while(x&gt;0)&#123;</span><br><span class="line">                sum += x%10;</span><br><span class="line">                x /= 10;</span><br><span class="line">            &#125;</span><br><span class="line">            if( sum == n)&#123;</span><br><span class="line">                ans = i;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        printf(&quot;%d\n&quot;, ans);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
 
       
@@ -321,11 +210,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">软件使用</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Github</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
         		</li>
       		
 		</ul>
@@ -344,15 +229,11 @@
   
 <nav id="article-nav">
   
-    <a href="/blog/2019/02/22/MSP430-单片机入门指北/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          MSP430 单片机入门指北
-        
-      </div>
-    </a>
   
+    <a href="/blog/2019/02/23/MSP430-仿真与下载/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MSP430 仿真与下载</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
@@ -377,7 +258,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#〇、Github-与-Git-的关系"><span class="toc-number">1.</span> <span class="toc-text">〇、Github 与 Git 的关系</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、Git-与-Github-简介"><span class="toc-number">1.1.</span> <span class="toc-text">1、Git 与 Github 简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、Git-的工作流程："><span class="toc-number">1.2.</span> <span class="toc-text">2、Git 的工作流程：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3、Git-与-Github关系图示："><span class="toc-number">1.3.</span> <span class="toc-text">3、Git 与 Github关系图示：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一、注册-Github-账号"><span class="toc-number">2.</span> <span class="toc-text">一、注册 Github 账号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、下载安装-Git"><span class="toc-number">3.</span> <span class="toc-text">二、下载安装 Git</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、安装-Git-后的配置"><span class="toc-number">4.</span> <span class="toc-text">三、安装 Git 后的配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、如果是个人使用"><span class="toc-number">4.1.</span> <span class="toc-text">1、如果是个人使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、如果是团队使用"><span class="toc-number">4.2.</span> <span class="toc-text">2、如果是团队使用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、创建自己的代码仓库"><span class="toc-number">5.</span> <span class="toc-text">四、创建自己的代码仓库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、在-Github-上创建-Repository"><span class="toc-number">5.1.</span> <span class="toc-text">1、在 Github 上创建 Repository</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、在本地建立-Repository"><span class="toc-number">5.2.</span> <span class="toc-text">2、在本地建立 Repository</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#添加-SSH-key"><span class="toc-number">5.2.1.</span> <span class="toc-text">添加 SSH key</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#Github-的仓库链接有两种格式："><span class="toc-number">5.2.1.1.</span> <span class="toc-text">Github 的仓库链接有两种格式：</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#生成-SSH-key-的步骤："><span class="toc-number">5.2.1.2.</span> <span class="toc-text">生成 SSH key 的步骤：</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#本地建立-Repository"><span class="toc-number">5.2.2.</span> <span class="toc-text">本地建立 Repository</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#方法一：（git-clone-指令）"><span class="toc-number">5.2.2.1.</span> <span class="toc-text">方法一：（git clone 指令）</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#方法二：（git-init-指令）"><span class="toc-number">5.2.2.2.</span> <span class="toc-text">方法二：（git init 指令）</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五、简单-Git-操作指令"><span class="toc-number">6.</span> <span class="toc-text">五、简单 Git 操作指令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、push-代码到-Github"><span class="toc-number">6.1.</span> <span class="toc-text">1、push 代码到 Github</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、从-Github-pull-代码"><span class="toc-number">6.2.</span> <span class="toc-text">2、从 Github pull 代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3、查看工作目录状态"><span class="toc-number">6.3.</span> <span class="toc-text">3、查看工作目录状态</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#问题描述"><span class="toc-number">1.</span> <span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#题目分析"><span class="toc-number">2.</span> <span class="toc-text">题目分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#解法一：查表"><span class="toc-number">3.</span> <span class="toc-text">解法一：查表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#解法二：暴力枚举"><span class="toc-number">4.</span> <span class="toc-text">解法二：暴力枚举</span></a></li></ol>
                     </div>
                 </span>
             </div>
