@@ -6,18 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019/3 | Isaac前进4</title>
+  <title>STM8S Memory and register map | Isaac前进4</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="学习笔记 思考感悟">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Isaac前进4">
-<meta property="og:url" content="http://yoursite.com/archives/2019/03/index.html">
+  <meta name="description" content="存储器映射、I/O 端口硬件寄存器映射和 CPU/SWIM、调试模块/中断控制寄存器的详细内容参见 datasheet。">
+<meta name="keywords" content="硬件拾忆,STM8">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STM8S Memory and register map">
+<meta property="og:url" content="http://yoursite.com/blog/2019/03/02/STM8S-Memory-and-register-map/index.html">
 <meta property="og:site_name" content="Isaac前进4">
-<meta property="og:description" content="学习笔记 思考感悟">
+<meta property="og:description" content="存储器映射、I/O 端口硬件寄存器映射和 CPU/SWIM、调试模块/中断控制寄存器的详细内容参见 datasheet。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.loli.net/2019/03/02/5c7aa57fd53a6.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/02/5c7aa5bc24eaa.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/02/5c7aa5fb84939.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/02/5c7aa6501fc7b.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/02/5c7aa6502474f.png">
+<meta property="og:updated_time" content="2019-03-02T15:52:31.974Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Isaac前进4">
-<meta name="twitter:description" content="学习笔记 思考感悟">
+<meta name="twitter:title" content="STM8S Memory and register map">
+<meta name="twitter:description" content="存储器映射、I/O 端口硬件寄存器映射和 CPU/SWIM、调试模块/中断控制寄存器的详细内容参见 datasheet。">
+<meta name="twitter:image" content="https://i.loli.net/2019/03/02/5c7aa57fd53a6.png">
   
   
     <link rel="icon" href="/favicon.png">
@@ -167,16 +175,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-STM8S-Memory-and-register-map" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-STM8S-Memory-and-register-map" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/03/02/STM8S-Memory-and-register-map/">STM8S Memory and register map</a>
+    <h1 class="article-title" itemprop="name">
+      STM8S Memory and register map
     </h1>
   
 
@@ -191,9 +197,29 @@
       
         <hr>
 <p>存储器映射、I/O 端口硬件寄存器映射和 CPU/SWIM、调试模块/中断控制寄存器的详细内容参见 datasheet。</p>
-        
-          <a class="article-more-a" href="/blog/2019/03/02/STM8S-Memory-and-register-map/#more">more >></a>
-        
+<a id="more"></a>
+<hr>
+<h3 id="存储器映射"><a href="#存储器映射" class="headerlink" title="存储器映射"></a>存储器映射</h3><p><img src="https://i.loli.net/2019/03/02/5c7aa57fd53a6.png" alt="Image.png"></p>
+<p>各部分具体上限（upper limit）参看 datasheet。</p>
+<hr>
+<h3 id="stm8s-stack-handling-栈处理"><a href="#stm8s-stack-handling-栈处理" class="headerlink" title="stm8s stack handling  栈处理"></a>stm8s stack handling  栈处理</h3><p>stm8s 和 stm8af MCU 的栈在 user RAM 区实现。</p>
+<p><img src="https://i.loli.net/2019/03/02/5c7aa5bc24eaa.png" alt="Image.png"></p>
+<p>栈底所在的地址大于栈顶所在的地址。</p>
+<p>不是所有器件都有 roll-over limit  回卷限制。</p>
+<p>用户必须注意初始化栈指针。通常由开发工具（linker file）生成的初始化代码来正确加载这个指针，默认初始化到 RAM 尾地址。</p>
+<p>有些器件中，栈回卷限制为一个固定地址。如果使用 push 操作或为子函数或中断函数保存上下文时，栈指针减小到栈回卷限制处，栈指针将复位到 RAM 尾地址。当栈指针正参与运算时，不会回卷。</p>
+<hr>
+<h3 id="Customized-stack-model-自定义栈模型"><a href="#Customized-stack-model-自定义栈模型" class="headerlink" title="Customized stack model 自定义栈模型"></a>Customized stack model 自定义栈模型</h3><p>stm8s 和 stm8af 的栈指针操作允许执行一个自定义的栈模型。这就使得栈的大小变得灵活，而不用受到栈回卷限制的约束。执行自定义栈也有利于寄存器配置不同的器件的软件可移植性。</p>
+<p><img src="https://i.loli.net/2019/03/02/5c7aa5fb84939.png" alt="Image.png"></p>
+<p>并不是所有器件都有栈回卷限制。</p>
+<p>保护单元（guard cells）是必须被应用程序连续轮询检测是否发生栈溢出的 RAM 位置。</p>
+<p>在这个模型中，初始的栈指针必须指向超过栈回卷限制的位置（必须必回卷限制的地址小）。因此，增长的栈永远不会到达回卷限制。很明显，这样的操作下，栈大小不会受到溢出机制的限制。虽然如此，用户必须在 link file 中定义栈的位置和栈的大小，也必须确保栈指针不会超出定义的栈区域（栈顶溢出或低于栈底）。超过或在自定义栈之下的 RAM 位置可以被常规的用作 RAM 来存储变量或其他信息。</p>
+<p>保护单元可以被配置在比栈顶更低的位置以检测是否栈指针超过了规定的边界。这些单元是标准的 RAM 位置，初始化为固定值，一旦发生溢出，栈将在这里重写。用户软件可以常规轮询这些单元，检测溢出条件，并将应用置于故障保护状态。</p>
+<p>在软件有效期内，硬件断点可被设在栈的两个极端位置，以确认栈溢出和欠载都没有发生。</p>
+<hr>
+<h3 id="寄存器描述缩写"><a href="#寄存器描述缩写" class="headerlink" title="寄存器描述缩写"></a>寄存器描述缩写</h3><p><img src="https://i.loli.net/2019/03/02/5c7aa6501fc7b.png" alt="Image.png"> </p>
+<p><img src="https://i.loli.net/2019/03/02/5c7aa6502474f.png" alt="Image.png"></p>
+
       
 
       
@@ -219,16 +245,24 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/03/02/STM8S-Memory-and-register-map/">展开全文 >></a>
-        </p>
-      
 
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/blog/2019/03/02/STM8S-Boot-ROM/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">STM8S Boot ROM</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -243,262 +277,34 @@
         </div>
         
         
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-STM8S-Boot-ROM" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/03/02/STM8S-Boot-ROM/">STM8S Boot ROM</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/03/02/STM8S-Boot-ROM/" class="archive-article-date">
-  	<time datetime="2019-03-02T15:40:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>stm8s Boot ROM 是用于系统启动的只读存储器。</p>
-        
-          <a class="article-more-a" href="/blog/2019/03/02/STM8S-Boot-ROM/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">STM8</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/03/02/STM8S-Boot-ROM/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#存储器映射"><span class="toc-number">1.</span> <span class="toc-text">存储器映射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#stm8s-stack-handling-栈处理"><span class="toc-number">2.</span> <span class="toc-text">stm8s stack handling  栈处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Customized-stack-model-自定义栈模型"><span class="toc-number">3.</span> <span class="toc-text">Customized stack model 自定义栈模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#寄存器描述缩写"><span class="toc-number">4.</span> <span class="toc-text">寄存器描述缩写</span></a></li></ol>
+                    </div>
+                </span>
             </div>
         </div>
         
-        
     </div>
 </aside>
 
 
 
-
-  
-    <article id="post-STM8S-CPU" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/03/02/STM8S-CPU/">STM8S CPU</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/03/02/STM8S-CPU/" class="archive-article-date">
-  	<time datetime="2019-03-02T15:09:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<ul>
-<li><p>stm8s 是基于 8 位框架结构的微控制器</p>
-</li>
-<li><p>CPU 内核有 6 个内部寄存器</p>
-</li>
-<li><p>指令集支持 80 条基本语句，20 种寻址模式</p>
-</li>
-<li><p>了解 stm8s 指令集参考 PM0044</p>
-</li>
-</ul>
-        
-          <a class="article-more-a" href="/blog/2019/03/02/STM8S-CPU/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">STM8</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/03/02/STM8S-CPU/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-UVa1583（DigitGenerator）解决思路" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/03/02/UVa1583（DigitGenerator）解决思路/">UVa1583（DigitGenerator）解决思路</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/03/02/UVa1583（DigitGenerator）解决思路/" class="archive-article-date">
-  	<time datetime="2019-03-02T14:46:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><p>如果x加上x的各个位数字之和得到y，就说x是y的生成元；给出n（1≤n≤100000），求最小生成元。无解输出0。例如，n=216，121，2005时的解分别为198 , 0, 1979。</p>
-        
-          <a class="article-more-a" href="/blog/2019/03/02/UVa1583（DigitGenerator）解决思路/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/03/02/UVa1583（DigitGenerator）解决思路/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
+  
+
+  
+
+  
+
+  
+
 
           </div>
         </div>
@@ -520,8 +326,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
