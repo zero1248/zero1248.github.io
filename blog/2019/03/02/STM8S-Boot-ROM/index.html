@@ -6,18 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019/3 | Isaac前进4</title>
+  <title>STM8S Boot ROM | Isaac前进4</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="学习笔记 思考感悟">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Isaac前进4">
-<meta property="og:url" content="http://yoursite.com/archives/2019/03/index.html">
+  <meta name="description" content="stm8s Boot ROM 是用于系统启动的只读存储器。">
+<meta name="keywords" content="硬件拾忆,STM8">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STM8S Boot ROM">
+<meta property="og:url" content="http://yoursite.com/blog/2019/03/02/STM8S-Boot-ROM/index.html">
 <meta property="og:site_name" content="Isaac前进4">
-<meta property="og:description" content="学习笔记 思考感悟">
+<meta property="og:description" content="stm8s Boot ROM 是用于系统启动的只读存储器。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-02T15:41:55.651Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Isaac前进4">
-<meta name="twitter:description" content="学习笔记 思考感悟">
+<meta name="twitter:title" content="STM8S Boot ROM">
+<meta name="twitter:description" content="stm8s Boot ROM 是用于系统启动的只读存储器。">
   
   
     <link rel="icon" href="/favicon.png">
@@ -167,16 +169,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-STM8S-Boot-ROM" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-STM8S-Boot-ROM" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/03/02/STM8S-Boot-ROM/">STM8S Boot ROM</a>
+    <h1 class="article-title" itemprop="name">
+      STM8S Boot ROM
     </h1>
   
 
@@ -191,9 +191,11 @@
       
         <hr>
 <p>stm8s Boot ROM 是用于系统启动的只读存储器。</p>
-        
-          <a class="article-more-a" href="/blog/2019/03/02/STM8S-Boot-ROM/#more">more >></a>
-        
+<a id="more"></a>
+<p>在某些 STM8 型号中有 2K 字节的内部 Boot ROM，其中包含有用于启动的代码。这段代码的主要作用是利用 STM8 的 SPI，CAN 或 UART 接口，将应用程序代码，数据，选项字节（Option Byte）和中断向量表下载到内部的 FLASH 和 E2RPOM 中去。</p>
+<p>执行的自举加载工作在 LIN 模式下，另一种引导装载程序通信协议在 UART2/UART3 和 UART1 中执行。</p>
+<p>复位后，启动代码开始执行。更多详细内容参考 STM8 启动代码用户手册 UM0560。</p>
+
       
 
       
@@ -219,16 +221,24 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/03/02/STM8S-Boot-ROM/">展开全文 >></a>
-        </p>
-      
 
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/blog/2019/03/02/STM8S-CPU/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">STM8S CPU</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -243,181 +253,34 @@
         </div>
         
         
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-STM8S-CPU" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/03/02/STM8S-CPU/">STM8S CPU</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/03/02/STM8S-CPU/" class="archive-article-date">
-  	<time datetime="2019-03-02T15:09:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<ul>
-<li><p>stm8s 是基于 8 位框架结构的微控制器</p>
-</li>
-<li><p>CPU 内核有 6 个内部寄存器</p>
-</li>
-<li><p>指令集支持 80 条基本语句，20 种寻址模式</p>
-</li>
-<li><p>了解 stm8s 指令集参考 PM0044</p>
-</li>
-</ul>
-        
-          <a class="article-more-a" href="/blog/2019/03/02/STM8S-CPU/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">STM8</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/03/02/STM8S-CPU/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    目录，不存在的…
+                    </div>
+                </span>
             </div>
         </div>
         
-        
     </div>
 </aside>
 
 
 
-
-  
-    <article id="post-UVa1583（DigitGenerator）解决思路" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/03/02/UVa1583（DigitGenerator）解决思路/">UVa1583（DigitGenerator）解决思路</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/03/02/UVa1583（DigitGenerator）解决思路/" class="archive-article-date">
-  	<time datetime="2019-03-02T14:46:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><p>如果x加上x的各个位数字之和得到y，就说x是y的生成元；给出n（1≤n≤100000），求最小生成元。无解输出0。例如，n=216，121，2005时的解分别为198 , 0, 1979。</p>
-        
-          <a class="article-more-a" href="/blog/2019/03/02/UVa1583（DigitGenerator）解决思路/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/03/02/UVa1583（DigitGenerator）解决思路/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
+  
+
+  
+
+  
+
+  
+
 
           </div>
         </div>
@@ -439,8 +302,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
