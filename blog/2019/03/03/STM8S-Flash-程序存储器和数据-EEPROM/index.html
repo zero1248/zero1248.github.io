@@ -6,26 +6,30 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>STM8S Memory and register map | Isaac前进4</title>
+  <title>STM8S Flash 程序存储器和数据 EEPROM | Isaac前进4</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="存储器映射、I/O 端口硬件寄存器映射和 CPU/SWIM、调试模块/中断控制寄存器的详细内容参见 datasheet。">
+  <meta name="description" content="介绍stm8 内部的 FLASH 程序存储器和数据 EEPROM 由一组通用寄存器来控制。用户可以使用这些寄存器来编程或擦出存储器的内容，设置写保护，或者配置特定的低功耗模式。用户也可以对器件的选项字节（Option byte）进行编程。">
 <meta name="keywords" content="硬件拾忆,STM8">
 <meta property="og:type" content="article">
-<meta property="og:title" content="STM8S Memory and register map">
-<meta property="og:url" content="http://yoursite.com/blog/2019/03/02/STM8S-Memory-and-register-map/index.html">
+<meta property="og:title" content="STM8S Flash 程序存储器和数据 EEPROM">
+<meta property="og:url" content="http://yoursite.com/blog/2019/03/03/STM8S-Flash-程序存储器和数据-EEPROM/index.html">
 <meta property="og:site_name" content="Isaac前进4">
-<meta property="og:description" content="存储器映射、I/O 端口硬件寄存器映射和 CPU/SWIM、调试模块/中断控制寄存器的详细内容参见 datasheet。">
+<meta property="og:description" content="介绍stm8 内部的 FLASH 程序存储器和数据 EEPROM 由一组通用寄存器来控制。用户可以使用这些寄存器来编程或擦出存储器的内容，设置写保护，或者配置特定的低功耗模式。用户也可以对器件的选项字节（Option byte）进行编程。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://i.loli.net/2019/03/02/5c7aa57fd53a6.png">
-<meta property="og:image" content="https://i.loli.net/2019/03/02/5c7aa5bc24eaa.png">
-<meta property="og:image" content="https://i.loli.net/2019/03/02/5c7aa5fb84939.png">
-<meta property="og:image" content="https://i.loli.net/2019/03/02/5c7aa6501fc7b.png">
-<meta property="og:image" content="https://i.loli.net/2019/03/02/5c7aa6502474f.png">
-<meta property="og:updated_time" content="2019-03-02T15:53:21.228Z">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b3b8457334.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b3b9826fa5.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b3bab0582e.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b3c4aa8835.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b3c5b3ce50.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b3c9e0b417.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b3e3b76994.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b3e7a4b4db.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b3ebdd90dd.png">
+<meta property="og:updated_time" content="2019-03-03T02:42:12.794Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="STM8S Memory and register map">
-<meta name="twitter:description" content="存储器映射、I/O 端口硬件寄存器映射和 CPU/SWIM、调试模块/中断控制寄存器的详细内容参见 datasheet。">
-<meta name="twitter:image" content="https://i.loli.net/2019/03/02/5c7aa57fd53a6.png">
+<meta name="twitter:title" content="STM8S Flash 程序存储器和数据 EEPROM">
+<meta name="twitter:description" content="介绍stm8 内部的 FLASH 程序存储器和数据 EEPROM 由一组通用寄存器来控制。用户可以使用这些寄存器来编程或擦出存储器的内容，设置写保护，或者配置特定的低功耗模式。用户也可以对器件的选项字节（Option byte）进行编程。">
+<meta name="twitter:image" content="https://i.loli.net/2019/03/03/5c7b3b8457334.png">
   
   
     <link rel="icon" href="/favicon.png">
@@ -175,20 +179,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-STM8S-Memory-and-register-map" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-STM8S-Flash-程序存储器和数据-EEPROM" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      STM8S Memory and register map
+      STM8S Flash 程序存储器和数据 EEPROM
     </h1>
   
 
         
-        <a href="/blog/2019/03/02/STM8S-Memory-and-register-map/" class="archive-article-date">
-  	<time datetime="2019-03-02T15:44:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-02</time>
+        <a href="/blog/2019/03/03/STM8S-Flash-程序存储器和数据-EEPROM/" class="archive-article-date">
+  	<time datetime="2019-03-03T02:06:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-03</time>
 </a>
         
       </header>
@@ -196,29 +200,196 @@
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<p>存储器映射、I/O 端口硬件寄存器映射和 CPU/SWIM、调试模块/中断控制寄存器的详细内容参见 datasheet。</p>
+<h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>stm8 内部的 FLASH 程序存储器和数据 EEPROM 由一组通用寄存器来控制。用户可以使用这些寄存器来编程或擦出存储器的内容，设置写保护，或者配置特定的低功耗模式。用户也可以对器件的选项字节（Option byte）进行编程。</p>
 <a id="more"></a>
 <hr>
-<h3 id="存储器映射"><a href="#存储器映射" class="headerlink" title="存储器映射"></a>存储器映射</h3><p><img src="https://i.loli.net/2019/03/02/5c7aa57fd53a6.png" alt="Image.png"></p>
-<p>各部分具体上限（upper limit）参看 datasheet。</p>
+<h3 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h3><p>块 Block —— 一个块是指可由一个简单编程操作变成或擦除的一组字节。块级的操作非常快，是标准的编程和擦除操作。</p>
+<p>页 Page —— 一页由一组块组成。stm8s 器件拥有启动代码，程序代码和数据 EEPROM，这些区域都有特定的结构所保护。通过对特定的选项字节进行操作，这些区域的大小能够以页为单位来进行调整。</p>
 <hr>
-<h3 id="stm8s-stack-handling-栈处理"><a href="#stm8s-stack-handling-栈处理" class="headerlink" title="stm8s stack handling  栈处理"></a>stm8s stack handling  栈处理</h3><p>stm8s 和 stm8af MCU 的栈在 user RAM 区实现。</p>
-<p><img src="https://i.loli.net/2019/03/02/5c7aa5bc24eaa.png" alt="Image.png"></p>
-<p>栈底所在的地址大于栈顶所在的地址。</p>
-<p>不是所有器件都有 roll-over limit  回卷限制。</p>
-<p>用户必须注意初始化栈指针。通常由开发工具（linker file）生成的初始化代码来正确加载这个指针，默认初始化到 RAM 尾地址。</p>
-<p>有些器件中，栈回卷限制为一个固定地址。如果使用 push 操作或为子函数或中断函数保存上下文时，栈指针减小到栈回卷限制处，栈指针将复位到 RAM 尾地址。当栈指针正参与运算时，不会回卷。</p>
+<h3 id="Flash-主要特性"><a href="#Flash-主要特性" class="headerlink" title="Flash 主要特性"></a>Flash 主要特性</h3><h5 id="stm8s-EEPROM-分为两个存储器阵列："><a href="#stm8s-EEPROM-分为两个存储器阵列：" class="headerlink" title="stm8s EEPROM 分为两个存储器阵列："></a>stm8s EEPROM 分为两个存储器阵列：</h5><ul>
+<li><p>最多至 128K 字节的 FLASH 程序存储器，不同的器件容量有所不同。</p>
+</li>
+<li><p>最多至 2K 字节的数据 EERPOM（包括option byte），不同器件容量不同。</p>
+</li>
+</ul>
+<h5 id="编程模式："><a href="#编程模式：" class="headerlink" title="编程模式："></a>编程模式：</h5><ul>
+<li><p>字节编程和自动快速字节编程（没有擦除操作）</p>
+</li>
+<li><p>字编程</p>
+</li>
+<li><p>块编程和快速块编程（没有擦除操作）</p>
+</li>
+<li><p>在编程/擦除操作结束时和发生非法编程操作时产生中断</p>
+</li>
+</ul>
+<p>读同时写（RWW）功能。该特性并非所有 stm8s 器件都有。</p>
+<p>在应用编程（IAP）和在线编程（ICP）能力。</p>
+<h5 id="保护特性："><a href="#保护特性：" class="headerlink" title="保护特性："></a>保护特性：</h5><ul>
+<li><p>存储器度保护（ROP）</p>
+</li>
+<li><p>基于存储器存取安全系统（MASS 密钥）的程序存储器写保护</p>
+</li>
+<li><p>基于存储器存取安全系统（MASS 密钥）的数据存储器写保护</p>
+</li>
+<li><p>可编程的用户启动代码区域（UBC）写保护</p>
+</li>
+</ul>
+<p>在待机（Halt）模式和活跃待机（Active-halt）模式下，存储器可配置为运行状态和掉电状态。</p>
 <hr>
-<h3 id="Customized-stack-model-自定义栈模型"><a href="#Customized-stack-model-自定义栈模型" class="headerlink" title="Customized stack model 自定义栈模型"></a>Customized stack model 自定义栈模型</h3><p>stm8s 和 stm8af 的栈指针操作允许执行一个自定义的栈模型。这就使得栈的大小变得灵活，而不用受到栈回卷限制的约束。执行自定义栈也有利于寄存器配置不同的器件的软件可移植性。</p>
-<p><img src="https://i.loli.net/2019/03/02/5c7aa5fb84939.png" alt="Image.png"></p>
-<p>并不是所有器件都有栈回卷限制。</p>
-<p>保护单元（guard cells）是必须被应用程序连续轮询检测是否发生栈溢出的 RAM 位置。</p>
-<p>在这个模型中，初始的栈指针必须指向超过栈回卷限制的位置（必须必回卷限制的地址小）。因此，增长的栈永远不会到达回卷限制。很明显，这样的操作下，栈大小不会受到溢出机制的限制。虽然如此，用户必须在 link file 中定义栈的位置和栈的大小，也必须确保栈指针不会超出定义的栈区域（栈顶溢出或低于栈底）。超过或在自定义栈之下的 RAM 位置可以被常规的用作 RAM 来存储变量或其他信息。</p>
-<p>保护单元可以被配置在比栈顶更低的位置以检测是否栈指针超过了规定的边界。这些单元是标准的 RAM 位置，初始化为固定值，一旦发生溢出，栈将在这里重写。用户软件可以常规轮询这些单元，检测溢出条件，并将应用置于故障保护状态。</p>
-<p>在软件有效期内，硬件断点可被设在栈的两个极端位置，以确认栈溢出和欠载都没有发生。</p>
+<h3 id="存储器组织结构"><a href="#存储器组织结构" class="headerlink" title="存储器组织结构"></a>存储器组织结构</h3><h4 id="1、stm8s-和-stm8af-存储器组织结构"><a href="#1、stm8s-和-stm8af-存储器组织结构" class="headerlink" title="1、stm8s 和 stm8af 存储器组织结构"></a>1、stm8s 和 stm8af 存储器组织结构</h4><p>stm8s 和 stm8af 的 EEPROM 以 32 位字长（每字 4 字节）为基础组织起来。根据不同的器件，存储器组织结构有所不同：</p>
+<h5 id="小容量-stm8s-和-stm8af-器件："><a href="#小容量-stm8s-和-stm8af-器件：" class="headerlink" title="小容量 stm8s 和 stm8af 器件："></a>小容量 stm8s 和 stm8af 器件：</h5><ul>
+<li>8K Flash 程序存储器，每页（或块）64 字节，共 128 页（或块）。分为 2 个区域，大小可由选项字节配置的 user boot code 区（UBC），和主程序存储区。FLash 程序存储器地址映射在 stm8s 地址空间的最上端，且包括复位和中断向量。</li>
+</ul>
+<ul>
+<li>最多 640 字节数据 EEPROM，每页（或块） 64 字节，共 10 页（或块） 。有一个块（64 字节）中包含 11 个用来配置器件硬件特性的选项字节。选项字节可在 user，IAP 和 ICP/SWIM 模式下编程。</li>
+</ul>
+<h5 id="中容量-stm8s-和-stm8af-器件："><a href="#中容量-stm8s-和-stm8af-器件：" class="headerlink" title="中容量 stm8s 和 stm8af 器件："></a>中容量 stm8s 和 stm8af 器件：</h5><ul>
+<li>从 16K 到 32K Flash 程序存储器，每页 4 个 128 字节的块，最多 64 页。Flash 程序存储器分为 2 个区， 大小可由选项字节配置的 user boot code 区（UBC），和主程序存储区。FLash 程序存储器地址映射在 stm8s（或 stm8af）地址空间的最上端，且包括复位和中断向量。</li>
+</ul>
+<ul>
+<li>最多1K 字节数据 EEPROM，每页 4 个 128 字节的块，最多 2 页。有一个块（128字节）中包含 13 个用来配置器件硬件特性的选项字节。选项字节可在 user，IAP 和 ICP/SWIM 模式下编程。</li>
+</ul>
+<h5 id="大容量-stm8s-和-stm8af-器件："><a href="#大容量-stm8s-和-stm8af-器件：" class="headerlink" title="大容量 stm8s 和 stm8af 器件："></a>大容量 stm8s 和 stm8af 器件：</h5><ul>
+<li>从 32 到 128K 字节 Flash 程序存储器，每页 4 个 128 字节的块，最多 256 页。Flash 程序存储器分为 2 个区， 大小可由选项字节配置的 user boot code 区（UBC），和主程序存储区。FLash 程序存储器地址映射在 stm8s（或 stm8af）地址空间的最上端，且包括复位和中断向量。</li>
+</ul>
+<ul>
+<li>最多 2K 字节数据 EEPROM，每页 4 个 128 字节的块，最多 4 页。有一个块（128 字节）中包含 15 个用来配置器件硬件特性的选项字节。选项字节可在 user，IAP 和 ICP/SWIM 模式下编程。</li>
+</ul>
+<p>EEPROM 存取时间决定了器件最多运行在 16MHz 下。对于时钟频率超过 16MHz 的应用，FLash/数据 EEPROM 存取必须被被配置成等待状态（1 wait state）。这由器件选项字节使能。</p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b3b8457334.png" alt="Image.png"></p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b3b9826fa5.png" alt="Image.png"></p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b3bab0582e.png" alt="Image.png"></p>
+<h4 id="2、存储器存取-等待状态配置"><a href="#2、存储器存取-等待状态配置" class="headerlink" title="2、存储器存取/等待状态配置"></a>2、存储器存取/等待状态配置</h4><p>Flash/数据EEPROM 存取时间允许器件运行在最高 16MHz 时钟下，无需等待状态。</p>
+<p>当使用高速外部时钟（HSE）在更高的最多 24MHz 下时，需要一个等待状态。在这种情况下，器件应该对选项字节进行编程以插入这个等待状态。</p>
+<h4 id="3、用户启动区域（UBC）"><a href="#3、用户启动区域（UBC）" class="headerlink" title="3、用户启动区域（UBC）"></a>3、用户启动区域（UBC）</h4><p>UBC 包含有复位和中断向量表，它可用于存储 IAP 及通信程序。UBC 有一个两级保护结构可保护用户代码及数据在 IAP 编程中免于无意的擦除或修改。这意味着该区域总是写保护的，而且写保护不能通过使用 MASS 密钥来解锁。</p>
+<p>在 ICP 模式下（使用 SWIM 接口）可以通过修改选项字节来配置 UBC 的大小。UBC 选项字节指定了分配在 UBC 中的页的数量。UBC 区域的歧视地址是 0x8000。</p>
+<p>可以通过读取 UBC 选项字节来获得 UBC 区域的大小。</p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b3c4aa8835.png" alt="Image.png"></p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b3c5b3ce50.png" alt="Image.png"></p>
+<p>前两页的 128 个字节包含了 32 个中断向量。</p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b3c9e0b417.png" alt="Image.png"></p>
+<h4 id="4、数据-EEPROM（DATA）"><a href="#4、数据-EEPROM（DATA）" class="headerlink" title="4、数据 EEPROM（DATA）"></a>4、数据 EEPROM（DATA）</h4><p>数据 EEPROM（DATA）区域可用于存储用户具体项目所需的数据。默认情况下，DATA 区域是写保护的，这样可以在主程序工作在 IAP 模式时防止 DATA 区域被无意地修改。只有使用特定的 MASS 密钥才能对 DATA 区域的写保护解锁。</p>
+<h4 id="5、主程序区域"><a href="#5、主程序区域" class="headerlink" title="5、主程序区域"></a>5、主程序区域</h4><p>主程序区是 Flash 程序存储器中用于存储应用代码的区域。</p>
+<h4 id="6、选项字节（Option-bytes）"><a href="#6、选项字节（Option-bytes）" class="headerlink" title="6、选项字节（Option bytes）"></a>6、选项字节（Option bytes）</h4><p>选项字节用于配置硬件特性和存储器保护状态，这些字节位于同一页的特定存储器阵列中。</p>
+<p>选项字节可以再 ICP/SWIM 模式中或 IAP 模式中修改，注意此时要保证 FLASH_CR2 中的 OPT 位为 1 以及 FLASH_NCR2 中的 NOPT 位为 0。</p>
+<p>对选项字节的编程参考 STM8 SWIM 通讯协议和调试模块用户手册 UM0470。</p>
 <hr>
-<h3 id="寄存器描述缩写"><a href="#寄存器描述缩写" class="headerlink" title="寄存器描述缩写"></a>寄存器描述缩写</h3><p><img src="https://i.loli.net/2019/03/02/5c7aa6501fc7b.png" alt="Image.png"> </p>
-<p><img src="https://i.loli.net/2019/03/02/5c7aa6502474f.png" alt="Image.png"></p>
+<h3 id="存储器保护"><a href="#存储器保护" class="headerlink" title="存储器保护"></a>存储器保护</h3><h4 id="1、读保护"><a href="#1、读保护" class="headerlink" title="1、读保护"></a>1、读保护</h4><p>当选项字节中的 ROP 字节被编程为 0xAA 时，读保护就生效了。这种情况下，无论写保护是否生效，在 ICP 模式中（使用 SWIM 接口）读取或修改 FLASH 程序存储器和 DATA 区域都是被禁止的。即使认为没有什么保护是完全不可破解的，对于一个通用微处理器来说，stm8 的读保护的特性也提供了一个非常高水平的保护级别。</p>
+<h5 id="取消写保护"><a href="#取消写保护" class="headerlink" title="取消写保护"></a>取消写保护</h5><p>可以在 ICP 模式中通过对选项字节中的 ROP 字节重新编程来接触程序存储器、UBC 和 DATA 区域的读保护。在这种情况下，程序存储器、UBC、DATA 区域以及选项字节都被自动擦除，器件也可以被重新编程了。</p>
+<h4 id="2、存储器存取安全系统（MASS）"><a href="#2、存储器存取安全系统（MASS）" class="headerlink" title="2、存储器存取安全系统（MASS）"></a>2、存储器存取安全系统（MASS）</h4><p>在复位以后，主程序和 DATA 区域都被自动保护以防止无意的写操作。在试图修改其内容前必须对其解锁，而解锁的机制由存储器存取安全系统（MASS）来管理。</p>
+<p>UBC 区域的特性指明了在 UBC 中的内容一直是写保护的。一旦存储器内容被修改完毕，推荐将写保护使能以防止数据被破坏。</p>
+<h5 id="对主程序存储器的写保护"><a href="#对主程序存储器的写保护" class="headerlink" title="对主程序存储器的写保护"></a>对主程序存储器的写保护</h5><p>在器件复位后，可以通过向 FLASH_PUKR 寄存器连续写入两个被叫作 MASS 密钥的值来解除主程序存储器的写保护。这两个写入 FLASH_PUKR 的值回合一下两个硬件密钥值相比较：</p>
+<ul>
+<li><p>第一个硬件密钥：8’b01010110（0x56）</p>
+</li>
+<li><p>第二个硬件密钥：8’b10101110（0xAE）</p>
+</li>
+</ul>
+<p>需要通过如下步骤来解除主程序存储器区域的写保护：</p>
+<p>1）向 FLASH_PUKR 写入第一个 8 位密钥。在系统复位后，当这个寄存器被首次写入值时，数据总线上的值没有被直接锁存到这个寄存器中，而是和第一个硬件密钥值（0x56）相比较。</p>
+<p>2）如果密钥输入错误，FLASH_PUKR 寄存器在下一次系统复位之前将一直被锁住。在下一次复位前，再向该寄存器进行的任何写操作都会被系统忽略掉。</p>
+<p>3）如果第一个硬件密钥正确，当这个寄存器被第二次写入值时，数据总线上的值没有被直接锁存到这个寄存器中，而是和第二个硬件密钥值（0xAE）相比较。</p>
+<p>4）如果密钥输入错误，FLASH_PUKR 寄存器在下一次系统复位之前将一直被锁住。在下一次复位前，再向该寄存器进行的任何写操作都会被系统忽略掉。</p>
+<p>5）如果第二个硬件密钥正确，主程序存储器写保护被解除，同时 FLASH_IAPSR 中的 PUL 位为 1。</p>
+<p>在开始编程之前，应用程序可以校验 PUL 为是否被有效置 1。应用程序可以再任意时刻通过清 PUL 位来重新禁止对 DATA 区域的写操作。</p>
+<h5 id="对DATA区域的写操作"><a href="#对DATA区域的写操作" class="headerlink" title="对DATA区域的写操作"></a>对DATA区域的写操作</h5><p>在器件复位后，可以通过向FLASH_DUKR寄存器连续写入两个被叫作MASS密钥的值来解除主程序存储器的写保护。这两个写入FLASH_PUKR的值回合一下两个硬件密钥值相比较：</p>
+<ul>
+<li><p>第一个硬件密钥：8’b01010110（0x56）</p>
+</li>
+<li><p>第二个硬件密钥：8’b10101110（0xAE）</p>
+</li>
+</ul>
+<p>需要通过如下步骤来解除数据区域的写保护：</p>
+<p>1）向FLASH_DUKR 写入第一个 8 位密钥。在系统复位后，当这个寄存器被首次写入值时，数据总线上的值没有被直接锁存到这个寄存器中，而是和第一个硬件密钥值（0x56）相比较。</p>
+<p>2）如果密钥输入错误，应用程序可以尝试重新输入这两个 MASS 密钥来对 DATA 区域进行解锁。</p>
+<p>3）如果第一个硬件密钥正确，当这个寄存器被第二次写入值时，数据总线上的值没有被直接锁存到这个寄存器中，而是和第二个硬件密钥值（0xAE）相比较。</p>
+<p>4）如果密钥输入错误，DATA EEPROM 区域在下一次系统复位之前将一直保持写保护状态。在下一次复位前，再向该寄存器进行的任何写操作都会被系统忽略掉。</p>
+<p>5）如果第二个硬件密钥正确，DATA 区域的写保护被解除，同时 FLASH_IAPSR 中的 DUL 位为 1。</p>
+<p>在开始编程之前，应用程序可以校验 DUL 为是否被有效置 1 来确认DATA区域已经将写保护解锁。应用程序可以再任意时刻通过清 DUL 位来重新禁止对 DATA 区域的写操作。</p>
+<h4 id="3、对选项字节的写操作"><a href="#3、对选项字节的写操作" class="headerlink" title="3、对选项字节的写操作"></a>3、对选项字节的写操作</h4><p>​     </p>
+<p>对选项字节的写操作的步骤和对 DATA EEPROM 的操作大致相同。但是要注意到 FLASH_CR2 中的 OPT 位要为 1 以及 FLASH_NCR 中的 NOPT 位要为 0，这样才可以对选项字节进行写操作。</p>
+<hr>
+<h3 id="存储器编程"><a href="#存储器编程" class="headerlink" title="存储器编程"></a>存储器编程</h3><p>在尝试任何编程操作之前，必须对主程序寄存器和 DATA 区域解锁。</p>
+<h4 id="1、读同时写（RWW）"><a href="#1、读同时写（RWW）" class="headerlink" title="1、读同时写（RWW）"></a>1、读同时写（RWW）</h4><p>RWW 特性允许用户在执行程序和读程序存储器时对 DATA EEPROM 区域进行写操作，因此执行的时间被优化了。相反的操作是不允许的：不可以在写程序寄存器时对 DATA EEPROM 进行读操作。</p>
+<p>RWW 特性是一直有效的而且可以在任意时刻使用。</p>
+<p>并不是所有 stm8 器件都有 RWW 特性。</p>
+<h4 id="2、字节编程"><a href="#2、字节编程" class="headerlink" title="2、字节编程"></a>2、字节编程</h4><p>可以对主程序存储器和 DATA 区域逐字节地编程。要对一个字节编程，应用程序可直接向目标地址写入数据。</p>
+<ul>
+<li>在主程序存储器中</li>
+</ul>
+<p>​     当字节编程操作执行时，应用程序停止运行。</p>
+<ul>
+<li>在DATA区域中</li>
+</ul>
+<p>​     有 RWW 功能的器件： 在 IAP 模式下，应用程序不停止运行，字节编程利用 RWW 功能进行操作。</p>
+<p>​     无 RWW 功能的器件：当字节编程操作执行时，应用程序停止运行。要擦除一个字节，向对应的字节简单写入 0x00 即可。</p>
+<p>应用程序可以通过读 FLASH_IAPSR 寄存器来校验编程或擦出操作是否已被正确执行：</p>
+<ul>
+<li><p>在一次成功的编程操作后 EOP 位被置 1。</p>
+</li>
+<li><p>当软件试图对一个被保护的页进行写操作时 WP_PG_DIS 位被置 1。在这种情况下，写操作不会被执行。</p>
+</li>
+</ul>
+<p>如果 FLASH_CR1 中的 IE 位已经被预先使能，则只要这些标志位（EOP/WP_PG_DIS）中有一个被置位就会产生一个中断。</p>
+<h4 id="自动快速字节编程"><a href="#自动快速字节编程" class="headerlink" title="自动快速字节编程"></a>自动快速字节编程</h4><p>根据目标地址的初始化内容的不同，编程持续时间可能也有所不同。如果字（4 个字节）中包含不为空的字节，在编程前整个字节会被自动擦除。相反，如果字为空，由于不会执行擦除操作从而编程时间变短（参考 tPROG）。</p>
+<p>然而，可以通过对 FLASH_CR1 中的 FIX 位置 1 来强迫执行系统擦除操作而不管其内容是否为空，从而使编程时间固定（参考 FLASH 控制寄存器）。编程总时间随之被规定位擦除时间和写操作时间的和。</p>
+<p>为了快速写一个字节（没有擦除操作），将要被写入数据的整个字（4 个字节）必须被预先擦除。因此不可能对同一个字做连续两次快速写操作（在第二次写之前没有擦除操作）：第一次写字节操作将是快速操作但针对另外一个字节的第二次写操作将需要一个擦除操作。</p>
+<h4 id="3、字编程"><a href="#3、字编程" class="headerlink" title="3、字编程"></a>3、字编程</h4><p>字写入操作允许一次对整个 4 字节的字进行编程，从而将编程时间缩短。</p>
+<p>主程序存储器和 DATA EEPROM 都可以进行字操作。在一些 stm8s 器件中，也拥有当 DATA EEPROM 在进行写操作时同时具备 RWW 功能。</p>
+<p>为了对一个字编程，FLASH_CR2 和 FLASH_NCR2 中的 WPRG/NWPRG 位必须预先置位/清零来使能字编程模式。然后将要被编程字的 4 个字节必须被从首地址开始装载。当四个字节都被写入后，编程周期自动开始。</p>
+<p>像字节操作一样，FLASH_IAPSR 中的 EOP 与 WR_PG_DIS 控制位和 FLASH 中断相配合，可用于检查操作是否被正确执行完毕。</p>
+<h4 id="4、块编程"><a href="#4、块编程" class="headerlink" title="4、块编程"></a>4、块编程</h4><p>块编程比字节编程和字编程都要快。在块编程操作中，整个块的编程或擦除在一个编程周期就可以完成。</p>
+<p>在主程序存储器和 DATA 区域都可以执行块操作。</p>
+<ul>
+<li>在主程序存储器中</li>
+</ul>
+<p>​     用于块编程的代码必须全部在 RAM 中执行。</p>
+<ul>
+<li>在 DATA 区域中</li>
+</ul>
+<p>​     有 RWW 功能的器件：DATA 块操作可在主程序存储器中执行，然而数据装载阶段必须在 RAM 中执行。</p>
+<p>​     无 RWW 功能的器件：用于块编程的代码必须全部在 RAM 中执行。</p>
+<p>​     </p>
+<p>一共有三种可能的块操作：</p>
+<ul>
+<li><p>块编程（也叫标准块编程）：整个块在编程前被自动擦除</p>
+</li>
+<li><p>快速块编程：在编程前没有预先的块擦除操作。</p>
+</li>
+<li><p>块擦除。</p>
+</li>
+</ul>
+<p>在块擦除时，中断被硬件自动屏蔽。</p>
+<h5 id="标准块编程"><a href="#标准块编程" class="headerlink" title="标准块编程"></a>标准块编程</h5><p>块编程操作允许一次对整个进行编程，整个块在编程前被自动擦除。</p>
+<p>为了对整个块编程，FLASH_CR2 和 FLASH_NCR2 中的 PRG/NPRG 位必须预先置位/清零来使能标准块编程。然后需要向主程序存储器或 DATA 区域的目标地址依次写入要编程的数据，这样数据会被锁存在内部缓存中。为编程整个块，块中的所有字节都需要被写入数据。但要注意，所有被写入缓存的数据必须位于同一个块中，这意味着这些数据必须有同样的高位地址：仅仅低 6 位的地址可以不一样。当目标块的最后一个字节被装载到缓存后，编程就自动开始了。编程前首先会自动执行一次擦除操作。</p>
+<p>当对 DATA 区域进行块编程时，应用程序可以检查 FLASH_IAPSR 中的 HVOFF 位确认编程状态。一旦 HVOFF 被置 0，真正的编程阶段就开始了，此时应用程序就可以返回到主程序中去了。</p>
+<p>FLASH_IAPSR 中的 EOP 与 WR_PG_DIS 控制位和 FLASH 中断相配合，可用于检查操作是否被正确执行完毕。</p>
+<h5 id="快速块编程"><a href="#快速块编程" class="headerlink" title="快速块编程"></a>快速块编程</h5><p>快速块编程允许不擦除存储器内容就对块进行编程，因此快速块编程速度是标准块编程的两倍。</p>
+<p>该模式仅用于被编程部分已经被擦除过的情况，同时这种模式对向空白部分写入完整的应用代码特别有用，因为这种模式可以节省相当可观的时间。</p>
+<p>快速块编程的步骤和标准块编程的步骤大致一样，FLASH_CR2 和 FLASH_NCR2 中的 FPRG/NFPRG 位必须预先置位/清零来使能快速块编程。</p>
+<p>FLASH_ISPSR 中的 EOP 与 WR_PG_DIS 控制位和 FLASH 中断相配合，可用于检查快速块编程操作是否被正确执行完毕。</p>
+<p><strong>警告</strong>：在执行快速块编程之前如果这个块不是空的话，不能保证写入的数据无误。</p>
+<h5 id="块擦除"><a href="#块擦除" class="headerlink" title="块擦除"></a>块擦除</h5><p>块擦除允许擦除整个块。</p>
+<p>为了擦除整个块，FLASH_CR2 和 FLASH_NCR2 中的 ERASE/NERASE 位必须预先置位/清零来使能块擦除。通过对块中所有的字写入 0x00 00 00 00 来擦除整个块。字的起始地址必须以 0，4，8 或 C 作为结尾。</p>
+<p>FLASH_IARSR 中的 EOP 与 WR_PG_DIS 控制位和 FLASH 中断相配合，可用于检查操作是否被正确执行完毕。</p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b3e3b76994.png" alt="Image.png"></p>
+<h4 id="5、选项字节（Option-byte）编程"><a href="#5、选项字节（Option-byte）编程" class="headerlink" title="5、选项字节（Option byte）编程"></a>5、选项字节（Option byte）编程</h4><p>对选项字节编程和对 DATA EEPROM 区域编程非常相似。</p>
+<p>应用程序可直接向目标地址进行写操作。利用 stm8 的 RWW 功能，在对选项字节写操作的同时程序不必挺下来。</p>
+<hr>
+<h3 id="ICP-和-IAP"><a href="#ICP-和-IAP" class="headerlink" title="ICP 和 IAP"></a>ICP 和 IAP</h3><p>在线编程（ICP）用于更新整个存储器的内容。ICP 使用 SWIM 接口把用户的程序装载到微控制器中，同时提供迅速而有效的设计迭代并且去除了不必要的封装处理和器件插槽。SWIM 接口（单线接口模块）使用 SWIM 引脚和编程工具相连接。</p>
+<p>相对于 ICP 方式，在应用编程（IAP）可使用 stm8 支持的任意通讯接口（I/O、I2C、SPI、UART…）来下载要编入存储器中的数据。IAP 允许在应用程序运行中对 FLASH 程序存储器的内容重新编程。然而要想使用 IAP，必须通过 ICP 对 FLASH 程序存储器预先编程。</p>
+<p>stm8 FLASH 编程手册 RM0051，stm8 SWIM 通信协议和调试模块用户手册 UM0470。</p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b3e7a4b4db.png" alt="Image.png"></p>
+<hr>
+<h3 id="FLASH寄存器"><a href="#FLASH寄存器" class="headerlink" title="FLASH寄存器"></a>FLASH寄存器</h3><p>FLASH控制寄存器1（FLASH_CR1）</p>
+<p>FLASH控制寄存器2（FLASH_CR2）</p>
+<p>FLASH互补控制寄存器2（FLASH_NCR2）</p>
+<p>FLASH保护寄存器（FLASH_FPR）</p>
+<p>FLASH保护寄存器（FLASH_NFPR）</p>
+<p>FLASH程序存储器解保护寄存器（FLASH_PUKR）</p>
+<p>DATA EEPROM解保护寄存器（FLASH_DUKR）</p>
+<p>FLASH状态寄存器（FLASH_IAPSR）</p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b3ebdd90dd.png" alt="Image.png"></p>
 
       
 
@@ -255,18 +426,9 @@
   
 <nav id="article-nav">
   
-    <a href="/blog/2019/03/03/STM8S-Flash-程序存储器和数据-EEPROM/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          STM8S Flash 程序存储器和数据 EEPROM
-        
-      </div>
-    </a>
   
-  
-    <a href="/blog/2019/03/02/STM8S-Boot-ROM/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">STM8S Boot ROM</div>
+    <a href="/blog/2019/03/02/STM8S-Memory-and-register-map/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">STM8S Memory and register map</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -293,7 +455,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#存储器映射"><span class="toc-number">1.</span> <span class="toc-text">存储器映射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#stm8s-stack-handling-栈处理"><span class="toc-number">2.</span> <span class="toc-text">stm8s stack handling  栈处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Customized-stack-model-自定义栈模型"><span class="toc-number">3.</span> <span class="toc-text">Customized stack model 自定义栈模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#寄存器描述缩写"><span class="toc-number">4.</span> <span class="toc-text">寄存器描述缩写</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#介绍"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#术语"><span class="toc-number">2.</span> <span class="toc-text">术语</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flash-主要特性"><span class="toc-number">3.</span> <span class="toc-text">Flash 主要特性</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#stm8s-EEPROM-分为两个存储器阵列："><span class="toc-number">3.0.1.</span> <span class="toc-text">stm8s EEPROM 分为两个存储器阵列：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#编程模式："><span class="toc-number">3.0.2.</span> <span class="toc-text">编程模式：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#保护特性："><span class="toc-number">3.0.3.</span> <span class="toc-text">保护特性：</span></a></li></ol></li></ol><li class="toc-item toc-level-3"><a class="toc-link" href="#存储器组织结构"><span class="toc-number">4.</span> <span class="toc-text">存储器组织结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、stm8s-和-stm8af-存储器组织结构"><span class="toc-number">4.1.</span> <span class="toc-text">1、stm8s 和 stm8af 存储器组织结构</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#小容量-stm8s-和-stm8af-器件："><span class="toc-number">4.1.1.</span> <span class="toc-text">小容量 stm8s 和 stm8af 器件：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#中容量-stm8s-和-stm8af-器件："><span class="toc-number">4.1.2.</span> <span class="toc-text">中容量 stm8s 和 stm8af 器件：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#大容量-stm8s-和-stm8af-器件："><span class="toc-number">4.1.3.</span> <span class="toc-text">大容量 stm8s 和 stm8af 器件：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、存储器存取-等待状态配置"><span class="toc-number">4.2.</span> <span class="toc-text">2、存储器存取/等待状态配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3、用户启动区域（UBC）"><span class="toc-number">4.3.</span> <span class="toc-text">3、用户启动区域（UBC）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4、数据-EEPROM（DATA）"><span class="toc-number">4.4.</span> <span class="toc-text">4、数据 EEPROM（DATA）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5、主程序区域"><span class="toc-number">4.5.</span> <span class="toc-text">5、主程序区域</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6、选项字节（Option-bytes）"><span class="toc-number">4.6.</span> <span class="toc-text">6、选项字节（Option bytes）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#存储器保护"><span class="toc-number">5.</span> <span class="toc-text">存储器保护</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、读保护"><span class="toc-number">5.1.</span> <span class="toc-text">1、读保护</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#取消写保护"><span class="toc-number">5.1.1.</span> <span class="toc-text">取消写保护</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、存储器存取安全系统（MASS）"><span class="toc-number">5.2.</span> <span class="toc-text">2、存储器存取安全系统（MASS）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#对主程序存储器的写保护"><span class="toc-number">5.2.1.</span> <span class="toc-text">对主程序存储器的写保护</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#对DATA区域的写操作"><span class="toc-number">5.2.2.</span> <span class="toc-text">对DATA区域的写操作</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3、对选项字节的写操作"><span class="toc-number">5.3.</span> <span class="toc-text">3、对选项字节的写操作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#存储器编程"><span class="toc-number">6.</span> <span class="toc-text">存储器编程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、读同时写（RWW）"><span class="toc-number">6.1.</span> <span class="toc-text">1、读同时写（RWW）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、字节编程"><span class="toc-number">6.2.</span> <span class="toc-text">2、字节编程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#自动快速字节编程"><span class="toc-number">6.3.</span> <span class="toc-text">自动快速字节编程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3、字编程"><span class="toc-number">6.4.</span> <span class="toc-text">3、字编程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4、块编程"><span class="toc-number">6.5.</span> <span class="toc-text">4、块编程</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#标准块编程"><span class="toc-number">6.5.1.</span> <span class="toc-text">标准块编程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#快速块编程"><span class="toc-number">6.5.2.</span> <span class="toc-text">快速块编程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#块擦除"><span class="toc-number">6.5.3.</span> <span class="toc-text">块擦除</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5、选项字节（Option-byte）编程"><span class="toc-number">6.6.</span> <span class="toc-text">5、选项字节（Option byte）编程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ICP-和-IAP"><span class="toc-number">7.</span> <span class="toc-text">ICP 和 IAP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FLASH寄存器"><span class="toc-number">8.</span> <span class="toc-text">FLASH寄存器</span></a></li>
                     </div>
                 </span>
             </div>
