@@ -6,18 +6,35 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: 硬件拾忆 | Isaac前进4</title>
+  <title>STM8S 中断控制 | Isaac前进4</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="学习笔记 思考感悟">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Isaac前进4">
-<meta property="og:url" content="http://yoursite.com/tags/硬件拾忆/index.html">
+  <meta name="description" content="ITC 简介硬件中断管理 大多数 I/O 口都具有外部中断能力，有专用的中断向量，每个端口都可以设置边沿检测方式（上升/下降）。  外设中断能力">
+<meta name="keywords" content="硬件拾忆,STM8">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STM8S 中断控制">
+<meta property="og:url" content="http://yoursite.com/blog/2019/03/03/STM8S-中断控制/index.html">
 <meta property="og:site_name" content="Isaac前进4">
-<meta property="og:description" content="学习笔记 思考感悟">
+<meta property="og:description" content="ITC 简介硬件中断管理 大多数 I/O 口都具有外部中断能力，有专用的中断向量，每个端口都可以设置边沿检测方式（上升/下降）。  外设中断能力">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b55bed9fc8.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b55e11a877.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b55fc57659.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b56c0dcd3c.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b56e820fb8.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b56f6c91b9.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b57479ebfa.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b575da4506.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b5840e7b1b.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b585894fa4.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b587097956.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b5893277f1.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b58e6cd03b.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b59026b53a.png">
+<meta property="og:updated_time" content="2019-03-03T04:33:29.866Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Isaac前进4">
-<meta name="twitter:description" content="学习笔记 思考感悟">
+<meta name="twitter:title" content="STM8S 中断控制">
+<meta name="twitter:description" content="ITC 简介硬件中断管理 大多数 I/O 口都具有外部中断能力，有专用的中断向量，每个端口都可以设置边沿检测方式（上升/下降）。  外设中断能力">
+<meta name="twitter:image" content="https://i.loli.net/2019/03/03/5c7b55bed9fc8.png">
   
   
     <link rel="icon" href="/favicon.png">
@@ -167,16 +184,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-STM8S-中断控制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-STM8S-中断控制" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/03/03/STM8S-中断控制/">STM8S 中断控制</a>
+    <h1 class="article-title" itemprop="name">
+      STM8S 中断控制
     </h1>
   
 
@@ -196,342 +211,136 @@
 <li><p>外设中断能力</p>
 </li>
 </ul>
-        
-          <a class="article-more-a" href="/blog/2019/03/03/STM8S-中断控制/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">STM8</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/03/03/STM8S-中断控制/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-STM8S-Flash-程序存储器和数据-EEPROM" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/03/03/STM8S-Flash-程序存储器和数据-EEPROM/">STM8S Flash 程序存储器和数据 EEPROM</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/03/03/STM8S-Flash-程序存储器和数据-EEPROM/" class="archive-article-date">
-  	<time datetime="2019-03-03T02:06:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>stm8 内部的 FLASH 程序存储器和数据 EEPROM 由一组通用寄存器来控制。用户可以使用这些寄存器来编程或擦出存储器的内容，设置写保护，或者配置特定的低功耗模式。用户也可以对器件的选项字节（Option byte）进行编程。</p>
-        
-          <a class="article-more-a" href="/blog/2019/03/03/STM8S-Flash-程序存储器和数据-EEPROM/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">STM8</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/03/03/STM8S-Flash-程序存储器和数据-EEPROM/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-STM8S-Memory-and-register-map" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/03/02/STM8S-Memory-and-register-map/">STM8S Memory and register map</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/03/02/STM8S-Memory-and-register-map/" class="archive-article-date">
-  	<time datetime="2019-03-02T15:44:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>存储器映射、I/O 端口硬件寄存器映射和 CPU/SWIM、调试模块/中断控制寄存器的详细内容参见 datasheet。</p>
-        
-          <a class="article-more-a" href="/blog/2019/03/02/STM8S-Memory-and-register-map/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">STM8</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/03/02/STM8S-Memory-and-register-map/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-STM8S-Boot-ROM" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/03/02/STM8S-Boot-ROM/">STM8S Boot ROM</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/03/02/STM8S-Boot-ROM/" class="archive-article-date">
-  	<time datetime="2019-03-02T15:40:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>stm8s Boot ROM 是用于系统启动的只读存储器。</p>
-        
-          <a class="article-more-a" href="/blog/2019/03/02/STM8S-Boot-ROM/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">STM8</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/03/02/STM8S-Boot-ROM/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-STM8S-CPU" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/03/02/STM8S-CPU/">STM8S CPU</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/03/02/STM8S-CPU/" class="archive-article-date">
-  	<time datetime="2019-03-02T15:09:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
+<a id="more"></a>
+<h4 id="软件中断能力（TRAP）"><a href="#软件中断能力（TRAP）" class="headerlink" title="软件中断能力（TRAP）"></a>软件中断能力（TRAP）</h4><p>使用复杂中断优先级和等级管理的嵌套或并发中断管理</p>
 <ul>
-<li><p>stm8s 是基于 8 位框架结构的微控制器</p>
+<li><p>最多 4 个软件可编程的嵌套等级</p>
 </li>
-<li><p>CPU 内核有 6 个内部寄存器</p>
+<li><p>最多 32 个由硬件固定的中断向量</p>
 </li>
-<li><p>指令集支持 80 条基本语句，20 种寻址模式</p>
+<li><p>2 个不可屏蔽事件：RESET，TRAP</p>
 </li>
-<li><p>了解 stm8s 指令集参考 PM0044</p>
+<li><p>1 个不可屏蔽的最高级硬件中断（TLI）</p>
 </li>
 </ul>
-        
-          <a class="article-more-a" href="/blog/2019/03/02/STM8S-CPU/#more">more >></a>
-        
+<h4 id="中断管理基"><a href="#中断管理基" class="headerlink" title="中断管理基"></a>中断管理基</h4><ul>
+<li><p>CPU 的 CCR 寄存器的 l1 和 l0 位</p>
+</li>
+<li><p>软件优先级寄存器（ITC_SPRx）</p>
+</li>
+<li><p>复位向量地址 0x008000 在程序存储器的起始位置。在有 boot ROM 的器件中，复位初始化程序由 STMicroelectronics 编程在 ROM 中。</p>
+</li>
+<li><p>固定的中断向量地址位于存储器地址映射的高地址（0x00 8004 到 0x00 807C），按硬件优先级顺序排列。</p>
+</li>
+</ul>
+<hr>
+<h3 id="中断屏蔽和处理流程"><a href="#中断屏蔽和处理流程" class="headerlink" title="中断屏蔽和处理流程"></a>中断屏蔽和处理流程</h3><p>中断屏蔽由 CCR 寄存器的 l1 和 l0 位和设置每个中断向量的软件优先级等级的 ITC_SPRx 寄存器管理。</p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b55bed9fc8.png" alt="Image.png"></p>
+<p>当一个中断请求必须被响应时：</p>
+<p>1、正常的过程被暂停在当前指令执行的最后一条。</p>
+<p>2、PC，X，Y，A 和 CCR 寄存器入栈。</p>
+<p>3、CCR 寄存器的 l1 和 l0 位根据 ITC_SPRx 寄存器中相应的中断向量的值置位。</p>
+<p>4、PC 然后载入中断的中断向量，以响应中断，取指中断服务函数的第一条指令。</p>
+<p>中断服务函数应该以IRET指令结束，这条指令使得保存的寄存器值从栈中恢复。IRET 指令也会是 l1 和 l0 从栈中恢复，同时程序恢复正常执行过程。</p>
+<p>如果中断屏蔽位 l0 和 l1 在中断服务函数（ISR）中被使用 SIM 指令置位，使用 RIM 对中断屏蔽进行移除将造成软件优先级被设置为 0 级。</p>
+<p>为了在中断服务函数中使能或禁止中断时恢复正确的优先级，遵循 Table 8 中的步骤来使能或禁止中断。</p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b55e11a877.png" alt="Image.png"></p>
+<h4 id="一、服务挂起中断"><a href="#一、服务挂起中断" class="headerlink" title="一、服务挂起中断"></a>一、服务挂起中断</h4><p>几个中断可以同时被挂起。下一个要处理的中断由以下两步操作决定：</p>
+<p>1、最高软件优先级的中断被响应。</p>
+<p>2、如果几个中断的软件优先级相同，硬件优先级最高的中断首先响应。</p>
+<p>当一个中断请求没有被立即响应的时候，它将被锁存，并在软件优先级和硬件优先级相结合为最高优先级的时候进行处理。</p>
+<p>注意：</p>
+<p>1、硬件优先级是独一无二的，而软件的不是。这允许只有一个中断的时候能继续先前的过程。</p>
+<p>2、在判定过程中，RESET，TLI 和 TRAP 被认为拥有最高软件优先级。</p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b55fc57659.png" alt="Image.png"></p>
+<h4 id="二、中断源"><a href="#二、中断源" class="headerlink" title="二、中断源"></a>二、中断源</h4><p>STM8中断控制器安排了两种中断源类型。</p>
+<p>- 非可屏蔽中断：RESET，TLI 和 TRAP</p>
+<p>- 可屏蔽中断：外部中断或内部外设触发的中断</p>
+<p><strong>非可屏蔽中断源</strong></p>
+<p>在处理非可屏蔽中断源时，忽略 CCR 寄存器的 l1 和 l0 的状态。PC，X，Y，A 和 CCR 寄存器只有在一个 TRAP 中断发生时入栈。然后，相应的中断向量载入 PC 寄存器，CCR 寄存器的 l1 和 l0 设置为禁止中断。</p>
+<p>● TRAP（非可屏蔽软件中断）</p>
+<p>​     当 TRAP 指令执行时，这个软件中断源得到响应。它和 TLI 一样根据 Figure 13 的流程图来响应。</p>
+<p>​     TRAP 中断不允许处理器从 Halt 模式下退出。</p>
+<p>● RESET</p>
+<p>​     RESET 中断源拥有 STM8 最高等级的软件和硬件优先级。这意味着在复位程序的开始，所有的中断都会被禁止。它们必须被 RIM 指令重使能。</p>
+<p>​     RESET 中断允许处理器从 Halt 模式下退出。</p>
+<p>● TLI（顶级硬件中断）</p>
+<p>​     这个硬件中断发生在在的 TLI 输入端检测到一个特定的边沿时。</p>
+<p>​     TLI 服务函数中必须使用一个 TRAP 指令。</p>
+<p><strong>可屏蔽中断源</strong></p>
+<p>如果可屏蔽中断被使能，而且如果它自己在 ITC_SPRx 寄存器中的中断软件优先级比当前正在响应的中断（CCR 寄存器中的 l1 和 l0）高，该可屏蔽中断向量源开始响应。如果这两个条件之一没有满足，中断将被锁存并挂起。</p>
+<p><strong>外部中断</strong></p>
+<p>外部中断可被用来从 Halt 模式下唤醒 CPU。器件对外部中断的边沿敏感性可通过外部中断控制寄存器（EXTI_CRx）进行软件选择。</p>
+<p>当连接到同一个中断线的几个输入引脚同时被选择时，他们是逻辑或的关系。</p>
+<p>当外部电平触发中断被锁存时，如果给定的电平在中断程序的最后依然保持时，中断保持激活，除非它在程序中被禁止。</p>
+<p><strong>外设中断</strong></p>
+<p>大多数外部中断能将 MCU 从 Halt 模式下唤醒。</p>
+<p>当外设状态寄存器中的一个特定的标志位置位，并且外设控制寄存器中相应的使能位置位时，发生一个外设中断。</p>
+<p>​     </p>
+<hr>
+<h3 id="中断和低功耗模式"><a href="#中断和低功耗模式" class="headerlink" title="中断和低功耗模式"></a>中断和低功耗模式</h3><p>所有中断都能使处理器从 wait 模式中退出。</p>
+<p>只有外部中断及其他特殊中断允许处理器从 halt 和 active-halt 模式下退出。</p>
+<p>当从 halt 模式下唤醒又同时有几个中断挂起时，第一个响应的中断只能是一个能从 halt 模式退出的中断。它由 Figure14 中给出的过程精确选择。如果最高优先级的挂起中断不能将器件从 halt 模式中唤醒，将会响应下一个中断。</p>
+<p>如果 HALT 指令执行时发生了任意内部或外部中断（例如定时器），HALT 指令会被执行完但是在 HALT 指令完成之后中断会立即调用唤醒机制。这样，MCU 实际上是从 halt 模式唤醒到 run 模式，相应的延迟参考 datasheet 中的 tWUH。</p>
+<hr>
+<h3 id="活跃等级-低功耗模式控制"><a href="#活跃等级-低功耗模式控制" class="headerlink" title="活跃等级/低功耗模式控制"></a>活跃等级/低功耗模式控制</h3><p>MCU 的活跃等级通过编程 CFG_GCR 寄存器中的 AL 位来配置。</p>
+<p>这一位用来控制 MCU 的低功耗模式。在非常低功耗的应用中，MCU 的大部分时间花在 WFI，并且在特殊时刻（通过中断）来唤醒以执行特殊任务。这些再发任务中，有一些非常短，可以直接在中断服务函数（ISR）里执行，而不用回到主函数中。对于这种情况，可以在进入低功耗模式以前（同过执行 WFI 指令）将 AL 置位，然后中断函数直接返回到低功耗模式。由于寄存器上下文只保存在第一个中断中，run time/ISR 指令相应缩减。</p>
+<p>因此，在非常简单的应用中，所有操作都可以在 ISR 中执行。在更复杂的应用中，一个中断函数可以通过复位 AL 位来重新启动主函数。</p>
+<p>例如，一个应用可能需要每隔 50ms 由自动唤醒单元（AWU）来唤醒，以检查一些引脚/传感器/按键的状态。大部分时间，当这些引脚未激活时，MCU 可以返回到低功耗模式而不运行主函数。如果这些引脚的其中之一激活，ISR 将通过复位 AL 位来启动主函数。</p>
+<hr>
+<h3 id="并发和嵌套中断管理"><a href="#并发和嵌套中断管理" class="headerlink" title="并发和嵌套中断管理"></a>并发和嵌套中断管理</h3><p>STM8 器件的特色之一是有两个中断管理模式：</p>
+<p>- 并发模式</p>
+<p>- 嵌套模式</p>
+<h4 id="一、并发中断管理模式"><a href="#一、并发中断管理模式" class="headerlink" title="一、并发中断管理模式"></a>一、并发中断管理模式</h4><p>在这以模式下，所有中断都是 3 级优先级，所以它们都不能被中断，除了 TLI，RESET 或 TRAP。</p>
+<p>硬件优先级按照下面的从低到高的顺序给出：MAIN，IT4，IT3，IT2，IT1，IT0，TRAP/TLI（优先级相同），RESET。</p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b56c0dcd3c.png" alt="Image.png"></p>
+<p>二、嵌套中断管理模式：</p>
+<p>在这个模式下，可以在中断函数中嵌套中断。只要有一个中断优先级低于 3 级，这个模式就会被激活。</p>
+<p>硬件优先级按下面的从低到高的顺序给出：MAIN，IT4，IT3，IT2，IT1，IT0，TRAP。</p>
+<p>每一个中断向量都可以通过设置相应的 ITC_SPRx 寄存器的 l1_x 和 l0_x 位，来配置软件优先级。l1_x 和 l0_x 位与 CCR 寄存器的 l1 和 l0 位的意义相同。</p>
+<p>不能编程为等级 0（l1_x = 1，l0_x = 0）。在这种情况下，将保持先前存储的值。例如，如果先前的值为 0xcf，编程值等于 64h，结果是 44h。</p>
+<p>RESET 和 TRAP 向量没有软件优先级。当其中一个被响应时，CCR 寄存器的 l1 和 l0 位都会置位。</p>
+<p>注意：如果中断 x 被执行时，l1_x 和 l0_x 位被修改，器件会进行以下操作：如果中断 x 仍然挂起（新的中断或标志位没有清除）且新的软件优先级比先前的一个高，那么中断 x 将重新进入。否则，中断优先级将保持不变直到下一个中断请求（在中断 x 的 IRET 之后）。</p>
+<p>在一个中断函数执行期间，HALT，POPCC，RIM，SIM 和 WFI 指令会改变当前的软件优先级，直到下一个 IRET 指令或前面提到的指令之一被发出。</p>
+<p>警告：可能会发生栈溢出，而不通知软件这个错误。</p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b56e820fb8.png" alt="Image.png"></p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b56f6c91b9.png" alt="Image.png"></p>
+<hr>
+<h3 id="外部中断"><a href="#外部中断" class="headerlink" title="外部中断"></a>外部中断</h3><p>五个中断向量专用于外部中断事件：</p>
+<ul>
+<li><p>PA 口有 5 个中断线：PA[6:2]</p>
+</li>
+<li><p>PB 口有 8 个中断线：PB[7:0]</p>
+</li>
+<li><p>PC 口有 8 个中断线：PC[7:0]</p>
+</li>
+<li><p>PD 口有 7 个中断线：PD[6:0]</p>
+</li>
+<li><p>PE 口有 8 个中断线：PE[7:0]</p>
+</li>
+</ul>
+<p>除了 20 脚封装的器件可以使用一个备用功能重映射操作位在 PC3 脚上获得 TLI，其他器件的 PD7 是最高级中断源（TLI）。</p>
+<p>为了触发一个中断，相应的 GPIO 端口必须配置成有中断功能的输入模式。</p>
+<p>中断的边沿敏感性必须由 EXTI_CR1 和 EXTI_CR2 寄存器配置。</p>
+<hr>
+<h3 id="中断指令"><a href="#中断指令" class="headerlink" title="中断指令"></a>中断指令</h3><p><img src="https://i.loli.net/2019/03/03/5c7b57479ebfa.png" alt="Image.png"></p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b575da4506.png" alt="Image.png"></p>
+<hr>
+<h3 id="ITC（中断控制）和EXTI（外部中断）寄存器"><a href="#ITC（中断控制）和EXTI（外部中断）寄存器" class="headerlink" title="ITC（中断控制）和EXTI（外部中断）寄存器"></a>ITC（中断控制）和EXTI（外部中断）寄存器</h3><h4 id="一、CPU-状态码寄存器中断位（CCR）"><a href="#一、CPU-状态码寄存器中断位（CCR）" class="headerlink" title="一、CPU 状态码寄存器中断位（CCR）"></a>一、CPU 状态码寄存器中断位（CCR）</h4><p><img src="https://i.loli.net/2019/03/03/5c7b5840e7b1b.png" alt="Image.png"></p>
+<p>l[1:0]：软件中断优先级位</p>
+<p>这两位表示当前中断请求的软件优先级。当一个中断请求发生时，相应中断的软件优先级从软件优先级寄存器（ITC_SPRx）自动载入。</p>
+<p>l[1:0] 位也可以使用 RIM，SIM，HALT，WFI，IRET 或 PUSH/POP 指令来软件清空。</p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b585894fa4.png" alt="Image.png"></p>
+<p>TLI，TRAP 和 RESET 时间可以中断一个 3 级的程序。</p>
+<h4 id="二、软件优先级寄存器-x（ITC-SPRx）"><a href="#二、软件优先级寄存器-x（ITC-SPRx）" class="headerlink" title="二、软件优先级寄存器 x（ITC_SPRx）"></a>二、软件优先级寄存器 x（ITC_SPRx）</h4><p><img src="https://i.loli.net/2019/03/03/5c7b587097956.png" alt="Image.png"></p>
+<p>由软件写入，来定义每一个中断向量的软件优先级。</p>
+<p>ITC_SPR1 的 [1：0] 位由硬件强制置 1（TLI）</p>
+<p>ITC_SPR8 的 [7：4] 位由硬件强制置 1</p>
+<p>禁止写入 10（优先级 0），如果写入 10，将保持原来的值，且中断优先级不会改变。</p>
+<h4 id="三、外部中断控制寄存器-1（EXTI-CR1）"><a href="#三、外部中断控制寄存器-1（EXTI-CR1）" class="headerlink" title="三、外部中断控制寄存器 1（EXTI_CR1）"></a>三、外部中断控制寄存器 1（EXTI_CR1）</h4><p><img src="https://i.loli.net/2019/03/03/5c7b5893277f1.png" alt="Image.png"></p>
+<h4 id="四、外部中断控制寄存器-2（EXTI-CR2）"><a href="#四、外部中断控制寄存器-2（EXTI-CR2）" class="headerlink" title="四、外部中断控制寄存器 2（EXTI_CR2）"></a>四、外部中断控制寄存器 2（EXTI_CR2）</h4><p><img src="https://i.loli.net/2019/03/03/5c7b58e6cd03b.png" alt="Image.png"></p>
+<h4 id="五、ITC-和-EXTI-寄存器映射和复位值"><a href="#五、ITC-和-EXTI-寄存器映射和复位值" class="headerlink" title="五、ITC 和 EXTI 寄存器映射和复位值"></a>五、ITC 和 EXTI 寄存器映射和复位值</h4><p><img src="https://i.loli.net/2019/03/03/5c7b59026b53a.png" alt="Image.png"></p>
+
       
 
       
@@ -557,16 +366,24 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/03/02/STM8S-CPU/">展开全文 >></a>
-        </p>
-      
 
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/blog/2019/03/03/STM8S-Flash-程序存储器和数据-EEPROM/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">STM8S Flash 程序存储器和数据 EEPROM</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -581,505 +398,34 @@
         </div>
         
         
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MSP430-仿真与下载" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/23/MSP430-仿真与下载/">MSP430 仿真与下载</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/02/23/MSP430-仿真与下载/" class="archive-article-date">
-  	<time datetime="2019-02-22T16:45:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>对于 MSP430 来说，无论仿真还是烧写程序一般可以通过：JTAG、SBW、BSL 接口进行。</p>
-<p>JTAG、SBW 接口可以用于仿真接口，BSL 接口不能用于仿真。而编程器则三种接口都支持。 </p>
-<p>所以并不能说 JTAG 只支持仿真不支持编程，这是概念错误，JTAG 仅仅是一种接口协议而已。 </p>
-        
-          <a class="article-more-a" href="/blog/2019/02/23/MSP430-仿真与下载/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">MSP430</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/23/MSP430-仿真与下载/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#ITC-简介"><span class="toc-number">1.</span> <span class="toc-text">ITC 简介</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#硬件中断管理"><span class="toc-number">1.1.</span> <span class="toc-text">硬件中断管理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#软件中断能力（TRAP）"><span class="toc-number">1.2.</span> <span class="toc-text">软件中断能力（TRAP）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#中断管理基"><span class="toc-number">1.3.</span> <span class="toc-text">中断管理基</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#中断屏蔽和处理流程"><span class="toc-number">2.</span> <span class="toc-text">中断屏蔽和处理流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#一、服务挂起中断"><span class="toc-number">2.1.</span> <span class="toc-text">一、服务挂起中断</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二、中断源"><span class="toc-number">2.2.</span> <span class="toc-text">二、中断源</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#中断和低功耗模式"><span class="toc-number">3.</span> <span class="toc-text">中断和低功耗模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#活跃等级-低功耗模式控制"><span class="toc-number">4.</span> <span class="toc-text">活跃等级/低功耗模式控制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#并发和嵌套中断管理"><span class="toc-number">5.</span> <span class="toc-text">并发和嵌套中断管理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#一、并发中断管理模式"><span class="toc-number">5.1.</span> <span class="toc-text">一、并发中断管理模式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#外部中断"><span class="toc-number">6.</span> <span class="toc-text">外部中断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#中断指令"><span class="toc-number">7.</span> <span class="toc-text">中断指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ITC（中断控制）和EXTI（外部中断）寄存器"><span class="toc-number">8.</span> <span class="toc-text">ITC（中断控制）和EXTI（外部中断）寄存器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#一、CPU-状态码寄存器中断位（CCR）"><span class="toc-number">8.1.</span> <span class="toc-text">一、CPU 状态码寄存器中断位（CCR）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二、软件优先级寄存器-x（ITC-SPRx）"><span class="toc-number">8.2.</span> <span class="toc-text">二、软件优先级寄存器 x（ITC_SPRx）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#三、外部中断控制寄存器-1（EXTI-CR1）"><span class="toc-number">8.3.</span> <span class="toc-text">三、外部中断控制寄存器 1（EXTI_CR1）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#四、外部中断控制寄存器-2（EXTI-CR2）"><span class="toc-number">8.4.</span> <span class="toc-text">四、外部中断控制寄存器 2（EXTI_CR2）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#五、ITC-和-EXTI-寄存器映射和复位值"><span class="toc-number">8.5.</span> <span class="toc-text">五、ITC 和 EXTI 寄存器映射和复位值</span></a></li></ol></li></ol>
+                    </div>
+                </span>
             </div>
         </div>
         
-        
     </div>
 </aside>
 
 
 
-
-  
-    <article id="post-MSP430-中断系统" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/23/MSP430-中断系统/">MSP430 中断系统</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/02/23/MSP430-中断系统/" class="archive-article-date">
-  	<time datetime="2019-02-22T16:38:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>中断是 MSP430 的一大特色，因为几乎每个外设模块都能产生中断，MSP430 可以在没有任务时进入超低功耗状态，有事件时中断唤醒 cpu，处理完毕再次进入超低功耗状态。 </p>
-        
-          <a class="article-more-a" href="/blog/2019/02/23/MSP430-中断系统/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">MSP430</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/23/MSP430-中断系统/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MSP430-时钟系统" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/22/MSP430-时钟系统/">MSP430 时钟系统</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/02/22/MSP430-时钟系统/" class="archive-article-date">
-  	<time datetime="2019-02-22T15:59:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>系统时钟是一个程序运行的指挥官，时序和中断也是整个程序的核心和中轴线。</p>
-        
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-时钟系统/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">MSP430</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-时钟系统/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MSP430-串口" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/22/MSP430-串口/">MSP430 串口</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/02/22/MSP430-串口/" class="archive-article-date">
-  	<time datetime="2019-02-22T08:46:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>MSP430 常见的 USART（universal synchronous/asynchronous receive/ransmit）接口通常有三种：UART、IIC、SPI。其中 UART（串口）是调试过程中最常用的接口，这里根据 User’s Guide 谈谈 MSP430x1xx 系列串口的使用。</p>
-        
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-串口/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">MSP430</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-串口/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MSP430-IO" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/22/MSP430-IO/">MSP430 IO</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/02/22/MSP430-IO/" class="archive-article-date">
-  	<time datetime="2019-02-22T08:11:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>上电后寄存器状态为输入高电平。</p>
-<p>改变 PxOUT 或 PxDIR 时 PxIFG 标志将置位。</p>
-<p>向 PxIES 写入数据将导致相应的中断标志置位。</p>
-        
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-IO/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">MSP430</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-IO/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MSP430-单片机入门指北" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/22/MSP430-单片机入门指北/">MSP430 单片机入门指北</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/02/22/MSP430-单片机入门指北/" class="archive-article-date">
-  	<time datetime="2019-02-22T06:11:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>在介绍 MSP430 的学习方法前，先简略介绍一下MSP430 吧。</p>
-<p>MSP430 系列单片机是美国 TI 公司 1996 年开始推向市场的一种 16 位超低功耗、具有精简指令集（RISC）的混合信号处理器（Mixed Signal Processor）。</p>
-        
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-单片机入门指北/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">MSP430</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-单片机入门指北/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
+  
+
+  
+
+  
+
+  
+
 
           </div>
         </div>
@@ -1101,9 +447,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
