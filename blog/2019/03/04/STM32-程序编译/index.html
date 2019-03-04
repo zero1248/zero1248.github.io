@@ -6,18 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Isaac前进4</title>
+  <title>STM32 程序编译 | Isaac前进4</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="学习笔记 思考感悟">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Isaac前进4">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="Code：表示程序所占用 FLASH 的大小（FLASH） RO-data：Read Only-data，表示程序定义的常量（FLASH） RW-data：Read Write-data，表示已被初始化的变量（SRAM） ZI-data：Zero Init-data，表示未被初始化的变量（SRAM）">
+<meta name="keywords" content="硬件拾忆,STM32">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STM32 程序编译">
+<meta property="og:url" content="http://yoursite.com/blog/2019/03/04/STM32-程序编译/index.html">
 <meta property="og:site_name" content="Isaac前进4">
-<meta property="og:description" content="学习笔记 思考感悟">
+<meta property="og:description" content="Code：表示程序所占用 FLASH 的大小（FLASH） RO-data：Read Only-data，表示程序定义的常量（FLASH） RW-data：Read Write-data，表示已被初始化的变量（SRAM） ZI-data：Zero Init-data，表示未被初始化的变量（SRAM）">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-04T08:08:33.089Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Isaac前进4">
-<meta name="twitter:description" content="学习笔记 思考感悟">
+<meta name="twitter:title" content="STM32 程序编译">
+<meta name="twitter:description" content="Code：表示程序所占用 FLASH 的大小（FLASH） RO-data：Read Only-data，表示程序定义的常量（FLASH） RW-data：Read Write-data，表示已被初始化的变量（SRAM） ZI-data：Zero Init-data，表示未被初始化的变量（SRAM）">
   
   
     <link rel="icon" href="/favicon.png">
@@ -167,16 +169,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-STM32-程序编译" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-STM32-程序编译" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/03/04/STM32-程序编译/">STM32 程序编译</a>
+    <h1 class="article-title" itemprop="name">
+      STM32 程序编译
     </h1>
   
 
@@ -194,9 +194,10 @@
 <p>RO-data：Read Only-data，表示程序定义的常量（FLASH）</p>
 <p>RW-data：Read Write-data，表示已被初始化的变量（SRAM）</p>
 <p>ZI-data：Zero Init-data，表示未被初始化的变量（SRAM）</p>
-        
-          <a class="article-more-a" href="/blog/2019/03/04/STM32-程序编译/#more">more >></a>
-        
+<a id="more"></a>
+<p>程序的大小不是 .hex 文件的大小，而是编译后 Code 和 RO-data 之和。</p>
+<p>在 startup_stm32f10x_hd.s 里面，定义了堆栈（Heap+Stack）大小为 0x600，也就是 1536 字节，usart.c 里定义了 200 字节大小的接收缓冲，共占用 1736 字节的 SRAM。</p>
+
       
 
       
@@ -222,16 +223,24 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/03/04/STM32-程序编译/">展开全文 >></a>
-        </p>
-      
 
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/blog/2019/03/04/STM32-中断/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">STM32 中断</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -246,751 +255,32 @@
         </div>
         
         
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-STM32-中断" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/03/04/STM32-中断/">STM32 中断</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/03/04/STM32-中断/" class="archive-article-date">
-  	<time datetime="2019-03-04T07:11:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h3 id="一、CM3-内核"><a href="#一、CM3-内核" class="headerlink" title="一、CM3 内核"></a>一、CM3 内核</h3><p>​     </p>
-<p>CM3 内核支持 256 个中断，其中前 16 个为内核中断，另外 240 个为外部中断，具有 256 级的可编程中断设置。</p>
-        
-          <a class="article-more-a" href="/blog/2019/03/04/STM32-中断/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">STM32</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/03/04/STM32-中断/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    目录，不存在的…
+                    </div>
+                </span>
             </div>
         </div>
         
-        
     </div>
 </aside>
 
 
 
-
-  
-    <article id="post-STM32-IO操作" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/03/04/STM32-IO操作/">STM32 IO操作</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/03/04/STM32-IO操作/" class="archive-article-date">
-  	<time datetime="2019-03-04T06:26:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h3 id="一、位带操作"><a href="#一、位带操作" class="headerlink" title="一、位带操作"></a>一、位带操作</h3><p>SRAM 和片内外设区的最低 1MB 范围都支持位带操作。每一 bit 都有自己的 32 位“位带别名区”，可以用来访问原始 bit。</p>
-        
-          <a class="article-more-a" href="/blog/2019/03/04/STM32-IO操作/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">STM32</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/03/04/STM32-IO操作/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-STM32-F-S-MC-总线" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/03/04/STM32-F-S-MC-总线/">STM32 F(S)MC 总线</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/03/04/STM32-F-S-MC-总线/" class="archive-article-date">
-  	<time datetime="2019-03-04T03:13:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>CPU 内置灵活的静态存储器控制器（FSMC），可以外扩总线型的存储器（如SRAM、NOR Flash）。FSMC 的英文全称为“Flexible static memory controller”。</p>
-<p>所有的外部存储器共享控制器输出的地址、数据和控制信号，每个外部设备可以通过一个唯一的片选信号加以区分。FSMC 在任一时刻只访问一个外部设备。</p>
-        
-          <a class="article-more-a" href="/blog/2019/03/04/STM32-F-S-MC-总线/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">STM32</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/03/04/STM32-F-S-MC-总线/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-STM32-时钟树总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/03/04/STM32-时钟树总结/">STM32 时钟树总结</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/03/04/STM32-时钟树总结/" class="archive-article-date">
-  	<time datetime="2019-03-04T01:48:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h3 id="一、时钟源"><a href="#一、时钟源" class="headerlink" title="一、时钟源"></a>一、时钟源</h3><h4 id="1、物理时钟源"><a href="#1、物理时钟源" class="headerlink" title="1、物理时钟源"></a>1、物理时钟源</h4><p>看到好多地方都说 STM32F1 有五个时钟源 HSE、HSI、LSI、LSE 和 PLL，但是我觉得 PLL 严格来讲不算一个时钟源，它是在基本的物理时钟上倍频得到的，因此我把 HSE、HSI、LSI、LSE 归结为 STM32F1 的四个基本物理时钟源。</p>
-        
-          <a class="article-more-a" href="/blog/2019/03/04/STM32-时钟树总结/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">STM32</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/03/04/STM32-时钟树总结/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-STM32-程序烧录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/03/04/STM32-程序烧录/">STM32 程序烧录</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/03/04/STM32-程序烧录/" class="archive-article-date">
-  	<time datetime="2019-03-04T01:38:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>STM32 的程序烧录方法有多种：USB、串口、JTAG、SWD等。</p>
-<p>开发板串口烧录时，mcuisp 软件设置 DTR 低电平复位，RTS 高电平进 BootLoader，选择编程前重装文件，编程后执行，校验，不要选择使用 RamIsp。</p>
-        
-          <a class="article-more-a" href="/blog/2019/03/04/STM32-程序烧录/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">STM32</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/03/04/STM32-程序烧录/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-STM32-F4-GPIO" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/03/04/STM32-F4-GPIO/">STM32 F4 GPIO</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/03/04/STM32-F4-GPIO/" class="archive-article-date">
-  	<time datetime="2019-03-04T01:33:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>1、在 RESET 期间和刚 RESET 之后，IO 端口配置为浮空输入。除了调试接口会在 RESET 之后配置为相应的上下拉模式。</p>
-<p>2、每个 AHB1 时钟周期输入寄存器 GPIOx_IDR 捕获当前引脚数据。</p>
-        
-          <a class="article-more-a" href="/blog/2019/03/04/STM32-F4-GPIO/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">STM32</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/03/04/STM32-F4-GPIO/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-STM8S-TIM1-时基单元" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/03/04/STM8S-TIM1-时基单元/">STM8S TIM1 时基单元</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/03/04/STM8S-TIM1-时基单元/" class="archive-article-date">
-  	<time datetime="2019-03-04T00:57:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h3 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h3><p>TIM1 由一个 16 位自动装载计数器组成，它由一个可编程的预分频器驱动。</p>
-        
-          <a class="article-more-a" href="/blog/2019/03/04/STM8S-TIM1-时基单元/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">STM8</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/03/04/STM8S-TIM1-时基单元/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-STM8S-自动唤醒-AWU" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/03/04/STM8S-自动唤醒-AWU/">STM8S 自动唤醒 AWU</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/03/04/STM8S-自动唤醒-AWU/" class="archive-article-date">
-  	<time datetime="2019-03-04T00:45:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h3 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h3><p>AWU 是用来当 MCU 进入低功耗的 Active Halt 模式时提供一个内部的唤醒时间基准。该时间基准的时钟是由内部的低速 RC 振荡器时钟（LSI）或通过预分频的 HSE 晶振时钟来提供的。</p>
-        
-          <a class="article-more-a" href="/blog/2019/03/04/STM8S-自动唤醒-AWU/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">STM8</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/03/04/STM8S-自动唤醒-AWU/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-STM8S-通用-IO" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/03/04/STM8S-通用-IO/">STM8S 通用 IO</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/03/04/STM8S-通用-IO/" class="archive-article-date">
-  	<time datetime="2019-03-04T00:34:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>一、简介</p>
-<p>一个 GPIO 端口可以包括多达 8 个引脚，每个引脚可独立编程为数字输入或数字输出口。部分口可能会有模拟输入，外部中断，片上外设的输入输出等复用功能。但是同一时刻只有一个复用功能可以映射到引脚上。复用功能的映射是通过选项字节控制的。</p>
-        
-          <a class="article-more-a" href="/blog/2019/03/04/STM8S-通用-IO/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">STM8</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/03/04/STM8S-通用-IO/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -1013,8 +303,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
