@@ -6,18 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019/2 | Isaac前进4</title>
+  <title>STM32 IO操作 | Isaac前进4</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="学习笔记 思考感悟">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Isaac前进4">
-<meta property="og:url" content="http://yoursite.com/archives/2019/02/index.html">
+  <meta name="description" content="一、位带操作SRAM 和片内外设区的最低 1MB 范围都支持位带操作。每一 bit 都有自己的 32 位“位带别名区”，可以用来访问原始 bit。">
+<meta name="keywords" content="硬件拾忆,STM32">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STM32 IO操作">
+<meta property="og:url" content="http://yoursite.com/blog/2019/03/04/STM32-IO操作/index.html">
 <meta property="og:site_name" content="Isaac前进4">
-<meta property="og:description" content="学习笔记 思考感悟">
+<meta property="og:description" content="一、位带操作SRAM 和片内外设区的最低 1MB 范围都支持位带操作。每一 bit 都有自己的 32 位“位带别名区”，可以用来访问原始 bit。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.loli.net/2019/03/04/5c7ccb6221a59.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/04/5c7ccb8e16090.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/04/5c7ccc73aea1c.png">
+<meta property="og:updated_time" content="2019-03-04T06:58:46.587Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Isaac前进4">
-<meta name="twitter:description" content="学习笔记 思考感悟">
+<meta name="twitter:title" content="STM32 IO操作">
+<meta name="twitter:description" content="一、位带操作SRAM 和片内外设区的最低 1MB 范围都支持位带操作。每一 bit 都有自己的 32 位“位带别名区”，可以用来访问原始 bit。">
+<meta name="twitter:image" content="https://i.loli.net/2019/03/04/5c7ccb6221a59.png">
   
   
     <link rel="icon" href="/favicon.png">
@@ -167,22 +173,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-MSP430-仿真与下载" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-STM32-IO操作" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/23/MSP430-仿真与下载/">MSP430 仿真与下载</a>
+    <h1 class="article-title" itemprop="name">
+      STM32 IO操作
     </h1>
   
 
         
-        <a href="/blog/2019/02/23/MSP430-仿真与下载/" class="archive-article-date">
-  	<time datetime="2019-02-22T16:45:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-23</time>
+        <a href="/blog/2019/03/04/STM32-IO操作/" class="archive-article-date">
+  	<time datetime="2019-03-04T06:26:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-04</time>
 </a>
         
       </header>
@@ -190,582 +194,58 @@
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<p>对于 MSP430 来说，无论仿真还是烧写程序一般可以通过：JTAG、SBW、BSL 接口进行。</p>
-<p>JTAG、SBW 接口可以用于仿真接口，BSL 接口不能用于仿真。而编程器则三种接口都支持。 </p>
-<p>所以并不能说 JTAG 只支持仿真不支持编程，这是概念错误，JTAG 仅仅是一种接口协议而已。 </p>
-        
-          <a class="article-more-a" href="/blog/2019/02/23/MSP430-仿真与下载/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">MSP430</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/23/MSP430-仿真与下载/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MSP430-中断系统" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/23/MSP430-中断系统/">MSP430 中断系统</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/02/23/MSP430-中断系统/" class="archive-article-date">
-  	<time datetime="2019-02-22T16:38:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>中断是 MSP430 的一大特色，因为几乎每个外设模块都能产生中断，MSP430 可以在没有任务时进入超低功耗状态，有事件时中断唤醒 cpu，处理完毕再次进入超低功耗状态。 </p>
-        
-          <a class="article-more-a" href="/blog/2019/02/23/MSP430-中断系统/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">MSP430</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/23/MSP430-中断系统/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MSP430-时钟系统" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/22/MSP430-时钟系统/">MSP430 时钟系统</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/02/22/MSP430-时钟系统/" class="archive-article-date">
-  	<time datetime="2019-02-22T15:59:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>系统时钟是一个程序运行的指挥官，时序和中断也是整个程序的核心和中轴线。</p>
-        
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-时钟系统/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">MSP430</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-时钟系统/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2018-随笔" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/22/2018-随笔/">2018 随笔</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/02/22/2018-随笔/" class="archive-article-date">
-  	<time datetime="2019-02-22T13:53:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p><img src="https://i.loli.net/2019/02/22/5c7009ac95f91.jpg" alt="214599.jpg"></p>
-        
-          <a class="article-more-a" href="/blog/2019/02/22/2018-随笔/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">心花路放</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/22/2018-随笔/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MSP430-串口" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/22/MSP430-串口/">MSP430 串口</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/02/22/MSP430-串口/" class="archive-article-date">
-  	<time datetime="2019-02-22T08:46:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>MSP430 常见的 USART（universal synchronous/asynchronous receive/ransmit）接口通常有三种：UART、IIC、SPI。其中 UART（串口）是调试过程中最常用的接口，这里根据 User’s Guide 谈谈 MSP430x1xx 系列串口的使用。</p>
-        
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-串口/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">MSP430</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-串口/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MSP430-IO" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/22/MSP430-IO/">MSP430 IO</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/02/22/MSP430-IO/" class="archive-article-date">
-  	<time datetime="2019-02-22T08:11:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>上电后寄存器状态为输入高电平。</p>
-<p>改变 PxOUT 或 PxDIR 时 PxIFG 标志将置位。</p>
-<p>向 PxIES 写入数据将导致相应的中断标志置位。</p>
-        
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-IO/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">MSP430</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-IO/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MSP430-单片机入门指北" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/22/MSP430-单片机入门指北/">MSP430 单片机入门指北</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/02/22/MSP430-单片机入门指北/" class="archive-article-date">
-  	<time datetime="2019-02-22T06:11:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>在介绍 MSP430 的学习方法前，先简略介绍一下MSP430 吧。</p>
-<p>MSP430 系列单片机是美国 TI 公司 1996 年开始推向市场的一种 16 位超低功耗、具有精简指令集（RISC）的混合信号处理器（Mixed Signal Processor）。</p>
-        
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-单片机入门指北/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">MSP430</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-单片机入门指北/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Git 与 Github" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/20/Git 与 Github/">Git 与 Github</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/02/20/Git 与 Github/" class="archive-article-date">
-  	<time datetime="2019-02-20T05:43:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h3 id="〇、Github-与-Git-的关系"><a href="#〇、Github-与-Git-的关系" class="headerlink" title="〇、Github 与 Git 的关系"></a>〇、Github 与 Git 的关系</h3><h4 id="1、Git-与-Github-简介"><a href="#1、Git-与-Github-简介" class="headerlink" title="1、Git 与 Github 简介"></a>1、Git 与 Github 简介</h4><ul>
-<li>Git 是一款免费、开源的分布式版本控制系统</li>
-<li>GitHub 是一个面向开源及私有软件项目的托管平台，因为只支持 Git 作为唯一的版本库格式进行托管，故名 GitHub。另外还有其他的平台，如国内的 <a href="https://gitee.com/" target="_blank" rel="noopener">码云</a> </li>
-<li>Git 负责本地的代码版本控制，而 Github 负责远程托管</li>
+<h3 id="一、位带操作"><a href="#一、位带操作" class="headerlink" title="一、位带操作"></a>一、位带操作</h3><p>SRAM 和片内外设区的最低 1MB 范围都支持位带操作。每一 bit 都有自己的 32 位“位带别名区”，可以用来访问原始 bit。</p>
+<a id="more"></a>
+<p>SRAM 中最低 1MB    ：0x2000 0000 - 0x200f ffff</p>
+<p>片内外设中最低 1MB：0x4000 0000 - 0x100f ffff</p>
+<p>​     </p>
+<p>当一个别名地址被访问时，会先把该地址变换成位带地址。位带区的每个比特都映射到别名地址区的一个 LSB 有效的字。</p>
+<p>对于读操作，读取位带地址中的一个字，再把需要的位右移到 LSB，并把 LSB 返回。</p>
+<p>对于写操作，把需要写的位左移至对应的位序号处，然后执行一个原子的“读-改-写”过程。</p>
+<p>对于 SRAM 位带区的某个比特，记它所在字节地址为 A，位序号为 n（0&lt;=n&lt;=7），则该比特在别名区的地址为：</p>
+<p>AliasAddr = 0x22000000+((A-0x20000000)<em>8+n)</em>4 = 0x22000000+(A-0x20000000)<em>32+n</em>4</p>
+<p><img src="https://i.loli.net/2019/03/04/5c7ccb6221a59.png" alt="Image.png"></p>
+<p>对于片上外设位带区的某个比特，记它所在字节的地址为 A，位序号为 n（0&lt;=n&lt;=7），则该比特在别名区的地址为：</p>
+<p>AliasAddr = 0x42000000+((A-0x40000000)<em>8+n)</em>4 = 0x42000000+(A-0x40000000)<em>32+n</em>4</p>
+<p><img src="https://i.loli.net/2019/03/04/5c7ccb8e16090.png" alt="Image.png"></p>
+<p>c 语言代码实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line">//位带操作,实现 51 类似的 GPIO 控制功能</span><br><span class="line"></span><br><span class="line">//具体实现思想,参考&lt;&lt;CM3权威指南&gt;&gt;第五章(87页~92页).</span><br><span class="line"></span><br><span class="line">//IO口操作宏定义</span><br><span class="line"></span><br><span class="line">#define BITBAND(addr, bitnum) ((addr &amp; 0xF0000000)+0x2000000+((addr &amp;0xFFFFF)&lt;&lt;5)+(bitnum&lt;&lt;2))</span><br><span class="line"></span><br><span class="line">#define MEM_ADDR(addr)  *((volatile unsigned long  *)(addr))</span><br><span class="line"></span><br><span class="line">#define BIT_ADDR(addr, bitnum)   MEM_ADDR(BITBAND(addr, bitnum))</span><br><span class="line"></span><br><span class="line">//IO口地址映射</span><br><span class="line"></span><br><span class="line">#define GPIOA_ODR_Addr    (GPIOA_BASE+12) //0x4001080C</span><br><span class="line"></span><br><span class="line">#define GPIOB_ODR_Addr    (GPIOB_BASE+12) //0x40010C0C</span><br><span class="line"></span><br><span class="line">#define GPIOC_ODR_Addr    (GPIOC_BASE+12) //0x4001100C</span><br><span class="line"></span><br><span class="line">#define GPIOD_ODR_Addr    (GPIOD_BASE+12) //0x4001140C</span><br><span class="line"></span><br><span class="line">#define GPIOE_ODR_Addr    (GPIOE_BASE+12) //0x4001180C</span><br><span class="line"></span><br><span class="line">#define GPIOF_ODR_Addr    (GPIOF_BASE+12) //0x40011A0C   </span><br><span class="line"></span><br><span class="line">#define GPIOG_ODR_Addr    (GPIOG_BASE+12) //0x40011E0C   </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#define GPIOA_IDR_Addr    (GPIOA_BASE+8) //0x40010808</span><br><span class="line"></span><br><span class="line">#define GPIOB_IDR_Addr    (GPIOB_BASE+8) //0x40010C08</span><br><span class="line"></span><br><span class="line">#define GPIOC_IDR_Addr    (GPIOC_BASE+8) //0x40011008</span><br><span class="line"></span><br><span class="line">#define GPIOD_IDR_Addr    (GPIOD_BASE+8) //0x40011408</span><br><span class="line"></span><br><span class="line">#define GPIOE_IDR_Addr    (GPIOE_BASE+8) //0x40011808</span><br><span class="line"></span><br><span class="line">#define GPIOF_IDR_Addr    (GPIOF_BASE+8) //0x40011A08</span><br><span class="line"></span><br><span class="line">#define GPIOG_IDR_Addr    (GPIOG_BASE+8) //0x40011E08</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//IO 口操作，只对单一的 IO 口</span><br><span class="line"></span><br><span class="line">//确保 n 的值小于16</span><br><span class="line"></span><br><span class="line">#define PAout(n)   BIT_ADDR(GPIOA_ODR_Addr,n)  //输出</span><br><span class="line"></span><br><span class="line">#define PAin(n)    BIT_ADDR(GPIOA_IDR_Addr,n)  //输入</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#define PBout(n)   BIT_ADDR(GPIOB_ODR_Addr,n)  //输出</span><br><span class="line"></span><br><span class="line">#define PBin(n)    BIT_ADDR(GPIOB_IDR_Addr,n)  //输入</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#define PCout(n)   BIT_ADDR(GPIOC_ODR_Addr,n)  //输出</span><br><span class="line"></span><br><span class="line">#define PCin(n)    BIT_ADDR(GPIOC_IDR_Addr,n)  //输入</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#define PDout(n)   BIT_ADDR(GPIOD_ODR_Addr,n)  //输出</span><br><span class="line"></span><br><span class="line">#define PDin(n)    BIT_ADDR(GPIOD_IDR_Addr,n)  //输入</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#define PEout(n)   BIT_ADDR(GPIOE_ODR_Addr,n)  //输出</span><br><span class="line"></span><br><span class="line">#define PEin(n)    BIT_ADDR(GPIOE_IDR_Addr,n)  //输入</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#define PFout(n)   BIT_ADDR(GPIOF_ODR_Addr,n)  //输出</span><br><span class="line"></span><br><span class="line">#define PFin(n)    BIT_ADDR(GPIOF_IDR_Addr,n)  //输入</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#define PGout(n)   BIT_ADDR(GPIOG_ODR_Addr,n)  //输出</span><br><span class="line"></span><br><span class="line">#define PGin(n)    BIT_ADDR(GPIOG_IDR_Addr,n)  //输入</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="二、IO-口模式"><a href="#二、IO-口模式" class="headerlink" title="二、IO 口模式"></a>二、IO 口模式</h3><p>1、输入浮空</p>
+<p>2、输入上拉</p>
+<p>3、输入下拉</p>
+<p>4、模拟输入</p>
+<p>5、开漏输出</p>
+<p>6、推挽输出</p>
+<p>7、推挽式复用功能</p>
+<p>8、开漏复用功能</p>
+<p>每个 IO 口有 7 个寄存器：</p>
+<ul>
+<li><p>配置模式的 2 个 32 位端口配置寄存器 CRL 和 CRH</p>
+</li>
+<li><p>2 个 32 位数据寄存器 IDR 和 ODR</p>
+</li>
+<li><p>1 个 32 位的置位/复位寄存器 BSRR</p>
+</li>
+<li><p>1 个 16 位的复位寄存器 BRR</p>
+</li>
+<li><p>1 个 32 位的锁存寄存器 LCKR</p>
+</li>
 </ul>
-        
-          <a class="article-more-a" href="/blog/2019/02/20/Git 与 Github/#more">more >></a>
-        
+<p><img src="https://i.loli.net/2019/03/04/5c7ccc73aea1c.png" alt="Image.png"></p>
+<p><strong>CRL 和 CRH</strong></p>
+<p>每个 IO 口占 4 位，高 2 位为 CNF，低 2 位为 MODE。</p>
+<p>0x0 表示模拟输入（ADC 用）</p>
+<p>0x4 表示浮空输入</p>
+<p>0x8 表示上下拉模式（输入口）PxODR=0下拉；=1上拉</p>
+<p>0x3 表示推挽输出（输出口，50M速率）（0x2-2M、0x1-10M）</p>
+<p>0x7 表示开漏输出（0x6-2M 、0x5-10M ）</p>
+<p>0xb 表示复用推挽输出（IO口第二功能，50M速率 ）（0xa-2M 、0x9-10M ）</p>
+<p>0xf 表示复用开漏输出（IO口第二功能，50M速率 ）（0xe-2M 、0xd-10M ）</p>
+<p><strong>IDR 和 ODR</strong></p>
+<p>​     </p>
+<p>只用了低 16 位。IDR 为只读，ODR 为读写。</p>
+
       
 
       
@@ -778,11 +258,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">软件使用</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Github</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">STM32</a>
         		</li>
       		
 		</ul>
@@ -791,16 +271,24 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/20/Git 与 Github/">展开全文 >></a>
-        </p>
-      
 
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/blog/2019/03/04/STM32-F-S-MC-总线/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">STM32 F(S)MC 总线</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -815,14 +303,34 @@
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、位带操作"><span class="toc-number">1.</span> <span class="toc-text">一、位带操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、IO-口模式"><span class="toc-number">2.</span> <span class="toc-text">二、IO 口模式</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
 
 
 
+  
+  
+  
 
   
+
   
+
+  
+
 
           </div>
         </div>
@@ -844,8 +352,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
