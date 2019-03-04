@@ -6,20 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>2018 随笔 | Isaac前进4</title>
+  <title>STM8S 自动唤醒 AWU | Isaac前进4</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="keywords" content="心花路放">
+  <meta name="description" content="一、简介AWU 是用来当 MCU 进入低功耗的 Active Halt 模式时提供一个内部的唤醒时间基准。该时间基准的时钟是由内部的低速 RC 振荡器时钟（LSI）或通过预分频的 HSE 晶振时钟来提供的。">
+<meta name="keywords" content="硬件拾忆,STM8">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2018 随笔">
-<meta property="og:url" content="http://yoursite.com/blog/2019/02/22/2018-随笔/index.html">
+<meta property="og:title" content="STM8S 自动唤醒 AWU">
+<meta property="og:url" content="http://yoursite.com/blog/2019/03/04/STM8S-自动唤醒-AWU/index.html">
 <meta property="og:site_name" content="Isaac前进4">
+<meta property="og:description" content="一、简介AWU 是用来当 MCU 进入低功耗的 Active Halt 模式时提供一个内部的唤醒时间基准。该时间基准的时钟是由内部的低速 RC 振荡器时钟（LSI）或通过预分频的 HSE 晶振时钟来提供的。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://i.loli.net/2019/02/22/5c7009ac95f91.jpg">
-<meta property="og:image" content="https://i.loli.net/2019/02/22/5c700a6b62c6a.jpg">
-<meta property="og:updated_time" content="2019-02-22T15:05:41.136Z">
+<meta property="og:image" content="https://i.loli.net/2019/03/04/5c7c75c9bab66.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/04/5c7c75eb5d4df.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/04/5c7c760388799.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/04/5c7c761d6ced8.png">
+<meta property="og:updated_time" content="2019-03-04T00:54:14.539Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="2018 随笔">
-<meta name="twitter:image" content="https://i.loli.net/2019/02/22/5c7009ac95f91.jpg">
+<meta name="twitter:title" content="STM8S 自动唤醒 AWU">
+<meta name="twitter:description" content="一、简介AWU 是用来当 MCU 进入低功耗的 Active Halt 模式时提供一个内部的唤醒时间基准。该时间基准的时钟是由内部的低速 RC 振荡器时钟（LSI）或通过预分频的 HSE 晶振时钟来提供的。">
+<meta name="twitter:image" content="https://i.loli.net/2019/03/04/5c7c75c9bab66.png">
   
   
     <link rel="icon" href="/favicon.png">
@@ -169,20 +174,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-2018-随笔" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-STM8S-自动唤醒-AWU" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      2018 随笔
+      STM8S 自动唤醒 AWU
     </h1>
   
 
         
-        <a href="/blog/2019/02/22/2018-随笔/" class="archive-article-date">
-  	<time datetime="2019-02-22T13:53:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-22</time>
+        <a href="/blog/2019/03/04/STM8S-自动唤醒-AWU/" class="archive-article-date">
+  	<time datetime="2019-03-04T00:45:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-04</time>
 </a>
         
       </header>
@@ -190,125 +195,24 @@
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<p><img src="https://i.loli.net/2019/02/22/5c7009ac95f91.jpg" alt="214599.jpg"></p>
+<h3 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h3><p>AWU 是用来当 MCU 进入低功耗的 Active Halt 模式时提供一个内部的唤醒时间基准。该时间基准的时钟是由内部的低速 RC 振荡器时钟（LSI）或通过预分频的 HSE 晶振时钟来提供的。</p>
 <a id="more"></a>
-<p>12.29</p>
-<p>编造的历史于作者和读者都有益，但于真相和真理无益。</p>
-<p>12.26</p>
-<p>笛卡尔用坐标系帮我们打开了数学世界的大门，也把我们牢牢束缚在了看不见的坐标系中。帮我们认识了三维世界，也把我们困在了三维世界中。</p>
-<p>12.17</p>
-<p>减少知识记忆，提高创新能力和复杂事物沟通能力。当下一个爱因斯坦诞生的时候，我们能不能听懂他的话？</p>
-<p>12.16</p>
-<p>西方民主是一种产物，而不是其他事物的原因。</p>
-<p>12.08</p>
-<p>多折腾事，少折腾人。</p>
-<p>11.27</p>
-<p>靠想象力创造是件好事，但是靠想象力说话就算了。</p>
-<p>11.24</p>
-<p>一见如故易，再见如初难。</p>
-<p>很少有人会选择多米诺骨牌式的人生 —— 用尽一生去码牌，只为了最后推倒那一刻。</p>
-<p>11.15</p>
-<p>摩擦力的存在，让我们用了很长时间才认识到运动的本质规律，如果不存在摩擦力，动力学的研究工作可能会提早很多年，因为现象与本质都显而易见了。有些事物的表象与根因相去甚远，甚至看起来毫无联系，这也正是科研探索的难点和乐趣所在。</p>
-<p>当你选择了走捷径，这条捷径有可能就成了你唯一的路。</p>
-<p>11.13</p>
-<p>干一行爱一行的根本原因是只有干好了，才会感兴趣。</p>
-<p>11.13</p>
-<p>一千年后，古代 APP 在古玩市场交易火热。。。</p>
-<p>11.03</p>
-<p>大学那会的加分条，是不是就和快递单上的“此人是国家栋梁，请优先配送”一个道理。</p>
-<p>11.02</p>
-<p>表达者的宿命是被误会。</p>
-<p>10.30</p>
-<p>可喜的是，今天阳光明媚，难过的是，这太阳是 8 分钟前的。</p>
-<p>10.29</p>
-<p>藏弓早，借剑难。</p>
-<p>10.26</p>
-<p>从来不学习的天才，以及没有天分的学习者，都不能成为大师。</p>
-<p>10.25</p>
-<p>真正的隐士，都是入世的强者。</p>
-<p>10.22</p>
-<p>只学了如何相遇，没有学如何告别。</p>
-<p>很多时候快乐只不过是被多巴胺和荷尔蒙欺骗而产生的错觉，并不是真正的快乐，只是化学过程的搬运工。</p>
-<p>10.21</p>
-<p>雪中不送炭，锦上别添花。</p>
-<p>09.25</p>
-<p>君子不立危墙之下。</p>
-<p>09.24</p>
-<p>目的通常是复合的。</p>
-<p>09.23</p>
-<p>许多所谓的规格，无非是成年社会为了省心而承袭的惯性。</p>
-<p>怕就怕，坐在井底还闭着眼。</p>
-<p>09.23</p>
-<p>余生漫长，你不要慌。</p>
-<p>09.22</p>
-<p>善弈者通盘无妙手。</p>
-<p>善战者无赫赫之功，善医者无煌煌之名。</p>
-<p>09.08</p>
-<p>成熟的重要标志之一是知道什么时候动脑，什么时候动心。</p>
-<p>09.05</p>
-<p>投机者都在所谓的创新领域，因为这里的东西好抄。</p>
-<p>08.29</p>
-<p>在光的眼里，我们是什么样？</p>
-<p>08.28</p>
-<p>一些整天不说话的职业非常容易导致个体情绪激动。</p>
-<p>不是时间约束了我们，而是我们约束了时间。</p>
-<p>没有认识到玻璃的重要性，是几百年前中国与西方拉开差距的重要原因。</p>
-<p><img src="https://i.loli.net/2019/02/22/5c700a6b62c6a.jpg" alt="284105.jpg"></p>
-<p>08.21</p>
-<p>吾生有涯而（小）知无涯</p>
-<p>08.12</p>
-<p>每一次发明时光机之后的世界都不存在了。</p>
-<p>08.06</p>
-<p>远见超出能力的时候，再去做管理。</p>
-<p>07.27</p>
-<p>思考是找答案，学习是找问题。</p>
-<p>07.20</p>
-<p>素人一本书，大师一句话。</p>
-<p>07.19</p>
-<p>努力不够，朋友圈来凑。</p>
-<p>07.17</p>
-<p>聪明人需要笨功夫，不够聪明的需要走捷径。</p>
-<p>07.15</p>
-<p>有缘相会，无缘幸会。</p>
-<p>07.13</p>
-<p>你必须非常努力，才能知道自己是真的不行。</p>
-<p>07.10</p>
-<p>奴性是社会组成的一部分。</p>
-<p>07.09</p>
-<p>朋友圈三日可见 —— 士别三日当刮目相待。</p>
-<p>07.08</p>
-<p>除掉恶龙最好的办法就是不唤醒心中的恶龙。</p>
-<p>正确答案闪闪发光，我选择视而不见。</p>
-<p>不敢发火，怕点着肚子里的草，不过也无所谓，毕竟有脑子里的水。</p>
-<p>06.28</p>
-<p>靠经济萧条切入市场的小企业，能在下一次萧条中活下来才是真正有价值的公司。</p>
-<p>06.28</p>
-<p>新品牌的崛起很多都是靠用户对老品牌的不满。</p>
-<p>06.22</p>
-<p>你看中人家的利息，人家看中你的本金。</p>
-<p>06.21</p>
-<p>加班就像借钱， 救急不救穷。</p>
-<p>06.17</p>
-<p>慢慢来，是最快的。</p>
-<p>06.16</p>
-<p>听从你心，无问西东。</p>
-<p>06.14</p>
-<p>民主和专制貌似已无法概括现今的政治制度了。</p>
-<p>06.12</p>
-<p>我们这一代很多人的梦想，已经从儿女双全变成猫狗双全了。</p>
-<p>06.06</p>
-<p>德不配位，必有灾殃</p>
-<p>06.03</p>
-<p>在全是蚊子的房间里，我才是外人。</p>
-<p>05.31</p>
-<p>没见过世面的老实人，未必是真老实。</p>
-<p>05.28</p>
-<p>物联网的真正崛起，不仅需要 5G 和微电子的崛起，还需要一场世界范围的金融危机。</p>
-<p>05.27</p>
-<p>一点就炸，弱者心态。</p>
-<p>05.21</p>
-<p>世界第一之前喜欢国外文化那叫崇洋媚外，世界第一之后就叫兼容并包。</p>
-<p>人在看到他人遭遇无法改变的苦难时，会将苦难合理化，轮到自己时，总会抱怨命运的不公。</p>
+<p><strong>LSI 时钟测量</strong></p>
+<p>在使用 LSI 低速内部时钟时，为了确保最好的精度，它的频率可以通过 TIM3 的输入捕获 1 来测定。</p>
+<p><img src="https://i.loli.net/2019/03/04/5c7c75c9bab66.png" alt="Image.png"></p>
+<p>注意：LS 低速时钟源的选择是通过编程 CKAWUSEL 选项位来实现的。</p>
+<hr>
+<h3 id="二、AWU-功能描述"><a href="#二、AWU-功能描述" class="headerlink" title="二、AWU 功能描述"></a>二、AWU 功能描述</h3><h4 id="1、AUW-操作"><a href="#1、AUW-操作" class="headerlink" title="1、AUW 操作"></a>1、AUW 操作</h4><p>为了使用 AWU 功能，按顺序执行如下步骤：</p>
+<p><img src="https://i.loli.net/2019/03/04/5c7c75eb5d4df.png" alt="Image.png"></p>
+<p><strong>空闲模式</strong></p>
+<p>如果不使用 AWU，必须载入‘0000’值到 AWU_TBR 的 AWUTB[3:0] 来降低功耗。</p>
+<h4 id="2、时基选择"><a href="#2、时基选择" class="headerlink" title="2、时基选择"></a>2、时基选择</h4><p><img src="https://i.loli.net/2019/03/04/5c7c760388799.png" alt="Image.png"></p>
+<h4 id="3、LSI-低速内部时钟频率检测"><a href="#3、LSI-低速内部时钟频率检测" class="headerlink" title="3、LSI 低速内部时钟频率检测"></a>3、LSI 低速内部时钟频率检测</h4><p>在经过出厂校验后，在全温度范围内低速内部 RC（LSI）振荡器的频率离散性是 128kHz±12.5%。为了获得精确的 AWU 时间间隔或蜂鸣器输出，必须精确测量 LSI 频率。</p>
+<p><img src="https://i.loli.net/2019/03/04/5c7c761d6ced8.png" alt="Image.png"></p>
+<hr>
+<h3 id="三、AWU寄存器"><a href="#三、AWU寄存器" class="headerlink" title="三、AWU寄存器"></a>三、AWU寄存器</h3><p>控制/状态寄存器     AWU_CSR</p>
+<p>异步预分频寄存器   AWU_APR</p>
+<p>时基选择寄存器      AWU_TBR</p>
 
       
 
@@ -322,7 +226,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">心花路放</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">STM8</a>
         		</li>
       		
 		</ul>
@@ -341,18 +249,9 @@
   
 <nav id="article-nav">
   
-    <a href="/blog/2019/02/22/MSP430-时钟系统/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          MSP430 时钟系统
-        
-      </div>
-    </a>
   
-  
-    <a href="/blog/2019/02/22/MSP430-串口/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">MSP430 串口</div>
+    <a href="/blog/2019/03/04/STM8S-通用-IO/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">STM8S 通用 IO</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -379,7 +278,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    目录，不存在的…
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、简介"><span class="toc-number">1.</span> <span class="toc-text">一、简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、AWU-功能描述"><span class="toc-number">2.</span> <span class="toc-text">二、AWU 功能描述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、AUW-操作"><span class="toc-number">2.1.</span> <span class="toc-text">1、AUW 操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、时基选择"><span class="toc-number">2.2.</span> <span class="toc-text">2、时基选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3、LSI-低速内部时钟频率检测"><span class="toc-number">2.3.</span> <span class="toc-text">3、LSI 低速内部时钟频率检测</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、AWU寄存器"><span class="toc-number">3.</span> <span class="toc-text">三、AWU寄存器</span></a></li></ol>
                     </div>
                 </span>
             </div>
