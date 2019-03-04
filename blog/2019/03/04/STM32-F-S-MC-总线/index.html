@@ -6,18 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019/3 | Isaac前进4</title>
+  <title>STM32 F(S)MC 总线 | Isaac前进4</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="学习笔记 思考感悟">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Isaac前进4">
-<meta property="og:url" content="http://yoursite.com/archives/2019/03/page/2/index.html">
+  <meta name="description" content="CPU 内置灵活的静态存储器控制器（FSMC），可以外扩总线型的存储器（如SRAM、NOR Flash）。FSMC 的英文全称为“Flexible static memory controller”。 所有的外部存储器共享控制器输出的地址、数据和控制信号，每个外部设备可以通过一个唯一的片选信号加以区分。FSMC 在任一时刻只访问一个外部设备。">
+<meta name="keywords" content="硬件拾忆,STM32">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STM32 F(S)MC 总线">
+<meta property="og:url" content="http://yoursite.com/blog/2019/03/04/STM32-F-S-MC-总线/index.html">
 <meta property="og:site_name" content="Isaac前进4">
-<meta property="og:description" content="学习笔记 思考感悟">
+<meta property="og:description" content="CPU 内置灵活的静态存储器控制器（FSMC），可以外扩总线型的存储器（如SRAM、NOR Flash）。FSMC 的英文全称为“Flexible static memory controller”。 所有的外部存储器共享控制器输出的地址、数据和控制信号，每个外部设备可以通过一个唯一的片选信号加以区分。FSMC 在任一时刻只访问一个外部设备。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.loli.net/2019/03/04/5c7c9846e4e2b.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/04/5c7c988c991ba.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/04/5c7c98a311812.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/04/5c7c98bab02cd.png">
+<meta property="og:updated_time" content="2019-03-04T03:17:27.562Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Isaac前进4">
-<meta name="twitter:description" content="学习笔记 思考感悟">
+<meta name="twitter:title" content="STM32 F(S)MC 总线">
+<meta name="twitter:description" content="CPU 内置灵活的静态存储器控制器（FSMC），可以外扩总线型的存储器（如SRAM、NOR Flash）。FSMC 的英文全称为“Flexible static memory controller”。 所有的外部存储器共享控制器输出的地址、数据和控制信号，每个外部设备可以通过一个唯一的片选信号加以区分。FSMC 在任一时刻只访问一个外部设备。">
+<meta name="twitter:image" content="https://i.loli.net/2019/03/04/5c7c9846e4e2b.png">
   
   
     <link rel="icon" href="/favicon.png">
@@ -167,22 +174,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-STM8S-CPU" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-STM32-F-S-MC-总线" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/03/02/STM8S-CPU/">STM8S CPU</a>
+    <h1 class="article-title" itemprop="name">
+      STM32 F(S)MC 总线
     </h1>
   
 
         
-        <a href="/blog/2019/03/02/STM8S-CPU/" class="archive-article-date">
-  	<time datetime="2019-03-02T15:09:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-02</time>
+        <a href="/blog/2019/03/04/STM32-F-S-MC-总线/" class="archive-article-date">
+  	<time datetime="2019-03-04T03:13:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-04</time>
 </a>
         
       </header>
@@ -190,19 +195,27 @@
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
+<p>CPU 内置灵活的静态存储器控制器（FSMC），可以外扩总线型的存储器（如SRAM、NOR Flash）。FSMC 的英文全称为“Flexible static memory controller”。</p>
+<p>所有的外部存储器共享控制器输出的地址、数据和控制信号，每个外部设备可以通过一个唯一的片选信号加以区分。FSMC 在任一时刻只访问一个外部设备。</p>
+<a id="more"></a>
+<p><img src="https://i.loli.net/2019/03/04/5c7c9846e4e2b.png" alt="Image.png"></p>
+<p>注意： 上图中的有些信号是多个信号引到同一个 CPU 管脚。</p>
+<p>比如 FSMC_NCE4_1 和 FSMC_NE3同时引到了 PG10 管脚。软件可配置 GPIO 和 FSMC 相关的寄存器进行选择。</p>
+<p>从 FSMC 的角度看，可以把外部存储器划分为固定大小为 256M 字节的四个存储块（BLOCK），见下图。</p>
+<p><img src="https://i.loli.net/2019/03/04/5c7c988c991ba.png" alt="Image.png"></p>
 <ul>
-<li><p>stm8s 是基于 8 位框架结构的微控制器</p>
-</li>
-<li><p>CPU 内核有 6 个内部寄存器</p>
-</li>
-<li><p>指令集支持 80 条基本语句，20 种寻址模式</p>
-</li>
-<li><p>了解 stm8s 指令集参考 PM0044</p>
-</li>
+<li>存储块 1 用于访问最多 4 个 NOR 闪存或 SRAM 存储设备。这个存储区被划分为 4 个 BANK 并有 4 个专用的片选 FSMC_NE[4:1]。 CPU 的数据手册将这个区命名为 NOR/PSRAM 区，其中 NOR 指 NOR Flash；PSRAM 指伪 SRAM，即接口封装为 SRAM 形式的动态 RAM（DRAM）。其实，这个区也可以直接用于 SRAM。</li>
+<li>存储块 2 和 3 用于访问 NAND 闪存设备，每个存储块连接一个 NAND 闪存。</li>
+<li>存储块 4 用于访问 PC 卡设备 每一个存储块上的存储器类型是由用户在配置寄存器中定义的。</li>
 </ul>
-        
-          <a class="article-more-a" href="/blog/2019/03/02/STM8S-CPU/#more">more >></a>
-        
+<p>HADDR 是需要转换到外部存储器的内部 AHB 地址线。HADDR[25:0] 已连接到 CPU 口线，对应 FSMC_A[25:0]。HADDR[27:26] 仅在 CPU 内部使用，没有连接到 CPU 口线。</p>
+<p>HADDR[27:26] 位用于选择四个存储块之一：</p>
+<p><img src="https://i.loli.net/2019/03/04/5c7c98a311812.png" alt="Image.png"></p>
+<p>HADDR 是字节地址，而存储器访问不都是按字节访问，因此接到存储器的地址线依存储器的数据宽度有所不同，如下表：</p>
+<p><img src="https://i.loli.net/2019/03/04/5c7c98bab02cd.png" alt="Image.png"></p>
+<p>在同一时刻，CPU 只能访问一个外部总线设备（SRAM、NOR Flash、NAND Flash、LCD）。外部总线设备间的协调就靠 CS 片选信号进行的，也就是同一时刻，只有一个外设的片选信号为低。除了片选信号外，其它的地址线、数据线、控制线都是共用的。</p>
+<p>当 SRAM 的片选为高电平时，也就是不被选中时，SRAM 的数据线 I/O15~I/O0 呈高阻状态，这样就不会影响其它总线设备的通信。</p>
+
       
 
       
@@ -219,7 +232,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">STM8</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">STM32</a>
         		</li>
       		
 		</ul>
@@ -228,16 +241,24 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/03/02/STM8S-CPU/">展开全文 >></a>
-        </p>
-      
 
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/blog/2019/03/04/STM32-时钟树总结/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">STM32 时钟树总结</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -252,95 +273,34 @@
         </div>
         
         
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-UVa1583（DigitGenerator）解决思路" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/03/02/UVa1583（DigitGenerator）解决思路/">UVa1583（DigitGenerator）解决思路</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/03/02/UVa1583（DigitGenerator）解决思路/" class="archive-article-date">
-  	<time datetime="2019-03-02T14:46:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><p>如果x加上x的各个位数字之和得到y，就说x是y的生成元；给出n（1≤n≤100000），求最小生成元。无解输出0。例如，n=216，121，2005时的解分别为198 , 0, 1979。</p>
-        
-          <a class="article-more-a" href="/blog/2019/03/02/UVa1583（DigitGenerator）解决思路/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/03/02/UVa1583（DigitGenerator）解决思路/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    目录，不存在的…
+                    </div>
+                </span>
             </div>
         </div>
         
-        
     </div>
 </aside>
 
 
 
+  
+  
+  
 
   
+
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2019/03/">&laquo; Prev</a><a class="page-number" href="/archives/2019/03/">1</a><span class="page-number current">2</span>
-    </nav>
+
   
+
 
           </div>
         </div>
@@ -362,8 +322,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
