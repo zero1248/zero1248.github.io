@@ -6,18 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019 | Isaac前进4</title>
+  <title>STM32 通用定时器 | Isaac前进4</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="学习笔记 思考感悟">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Isaac前进4">
-<meta property="og:url" content="http://yoursite.com/archives/2019/page/2/index.html">
+  <meta name="description" content="一、stm32 定时器简介高级定时器 TIM1 TIM8 通用定时器 TIM2~TIM5 基本定时器 TIM6 TIM7">
+<meta name="keywords" content="硬件拾忆,STM32">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STM32 通用定时器">
+<meta property="og:url" content="http://yoursite.com/blog/2019/03/04/STM32-通用定时器/index.html">
 <meta property="og:site_name" content="Isaac前进4">
-<meta property="og:description" content="学习笔记 思考感悟">
+<meta property="og:description" content="一、stm32 定时器简介高级定时器 TIM1 TIM8 通用定时器 TIM2~TIM5 基本定时器 TIM6 TIM7">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.loli.net/2019/03/04/5c7ce26498d19.png">
+<meta property="og:updated_time" content="2019-03-04T08:34:06.781Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Isaac前进4">
-<meta name="twitter:description" content="学习笔记 思考感悟">
+<meta name="twitter:title" content="STM32 通用定时器">
+<meta name="twitter:description" content="一、stm32 定时器简介高级定时器 TIM1 TIM8 通用定时器 TIM2~TIM5 基本定时器 TIM6 TIM7">
+<meta name="twitter:image" content="https://i.loli.net/2019/03/04/5c7ce26498d19.png">
   
   
     <link rel="icon" href="/favicon.png">
@@ -167,22 +171,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-STM8S-供电" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-STM32-通用定时器" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/03/03/STM8S-供电/">STM8S 供电</a>
+    <h1 class="article-title" itemprop="name">
+      STM32 通用定时器
     </h1>
   
 
         
-        <a href="/blog/2019/03/03/STM8S-供电/" class="archive-article-date">
-  	<time datetime="2019-03-03T04:40:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-03</time>
+        <a href="/blog/2019/03/04/STM32-通用定时器/" class="archive-article-date">
+  	<time datetime="2019-03-04T08:30:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-04</time>
 </a>
         
       </header>
@@ -190,433 +192,47 @@
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<p>STM8 MCU 有 4 种相对独立的供电电源：</p>
-<p>- VDD/VSS：主电源（3V 到 5.5V）</p>
-<p>- VDDIO/VSSIO：I/O 口供电电源（3V 到 5.5V ）</p>
-<p>- VDDA/VSSA：模拟部分供电电源</p>
-<p>- VREF+/VREF-：ADC 参考电源</p>
-        
-          <a class="article-more-a" href="/blog/2019/03/03/STM8S-供电/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">STM8</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/03/03/STM8S-供电/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-STM8S-中断控制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/03/03/STM8S-中断控制/">STM8S 中断控制</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/03/03/STM8S-中断控制/" class="archive-article-date">
-  	<time datetime="2019-03-03T03:01:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h3 id="ITC-简介"><a href="#ITC-简介" class="headerlink" title="ITC 简介"></a>ITC 简介</h3><h4 id="硬件中断管理"><a href="#硬件中断管理" class="headerlink" title="硬件中断管理"></a>硬件中断管理</h4><ul>
-<li><p>大多数 I/O 口都具有外部中断能力，有专用的中断向量，每个端口都可以设置边沿检测方式（上升/下降）。</p>
-</li>
-<li><p>外设中断能力</p>
-</li>
-</ul>
-        
-          <a class="article-more-a" href="/blog/2019/03/03/STM8S-中断控制/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">STM8</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/03/03/STM8S-中断控制/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-STM8S-Flash-程序存储器和数据-EEPROM" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/03/03/STM8S-Flash-程序存储器和数据-EEPROM/">STM8S Flash 程序存储器和数据 EEPROM</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/03/03/STM8S-Flash-程序存储器和数据-EEPROM/" class="archive-article-date">
-  	<time datetime="2019-03-03T02:06:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>stm8 内部的 FLASH 程序存储器和数据 EEPROM 由一组通用寄存器来控制。用户可以使用这些寄存器来编程或擦出存储器的内容，设置写保护，或者配置特定的低功耗模式。用户也可以对器件的选项字节（Option byte）进行编程。</p>
-        
-          <a class="article-more-a" href="/blog/2019/03/03/STM8S-Flash-程序存储器和数据-EEPROM/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">STM8</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/03/03/STM8S-Flash-程序存储器和数据-EEPROM/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-STM8S-Memory-and-register-map" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/03/02/STM8S-Memory-and-register-map/">STM8S Memory and register map</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/03/02/STM8S-Memory-and-register-map/" class="archive-article-date">
-  	<time datetime="2019-03-02T15:44:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>存储器映射、I/O 端口硬件寄存器映射和 CPU/SWIM、调试模块/中断控制寄存器的详细内容参见 datasheet。</p>
-        
-          <a class="article-more-a" href="/blog/2019/03/02/STM8S-Memory-and-register-map/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">STM8</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/03/02/STM8S-Memory-and-register-map/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-STM8S-Boot-ROM" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/03/02/STM8S-Boot-ROM/">STM8S Boot ROM</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/03/02/STM8S-Boot-ROM/" class="archive-article-date">
-  	<time datetime="2019-03-02T15:40:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>stm8s Boot ROM 是用于系统启动的只读存储器。</p>
-        
-          <a class="article-more-a" href="/blog/2019/03/02/STM8S-Boot-ROM/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">STM8</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/03/02/STM8S-Boot-ROM/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-STM8S-CPU" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/03/02/STM8S-CPU/">STM8S CPU</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/03/02/STM8S-CPU/" class="archive-article-date">
-  	<time datetime="2019-03-02T15:09:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
+<h3 id="一、stm32-定时器简介"><a href="#一、stm32-定时器简介" class="headerlink" title="一、stm32 定时器简介"></a>一、stm32 定时器简介</h3><p>高级定时器 TIM1 TIM8</p>
+<p>通用定时器 TIM2~TIM5</p>
+<p>基本定时器 TIM6 TIM7</p>
+<a id="more"></a>
+<hr>
+<h3 id="二、通用定时器"><a href="#二、通用定时器" class="headerlink" title="二、通用定时器"></a>二、通用定时器</h3><p>通用定时器通过一个可编程预分频器驱动的 16 位自动装在计数器构成。</p>
+<p>它使用于多种场合，包括测量输入信号的脉冲长度（输入捕获）或者产生输出波形（输出比较和 PWM）。</p>
+<p>使用定时器预分频器和 RCC 时钟控制器预分频器，脉冲长度和波形周期可以在几个微秒到几个毫秒间调整。</p>
+<p>每个定时器完全独立，没有共享任何资源，可同步操作。 </p>
+<p>通用定时器的功能包括：</p>
+<p>1）16 位向上、向下、向上/向下自动装载计数器（TIMx_CNT）</p>
+<p>2）16 位可编程（可实时修改）预分频器（TIMx_PSC），计数器时钟频率的分频系数为 1~65535 之间的任意数值。</p>
+<p>3）4 个独立通道（TIMxCH1~4），这些通道可以用来作为：</p>
+<p>​    A. 输入捕获</p>
+<p>​    B. 输出比较</p>
+<p>​    C. PWM 生成（边缘或中间对齐模式）</p>
+<p>​    D. 单脉冲模式输出</p>
+<p>4）可使用外部信号（TIMx_ETR）控制定时器和定时器互连（可以用1个定时器控制另外一个定时器）的同步电路。</p>
+<p>5）如下事件发生时产生中断/DMA</p>
 <ul>
-<li><p>stm8s 是基于 8 位框架结构的微控制器</p>
+<li><p>更新：计数器向上溢出/向下溢出，计数器初始化（通过软件或者内/外部触发）</p>
 </li>
-<li><p>CPU 内核有 6 个内部寄存器</p>
+<li><p>触发事件（计数器启动、停止、初始化或者由内/外部触发计数）</p>
 </li>
-<li><p>指令集支持 80 条基本语句，20 种寻址模式</p>
+<li><p>输入捕获</p>
 </li>
-<li><p>了解 stm8s 指令集参考 PM0044</p>
+<li><p>输出比较</p>
 </li>
 </ul>
-        
-          <a class="article-more-a" href="/blog/2019/03/02/STM8S-CPU/#more">more >></a>
-        
+<p>6）支持针对定位的增量（正交）编码器和霍尔传感器电路</p>
+<p>7）触发输入作为外部时钟或者按周期的电流管理</p>
+<p><img src="https://i.loli.net/2019/03/04/5c7ce26498d19.png" alt="Image.png"></p>
+<hr>
+<h3 id="三、通用定时器使用步骤："><a href="#三、通用定时器使用步骤：" class="headerlink" title="三、通用定时器使用步骤："></a>三、通用定时器使用步骤：</h3><p>1）TIMx 时钟使能</p>
+<p>因为 Stm32_Clock_Init() 函数里把 APB1 的分频设置为 2，所以 TIM3 时钟是 APB1 时钟的 2 倍，等于 72M。</p>
+<p>2）设置 TIM3_ARR 和 TIM3_PSC 的值</p>
+<p>3）设置 TIM3_DIER 允许更新中断</p>
+<p>4）允许 TIM3 工作</p>
+<p>5）TIM3 中断分组</p>
+<p>6）编写中断服务函数</p>
+
       
 
       
@@ -633,7 +249,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">STM8</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">STM32</a>
         		</li>
       		
 		</ul>
@@ -642,16 +258,24 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/03/02/STM8S-CPU/">展开全文 >></a>
-        </p>
-      
 
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/blog/2019/03/04/STM32-外部中断/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">STM32 外部中断</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -666,748 +290,34 @@
         </div>
         
         
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-UVa1583（DigitGenerator）解决思路" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/03/02/UVa1583（DigitGenerator）解决思路/">UVa1583（DigitGenerator）解决思路</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/03/02/UVa1583（DigitGenerator）解决思路/" class="archive-article-date">
-  	<time datetime="2019-03-02T14:46:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><p>如果x加上x的各个位数字之和得到y，就说x是y的生成元；给出n（1≤n≤100000），求最小生成元。无解输出0。例如，n=216，121，2005时的解分别为198 , 0, 1979。</p>
-        
-          <a class="article-more-a" href="/blog/2019/03/02/UVa1583（DigitGenerator）解决思路/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/03/02/UVa1583（DigitGenerator）解决思路/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、stm32-定时器简介"><span class="toc-number">1.</span> <span class="toc-text">一、stm32 定时器简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、通用定时器"><span class="toc-number">2.</span> <span class="toc-text">二、通用定时器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、通用定时器使用步骤："><span class="toc-number">3.</span> <span class="toc-text">三、通用定时器使用步骤：</span></a></li></ol>
+                    </div>
+                </span>
             </div>
         </div>
         
-        
     </div>
 </aside>
 
 
 
-
-  
-    <article id="post-MSP430-仿真与下载" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/23/MSP430-仿真与下载/">MSP430 仿真与下载</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/02/23/MSP430-仿真与下载/" class="archive-article-date">
-  	<time datetime="2019-02-22T16:45:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>对于 MSP430 来说，无论仿真还是烧写程序一般可以通过：JTAG、SBW、BSL 接口进行。</p>
-<p>JTAG、SBW 接口可以用于仿真接口，BSL 接口不能用于仿真。而编程器则三种接口都支持。 </p>
-<p>所以并不能说 JTAG 只支持仿真不支持编程，这是概念错误，JTAG 仅仅是一种接口协议而已。 </p>
-        
-          <a class="article-more-a" href="/blog/2019/02/23/MSP430-仿真与下载/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">MSP430</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/23/MSP430-仿真与下载/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MSP430-中断系统" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/23/MSP430-中断系统/">MSP430 中断系统</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/02/23/MSP430-中断系统/" class="archive-article-date">
-  	<time datetime="2019-02-22T16:38:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>中断是 MSP430 的一大特色，因为几乎每个外设模块都能产生中断，MSP430 可以在没有任务时进入超低功耗状态，有事件时中断唤醒 cpu，处理完毕再次进入超低功耗状态。 </p>
-        
-          <a class="article-more-a" href="/blog/2019/02/23/MSP430-中断系统/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">MSP430</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/23/MSP430-中断系统/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MSP430-时钟系统" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/22/MSP430-时钟系统/">MSP430 时钟系统</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/02/22/MSP430-时钟系统/" class="archive-article-date">
-  	<time datetime="2019-02-22T15:59:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>系统时钟是一个程序运行的指挥官，时序和中断也是整个程序的核心和中轴线。</p>
-        
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-时钟系统/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">MSP430</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-时钟系统/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2018-随笔" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/22/2018-随笔/">2018 随笔</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/02/22/2018-随笔/" class="archive-article-date">
-  	<time datetime="2019-02-22T13:53:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p><img src="https://i.loli.net/2019/02/22/5c7009ac95f91.jpg" alt="214599.jpg"></p>
-        
-          <a class="article-more-a" href="/blog/2019/02/22/2018-随笔/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">心花路放</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/22/2018-随笔/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MSP430-串口" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/22/MSP430-串口/">MSP430 串口</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/02/22/MSP430-串口/" class="archive-article-date">
-  	<time datetime="2019-02-22T08:46:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>MSP430 常见的 USART（universal synchronous/asynchronous receive/ransmit）接口通常有三种：UART、IIC、SPI。其中 UART（串口）是调试过程中最常用的接口，这里根据 User’s Guide 谈谈 MSP430x1xx 系列串口的使用。</p>
-        
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-串口/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">MSP430</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-串口/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MSP430-IO" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/22/MSP430-IO/">MSP430 IO</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/02/22/MSP430-IO/" class="archive-article-date">
-  	<time datetime="2019-02-22T08:11:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>上电后寄存器状态为输入高电平。</p>
-<p>改变 PxOUT 或 PxDIR 时 PxIFG 标志将置位。</p>
-<p>向 PxIES 写入数据将导致相应的中断标志置位。</p>
-        
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-IO/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">MSP430</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-IO/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MSP430-单片机入门指北" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/22/MSP430-单片机入门指北/">MSP430 单片机入门指北</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/02/22/MSP430-单片机入门指北/" class="archive-article-date">
-  	<time datetime="2019-02-22T06:11:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>在介绍 MSP430 的学习方法前，先简略介绍一下MSP430 吧。</p>
-<p>MSP430 系列单片机是美国 TI 公司 1996 年开始推向市场的一种 16 位超低功耗、具有精简指令集（RISC）的混合信号处理器（Mixed Signal Processor）。</p>
-        
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-单片机入门指北/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">MSP430</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-单片机入门指北/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Git 与 Github" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/20/Git 与 Github/">Git 与 Github</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/02/20/Git 与 Github/" class="archive-article-date">
-  	<time datetime="2019-02-20T05:43:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h3 id="〇、Github-与-Git-的关系"><a href="#〇、Github-与-Git-的关系" class="headerlink" title="〇、Github 与 Git 的关系"></a>〇、Github 与 Git 的关系</h3><h4 id="1、Git-与-Github-简介"><a href="#1、Git-与-Github-简介" class="headerlink" title="1、Git 与 Github 简介"></a>1、Git 与 Github 简介</h4><ul>
-<li>Git 是一款免费、开源的分布式版本控制系统</li>
-<li>GitHub 是一个面向开源及私有软件项目的托管平台，因为只支持 Git 作为唯一的版本库格式进行托管，故名 GitHub。另外还有其他的平台，如国内的 <a href="https://gitee.com/" target="_blank" rel="noopener">码云</a> </li>
-<li>Git 负责本地的代码版本控制，而 Github 负责远程托管</li>
-</ul>
-        
-          <a class="article-more-a" href="/blog/2019/02/20/Git 与 Github/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">软件使用</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Github</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/20/Git 与 Github/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2019/">&laquo; Prev</a><a class="page-number" href="/archives/2019/">1</a><span class="page-number current">2</span>
-    </nav>
   
+
+  
+
+  
+
+  
+
 
           </div>
         </div>
@@ -1429,8 +339,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
