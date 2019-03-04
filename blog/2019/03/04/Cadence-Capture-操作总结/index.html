@@ -6,22 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>STM8S 供电 | Isaac前进4</title>
+  <title>Cadence Capture 操作总结 | Isaac前进4</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="STM8 MCU 有 4 种相对独立的供电电源： - VDD/VSS：主电源（3V 到 5.5V） - VDDIO/VSSIO：I/O 口供电电源（3V 到 5.5V ） - VDDA/VSSA：模拟部分供电电源 - VREF+/VREF-：ADC 参考电源">
-<meta name="keywords" content="硬件拾忆,STM8">
+  <meta name="description" content="1、放置跨页符 Place -&amp;gt; Off-Page Connector">
+<meta name="keywords" content="软件使用">
 <meta property="og:type" content="article">
-<meta property="og:title" content="STM8S 供电">
-<meta property="og:url" content="http://yoursite.com/blog/2019/03/03/STM8S-供电/index.html">
+<meta property="og:title" content="Cadence Capture 操作总结">
+<meta property="og:url" content="http://yoursite.com/blog/2019/03/04/Cadence-Capture-操作总结/index.html">
 <meta property="og:site_name" content="Isaac前进4">
-<meta property="og:description" content="STM8 MCU 有 4 种相对独立的供电电源： - VDD/VSS：主电源（3V 到 5.5V） - VDDIO/VSSIO：I/O 口供电电源（3V 到 5.5V ） - VDDA/VSSA：模拟部分供电电源 - VREF+/VREF-：ADC 参考电源">
+<meta property="og:description" content="1、放置跨页符 Place -&amp;gt; Off-Page Connector">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b5ace894e7.png">
-<meta property="og:updated_time" content="2019-03-03T04:42:44.683Z">
+<meta property="og:updated_time" content="2019-03-04T09:32:29.620Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="STM8S 供电">
-<meta name="twitter:description" content="STM8 MCU 有 4 种相对独立的供电电源： - VDD/VSS：主电源（3V 到 5.5V） - VDDIO/VSSIO：I/O 口供电电源（3V 到 5.5V ） - VDDA/VSSA：模拟部分供电电源 - VREF+/VREF-：ADC 参考电源">
-<meta name="twitter:image" content="https://i.loli.net/2019/03/03/5c7b5ace894e7.png">
+<meta name="twitter:title" content="Cadence Capture 操作总结">
+<meta name="twitter:description" content="1、放置跨页符 Place -&amp;gt; Off-Page Connector">
   
   
     <link rel="icon" href="/favicon.png">
@@ -171,20 +169,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-STM8S-供电" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Cadence-Capture-操作总结" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      STM8S 供电
+      Cadence Capture 操作总结
     </h1>
   
 
         
-        <a href="/blog/2019/03/03/STM8S-供电/" class="archive-article-date">
-  	<time datetime="2019-03-03T04:40:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-03</time>
+        <a href="/blog/2019/03/04/Cadence-Capture-操作总结/" class="archive-article-date">
+  	<time datetime="2019-03-04T09:00:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-04</time>
 </a>
         
       </header>
@@ -192,18 +190,91 @@
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<p>STM8 MCU 有 4 种相对独立的供电电源：</p>
-<p>- VDD/VSS：主电源（3V 到 5.5V）</p>
-<p>- VDDIO/VSSIO：I/O 口供电电源（3V 到 5.5V ）</p>
-<p>- VDDA/VSSA：模拟部分供电电源</p>
-<p>- VREF+/VREF-：ADC 参考电源</p>
+<p>1、放置跨页符</p>
+<p>Place -&gt; Off-Page Connector</p>
 <a id="more"></a>
-<p>VDD/VSS 引脚用来为内部主稳压器（MVR）和内部低功耗稳压器（LPVR）供电。这两个调节器的输出连在一起，向MCU的核（CPU，Flash 和 RAM）提供 1.8V 电压。</p>
-<p>在低功耗模式下系统自动从 MVR 切换到 LPVR，以减少电流消耗。</p>
-<p><strong>为了稳定 MVR，必须在 VCAP 脚接一个电容</strong>。</p>
-<p>根据封装的大小，可能有一对或两对特定的 VDDIO/VSSIO 来给I/O供电。</p>
-<p>VDDA/VSSA和VREF+/VREF- 都与ADC模块相连接。</p>
-<p><img src="https://i.loli.net/2019/03/03/5c7b5ace894e7.png" alt="Image.png"></p>
+<hr>
+<p>2、更改颜色、字体等偏好</p>
+<p>option -&gt; preferences</p>
+<hr>
+<p>3、生成PDF</p>
+<p>file -&gt; Print Setup -&gt; 名称选择 Adobe PDF（或其他软件） -&gt; file -&gt; Print -&gt; OK 后选路径即可</p>
+<hr>
+<p>4、创建原理图文件夹 —— 选择原理图文件夹 -&gt; 选design -&gt; new schematic </p>
+<p>创建原理图文件 —— 选择原理图文件夹 -&gt; 选design -&gt; new schematic page</p>
+<hr>
+<p>5、重命名</p>
+<p>原理图：在页面主菜单 design -&gt; rename，或 dsn 下右键 -&gt; rename</p>
+<p>工程文件 opj：只能在 windows 下重命名</p>
+<p>设计文件 dsn：不要再 window 下重命名，这样明明后，工程文件就找不到数据库了，应该 file -&gt; save as。</p>
+<hr>
+<p>6、创建元件库</p>
+<ul>
+<li><p>file -&gt; new -&gt; library</p>
+</li>
+<li><p>选中新建的库文件，右键 -&gt; new part，弹出对话框</p>
+</li>
+<li><p>输入 name 和 rart reference prefix（U、R、C等），封装可以先空着。如果分几部分建立，part per pkg 填相应数量</p>
+</li>
+<li><p>添加引脚：选中 -&gt; place -&gt; pin array</p>
+</li>
+<li><p>改引脚名称：双击改名即可，如果需要加横线表示低有效，在每个字母后面加 “\”</p>
+</li>
+<li><p>统一改引脚名称：edit-properties</p>
+</li>
+<li><p>option -&gt; package properties可以编辑该 package 的 footprint，名称，索引符号，分裂元件数量</p>
+</li>
+<li>创建分裂元件<ul>
+<li>在 parts per pkg 中选择分裂数量即可，若相似的几部分，选 homogeneous，若不同，选 heterogeneous</li>
+<li>电源只放在一个部分即可，不需要每个部分都放，如运放</li>
+<li>CTRL+N 切换不同部分</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>7、开启/关闭引脚名称显示</p>
+<p>option -&gt; part properties</p>
+<hr>
+<p>8、取消格点吸附</p>
+<p>工具栏快捷键 snap to grid 可以取消/开启吸附栅格点。</p>
+<hr>
+<p>9、画斜线</p>
+<p>拉线时按住 shift</p>
+<hr>
+<p>10、Capture 自带 Library 路径： </p>
+<p>cadence–spb_16.3 – tools – capture – library</p>
+<hr>
+<p>11、总线</p>
+<p>总线命名不能以空格或数字结束。</p>
+<p>总线命名有3种规则：BUSNAME[0..31]或BUSNAME[0:31]或BUSNAME[0-31]。wire命名时不能带[ ]。直接BUSNAME0、BUSNAME1等。</p>
+<p>如果不用总线入口，而把wire线直接连到总线上，在连接处也有连接点，但并没有真正的电气连接。</p>
+<p>如果使用总线入口，总线必须通过bus entry和信号线实现互连。并且总线和信号线都要命名，并符合命名规范。</p>
+<p>如果不用总线入口，总线和wire信号线之间只能通过网络名称实现电气互连。</p>
+<p>两段总线如果形成T型连接，则自动放置连接点，电气上是互连的。两段十字型的总线默认没有连接点，要形成电气互连，必须手动放置连接点。</p>
+<hr>
+<p>12、器件重新编号</p>
+<p>选择工程文件 -&gt; tools -&gt; Annotate -&gt; (Action)Reset to ? -&gt;  确定 -&gt;tools -&gt; Annotate -&gt; incremental reference update</p>
+<hr>
+<p>13、鼠标变成长十字快捷键  </p>
+<p>按 F6</p>
+<hr>
+<p>14、查看所有器件、网络</p>
+<p>schematic 上右键 -&gt; Edit object properties</p>
+<hr>
+<p>15、字母上加横线</p>
+<p>命名时字母后加反斜杠</p>
+<hr>
+<p>16、建封装时从 excel 批量复制</p>
+<p>Shift + Insert</p>
+<hr>
+<p>17、编辑器件Pin Group</p>
+<p>view -&gt; package -&gt; edit -&gt; properties</p>
+<hr>
+<p>18、新建symbol库</p>
+<p>file -&gt; new library -&gt; olb 右键 new symbol，可新建 power、跨页符、标题栏、pin shape、端口标示</p>
+<p>19、快速新建封装</p>
+<p>file -&gt; new library -&gt; olb 右键 new part from spreadsheet</p>
+<p>重新修改右键 split part</p>
 
       
 
@@ -217,11 +288,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">STM8</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">软件使用</a>
         		</li>
       		
 		</ul>
@@ -240,18 +307,9 @@
   
 <nav id="article-nav">
   
-    <a href="/blog/2019/03/03/STM8S-复位/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          STM8S 复位
-        
-      </div>
-    </a>
   
-  
-    <a href="/blog/2019/03/03/STM8S-中断控制/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">STM8S 中断控制</div>
+    <a href="/blog/2019/03/04/ARM-CMSIS-DSP-库简介/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ARM CMSIS-DSP 库简介</div>
       <i class="icon-circle-right"></i>
     </a>
   
