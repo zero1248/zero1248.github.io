@@ -6,18 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: Github | Isaac前进4</title>
+  <title>STM32 GPIO | Isaac前进4</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="学习笔记 思考感悟">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Isaac前进4">
-<meta property="og:url" content="http://yoursite.com/tags/Github/index.html">
+  <meta name="description" content="1、在 RESET 期间和刚 RESET 之后，IO 端口配置为浮空输入。除了调试接口会在 RESET 之后配置为相应的上下拉模式。 2、每个 AHB1 时钟周期输入寄存器 GPIOx_IDR 捕获当前引脚数据。">
+<meta name="keywords" content="硬件拾忆,STM32">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STM32 GPIO">
+<meta property="og:url" content="http://yoursite.com/blog/2019/03/04/STM32-GPIO/index.html">
 <meta property="og:site_name" content="Isaac前进4">
-<meta property="og:description" content="学习笔记 思考感悟">
+<meta property="og:description" content="1、在 RESET 期间和刚 RESET 之后，IO 端口配置为浮空输入。除了调试接口会在 RESET 之后配置为相应的上下拉模式。 2、每个 AHB1 时钟周期输入寄存器 GPIOx_IDR 捕获当前引脚数据。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-04T01:35:51.413Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Isaac前进4">
-<meta name="twitter:description" content="学习笔记 思考感悟">
+<meta name="twitter:title" content="STM32 GPIO">
+<meta name="twitter:description" content="1、在 RESET 期间和刚 RESET 之后，IO 端口配置为浮空输入。除了调试接口会在 RESET 之后配置为相应的上下拉模式。 2、每个 AHB1 时钟周期输入寄存器 GPIOx_IDR 捕获当前引脚数据。">
   
   
     <link rel="icon" href="/favicon.png">
@@ -167,22 +169,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-Git 与 Github" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-STM32-GPIO" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/20/Git 与 Github/">Git 与 Github</a>
+    <h1 class="article-title" itemprop="name">
+      STM32 GPIO
     </h1>
   
 
         
-        <a href="/blog/2019/02/20/Git 与 Github/" class="archive-article-date">
-  	<time datetime="2019-02-20T05:43:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-20</time>
+        <a href="/blog/2019/03/04/STM32-GPIO/" class="archive-article-date">
+  	<time datetime="2019-03-04T01:33:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-04</time>
 </a>
         
       </header>
@@ -190,14 +190,66 @@
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<h3 id="〇、Github-与-Git-的关系"><a href="#〇、Github-与-Git-的关系" class="headerlink" title="〇、Github 与 Git 的关系"></a>〇、Github 与 Git 的关系</h3><h4 id="1、Git-与-Github-简介"><a href="#1、Git-与-Github-简介" class="headerlink" title="1、Git 与 Github 简介"></a>1、Git 与 Github 简介</h4><ul>
-<li>Git 是一款免费、开源的分布式版本控制系统</li>
-<li>GitHub 是一个面向开源及私有软件项目的托管平台，因为只支持 Git 作为唯一的版本库格式进行托管，故名 GitHub。另外还有其他的平台，如国内的 <a href="https://gitee.com/" target="_blank" rel="noopener">码云</a> </li>
-<li>Git 负责本地的代码版本控制，而 Github 负责远程托管</li>
-</ul>
-        
-          <a class="article-more-a" href="/blog/2019/02/20/Git 与 Github/#more">more >></a>
-        
+<p>1、在 RESET 期间和刚 RESET 之后，IO 端口配置为浮空输入。除了调试接口会在 RESET 之后配置为相应的上下拉模式。</p>
+<p>2、每个 AHB1 时钟周期输入寄存器 GPIOx_IDR 捕获当前引脚数据。</p>
+<a id="more"></a>
+<p>3、输出开漏模式时，只有 N-MOS 工作，写 0 时输出低，写 1 时位高阻态。</p>
+<p>输出模式下，施密特触发器输入是开启的。</p>
+<p>输出模式下读取输入寄存器可获得 IO 状态，读取输出寄存器可获得上一次写入的值。</p>
+<p>4、RESET 之后，所有 IO 连接至第二功能 0（AF0）。</p>
+<p>5、外设第二功能映射为从 AF1 到 AF13。</p>
+<p>6、RTC_REFIN 引脚应配成浮空输入。</p>
+<p>7、MCO1 和 MCO2 引脚必须配成第二功能模式。</p>
+<p>8、ADC 和 DAC 配置成模拟功能。</p>
+<p>9、通过映射到 AF15 可将 IO 用来输出 CM4 的 FPU EVENTOUT 信号。</p>
+<p>10、EVENTOUT 不能映射到P C13，PC14，PC15，PH0，PH1 和 PI8。</p>
+<p>11、每组 IO 口有 4 个控制寄存器</p>
+<table>
+<thead>
+<tr>
+<th>GPIOx_MODER</th>
+<th>select IO direction（Input，Output，AF，Analog）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GPIOx_OTYPER</td>
+<td>select output type（push-pull or open-drain）</td>
+</tr>
+<tr>
+<td>GPIOx_OSPEEDR</td>
+<td>select speed</td>
+</tr>
+<tr>
+<td>GPIOx_PUPDR</td>
+<td>select pull-up/pull-down whatever the IO direction</td>
+</tr>
+</tbody>
+</table>
+<p>12、每组 IO 口有 2 个数据寄存器。</p>
+<table>
+<thead>
+<tr>
+<th>GPIOx_IDR</th>
+<th>input</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GPIOx_ODR</td>
+<td>output</td>
+</tr>
+</tbody>
+</table>
+<p>13、GPIOx_BSRR 允许对 GPIOx_ODR 寄存器进行位元操作。set 比 reset 的优先级高。位元操作时不需要关闭中断。</p>
+<p>14、通过操作 GPIOx_AFRL 和 GPIOx_AFRH 寄存器可以将任一 IO 引脚连接至 16 种第二功能（AF0到AF15）的任意一个。</p>
+<p>15、写 GPIOx_LCKR 寄存器需要特定的读写序列，可以锁存 4 个控制寄存器、GPIOx_AFRL 和 GPIOx_AFRH 寄存器。</p>
+<p>16、使用 IO 外部中断必须配置成输入 模式。</p>
+<p>17、使用模拟功能时，输出 buffer 关闭，施密特触发器关闭，施密特触发器的输出强制为 0，上下拉电阻关闭，读输入寄存器只能读到 0。</p>
+<p>18、不使用 LSE 振荡器时，可将 PC14 和 PC15 用作普通 IO。LSE 的优先级比 GPIO 功能高，当 RCC_BDCR 寄存器的 LSEON 位置位时，LSE 振荡器打开 PC14 和 PC15 作为 OSC32_IN 和 OSC32_OFF。</p>
+<p>1.2V 域掉电时（器件进入掉电模式），或备份域有 VBAT 供电时，PC14 和 PC15 的 GPIO 功能丧失，这种情况下，处于模拟输入模式。</p>
+<p>19、RESET 后，HSE 振荡器默认关闭，此时 PH0/PH1 可以作为普通 IO，而非 OSC_IN 和 OSC_OUT 功能。通过置位 RCC_CR 寄存器的 HSEON 位可开启 HSE 振荡器。HSE 比 GPIO 优先级高。</p>
+
       
 
       
@@ -210,11 +262,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">软件使用</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Github</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">STM32</a>
         		</li>
       		
 		</ul>
@@ -223,16 +275,24 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/20/Git 与 Github/">展开全文 >></a>
-        </p>
-      
 
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/blog/2019/03/04/STM8S-TIM1-时基单元/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">STM8S TIM1 时基单元</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -247,14 +307,34 @@
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    目录，不存在的…
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
 
 
 
+  
+  
+  
 
   
+
   
+
+  
+
 
           </div>
         </div>
@@ -276,9 +356,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
