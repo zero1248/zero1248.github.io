@@ -6,18 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: Github | Isaac前进4</title>
+  <title>STM32 中断 | Isaac前进4</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="学习笔记 思考感悟">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Isaac前进4">
-<meta property="og:url" content="http://yoursite.com/tags/Github/index.html">
+  <meta name="description" content="一、CM3 内核​      CM3 内核支持 256 个中断，其中前 16 个为内核中断，另外 240 个为外部中断，具有 256 级的可编程中断设置。">
+<meta name="keywords" content="硬件拾忆,STM32">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STM32 中断">
+<meta property="og:url" content="http://yoursite.com/blog/2019/03/04/STM32-中断/index.html">
 <meta property="og:site_name" content="Isaac前进4">
-<meta property="og:description" content="学习笔记 思考感悟">
+<meta property="og:description" content="一、CM3 内核​      CM3 内核支持 256 个中断，其中前 16 个为内核中断，另外 240 个为外部中断，具有 256 级的可编程中断设置。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-04T07:20:04.567Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Isaac前进4">
-<meta name="twitter:description" content="学习笔记 思考感悟">
+<meta name="twitter:title" content="STM32 中断">
+<meta name="twitter:description" content="一、CM3 内核​      CM3 内核支持 256 个中断，其中前 16 个为内核中断，另外 240 个为外部中断，具有 256 级的可编程中断设置。">
   
   
     <link rel="icon" href="/favicon.png">
@@ -167,22 +169,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-Git 与 Github" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-STM32-中断" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/20/Git 与 Github/">Git 与 Github</a>
+    <h1 class="article-title" itemprop="name">
+      STM32 中断
     </h1>
   
 
         
-        <a href="/blog/2019/02/20/Git 与 Github/" class="archive-article-date">
-  	<time datetime="2019-02-20T05:43:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-20</time>
+        <a href="/blog/2019/03/04/STM32-中断/" class="archive-article-date">
+  	<time datetime="2019-03-04T07:11:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-04</time>
 </a>
         
       </header>
@@ -190,14 +190,79 @@
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<h3 id="〇、Github-与-Git-的关系"><a href="#〇、Github-与-Git-的关系" class="headerlink" title="〇、Github 与 Git 的关系"></a>〇、Github 与 Git 的关系</h3><h4 id="1、Git-与-Github-简介"><a href="#1、Git-与-Github-简介" class="headerlink" title="1、Git 与 Github 简介"></a>1、Git 与 Github 简介</h4><ul>
-<li>Git 是一款免费、开源的分布式版本控制系统</li>
-<li>GitHub 是一个面向开源及私有软件项目的托管平台，因为只支持 Git 作为唯一的版本库格式进行托管，故名 GitHub。另外还有其他的平台，如国内的 <a href="https://gitee.com/" target="_blank" rel="noopener">码云</a> </li>
-<li>Git 负责本地的代码版本控制，而 Github 负责远程托管</li>
+<h3 id="一、CM3-内核"><a href="#一、CM3-内核" class="headerlink" title="一、CM3 内核"></a>一、CM3 内核</h3><p>​     </p>
+<p>CM3 内核支持 256 个中断，其中前 16 个为内核中断，另外 240 个为外部中断，具有 256 级的可编程中断设置。</p>
+<a id="more"></a>
+<h3 id="二、stm32f1"><a href="#二、stm32f1" class="headerlink" title="二、stm32f1"></a>二、stm32f1</h3><p>stm32 有 84 个中断，包括 16 个内核中断和 68 个可屏蔽中断，具有 16 级可编程的中断优先级。f103 上只有 60 个中断，互联型如 f107 才有 68 个。</p>
+<p>stm32f103 支持 19 个外部中断：</p>
+<ul>
+<li>线 0~15：对应外部 IO 的输入中断</li>
+<li>线 16：连接到 PVD 输出</li>
+<li>线 17：连接到 RTC 闹钟事件</li>
+<li>线 18：连接到 USB 唤醒事件</li>
 </ul>
-        
-          <a class="article-more-a" href="/blog/2019/02/20/Git 与 Github/#more">more >></a>
-        
+<h3 id="三、相关寄存器"><a href="#三、相关寄存器" class="headerlink" title="三、相关寄存器"></a>三、相关寄存器</h3><p>向量中断控制器，简称 NVIC。访问地址 0xe000e000。</p>
+<ul>
+<li>ISER（8 个，用 3 个）Interrupt Set-Enable Registers<ul>
+<li>中断使能。写 0 无效。</li>
+</ul>
+</li>
+</ul>
+<p>​     </p>
+<ul>
+<li>ICER（8 个，用 3 个）Interrupt Clear-Enable Registers<ul>
+<li>清除使能。写 0 无效。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>ISPR（8 个，用 3 个）Interrupt Set-Pending Registers<ul>
+<li>中断挂起，执行更高级中断。写 0 无效。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>ICPR（8个，用 3 个）Interrupt Clear-Pending Registers<ul>
+<li>挂起解除。写 0 无效。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>IABR（8 个，用 3 个）Interrupt Active Bit Register<ul>
+<li>中断活动标志，指示正在被执行的中断，硬件清零，只读。在处理器执行了某一种中断的 ISR 的第一条指令后，它的活动位就置 1，直到 ISR 返回时才硬件清零。即使该中断被抢占，其活动状态依然为 1。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>IP（240 个，用 68 个，高 4 位有效）Interrupt Priority Register</li>
+</ul>
+<ul>
+<li>STIR<ul>
+<li>具体信息见 PM0056 STM32 内核编程手册</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>SCB-&gt;AIRCR 设置分组<ul>
+<li>共 5 组，0 表示 0 位抢占优先级，4 表示 4 位抢占优先级</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>软件中断<ul>
+<li>最简单的方法是用 SETPEND 寄存器。更专业快捷的方法是用 STIR 寄存器</li>
+</ul>
+</li>
+</ul>
+<h3 id="四、外部中断"><a href="#四、外部中断" class="headerlink" title="四、外部中断"></a>四、外部中断</h3><p>IMR（中断屏蔽寄存器）</p>
+<p>EMR（事件屏蔽寄存器）</p>
+<p>RTSR（上升沿触发选择寄存器）</p>
+<p>FTSR（下降沿触发选择寄存器 ）</p>
+<p>SWIER（软件中断时间寄存器）</p>
+<p>PR（挂起寄存器）</p>
+<p>​     写1清除该位</p>
+<h3 id="五、中断编号（f103）"><a href="#五、中断编号（f103）" class="headerlink" title="五、中断编号（f103）"></a>五、中断编号（f103）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">/******  Cortex-M3 Processor Exceptions Numbers ***************************************************/</span><br><span class="line"></span><br><span class="line">  NonMaskableInt_IRQn         = -14,    /*!&lt; 2 Non Maskable Interrupt                             */</span><br><span class="line"></span><br><span class="line">  MemoryManagement_IRQn       = -12,    /*!&lt; 4 Cortex-M3 Memory Management Interrupt              */</span><br><span class="line"></span><br><span class="line">  BusFault_IRQn               = -11,    /*!&lt; 5 Cortex-M3 Bus Fault Interrupt                      */</span><br><span class="line"></span><br><span class="line">  UsageFault_IRQn             = -10,    /*!&lt; 6 Cortex-M3 Usage Fault Interrupt                    */</span><br><span class="line"></span><br><span class="line">  SVCall_IRQn                 = -5,     /*!&lt; 11 Cortex-M3 SV Call Interrupt                       */</span><br><span class="line"></span><br><span class="line">  DebugMonitor_IRQn           = -4,     /*!&lt; 12 Cortex-M3 Debug Monitor Interrupt                 */</span><br><span class="line"></span><br><span class="line">  PendSV_IRQn                 = -2,     /*!&lt; 14 Cortex-M3 Pend SV Interrupt                       */</span><br><span class="line"></span><br><span class="line">  SysTick_IRQn                = -1,     /*!&lt; 15 Cortex-M3 System Tick Interrupt                   */</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/******  STM32 specific Interrupt Numbers *********************************************************/</span><br><span class="line"></span><br><span class="line">  WWDG_IRQn                   = 0,      /*!&lt; Window WatchDog Interrupt                            */</span><br><span class="line"></span><br><span class="line">  PVD_IRQn                    = 1,      /*!&lt; PVD through EXTI Line detection Interrupt            */</span><br><span class="line"></span><br><span class="line">  TAMPER_IRQn                 = 2,      /*!&lt; Tamper Interrupt                                     */</span><br><span class="line"></span><br><span class="line">  RTC_IRQn                    = 3,      /*!&lt; RTC global Interrupt                                 */</span><br><span class="line"></span><br><span class="line">  FLASH_IRQn                  = 4,      /*!&lt; FLASH global Interrupt                               */</span><br><span class="line"></span><br><span class="line">  RCC_IRQn                    = 5,      /*!&lt; RCC global Interrupt                                 */</span><br><span class="line"></span><br><span class="line">  EXTI0_IRQn                  = 6,      /*!&lt; EXTI Line0 Interrupt                                 */</span><br><span class="line"></span><br><span class="line">  EXTI1_IRQn                  = 7,      /*!&lt; EXTI Line1 Interrupt                                 */</span><br><span class="line"></span><br><span class="line">  EXTI2_IRQn                  = 8,      /*!&lt; EXTI Line2 Interrupt                                 */</span><br><span class="line"></span><br><span class="line">  EXTI3_IRQn                  = 9,      /*!&lt; EXTI Line3 Interrupt                                 */</span><br><span class="line"></span><br><span class="line">  EXTI4_IRQn                  = 10,     /*!&lt; EXTI Line4 Interrupt                                 */</span><br><span class="line"></span><br><span class="line">  DMA1_Channel1_IRQn          = 11,     /*!&lt; DMA1 Channel 1 global Interrupt                      */</span><br><span class="line"></span><br><span class="line">  DMA1_Channel2_IRQn          = 12,     /*!&lt; DMA1 Channel 2 global Interrupt                      */</span><br><span class="line"></span><br><span class="line">  DMA1_Channel3_IRQn          = 13,     /*!&lt; DMA1 Channel 3 global Interrupt                      */</span><br><span class="line"></span><br><span class="line">  DMA1_Channel4_IRQn          = 14,     /*!&lt; DMA1 Channel 4 global Interrupt                      */</span><br><span class="line"></span><br><span class="line">  DMA1_Channel5_IRQn          = 15,     /*!&lt; DMA1 Channel 5 global Interrupt                      */</span><br><span class="line"></span><br><span class="line">  DMA1_Channel6_IRQn          = 16,     /*!&lt; DMA1 Channel 6 global Interrupt                      */</span><br><span class="line"></span><br><span class="line">  DMA1_Channel7_IRQn          = 17,     /*!&lt; DMA1 Channel 7 global Interrupt   </span><br><span class="line"></span><br><span class="line"> ADC1_2_IRQn                 = 18,     /*!&lt; ADC1 and ADC2 global Interrupt                       */</span><br><span class="line"></span><br><span class="line">  USB_HP_CAN1_TX_IRQn         = 19,     /*!&lt; USB Device High Priority or CAN1 TX Interrupts       */</span><br><span class="line"></span><br><span class="line">  USB_LP_CAN1_RX0_IRQn        = 20,     /*!&lt; USB Device Low Priority or CAN1 RX0 Interrupts       */</span><br><span class="line"></span><br><span class="line">  CAN1_RX1_IRQn               = 21,     /*!&lt; CAN1 RX1 Interrupt                                   */</span><br><span class="line"></span><br><span class="line">  CAN1_SCE_IRQn               = 22,     /*!&lt; CAN1 SCE Interrupt                                   */</span><br><span class="line"></span><br><span class="line">  EXTI9_5_IRQn                = 23,     /*!&lt; External Line[9:5] Interrupts                        */</span><br><span class="line"></span><br><span class="line">  TIM1_BRK_IRQn               = 24,     /*!&lt; TIM1 Break Interrupt                                 */</span><br><span class="line"></span><br><span class="line">  TIM1_UP_IRQn                = 25,     /*!&lt; TIM1 Update Interrupt                                */</span><br><span class="line"></span><br><span class="line">  TIM1_TRG_COM_IRQn           = 26,     /*!&lt; TIM1 Trigger and Commutation Interrupt               */</span><br><span class="line"></span><br><span class="line">  TIM1_CC_IRQn                = 27,     /*!&lt; TIM1 Capture Compare Interrupt                       */</span><br><span class="line"></span><br><span class="line">  TIM2_IRQn                   = 28,     /*!&lt; TIM2 global Interrupt                                */</span><br><span class="line"></span><br><span class="line">  TIM3_IRQn                   = 29,     /*!&lt; TIM3 global Interrupt                                */</span><br><span class="line"></span><br><span class="line">  TIM4_IRQn                   = 30,     /*!&lt; TIM4 global Interrupt                                */</span><br><span class="line"></span><br><span class="line">  I2C1_EV_IRQn                = 31,     /*!&lt; I2C1 Event Interrupt                                 */</span><br><span class="line"></span><br><span class="line">  I2C1_ER_IRQn                = 32,     /*!&lt; I2C1 Error Interrupt                                 */</span><br><span class="line"></span><br><span class="line">  I2C2_EV_IRQn                = 33,     /*!&lt; I2C2 Event Interrupt                                 */</span><br><span class="line"></span><br><span class="line">  I2C2_ER_IRQn                = 34,     /*!&lt; I2C2 Error Interrupt                                 */</span><br><span class="line"></span><br><span class="line">  SPI1_IRQn                   = 35,     /*!&lt; SPI1 global Interrupt                                */</span><br><span class="line"></span><br><span class="line">  SPI2_IRQn                   = 36,     /*!&lt; SPI2 global Interrupt                                */</span><br><span class="line"></span><br><span class="line">  USART1_IRQn                 = 37,     /*!&lt; USART1 global Interrupt                              */</span><br><span class="line"></span><br><span class="line">  USART2_IRQn                 = 38,     /*!&lt; USART2 global Interrupt                              */</span><br><span class="line"></span><br><span class="line">  USART3_IRQn                 = 39,     /*!&lt; USART3 global Interrupt                              */</span><br><span class="line"></span><br><span class="line">  EXTI15_10_IRQn              = 40,     /*!&lt; External Line[15:10] Interrupts                      */</span><br><span class="line"></span><br><span class="line">  RTCAlarm_IRQn               = 41,     /*!&lt; RTC Alarm through EXTI Line Interrupt                */</span><br><span class="line"></span><br><span class="line">  USBWakeUp_IRQn              = 42,     /*!&lt; USB Device WakeUp from suspend through EXTI Line Interrupt */</span><br><span class="line"></span><br><span class="line">  TIM8_BRK_IRQn               = 43,     /*!&lt; TIM8 Break Interrupt                                 */</span><br><span class="line"></span><br><span class="line">  TIM8_UP_IRQn                = 44,     /*!&lt; TIM8 Update Interrupt                                */</span><br><span class="line"></span><br><span class="line">  TIM8_TRG_COM_IRQn           = 45,     /*!&lt; TIM8 Trigger and Commutation Interrupt               */</span><br><span class="line"></span><br><span class="line">  TIM8_CC_IRQn                = 46,     /*!&lt; TIM8 Capture Compare Interrupt                       */</span><br><span class="line"></span><br><span class="line">  ADC3_IRQn                   = 47,     /*!&lt; ADC3 global Interrupt                                */</span><br><span class="line"></span><br><span class="line">  FSMC_IRQn                   = 48,     /*!&lt; FSMC global Interrupt                                */</span><br><span class="line"></span><br><span class="line">  SDIO_IRQn                   = 49,     /*!&lt; SDIO global Interrupt                                */</span><br><span class="line"></span><br><span class="line">  TIM5_IRQn                   = 50,     /*!&lt; TIM5 global Interrupt                                */</span><br><span class="line"></span><br><span class="line">  SPI3_IRQn                   = 51,     /*!&lt; SPI3 global Interrupt                                */</span><br><span class="line"></span><br><span class="line">  UART4_IRQn                  = 52,     /*!&lt; UART4 global Interrupt                               */</span><br><span class="line"></span><br><span class="line">  UART5_IRQn                  = 53,     /*!&lt; UART5 global Interrupt                               */</span><br><span class="line"></span><br><span class="line">  TIM6_IRQn                   = 54,     /*!&lt; TIM6 global Interrupt                                */</span><br><span class="line"></span><br><span class="line">  TIM7_IRQn                   = 55,     /*!&lt; TIM7 global Interrupt                                */</span><br><span class="line"></span><br><span class="line">  DMA2_Channel1_IRQn          = 56,     /*!&lt; DMA2 Channel 1 global Interrupt                      */</span><br><span class="line"></span><br><span class="line">  DMA2_Channel2_IRQn          = 57,     /*!&lt; DMA2 Channel 2 global Interrupt                      */</span><br><span class="line"></span><br><span class="line">  DMA2_Channel3_IRQn          = 58,     /*!&lt; DMA2 Channel 3 global Interrupt                      */</span><br><span class="line"></span><br><span class="line">  DMA2_Channel4_5_IRQn        = 59      /*!&lt; DMA2 Channel 4 and Channel 5 global Interrupt </span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
       
 
       
@@ -210,11 +275,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">软件使用</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Github</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">STM32</a>
         		</li>
       		
 		</ul>
@@ -223,16 +288,24 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/20/Git 与 Github/">展开全文 >></a>
-        </p>
-      
 
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/blog/2019/03/04/STM32-IO操作/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">STM32 IO操作</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -247,14 +320,34 @@
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、CM3-内核"><span class="toc-number">1.</span> <span class="toc-text">一、CM3 内核</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、stm32f1"><span class="toc-number">2.</span> <span class="toc-text">二、stm32f1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、相关寄存器"><span class="toc-number">3.</span> <span class="toc-text">三、相关寄存器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、外部中断"><span class="toc-number">4.</span> <span class="toc-text">四、外部中断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五、中断编号（f103）"><span class="toc-number">5.</span> <span class="toc-text">五、中断编号（f103）</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
 
 
 
+  
+  
+  
 
   
+
   
+
+  
+
 
           </div>
         </div>
@@ -276,9 +369,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
