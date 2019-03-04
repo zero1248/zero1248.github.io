@@ -6,22 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>STM8S 供电 | Isaac前进4</title>
+  <title>Altium Designer PCB 操作总结 | Isaac前进4</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="STM8 MCU 有 4 种相对独立的供电电源： - VDD/VSS：主电源（3V 到 5.5V） - VDDIO/VSSIO：I/O 口供电电源（3V 到 5.5V ） - VDDA/VSSA：模拟部分供电电源 - VREF+/VREF-：ADC 参考电源">
-<meta name="keywords" content="硬件拾忆,STM8">
+  <meta name="description" content="1、定原点（PCB文件原点） Edit -&amp;gt; origin">
+<meta name="keywords" content="软件使用">
 <meta property="og:type" content="article">
-<meta property="og:title" content="STM8S 供电">
-<meta property="og:url" content="http://yoursite.com/blog/2019/03/03/STM8S-供电/index.html">
+<meta property="og:title" content="Altium Designer PCB 操作总结">
+<meta property="og:url" content="http://yoursite.com/blog/2019/03/04/Altium-Designer-PCB-操作总结/index.html">
 <meta property="og:site_name" content="Isaac前进4">
-<meta property="og:description" content="STM8 MCU 有 4 种相对独立的供电电源： - VDD/VSS：主电源（3V 到 5.5V） - VDDIO/VSSIO：I/O 口供电电源（3V 到 5.5V ） - VDDA/VSSA：模拟部分供电电源 - VREF+/VREF-：ADC 参考电源">
+<meta property="og:description" content="1、定原点（PCB文件原点） Edit -&amp;gt; origin">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b5ace894e7.png">
-<meta property="og:updated_time" content="2019-03-03T04:42:44.683Z">
+<meta property="og:updated_time" content="2019-03-04T10:32:28.771Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="STM8S 供电">
-<meta name="twitter:description" content="STM8 MCU 有 4 种相对独立的供电电源： - VDD/VSS：主电源（3V 到 5.5V） - VDDIO/VSSIO：I/O 口供电电源（3V 到 5.5V ） - VDDA/VSSA：模拟部分供电电源 - VREF+/VREF-：ADC 参考电源">
-<meta name="twitter:image" content="https://i.loli.net/2019/03/03/5c7b5ace894e7.png">
+<meta name="twitter:title" content="Altium Designer PCB 操作总结">
+<meta name="twitter:description" content="1、定原点（PCB文件原点） Edit -&amp;gt; origin">
   
   
     <link rel="icon" href="/favicon.png">
@@ -171,20 +169,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-STM8S-供电" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Altium-Designer-PCB-操作总结" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      STM8S 供电
+      Altium Designer PCB 操作总结
     </h1>
   
 
         
-        <a href="/blog/2019/03/03/STM8S-供电/" class="archive-article-date">
-  	<time datetime="2019-03-03T04:40:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-03</time>
+        <a href="/blog/2019/03/04/Altium-Designer-PCB-操作总结/" class="archive-article-date">
+  	<time datetime="2019-03-04T10:28:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-04</time>
 </a>
         
       </header>
@@ -192,18 +190,65 @@
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<p>STM8 MCU 有 4 种相对独立的供电电源：</p>
-<p>- VDD/VSS：主电源（3V 到 5.5V）</p>
-<p>- VDDIO/VSSIO：I/O 口供电电源（3V 到 5.5V ）</p>
-<p>- VDDA/VSSA：模拟部分供电电源</p>
-<p>- VREF+/VREF-：ADC 参考电源</p>
+<p>1、定原点（PCB文件原点）</p>
+<p>Edit -&gt; origin</p>
 <a id="more"></a>
-<p>VDD/VSS 引脚用来为内部主稳压器（MVR）和内部低功耗稳压器（LPVR）供电。这两个调节器的输出连在一起，向MCU的核（CPU，Flash 和 RAM）提供 1.8V 电压。</p>
-<p>在低功耗模式下系统自动从 MVR 切换到 LPVR，以减少电流消耗。</p>
-<p><strong>为了稳定 MVR，必须在 VCAP 脚接一个电容</strong>。</p>
-<p>根据封装的大小，可能有一对或两对特定的 VDDIO/VSSIO 来给I/O供电。</p>
-<p>VDDA/VSSA和VREF+/VREF- 都与ADC模块相连接。</p>
-<p><img src="https://i.loli.net/2019/03/03/5c7b5ace894e7.png" alt="Image.png"></p>
+<hr>
+<p>2、定义尺寸（可以最开始定，也可以最后定）</p>
+<p>先画mechanical layer，再复制到 keep-out-layer（要粘贴时先点Edit-&gt;paste special），然后  Design -&gt; Board Shape -&gt; Redefine Board Shape</p>
+<hr>
+<p>3、测量距离</p>
+<p>ctrl+M </p>
+<hr>
+<p>4、 更换线型</p>
+<p>ctrl+space，用“&lt;”和“&gt;”可改变倒角曲率半径</p>
+<hr>
+<p>5、铺地</p>
+<p>place -&gt; polygon pour -&gt; connect to GND，选 top layer 或 bottom layer，选 pour over all same objects -&gt; 选范围 -&gt; 确定</p>
+<hr>
+<p>6、焊盘</p>
+<p>贴片焊盘用 top layer，过孔焊盘用multi layer</p>
+<hr>
+<p>7、旋转</p>
+<p>空格</p>
+<hr>
+<p>8、打开/关闭层</p>
+<p>L</p>
+<hr>
+<p>9、切换层</p>
+<p>小键盘 *</p>
+<hr>
+<p>10、添加层</p>
+<p>design -&gt;layer stack manager -&gt;点击 Toplayer 或 Bottomlayer -&gt; 信号层 add layer/内电层 add plane</p>
+<p>如果要分割，不要添加 net</p>
+<hr>
+<p>11、泪滴</p>
+<p>Tools -&gt; Teardoops</p>
+<hr>
+<p>12、铺铜皮</p>
+<p>Place -&gt; 矩形 Fill / 多边形 Solid region</p>
+<hr>
+<p>13、灌铜</p>
+<p>Place -&gt; Polygon Pour（需要设置 net，也可以不设）</p>
+<p>灌铜掏空：Place -&gt; Polygon Pour Cutout</p>
+<hr>
+<p>14、走线换层</p>
+<p>shift + ctrl +鼠标滑轮</p>
+<hr>
+<p>15、原理图更新到 PCB 时出现 unknown pin</p>
+<p>删除 PCB 图中所有 net（design -&gt; netlist）</p>
+<hr>
+<p>16、元件换层</p>
+<p>拖住按 L</p>
+<hr>
+<p>17、选中需要修整的铜皮  M+G</p>
+<p>修钝角 P+Y</p>
+<hr>
+<p>18、PCB 图中修改丝印字体</p>
+<p>任一丝印右键 -&gt; find similar objects -&gt; text width 选 same -&gt; OK -&gt; 在 PCB inspector 中修改</p>
+<hr>
+<p>19、隐藏网络飞线</p>
+<p>N -&gt; Hide Connections 选 Net</p>
 
       
 
@@ -217,11 +262,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">STM8</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">软件使用</a>
         		</li>
       		
 		</ul>
@@ -240,18 +281,9 @@
   
 <nav id="article-nav">
   
-    <a href="/blog/2019/03/03/STM8S-复位/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          STM8S 复位
-        
-      </div>
-    </a>
   
-  
-    <a href="/blog/2019/03/03/STM8S-中断控制/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">STM8S 中断控制</div>
+    <a href="/blog/2019/03/04/Altium-Designer-原理图操作总结/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Altium Designer 原理图操作总结</div>
       <i class="icon-circle-right"></i>
     </a>
   
