@@ -6,22 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>STM8S 电源管理 | Isaac前进4</title>
+  <title>算法复杂度分析 | Isaac前进4</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="默认情况下在系统或电源复位后，MCU 处于运行模式。在这种模式下，CPU 由 fCPU 提供时钟并执行程序代码，系统时钟分别为各个处于激活状态的外设提供时钟，MCU 功耗最大。">
-<meta name="keywords" content="硬件拾忆,STM8">
+  <meta name="description" content="《数据结构（C++语言版）》（邓俊辉编著）笔记  一、高效解1、常数复杂度（constant-time algorithm） O(1)运行时间可表示和度量为   T(n) = O(1) 的算法。通常不含循环、分支、子程序调用等。 仅需常数规模辅助空间的算法，称为就地算法（in-place algorithm）。">
+<meta name="keywords" content="算法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="STM8S 电源管理">
-<meta property="og:url" content="http://yoursite.com/blog/2019/03/03/STM8S-电源管理/index.html">
+<meta property="og:title" content="算法复杂度分析">
+<meta property="og:url" content="http://yoursite.com/blog/2019/03/08/算法复杂度分析/index.html">
 <meta property="og:site_name" content="Isaac前进4">
-<meta property="og:description" content="默认情况下在系统或电源复位后，MCU 处于运行模式。在这种模式下，CPU 由 fCPU 提供时钟并执行程序代码，系统时钟分别为各个处于激活状态的外设提供时钟，MCU 功耗最大。">
+<meta property="og:description" content="《数据结构（C++语言版）》（邓俊辉编著）笔记  一、高效解1、常数复杂度（constant-time algorithm） O(1)运行时间可表示和度量为   T(n) = O(1) 的算法。通常不含循环、分支、子程序调用等。 仅需常数规模辅助空间的算法，称为就地算法（in-place algorithm）。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b6f3d4ef26.png">
-<meta property="og:updated_time" content="2019-03-03T06:11:18.266Z">
+<meta property="og:updated_time" content="2019-03-09T03:29:53.261Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="STM8S 电源管理">
-<meta name="twitter:description" content="默认情况下在系统或电源复位后，MCU 处于运行模式。在这种模式下，CPU 由 fCPU 提供时钟并执行程序代码，系统时钟分别为各个处于激活状态的外设提供时钟，MCU 功耗最大。">
-<meta name="twitter:image" content="https://i.loli.net/2019/03/03/5c7b6f3d4ef26.png">
+<meta name="twitter:title" content="算法复杂度分析">
+<meta name="twitter:description" content="《数据结构（C++语言版）》（邓俊辉编著）笔记  一、高效解1、常数复杂度（constant-time algorithm） O(1)运行时间可表示和度量为   T(n) = O(1) 的算法。通常不含循环、分支、子程序调用等。 仅需常数规模辅助空间的算法，称为就地算法（in-place algorithm）。">
   
   
     <link rel="icon" href="/favicon.png">
@@ -171,20 +169,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-STM8S-电源管理" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-算法复杂度分析" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      STM8S 电源管理
+      算法复杂度分析
     </h1>
   
 
         
-        <a href="/blog/2019/03/03/STM8S-电源管理/" class="archive-article-date">
-  	<time datetime="2019-03-03T05:59:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-03</time>
+        <a href="/blog/2019/03/08/算法复杂度分析/" class="archive-article-date">
+  	<time datetime="2019-03-08T07:55:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-08</time>
 </a>
         
       </header>
@@ -192,84 +190,63 @@
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<p>默认情况下在系统或电源复位后，MCU 处于运行模式。在这种模式下，CPU 由 fCPU 提供时钟并执行程序代码，系统时钟分别为各个处于激活状态的外设提供时钟，MCU 功耗最大。</p>
+<p>《数据结构（C++语言版）》（邓俊辉编著）笔记</p>
+<hr>
+<h3 id="一、高效解"><a href="#一、高效解" class="headerlink" title="一、高效解"></a>一、高效解</h3><h4 id="1、常数复杂度（constant-time-algorithm）-O-1"><a href="#1、常数复杂度（constant-time-algorithm）-O-1" class="headerlink" title="1、常数复杂度（constant-time algorithm） O(1)"></a>1、常数复杂度（constant-time algorithm） O(1)</h4><p>运行时间可表示和度量为 <font color="#FF0000">  T(n) = O(1)</font> 的算法。通常不含循环、分支、子程序调用等。</p>
+<p>仅需常数规模辅助空间的算法，称为就地算法（in-place algorithm）。</p>
 <a id="more"></a>
-<p>在运行模式下，为了保持 CPU 继续运行并执行代码，有以下几种途径可以降低功率消耗：</p>
-<ul>
-<li><p>降低系统时钟</p>
+<h4 id="2、对数复杂度（logarithmic-time-algorithm）-O-logn"><a href="#2、对数复杂度（logarithmic-time-algorithm）-O-logn" class="headerlink" title="2、对数复杂度（logarithmic-time algorithm） O(logn)"></a>2、对数复杂度（logarithmic-time algorithm） O(logn)</h4><ul>
+<li>常底数无所谓<ul>
+<li>log a n = log a b · log b n = Θ( log b n )</li>
+</ul>
 </li>
-<li><p>关闭未使用外设的时钟</p>
+<li>常数次幂无所谓<ul>
+<li>log n^c = c log n = Θ( log n )</li>
+</ul>
 </li>
-<li><p>关闭所有未使用的模拟功能块</p>
+<li><font color="#FF0000">对数多项式</font>（ploy-log function）<ul>
+<li>T( n ) = O( (logn)^c )</li>
+<li>忽略低次项</li>
+</ul>
 </li>
 </ul>
-<p>但是，如果 CPU 不需要保持运行，可使用下列三种低功耗模式：</p>
+<p>此类算法非常有效，复杂度无限接近于常数</p>
 <ul>
-<li><p>等待（Wait）</p>
-</li>
-<li><p>活跃停机（Active Halt）可配置为慢速或快速唤醒</p>
-</li>
-<li><p>停机（Halt）可配置为慢速或快速唤醒</p>
-</li>
+<li>任意 c&gt;0，log n = O( n^c )</li>
+<li>低于任何一个多项式的复杂度</li>
 </ul>
-<p>用户可选择以上三种模式中的一种，并合理配置，以在最低功耗、最快唤醒速度和可使用的唤醒源之间获得最佳平衡点。</p>
+<p>举例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int countones(unsigned int n)&#123;//统计整数n的二进制展开中数位1的总数：0（1ogn）</span><br><span class="line">	int ones = e；</span><br><span class="line">	while(e&lt;n)&#123;</span><br><span class="line">		ones += (1&amp;n)；</span><br><span class="line">		n &gt;&gt;= 1；</span><br><span class="line">	return ones；</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <hr>
-<h3 id="一、常规考虑"><a href="#一、常规考虑" class="headerlink" title="一、常规考虑"></a>一、常规考虑</h3><p>硅片中通常存在两种功耗：</p>
-<ul>
-<li><p>静态功耗：由极化电流和漏电流造成。静态功耗很小，只在停机（Halt）模式和活跃停机（Active Halt）模式下有意义。</p>
-</li>
-<li><p>动态功耗：来自于芯片上正在运行的数字模块。它取决于 VDD，时钟频率和负载电容。</p>
-</li>
-</ul>
-<p>一个 MCU 的功耗取决于：</p>
-<ul>
-<li><p>VDD 供电电压</p>
-</li>
-<li><p>模拟性能</p>
-</li>
-<li><p>MCU 大小及数字逻辑门数（漏电流及负载电容）</p>
-</li>
-<li><p>时钟频率</p>
-</li>
-<li><p>处于激活状态的外设数目</p>
-</li>
-<li><p>可用的低功耗模式及级别</p>
-</li>
-</ul>
-<p>MCU 的处理速度也很重要，这使得用户程序只需很短时间处于运行状态，而更多时间处于低功耗模式下。</p>
+<h3 id="二、有效解"><a href="#二、有效解" class="headerlink" title="二、有效解"></a>二、有效解</h3><h4 id="1、线性复杂度（linear-time-algorithm）-O-n"><a href="#1、线性复杂度（linear-time-algorithm）-O-n" class="headerlink" title="1、线性复杂度（linear-time algorithm） O(n)"></a>1、线性复杂度（linear-time algorithm） O(n)</h4><p>所有 O( n ) 类算法。</p>
+<p>如迭代累加：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int sumI(int A[]，int n)&#123;</span><br><span class="line">	int sum = e；</span><br><span class="line">	for(inti=e；i&lt;n；i++)</span><br><span class="line">		sum += A[i]；</span><br><span class="line">	return sum；</span><br><span class="line">&#125;  //0（1）+0（n）*O（1）+0（1）=0（n+2）=0（n）`</span><br></pre></td></tr></table></figure>
+<h4 id="2、多项式复杂度（polynomial-time-algorithm）-O-polynomial-n"><a href="#2、多项式复杂度（polynomial-time-algorithm）-O-polynomial-n" class="headerlink" title="2、多项式复杂度（polynomial-time algorithm） O( polynomial(n) )"></a>2、多项式复杂度（polynomial-time algorithm） O( polynomial(n) )</h4><p>O( n^c ) 类算法，低次项可忽略。</p>
+<p>多项式复杂度被视作一个具有特殊意义的复杂度级别，实际应用中一般认为是可接受的。</p>
 <hr>
-<h3 id="二、低功耗的时钟管理"><a href="#二、低功耗的时钟管理" class="headerlink" title="二、低功耗的时钟管理"></a>二、低功耗的时钟管理</h3><h4 id="1、降低系统时钟"><a href="#1、降低系统时钟" class="headerlink" title="1、降低系统时钟"></a>1、降低系统时钟</h4><p>通过写时钟分频寄存器 CLK_CKDIVR 的位 CPUDIV[2:0]，可降低 fCPU 的时钟频率。这会降低 CPU 的速度，但同时可降低 CPU 的功耗。其它外设（由 fMASTER 提供时钟）不会受此设置影响。</p>
-<p>在运行模式下，任何时候需要恢复全速运行，将 CPUDIV[2:0] 清 0 即可。</p>
-<h4 id="2、外设时钟门控"><a href="#2、外设时钟门控" class="headerlink" title="2、外设时钟门控"></a>2、外设时钟门控</h4><p>使用时钟门控，用户可在任意时间打开或关闭 fMASTER 与各个外设的连接，在运行模式和等待模式均有效。</p>
+<h3 id="三、难解"><a href="#三、难解" class="headerlink" title="三、难解"></a>三、难解</h3><h4 id="1、指数复杂度（exponential-time-algorithm）-O-c-n"><a href="#1、指数复杂度（exponential-time-algorithm）-O-c-n" class="headerlink" title="1、指数复杂度（exponential-time algorithm） O( c^n )"></a>1、指数复杂度（exponential-time algorithm） O( c^n )</h4><p>运行时间可以表示和度量为 T(n) = O(a^n) 形式的算法。</p>
+<p>通常认为，指数复杂度算法无法真正应用于实际问题中，它们不是有效算法，甚至不能称作算法。</p>
 <hr>
-<h3 id="三、低功耗模式"><a href="#三、低功耗模式" class="headerlink" title="三、低功耗模式"></a>三、低功耗模式</h3><p><img src="https://i.loli.net/2019/03/03/5c7b6f3d4ef26.png" alt="Image.png"></p>
-<h4 id="1、等待模式（Wait）"><a href="#1、等待模式（Wait）" class="headerlink" title="1、等待模式（Wait）"></a>1、等待模式（Wait）</h4><p>在运行模式下执行 WFI（等待中断）指令，可进入等待模式。此时 CPU 停止运行，但外设与中断控制器仍保持运行，因此功耗会有所降低。等待模式可与 PCG（外设时钟门控），降低 CPU 时钟频率，以及选择低功耗时钟源（LSI，HSI）相结合使用，以进一步降低系统功耗。</p>
-<p>等待模式下，所有寄存器与 RAM 的内容保持不变，之前所定义的时钟配置也保持不变（CLK_CMSR） 。</p>
-<p>当一个内部或外部中断请求发生时，CPU 从等待模式唤醒并恢复工作。</p>
-<h4 id="2、停机模式（Halt）"><a href="#2、停机模式（Halt）" class="headerlink" title="2、停机模式（Halt）"></a>2、停机模式（Halt）</h4><p>该模式下主时钟停止。即由 fMASTER 提供时钟的 CPU 及所有外设均被关闭。因此，所有外设均没有时钟，MCU 的数字部分不消耗能量。</p>
-<p>停机模式下，所有寄存器与 RAM 的内容保持不变，默认情况下时钟配置也保持不变（CLK_CMSR）。</p>
-<p>MCU 可通过执行 HALT 指令进入停机模式。外部中断可将 MCU 从停机模式唤醒。外部中断指配置为中断输入的 GPIO 端口或具有触发外设中断能力的端口。</p>
-<p>这种模式下，仅低电压调节器（和掉电复位）处于工作状态。</p>
-<p><strong>快速时钟启动</strong></p>
-<p>HSI RC 的启动速度比 HSE 快。因此，为了减少 MCU 唤醒时间，建议在进入暂停模式前选择 HSI 作为 fMASTER 的时钟源。在进入停机模式前可通过设置内部时钟寄存器 CLK_ICKR 的 FHWU 位选择 HSI 作为 fMASTER 的时钟源，而无需时钟切换。 </p>
-<h4 id="3、活跃停机模式（Active-Halt）"><a href="#3、活跃停机模式（Active-Halt）" class="headerlink" title="3、活跃停机模式（Active Halt）"></a>3、活跃停机模式（Active Halt）</h4><p>活跃停机模式与停机模式类似，但它不需要外部中断唤醒。它使用 AWU，在一定的延时后，产生一个内部唤醒事件，延迟时间是用户可编程的。</p>
-<p>在活跃停机模式下，主振荡器，CPU 以及几乎所有外设都被停止。如果 AWU 和 IWD 已被使能，则只有 LSI RC 和 HSE 仍处于运行状态，以驱动 AWU 和 IWD 计数器。</p>
-<p>为进入活跃停机模式，需首先使能 AWU然后执行 HALT 指令。</p>
-<p><strong>主电源调节器自动关闭</strong></p>
-<p>默认情况下，为了从活跃停机模式快速唤醒，主电压调节器处于激活状态。但其电流消耗是不可忽视的。</p>
-<p>为进一步降低功耗，当 MCU 进入活跃停机模式时，主电压调节器可自动关闭。通过设置内部时钟寄存器 CLK_ICKR 的 REGAH 位可实现此功能。此时:</p>
-<p>- MCU 内核由低功耗电压调节器（LPVR）供电。</p>
-<p>- 仅 LSI 时钟源可用，因为 HSE 时钟源对于 LPVR 来说电流消耗太大。</p>
-<p>在唤醒时主电压调节器重新被打开，这需要一个比较长的唤醒时间。</p>
-<p><strong>快速唤醒时钟</strong></p>
-<p>为了缩短唤醒时间，建议使用 HSI 作为 fMASTER 的时钟源。FHWU 位也可用于缩短切换时间。</p>
-<p>在活跃停机模式下，快速唤醒时很重要的。这可以提高 CPU 的执行效率，使 MCU 处于运行状态与低功耗模式之间的时间最短，从而减少整体平均功耗。</p>
+<h3 id="四、复杂度层次"><a href="#四、复杂度层次" class="headerlink" title="四、复杂度层次"></a>四、复杂度层次</h3><p>典型的复杂度层次包括：</p>
+<p>O( 1 )</p>
+<p>O( log * n )</p>
+<p>O( loglogn )</p>
+<p>O( logn )</p>
+<p>O( sqrt(n) )</p>
+<p>O( n )</p>
+<p>O( nlog * n )</p>
+<p>O( nloglogn )</p>
+<p>O( nlogn )</p>
+<p>O( n^2 )</p>
+<p>O( n^3 )</p>
+<p>O( n^c )</p>
+<p>O( 2^n )</p>
 <hr>
-<h3 id="四、附加的模拟功耗控制"><a href="#四、附加的模拟功耗控制" class="headerlink" title="四、附加的模拟功耗控制"></a>四、附加的模拟功耗控制</h3><h4 id="1、停机模式下的快速内存唤醒"><a href="#1、停机模式下的快速内存唤醒" class="headerlink" title="1、停机模式下的快速内存唤醒"></a>1、停机模式下的快速内存唤醒</h4><p>默认情况下，MCU 进入 Halt 模式后 FLASH 是处于掉电状态的。此时，漏电流可忽略，功耗是非常低的。但 FLASH 的唤醒时间较长（几us）。</p>
-<p>​    </p>
-<p>如果用户需要从 Halt 模式快速唤醒，可将 FLASH_CR1 的 HALT 位置 1。当 MCU 进入停机模式时，这将确保 FLASH 处于等待状态，唤醒时间降至几纳秒。但功耗将增至几 uA。</p>
-<h4 id="2、活跃停机模式下的超低内存功耗"><a href="#2、活跃停机模式下的超低内存功耗" class="headerlink" title="2、活跃停机模式下的超低内存功耗"></a>2、活跃停机模式下的超低内存功耗</h4><p>在活跃停机模式下，为加快唤醒时间，默认情况下 FLASH 处于工作状态，因此并没有降低功耗。</p>
-<p>为降低功耗，用户可将 FLASH_CR1 的 AHALT 位置 1。在进入活跃停机模式时，这将停止向 FLASH 供电以降低功耗，但唤醒时间将增至微秒级。</p>
+<h3 id="五、输入规模"><a href="#五、输入规模" class="headerlink" title="五、输入规模"></a>五、输入规模</h3><p>待计算问题的输入规模，应严格定义为：用以描述输入所需的空间规模。</p>
+<p>有些情况下，以输入参数 n 本身的数值作为基准而得出的 O( logn ) 和 O( n ) 复杂度，应分别称为伪对数的（pseudo-logarithmic）和伪线性的（pseudo-linear）复杂度。</p>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">__int4 power2BF_I(int n)&#123;</span><br><span class="line">	__int64 pow = 1；</span><br><span class="line">    while（e&lt;n--）</span><br><span class="line">        pow &lt;&lt;= 1;</span><br><span class="line">	return pow；</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此程序如果以 n 本身数值作为基准，复杂度为 O( n )。但如果以输入参数 n 的二进制展开的宽度 r 作为输入规模，则为 O( 2^r )，这样也更为合理。</p>
 
       
 
@@ -283,11 +260,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">STM8</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
         		</li>
       		
 		</ul>
@@ -306,18 +279,18 @@
   
 <nav id="article-nav">
   
-    <a href="/blog/2019/03/04/STM8S-通用-IO/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/blog/2019/03/09/递归算法/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          STM8S 通用 IO
+          递归算法
         
       </div>
     </a>
   
   
-    <a href="/blog/2019/03/03/STM8S-时钟控制/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">STM8S 时钟控制</div>
+    <a href="/blog/2019/03/08/算法复杂度度量/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">算法复杂度度量</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -344,7 +317,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、常规考虑"><span class="toc-number">1.</span> <span class="toc-text">一、常规考虑</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、低功耗的时钟管理"><span class="toc-number">2.</span> <span class="toc-text">二、低功耗的时钟管理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、降低系统时钟"><span class="toc-number">2.1.</span> <span class="toc-text">1、降低系统时钟</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、外设时钟门控"><span class="toc-number">2.2.</span> <span class="toc-text">2、外设时钟门控</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、低功耗模式"><span class="toc-number">3.</span> <span class="toc-text">三、低功耗模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、等待模式（Wait）"><span class="toc-number">3.1.</span> <span class="toc-text">1、等待模式（Wait）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、停机模式（Halt）"><span class="toc-number">3.2.</span> <span class="toc-text">2、停机模式（Halt）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3、活跃停机模式（Active-Halt）"><span class="toc-number">3.3.</span> <span class="toc-text">3、活跃停机模式（Active Halt）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、附加的模拟功耗控制"><span class="toc-number">4.</span> <span class="toc-text">四、附加的模拟功耗控制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、停机模式下的快速内存唤醒"><span class="toc-number">4.1.</span> <span class="toc-text">1、停机模式下的快速内存唤醒</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、活跃停机模式下的超低内存功耗"><span class="toc-number">4.2.</span> <span class="toc-text">2、活跃停机模式下的超低内存功耗</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、高效解"><span class="toc-number">1.</span> <span class="toc-text">一、高效解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、常数复杂度（constant-time-algorithm）-O-1"><span class="toc-number">1.1.</span> <span class="toc-text">1、常数复杂度（constant-time algorithm） O(1)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、对数复杂度（logarithmic-time-algorithm）-O-logn"><span class="toc-number">1.2.</span> <span class="toc-text">2、对数复杂度（logarithmic-time algorithm） O(logn)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、有效解"><span class="toc-number">2.</span> <span class="toc-text">二、有效解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、线性复杂度（linear-time-algorithm）-O-n"><span class="toc-number">2.1.</span> <span class="toc-text">1、线性复杂度（linear-time algorithm） O(n)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、多项式复杂度（polynomial-time-algorithm）-O-polynomial-n"><span class="toc-number">2.2.</span> <span class="toc-text">2、多项式复杂度（polynomial-time algorithm） O( polynomial(n) )</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、难解"><span class="toc-number">3.</span> <span class="toc-text">三、难解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、指数复杂度（exponential-time-algorithm）-O-c-n"><span class="toc-number">3.1.</span> <span class="toc-text">1、指数复杂度（exponential-time algorithm） O( c^n )</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、复杂度层次"><span class="toc-number">4.</span> <span class="toc-text">四、复杂度层次</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五、输入规模"><span class="toc-number">5.</span> <span class="toc-text">五、输入规模</span></a></li></ol>
                     </div>
                 </span>
             </div>
