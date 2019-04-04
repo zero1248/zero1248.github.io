@@ -6,18 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Isaac前进4</title>
+  <title>C++ 文件流输入输出 | Isaac前进4</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="学习笔记 思考感悟">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Isaac前进4">
-<meta property="og:url" content="http://yoursite.com/page/4/index.html">
+  <meta name="description" content="头文件 fstream 定义了三个类来支持文件 IO：  ifstream 从一个给定文件读取数据 ofstream 向一个给定文件写入数据 fstream 读写给定文件">
+<meta name="keywords" content="编程语言,C++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++ 文件流输入输出">
+<meta property="og:url" content="http://yoursite.com/blog/2019/04/04/C-文件流输入输出/index.html">
 <meta property="og:site_name" content="Isaac前进4">
-<meta property="og:description" content="学习笔记 思考感悟">
+<meta property="og:description" content="头文件 fstream 定义了三个类来支持文件 IO：  ifstream 从一个给定文件读取数据 ofstream 向一个给定文件写入数据 fstream 读写给定文件">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.loli.net/2019/04/04/5ca5c9f50056b.png">
+<meta property="og:updated_time" content="2019-04-04T09:12:11.056Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Isaac前进4">
-<meta name="twitter:description" content="学习笔记 思考感悟">
+<meta name="twitter:title" content="C++ 文件流输入输出">
+<meta name="twitter:description" content="头文件 fstream 定义了三个类来支持文件 IO：  ifstream 从一个给定文件读取数据 ofstream 向一个给定文件写入数据 fstream 读写给定文件">
+<meta name="twitter:image" content="https://i.loli.net/2019/04/04/5ca5c9f50056b.png">
   
   
     <link rel="icon" href="/favicon.png">
@@ -179,22 +183,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-STM8S-中断控制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-C-文件流输入输出" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/03/03/STM8S-中断控制/">STM8S 中断控制</a>
+    <h1 class="article-title" itemprop="name">
+      C++ 文件流输入输出
     </h1>
   
 
         
-        <a href="/blog/2019/03/03/STM8S-中断控制/" class="archive-article-date">
-  	<time datetime="2019-03-03T03:01:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-03</time>
+        <a href="/blog/2019/04/04/C-文件流输入输出/" class="archive-article-date">
+  	<time datetime="2019-04-04T09:00:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-04</time>
 </a>
         
       </header>
@@ -202,348 +204,82 @@
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<h3 id="ITC-简介"><a href="#ITC-简介" class="headerlink" title="ITC 简介"></a>ITC 简介</h3><h4 id="硬件中断管理"><a href="#硬件中断管理" class="headerlink" title="硬件中断管理"></a>硬件中断管理</h4><ul>
-<li><p>大多数 I/O 口都具有外部中断能力，有专用的中断向量，每个端口都可以设置边沿检测方式（上升/下降）。</p>
-</li>
-<li><p>外设中断能力</p>
-</li>
-</ul>
-        
-          <a class="article-more-a" href="/blog/2019/03/03/STM8S-中断控制/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">STM8</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/03/03/STM8S-中断控制/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-STM8S-Flash-程序存储器和数据-EEPROM" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/03/03/STM8S-Flash-程序存储器和数据-EEPROM/">STM8S Flash 程序存储器和数据 EEPROM</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/03/03/STM8S-Flash-程序存储器和数据-EEPROM/" class="archive-article-date">
-  	<time datetime="2019-03-03T02:06:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>stm8 内部的 FLASH 程序存储器和数据 EEPROM 由一组通用寄存器来控制。用户可以使用这些寄存器来编程或擦出存储器的内容，设置写保护，或者配置特定的低功耗模式。用户也可以对器件的选项字节（Option byte）进行编程。</p>
-        
-          <a class="article-more-a" href="/blog/2019/03/03/STM8S-Flash-程序存储器和数据-EEPROM/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">STM8</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/03/03/STM8S-Flash-程序存储器和数据-EEPROM/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-STM8S-Memory-and-register-map" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/03/02/STM8S-Memory-and-register-map/">STM8S Memory and register map</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/03/02/STM8S-Memory-and-register-map/" class="archive-article-date">
-  	<time datetime="2019-03-02T15:44:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>存储器映射、I/O 端口硬件寄存器映射和 CPU/SWIM、调试模块/中断控制寄存器的详细内容参见 datasheet。</p>
-        
-          <a class="article-more-a" href="/blog/2019/03/02/STM8S-Memory-and-register-map/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">STM8</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/03/02/STM8S-Memory-and-register-map/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-STM8S-Boot-ROM" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/03/02/STM8S-Boot-ROM/">STM8S Boot ROM</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/03/02/STM8S-Boot-ROM/" class="archive-article-date">
-  	<time datetime="2019-03-02T15:40:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>stm8s Boot ROM 是用于系统启动的只读存储器。</p>
-        
-          <a class="article-more-a" href="/blog/2019/03/02/STM8S-Boot-ROM/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">STM8</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/03/02/STM8S-Boot-ROM/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-STM8S-CPU" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/03/02/STM8S-CPU/">STM8S CPU</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/03/02/STM8S-CPU/" class="archive-article-date">
-  	<time datetime="2019-03-02T15:09:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
+<p>头文件 fstream 定义了三个类来支持文件 IO：</p>
 <ul>
-<li><p>stm8s 是基于 8 位框架结构的微控制器</p>
-</li>
-<li><p>CPU 内核有 6 个内部寄存器</p>
-</li>
-<li><p>指令集支持 80 条基本语句，20 种寻址模式</p>
-</li>
-<li><p>了解 stm8s 指令集参考 PM0044</p>
-</li>
+<li>ifstream 从一个给定文件读取数据</li>
+<li>ofstream 向一个给定文件写入数据</li>
+<li>fstream 读写给定文件</li>
 </ul>
-        
-          <a class="article-more-a" href="/blog/2019/03/02/STM8S-CPU/#more">more >></a>
-        
+<a id="more"></a>
+<hr>
+<h4 id="一、创建对象及打开文件"><a href="#一、创建对象及打开文件" class="headerlink" title="一、创建对象及打开文件"></a>一、创建对象及打开文件</h4><h5 id="头文件"><a href="#头文件" class="headerlink" title="头文件"></a>头文件</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;fstream&gt;</span><br><span class="line">using namespace std;</span><br></pre></td></tr></table></figure>
+<p>fstream 文件使用 std 命名空间。</p>
+<h5 id="创建文件流"><a href="#创建文件流" class="headerlink" title="创建文件流"></a>创建文件流</h5><p>读写一个文件时，可以定义一个文件流对象，并将对象与文件关联起来。每个文件流类都定义了一个名为 open 的成员函数，它完成一些系统相关的操作，来定位给定的文件，并视情况打开为读或写模式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ifstream input(ifile); // 构造一个 ifstream 并打开给定文件</span><br><span class="line">ofstream output;    // 输出文件流未关联任何文件</span><br></pre></td></tr></table></figure>
+<p>对象名字可以是任意有效名称，如以上的 input、output。</p>
+<h5 id="打开文件"><a href="#打开文件" class="headerlink" title="打开文件"></a>打开文件</h5><p>以下两种打开方式是等效的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ifstream fin(&quot;in_test.txt&quot;);</span><br><span class="line"></span><br><span class="line">ifstream fin;</span><br><span class="line">fin.open(&quot;in_test.txt&quot;);</span><br></pre></td></tr></table></figure>
+<p>如果文件在其他文件夹中，可以使用绝对路径。注意绝对路径中的 ‘\‘ 要转义替换成 ‘\\‘。</p>
+<p>使用 open 方法时，共可以设置三个参数：filename，mode，access。</p>
+<p>mode 即打开方式，有以下常用值：<br>ios::app：　　　以追加的方式打开文件 　　<br>ios::ate：　　　文件打开后定位到文件尾，ios:app就包含有此属性 　　<br>ios::binary：　以二进制方式打开文件，缺省是文本方式　<br>ios::in：　　　 文件以输入方式打开(文件数据输入到内存)<br>ios::out：　　　文件以输出方式打开(内存数据输出到文件) 　<br>ios::nocreate： 不建立文件，所以文件不存在时打开失败 　　<br>ios::noreplace：不覆盖文件，所以打开文件时如果文件存在失败 　　<br>ios::trunc：　　如果文件存在，把文件长度设为0</p>
+<p>access 即打开文件的属性，有以下常用值：<br>0：普通文件，打开访问<br>1：只读文件<br>2：隐含文件<br>3：系统文件</p>
+<h5 id="关闭文件流"><a href="#关闭文件流" class="headerlink" title="关闭文件流"></a>关闭文件流</h5><p>使用 close() 方法关闭文件流。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ifstream fin(&quot;in_test.txt&quot;);</span><br><span class="line">fin.close();</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="二、读写文本文件"><a href="#二、读写文本文件" class="headerlink" title="二、读写文本文件"></a>二、读写文本文件</h4><h5 id="读文本文件"><a href="#读文本文件" class="headerlink" title="读文本文件"></a>读文本文件</h5><p>1、使用插入器（&lt;&lt;）</p>
+<p>因为 istream/ostream 类分别是 ifstream/ofstream 类的基类，所以可以直接使用它们的方法。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ifstream fin(&quot;in_test.txt&quot;);</span><br><span class="line">string str;</span><br><span class="line">fin &gt;&gt; str;</span><br></pre></td></tr></table></figure>
+<p>注：cin</p>
+<p>上面的代码可以读取一行数据到字符串 str 中。如果出现空格，将读取到该行的空格位置。</p>
+<p>2、使用文件流的 getline() 成员函数</p>
+<p>ifstream 也有 getline() 成员函数，有两种重载形式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">istream&amp; getline (char* s, streamsize n ); //读取最多 n 个字符保存在 s 对应的数组中，即使大小不够 n</span><br><span class="line">istream&amp; getline (char* s, streamsize n, char delim ); //读取最多 n 个字符保存在s对应的数组中，遇到 delim，或者读完一行，或字数达到限制则终止</span><br></pre></td></tr></table></figure></p>
+<p>最多读取 n 个字符，这 n 个字符包括结束符，如果 n 是 1，将只会得到一个 ‘\0’，而不会获取文件中的内容。</p>
+<p>字符内容只能读到 char 型数组中。遇到空格或回车将结束读取，即使还没有到达设置的数量，即此方法只能读取一个 C 语言意义上的字符串。</p>
+<p>3、使用 string 类的 getline() 成员函数</p>
+<p>getline() 是 string 类的一种成员函数，共三个参数：流对象，string 对象，终止字符。一般如果终止字符不写，默认以回车符中止，能接受字符串中的空格。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">string str;</span><br><span class="line">ifstream input(&quot;in_test.txt&quot;);</span><br><span class="line">getline(input, str);</span><br></pre></td></tr></table></figure>
+<p>需要包含 <string> 头文件。</string></p>
+<h5 id="写文本文件"><a href="#写文本文件" class="headerlink" title="写文本文件"></a>写文本文件</h5><p>写文本文件常用析取器（&gt;&gt;），遇到空格即停止。</p>
+<hr>
+<h4 id="三、读写二进制文件"><a href="#三、读写二进制文件" class="headerlink" title="三、读写二进制文件"></a>三、读写二进制文件</h4><h5 id="读二进制文件"><a href="#读二进制文件" class="headerlink" title="读二进制文件"></a>读二进制文件</h5><p>1、使用 get() 函数读字符</p>
+<p>有多种重载形式，可以读单字符，也可以读到字符串中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ifstream &amp;get(char &amp;ch);  // 将字符保存到 ch 中，遇文件尾返回空字符</span><br><span class="line"></span><br><span class="line">int get();  // 返回字符，与文件尾返回 EOF</span><br><span class="line"></span><br><span class="line">ifstream &amp;get(char *buf,int num,char delim=&apos;\n&apos;);  // 将字符串保存到 buf 数组中，遇 delim 结束读取</span><br></pre></td></tr></table></figure>
+<p>2、使用 read() 函数读数据块</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">read(unsigned char *buf,int num);</span><br></pre></td></tr></table></figure>
+<p>读 num 个字符到 buf 数组中。</p>
+<h5 id="写二进制文件"><a href="#写二进制文件" class="headerlink" title="写二进制文件"></a>写二进制文件</h5><p>1、使用 put() 函数写字符</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ofstream &amp;put(char ch)；</span><br></pre></td></tr></table></figure>
+<p>2、使用 write() 函数写数据块</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">write(const unsigned char *buf,int num);</span><br></pre></td></tr></table></figure>
+<p>从 buf 指向的位置，写 num 个字符到文件中，buf 的类型是 unsigned char*。</p>
+<h5 id="可能用到的函数"><a href="#可能用到的函数" class="headerlink" title="可能用到的函数"></a>可能用到的函数</h5><p>可使用 streamsize gcount() 返回在对象上执行的最后一个未格式化输入操作提取的字符数。若未进行任何操作，则返回 0。若提取了一行 6 个字符，将返回 7（因为有换行符），若提取的是最后一行 6 个字符，将返回 6。</p>
+<p>可使用 bool eof() 检测是否到达文件尾。</p>
+<p>可使用 bool bad() 检测读写过程中是否发生错误。如文件未打开，或者设备无写入空间。</p>
+<p>可使用 bool fail() 检测格式错误。也能检测 bad() 包含的错误类型。</p>
+<p>可使用 bool good() 检测文件流状态。</p>
+<p>可使用 clear() 重置其他状态检测成员函数。</p>
+<hr>
+<h4 id="四、文件指针移动"><a href="#四、文件指针移动" class="headerlink" title="四、文件指针移动"></a>四、文件指针移动</h4><p>C++ 中文件流指针分为读指针和写指针，用于改变指针位置的成员函数是 seekg() 和 seekp()。</p>
+<p>seekg() 和 seekp() 有两种重载形式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">\\ 指向绝对位置，通常用于文本文件，也可用于二进制文件</span><br><span class="line">seekg ( pos_type ab_pos );</span><br><span class="line">seekp ( pos_type ab_pos );</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">\\ 使用 origin+origin 实现相对位置，最好只用于二进制文件</span><br><span class="line">istream &amp;seekg(off_type offset,seekdir ab_pos);</span><br><span class="line">ostream &amp;seekp(off_type offset,seekdir ab_pos);</span><br></pre></td></tr></table></figure>
+<p>streamoff 定义偏移量 offset 所能取得的最大值。</p>
+<p>seek_dir 表示移动的基准位置，有以下枚举值：<br>ios::beg：　　文件开头　　<br>ios::cur：　　文件当前位置　　<br>ios::end：　　文件结尾</p>
+<p>tellg() 和 tellp() 用于返回当前输入流或者输出流指针的位置。返回值类型是 pos_type。</p>
+<hr>
+<h4 id="五、缓存同步"><a href="#五、缓存同步" class="headerlink" title="五、缓存同步"></a>五、缓存同步</h4><p>C++ 中对流对象进行操作时，不是直接将流对象与设备（如键盘、屏幕、存储器）直接联系起来，而是通过一个 streambuf 类型的缓存将二者联系起来。</p>
+<p>将缓存中的内容输出到指定设备的过程称为同步（synchronization），同步发生在以下几种情况：</p>
+<ul>
+<li>遇到流中特定的控制符时，如 endl 和 flush。二者都可以用在析取器语句中，flush 还可单独作为成员函数使用。</li>
+<li>缓存区满时将自动同步。</li>
+<li>文件关闭时，缓存将同步。</li>
+<li>调用成员函数 sync()，缓存将同步。</li>
+</ul>
+<hr>
+<h4 id="六、各种流类之间的关系"><a href="#六、各种流类之间的关系" class="headerlink" title="六、各种流类之间的关系"></a>六、各种流类之间的关系</h4><p><img src="https://i.loli.net/2019/04/04/5ca5c9f50056b.png" alt="1554368740541"></p>
+<p>basic_ios 是所有流类的基类 ios_base 的模板类。</p>
+<p>在 ios_base 的基础上派生出 ios，又在 ios 基础上派生出其他类，详见上图。</p>
+
       
 
       
@@ -556,11 +292,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">编程语言</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">STM8</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
         		</li>
       		
 		</ul>
@@ -569,16 +305,24 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/03/02/STM8S-CPU/">展开全文 >></a>
-        </p>
-      
 
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/blog/2019/03/19/统计字符串中的回文子串长度/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">统计字符串中的回文子串长度</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -593,416 +337,32 @@
         </div>
         
         
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-UVa1583（DigitGenerator）解决思路" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/03/02/UVa1583（DigitGenerator）解决思路/">UVa1583（DigitGenerator）解决思路</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/03/02/UVa1583（DigitGenerator）解决思路/" class="archive-article-date">
-  	<time datetime="2019-03-02T14:46:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><p>如果x加上x的各个位数字之和得到y，就说x是y的生成元；给出n（1≤n≤100000），求最小生成元。无解输出0。例如，n=216，121，2005时的解分别为198 , 0, 1979。</p>
-        
-          <a class="article-more-a" href="/blog/2019/03/02/UVa1583（DigitGenerator）解决思路/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/03/02/UVa1583（DigitGenerator）解决思路/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#一、创建对象及打开文件"><span class="toc-number">1.</span> <span class="toc-text">一、创建对象及打开文件</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#头文件"><span class="toc-number">1.1.</span> <span class="toc-text">头文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#创建文件流"><span class="toc-number">1.2.</span> <span class="toc-text">创建文件流</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#打开文件"><span class="toc-number">1.3.</span> <span class="toc-text">打开文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#关闭文件流"><span class="toc-number">1.4.</span> <span class="toc-text">关闭文件流</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二、读写文本文件"><span class="toc-number">2.</span> <span class="toc-text">二、读写文本文件</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#读文本文件"><span class="toc-number">2.1.</span> <span class="toc-text">读文本文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#写文本文件"><span class="toc-number">2.2.</span> <span class="toc-text">写文本文件</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#三、读写二进制文件"><span class="toc-number">3.</span> <span class="toc-text">三、读写二进制文件</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#读二进制文件"><span class="toc-number">3.1.</span> <span class="toc-text">读二进制文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#写二进制文件"><span class="toc-number">3.2.</span> <span class="toc-text">写二进制文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#可能用到的函数"><span class="toc-number">3.3.</span> <span class="toc-text">可能用到的函数</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#四、文件指针移动"><span class="toc-number">4.</span> <span class="toc-text">四、文件指针移动</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#五、缓存同步"><span class="toc-number">5.</span> <span class="toc-text">五、缓存同步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#六、各种流类之间的关系"><span class="toc-number">6.</span> <span class="toc-text">六、各种流类之间的关系</span></a></li></ol>
+                    </div>
+                </span>
             </div>
         </div>
         
-        
     </div>
 </aside>
 
 
 
-
-  
-    <article id="post-MSP430-仿真与下载" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/23/MSP430-仿真与下载/">MSP430 仿真与下载</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/02/23/MSP430-仿真与下载/" class="archive-article-date">
-  	<time datetime="2019-02-22T16:45:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>对于 MSP430 来说，无论仿真还是烧写程序一般可以通过：JTAG、SBW、BSL 接口进行。</p>
-<p>JTAG、SBW 接口可以用于仿真接口，BSL 接口不能用于仿真。而编程器则三种接口都支持。 </p>
-<p>所以并不能说 JTAG 只支持仿真不支持编程，这是概念错误，JTAG 仅仅是一种接口协议而已。 </p>
-        
-          <a class="article-more-a" href="/blog/2019/02/23/MSP430-仿真与下载/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">MSP430</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/23/MSP430-仿真与下载/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MSP430-中断系统" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/23/MSP430-中断系统/">MSP430 中断系统</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/02/23/MSP430-中断系统/" class="archive-article-date">
-  	<time datetime="2019-02-22T16:38:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>中断是 MSP430 的一大特色，因为几乎每个外设模块都能产生中断，MSP430 可以在没有任务时进入超低功耗状态，有事件时中断唤醒 cpu，处理完毕再次进入超低功耗状态。 </p>
-        
-          <a class="article-more-a" href="/blog/2019/02/23/MSP430-中断系统/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">MSP430</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/23/MSP430-中断系统/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MSP430-时钟系统" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/22/MSP430-时钟系统/">MSP430 时钟系统</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/02/22/MSP430-时钟系统/" class="archive-article-date">
-  	<time datetime="2019-02-22T15:59:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>系统时钟是一个程序运行的指挥官，时序和中断也是整个程序的核心和中轴线。</p>
-        
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-时钟系统/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">MSP430</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/22/MSP430-时钟系统/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2018-随笔" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/02/22/2018-随笔/">2018 随笔</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/02/22/2018-随笔/" class="archive-article-date">
-  	<time datetime="2019-02-22T13:53:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p><img src="https://i.loli.net/2019/02/22/5c7009ac95f91.jpg" alt="214599.jpg"></p>
-        
-          <a class="article-more-a" href="/blog/2019/02/22/2018-随笔/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">心花路放</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/02/22/2018-随笔/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -1025,8 +385,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
