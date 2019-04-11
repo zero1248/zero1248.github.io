@@ -6,18 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: 编程语言 | Isaac前进4</title>
+  <title>C++ 查看数据类型 | Isaac前进4</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="学习笔记 思考感悟">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Isaac前进4">
-<meta property="og:url" content="http://yoursite.com/tags/编程语言/index.html">
+  <meta name="description" content="使用 typeid() 查看数据类型使用 typeid() 需要包含  头文件  使用方法：">
+<meta name="keywords" content="编程语言,C++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++ 查看数据类型">
+<meta property="og:url" content="http://yoursite.com/blog/2019/04/11/C-查看数据类型/index.html">
 <meta property="og:site_name" content="Isaac前进4">
-<meta property="og:description" content="学习笔记 思考感悟">
+<meta property="og:description" content="使用 typeid() 查看数据类型使用 typeid() 需要包含  头文件  使用方法：">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-04-11T15:41:41.571Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Isaac前进4">
-<meta name="twitter:description" content="学习笔记 思考感悟">
+<meta name="twitter:title" content="C++ 查看数据类型">
+<meta name="twitter:description" content="使用 typeid() 查看数据类型使用 typeid() 需要包含  头文件  使用方法：">
   
   
     <link rel="icon" href="/favicon.png">
@@ -179,16 +181,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-C-查看数据类型" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-C-查看数据类型" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/04/11/C-查看数据类型/">C++ 查看数据类型</a>
+    <h1 class="article-title" itemprop="name">
+      C++ 查看数据类型
     </h1>
   
 
@@ -204,9 +204,13 @@
         <hr>
 <h4 id="使用-typeid-查看数据类型"><a href="#使用-typeid-查看数据类型" class="headerlink" title="使用 typeid() 查看数据类型"></a>使用 typeid() 查看数据类型</h4><p>使用 typeid() 需要包含 <typeinfo> 头文件 </typeinfo></p>
 <p>使用方法：</p>
-        
-          <a class="article-more-a" href="/blog/2019/04/11/C-查看数据类型/#more">more >></a>
-        
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;typeinfo&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">extern const char test_set_path[] = &quot;abc&quot;;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line"></span><br><span class="line">int avc = 0;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; typeid(avc).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(test_set_path).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(int).name() &lt;&lt; endl;	   </span><br><span class="line">    cout &lt;&lt; typeid(char).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(float).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(double).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(char[]).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(char[][2]).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(int[]).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(int[][2]).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(char*).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(int*).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(typeid(char).name()).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(typeid(int).name()).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(string).name() &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">i </span><br><span class="line">A4_c   </span><br><span class="line">i          </span><br><span class="line">c         </span><br><span class="line">f           </span><br><span class="line">d</span><br><span class="line">A_c</span><br><span class="line">A_A2_c</span><br><span class="line">A_i</span><br><span class="line">A_A2_i</span><br><span class="line">Pc</span><br><span class="line">Pi</span><br><span class="line">PKc</span><br><span class="line">PKc</span><br><span class="line">Ss</span><br></pre></td></tr></table></figure>
+<p>可见，typeid().name() 的返回值类型是 PKC，即 <code>const char*</code>。</p>
+<p>如果只需要对类型进行对比，可以直接 <code>if(typeid(a) == typeid(b))</code>。</p>
+
       
 
       
@@ -232,16 +236,24 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/04/11/C-查看数据类型/">展开全文 >></a>
-        </p>
-      
 
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/blog/2019/04/04/C-文件流输入输出/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">C++ 文件流输入输出</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -256,100 +268,34 @@
         </div>
         
         
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-C-文件流输入输出" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/04/04/C-文件流输入输出/">C++ 文件流输入输出</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/04/04/C-文件流输入输出/" class="archive-article-date">
-  	<time datetime="2019-04-04T09:00:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>头文件 fstream 定义了三个类来支持文件 IO：</p>
-<ul>
-<li>ifstream 从一个给定文件读取数据</li>
-<li>ofstream 向一个给定文件写入数据</li>
-<li>fstream 读写给定文件</li>
-</ul>
-        
-          <a class="article-more-a" href="/blog/2019/04/04/C-文件流输入输出/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">编程语言</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/04/04/C-文件流输入输出/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#使用-typeid-查看数据类型"><span class="toc-number">1.</span> <span class="toc-text">使用 typeid() 查看数据类型</span></a></li></ol>
+                    </div>
+                </span>
             </div>
         </div>
         
-        
     </div>
 </aside>
 
 
 
+  
+  
+  
 
   
+
   
+
+  
+
 
           </div>
         </div>
@@ -371,9 +317,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
