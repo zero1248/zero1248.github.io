@@ -6,22 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>STM8S 复位 | Isaac前进4</title>
+  <title>C++ 模板的编译问题 | Isaac前进4</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="stm8s 共 9 个复位源：  NRST 引脚产生的外部复位  上电复位（POR）  掉电复位（BOR）  独立看门狗复位  窗口看门狗复位  软件复位   SWIM 复位  非法操作码复位  EMS 复位：当一些关键的寄存器被破坏或错误加载时产生的复位">
-<meta name="keywords" content="硬件拾忆,STM8">
+  <meta name="description" content="一、C++ 对模板的编译使用普通函数和类的时候，编译器只需掌握函数或类的声明即可，所以声明和定义通常分别放在 .h 和 .cpp 文件中。">
+<meta name="keywords" content="编程语言,C++">
 <meta property="og:type" content="article">
-<meta property="og:title" content="STM8S 复位">
-<meta property="og:url" content="http://yoursite.com/blog/2019/03/03/STM8S-复位/index.html">
+<meta property="og:title" content="C++ 模板的编译问题">
+<meta property="og:url" content="http://yoursite.com/blog/2019/04/14/C-模板的编译问题/index.html">
 <meta property="og:site_name" content="Isaac前进4">
-<meta property="og:description" content="stm8s 共 9 个复位源：  NRST 引脚产生的外部复位  上电复位（POR）  掉电复位（BOR）  独立看门狗复位  窗口看门狗复位  软件复位   SWIM 复位  非法操作码复位  EMS 复位：当一些关键的寄存器被破坏或错误加载时产生的复位">
+<meta property="og:description" content="一、C++ 对模板的编译使用普通函数和类的时候，编译器只需掌握函数或类的声明即可，所以声明和定义通常分别放在 .h 和 .cpp 文件中。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b5d5ae2a63.png">
-<meta property="og:updated_time" content="2019-03-03T04:56:05.610Z">
+<meta property="og:updated_time" content="2019-04-14T10:59:39.236Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="STM8S 复位">
-<meta name="twitter:description" content="stm8s 共 9 个复位源：  NRST 引脚产生的外部复位  上电复位（POR）  掉电复位（BOR）  独立看门狗复位  窗口看门狗复位  软件复位   SWIM 复位  非法操作码复位  EMS 复位：当一些关键的寄存器被破坏或错误加载时产生的复位">
-<meta name="twitter:image" content="https://i.loli.net/2019/03/03/5c7b5d5ae2a63.png">
+<meta name="twitter:title" content="C++ 模板的编译问题">
+<meta name="twitter:description" content="一、C++ 对模板的编译使用普通函数和类的时候，编译器只需掌握函数或类的声明即可，所以声明和定义通常分别放在 .h 和 .cpp 文件中。">
   
   
     <link rel="icon" href="/favicon.png">
@@ -183,20 +181,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-STM8S-复位" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-C-模板的编译问题" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      STM8S 复位
+      C++ 模板的编译问题
     </h1>
   
 
         
-        <a href="/blog/2019/03/03/STM8S-复位/" class="archive-article-date">
-  	<time datetime="2019-03-03T04:50:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-03</time>
+        <a href="/blog/2019/04/14/C-模板的编译问题/" class="archive-article-date">
+  	<time datetime="2019-04-14T10:57:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-14</time>
 </a>
         
       </header>
@@ -204,43 +202,33 @@
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<p>stm8s 共 9 个复位源：</p>
-<ul>
-<li><p>NRST 引脚产生的外部复位</p>
-</li>
-<li><p>上电复位（POR）</p>
-</li>
-<li><p>掉电复位（BOR）</p>
-</li>
-<li><p>独立看门狗复位</p>
-</li>
-<li><p>窗口看门狗复位</p>
-</li>
-<li><p>软件复位 </p>
-</li>
-<li><p>SWIM 复位</p>
-</li>
-<li><p>非法操作码复位</p>
-</li>
-<li><p>EMS 复位：当一些关键的寄存器被破坏或错误加载时产生的复位</p>
-</li>
-</ul>
+<h4 id="一、C-对模板的编译"><a href="#一、C-对模板的编译" class="headerlink" title="一、C++ 对模板的编译"></a>一、C++ 对模板的编译</h4><p>使用普通函数和类的时候，编译器只需掌握函数或类的声明即可，所以声明和定义通常分别放在 .h 和 .cpp 文件中。</p>
 <a id="more"></a>
+<p>而模板和模板的成员函数都是在用到的时候才会实例化，这就导致如果按照普通函数或类的方法去定义和声明模板类，在链接阶段，链接器将找不到模板函数或模板类成员函数的定义，因为它们所在的 .cpp 文件并未被编译。为了生成一个实例化版本，编译器需要掌握函数模板或类模板成员函数的定义，因此<strong>模板的头文件通常既包括声明，也包括定义</strong>。</p>
+<p>事实上，C++对想要将声明和定义分别放在两个文件中进行编译提供了两种方式：</p>
+<ul>
+<li>包含编译</li>
+<li>分离编译</li>
+</ul>
+<p>包含编译：<br>大部分内容与正常函数或类的定义和声明相同，只是文件包含有所区别，不需要 cpp 头部包含 .h 文件，而是<strong>用头文件包含源文件</strong>，在 .h 文件的末尾#include&lt;XXX.cpp&gt;。这样其实就相当于把所有内容都写在了头文件中，因为预编译阶段就是把 #include 的文件复制到包含位置。</p>
+<p>分离编译：<br>仍是大部分内容与正常函数或类的定义和声明相同，在定义所在的 .cpp 文件中的函数定义的最前面加上 export 关键字，以告诉编译器该定义在哪里被引用。</p>
+<p>然而在 codeblocks12.11 中使用上面两种方法时，均失败。分别报错说 .cpp 中的类名“does not name a type”，和 export 关键字没有被实现，因而将被忽略，进而导致实例化时该类模板“undefined reference”。</p>
+<p>可见，以上两种方法虽理论上可行，但实际上由于编译器的原因，并不一定能使用。</p>
 <hr>
-<h3 id="一、复位电路"><a href="#一、复位电路" class="headerlink" title="一、复位电路"></a>一、复位电路</h3><p><img src="https://i.loli.net/2019/03/03/5c7b5d5ae2a63.png" alt="Image.png"></p>
-<p>复位引脚 NRST 内部集成了弱上拉电阻 RPU，既可作为输入，也可作为开漏输出。</p>
-<p>一个在复位引脚上宽度最小为 500ns 的低电平脉冲即可产生一个外部复位。对于复位的检测是异步进行的，因此即使 MCU 处于停机（Halt）模式，也有可能进入复位状态。</p>
-<p>复位引脚也可以作为开漏输出用于对外部设备进行复位。</p>
-<p>无论内部复位源是什么，一旦复位，内部复位电路都会产生一个至少脉宽为 20us 的复位脉冲。当没有外部复位发生时，内部弱上拉电阻可保证复位引脚处于高电平。</p>
+<h4 id="二、Codeblocks-中使用模板的方法"><a href="#二、Codeblocks-中使用模板的方法" class="headerlink" title="二、Codeblocks 中使用模板的方法"></a>二、Codeblocks 中使用模板的方法</h4><h5 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h5><p>定义和声明放在同一个 .h 文件中。这是最可靠的方式，无论哪个编译器都不会出错。只是有可能在大规模项目中导致文件特别大。</p>
+<h5 id="方法二："><a href="#方法二：" class="headerlink" title="方法二："></a>方法二：</h5><p>声明和定义放在不同的 .h 文件中，在声明文件的末尾（注意是末尾） #include 定义的 .h 文件。</p>
+<p>这样做原理上与方法一是一致的，在预编译阶段通过复制使它们成为了一个文件。</p>
+<h5 id="方法三："><a href="#方法三：" class="headerlink" title="方法三："></a>方法三：</h5><p>声明和定义分别放在 .h 和 .cpp 文件中，.cpp 文件包含 .h 文件，在 .cpp 文件中写一个函数，对该文件中涉及到的所有成员函数全部实例化一遍（如果只对部分成员函数实例化了，则剩余函数不会被编译）。</p>
+<p>这种方法的原理在于：</p>
+<ul>
+<li>如果不在 .cpp 文件中进行实例化，编译阶段编译器遇到这个 .cpp 文件，一看里面全是模板，就会将这个文件忽略，这样在链接阶段，链接器就会因为找不到模板函数的定义文件而报错。</li>
+<li>在 .cpp 文件中通过一个函数进行了实例化之后，编译阶段，编译器发现这个文件中有非模板函数，就会对其进行编译，由于它的内部对模板进行了实例化，所以，而这些模板的定义和声明又有迹可循，所以就能对它们进行编译。</li>
+</ul>
+<h5 id="方法四："><a href="#方法四：" class="headerlink" title="方法四："></a>方法四：</h5><p>声明和定义分别放在 .h 和 .cpp 文件中，.cpp 文件包含 .h 文件，在实例化模板的文件中，再统一包含这两个文件。</p>
+<p>例如，在 main() 函数中对类模板及其中的成员函数进行了实例化，则在 main() 函数所在的文件头部包含 .cpp 和 .h 文件。此方法的原理类似于方法三。</p>
 <hr>
-<h3 id="二、内部复位源"><a href="#二、内部复位源" class="headerlink" title="二、内部复位源"></a>二、内部复位源</h3><p>除了 POR 和 BOR，每个内部复位源在复位状态寄存器中都有一个标志位与之相对应。复位时，根据导致复位的复位源，这些标志位被分别设置。因此，这些标志位可用于指示引起最后一次复位的复位源。通过软件写 1 可清除标志位。</p>
-<h4 id="1、上电复位（POR）和掉电复位（BOR）"><a href="#1、上电复位（POR）和掉电复位（BOR）" class="headerlink" title="1、上电复位（POR）和掉电复位（BOR）"></a>1、上电复位（POR）和掉电复位（BOR）</h4><p>上电期间，POR 保持设备处于复位状态，直到供电电压（VDD 和 VDDIO）到达 BOR 的启动电压。此时，BOR 复位取代 POR，POR 自动关闭。BOR 复位一直持续到供电电压到达工作电压。</p>
-<p>当工作电压降到们限制 VIT- 以下时，BOR 也将产生一个复位，此后 POR 模块将重新准备好以响应下一次上电复位。</p>
-<p>电压迟滞用以保证清楚地检测电压的上升和下降。</p>
-<p>即使是 MCU 处于低功耗模式，BOR 也总是保持激活状态。</p>
-<h4 id="2、非法操作码复位"><a href="#2、非法操作码复位" class="headerlink" title="2、非法操作码复位"></a>2、非法操作码复位</h4><p>为了提高设备的可靠性，防止意外行为的发生，使用了非法操作码检测系统。如果一个被执行的代码与任意操作码或预置字节均不相符，则产生一个复位。此功能与看门狗相配合，可是设备从一个意外错误或干扰中恢复。</p>
-<p>一个有效的预置字节与一个有效的操作码组成的一个非法的组合将不会产生复位。</p>
-<h4 id="3、EMS-复位"><a href="#3、EMS-复位" class="headerlink" title="3、EMS 复位"></a>3、EMS 复位</h4><p>为了避免由电磁干扰造成的对应用程序误写操作或系统挂起，大多数关键寄存器都有一个互补寄存器与之相对应。系统将会自动检测这些关键寄存器与其互补寄存器之间是否匹配。如果不匹配，则产生一个 EMS 复位，从而使应用程序恢复到正常操作。</p>
+<p>以上四种方法都是在 codeblocks12.11 中验证过的。总体来说，还是方法一和方法二更实用一些。但是在摸索这些方法的过程中，加深对程序编译和 C++ 语言特性的理解，还是颇有好处的。</p>
+<p>参考博文及书籍：<br>《C++ primer（中文第 5 版）》<br><a href="https://blog.csdn.net/xiaoyaohuqijun/article/details/50558208" target="_blank" rel="noopener">https://blog.csdn.net/xiaoyaohuqijun/article/details/50558208</a><br><a href="https://blog.csdn.net/qq_41230365/article/details/80207842" target="_blank" rel="noopener">https://blog.csdn.net/qq_41230365/article/details/80207842</a><br><a href="https://blog.csdn.net/u012814856/article/details/84645963" target="_blank" rel="noopener">https://blog.csdn.net/u012814856/article/details/84645963</a><br><a href="https://blog.csdn.net/chenyiming_1990/article/details/9094593" target="_blank" rel="noopener">https://blog.csdn.net/chenyiming_1990/article/details/9094593</a></p>
 
       
 
@@ -254,11 +242,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">编程语言</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">STM8</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
         		</li>
       		
 		</ul>
@@ -277,18 +265,9 @@
   
 <nav id="article-nav">
   
-    <a href="/blog/2019/03/03/STM8S-时钟控制/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          STM8S 时钟控制
-        
-      </div>
-    </a>
   
-  
-    <a href="/blog/2019/03/03/STM8S-供电/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">STM8S 供电</div>
+    <a href="/blog/2019/04/13/C-模板/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">C++ 模板</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -315,7 +294,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、复位电路"><span class="toc-number">1.</span> <span class="toc-text">一、复位电路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、内部复位源"><span class="toc-number">2.</span> <span class="toc-text">二、内部复位源</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、上电复位（POR）和掉电复位（BOR）"><span class="toc-number">2.1.</span> <span class="toc-text">1、上电复位（POR）和掉电复位（BOR）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、非法操作码复位"><span class="toc-number">2.2.</span> <span class="toc-text">2、非法操作码复位</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3、EMS-复位"><span class="toc-number">2.3.</span> <span class="toc-text">3、EMS 复位</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#一、C-对模板的编译"><span class="toc-number">1.</span> <span class="toc-text">一、C++ 对模板的编译</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二、Codeblocks-中使用模板的方法"><span class="toc-number">2.</span> <span class="toc-text">二、Codeblocks 中使用模板的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#方法一："><span class="toc-number">2.1.</span> <span class="toc-text">方法一：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#方法二："><span class="toc-number">2.2.</span> <span class="toc-text">方法二：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#方法三："><span class="toc-number">2.3.</span> <span class="toc-text">方法三：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#方法四："><span class="toc-number">2.4.</span> <span class="toc-text">方法四：</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
