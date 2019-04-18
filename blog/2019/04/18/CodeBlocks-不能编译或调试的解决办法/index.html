@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>C++ 模板 | Isaac前进4</title>
+  <title>CodeBlocks 不能编译或调试的解决办法 | Isaac前进4</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一、函数模板（Function Template）值的参数化：">
-<meta name="keywords" content="编程语言,C++">
+  <meta name="description" content="今天新装了最新版的 Code::Blocks17.12，下载的时候选择了完整版（带了 MinGW），编译一切正常，但是 Debug 的时候报了错：">
+<meta name="keywords" content="软件使用,CodeBlocks">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C++ 模板">
-<meta property="og:url" content="http://yoursite.com/blog/2019/04/13/C-模板/index.html">
+<meta property="og:title" content="CodeBlocks 不能编译或调试的解决办法">
+<meta property="og:url" content="http://yoursite.com/blog/2019/04/18/CodeBlocks-不能编译或调试的解决办法/index.html">
 <meta property="og:site_name" content="Isaac前进4">
-<meta property="og:description" content="一、函数模板（Function Template）值的参数化：">
+<meta property="og:description" content="今天新装了最新版的 Code::Blocks17.12，下载的时候选择了完整版（带了 MinGW），编译一切正常，但是 Debug 的时候报了错：">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-13T13:47:37.207Z">
+<meta property="og:updated_time" content="2019-04-18T14:13:10.574Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C++ 模板">
-<meta name="twitter:description" content="一、函数模板（Function Template）值的参数化：">
+<meta name="twitter:title" content="CodeBlocks 不能编译或调试的解决办法">
+<meta name="twitter:description" content="今天新装了最新版的 Code::Blocks17.12，下载的时候选择了完整版（带了 MinGW），编译一切正常，但是 Debug 的时候报了错：">
   
   
     <link rel="icon" href="/favicon.png">
@@ -181,20 +181,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-C-模板" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-CodeBlocks-不能编译或调试的解决办法" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      C++ 模板
+      CodeBlocks 不能编译或调试的解决办法
     </h1>
   
 
         
-        <a href="/blog/2019/04/13/C-模板/" class="archive-article-date">
-  	<time datetime="2019-04-13T13:46:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-13</time>
+        <a href="/blog/2019/04/18/CodeBlocks-不能编译或调试的解决办法/" class="archive-article-date">
+  	<time datetime="2019-04-18T14:11:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-18</time>
 </a>
         
       </header>
@@ -202,38 +202,14 @@
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<h4 id="一、函数模板（Function-Template）"><a href="#一、函数模板（Function-Template）" class="headerlink" title="一、函数模板（Function Template）"></a>一、函数模板（Function Template）</h4><p>值的参数化：</p>
+<p>今天新装了最新版的 Code::Blocks17.12，下载的时候选择了完整版（带了 MinGW），编译一切正常，但是 Debug 的时候报了错：</p>
 <a id="more"></a>
-<ul>
-<li>在函数定义时形参数据的值是未知的，只有等到函数调用时接收了实参才能确定其值。</li>
-</ul>
-<p>类型的参数化：</p>
-<ul>
-<li>在 C++ 中，数据类型也可以通过参数来传递，在函数定义时不指明具体数据类型，函数调用时，编译器可以根据传入的实参自动推断数据类型。</li>
-</ul>
-<p>函数模板：</p>
-<ul>
-<li>建立一个函数的模板，其用到的数据类型（返回值、形参、局部变量的类型）用一个虚拟的类型代替。</li>
-</ul>
-<p>函数模板的语法：（模板头 + 使用新定义的类型参数的函数定义）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">template &lt;typename 类型参数1 , typename 类型参数2 , ...&gt; </span><br><span class="line">返回值类型  函数名(形参列表)&#123;</span><br><span class="line">	…</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>比如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">template&lt;typename T&gt; void Swap(T &amp;a, T &amp;b)&#123;</span><br><span class="line"></span><br><span class="line">	T temp = a;</span><br><span class="line">	a = b;</span><br><span class="line">	b = temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>函数模板也可以先声明后定义，但是声明的时候也必须带上模板头。</p>
-<p>可以用多个 typename 声明多种不同的类型参数。</p>
-<p>typename 关键字也可以使用 class 关键字代替。</p>
-<hr>
-<h4 id="二、类模板（Class-Template）"><a href="#二、类模板（Class-Template）" class="headerlink" title="二、类模板（Class Template）"></a>二、类模板（Class Template）</h4><p>类模板的定义与函数模板类似，语法如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">template&lt;typename 类型参数1, typename 类型参数2 , …&gt; class 类名&#123;</span><br><span class="line">    …</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>类的成员函数的定义时，语法为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">template &lt;typename 类型参数1, typename 类型参数2,  …&gt;</span><br><span class="line"></span><br><span class="line">返回值类型 类名&lt;类型参数1, 类型参数2, … &gt; :: 函数名(参数表)&#123;</span><br><span class="line">	…</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在类名之后，需带上该类全部的类型参数表（不需要写 typename），函数的参数表中，用到了哪个类型参数写哪个就可以。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">template&lt;typename T&gt; class Operation&#123;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line"></span><br><span class="line">	Operation(T a, T b) :m_a(a), m_b(b)&#123;&#125;</span><br><span class="line">	T Sum();</span><br><span class="line">	bool SetValue(T a, T b);</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line"></span><br><span class="line">	T m_a;</span><br><span class="line">	T m_b;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">template&lt;typename T&gt;</span><br><span class="line">T Operation&lt;T&gt;::Sum()&#123;</span><br><span class="line"></span><br><span class="line">	T c = m_a + m_b;</span><br><span class="line">	return c;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">template&lt;typename T&gt;</span><br><span class="line">bool Operation&lt;T&gt;::SetValue(T a, T b)&#123;</span><br><span class="line"></span><br><span class="line">	m_a = a;</span><br><span class="line">	m_b = b;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line"></span><br><span class="line">	Operation&lt;float&gt; ope(2.3, 3.4);</span><br><span class="line">	float sum = ope.Sum();</span><br><span class="line">	cout &lt;&lt; sum &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">return 0;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>使用类模板创建对象时，需显示指明类型参数，例如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Operation&lt;float&gt; ope(2.3, 3.4);</span><br></pre></td></tr></table></figure>
-<p>如果是创建对象指针，赋值时两边都要指明具体类型，且要保持一致：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Operation&lt;float&gt; *ope = new Operation&lt;float&gt;(1.2, 2.3);</span><br></pre></td></tr></table></figure>
-<p>另外，也可以仿造类模板定义结构体模板。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ERROR: You need to specify a debugger program in the debuggers&apos;s settings.</span><br><span class="line">(For MinGW compilers, it&apos;s &apos;gdb.exe&apos; (without the quotes))</span><br><span class="line">(For MSVC compilers, it&apos;s &apos;cdb.exe&apos; (without the quotes))</span><br></pre></td></tr></table></figure>
+<p>这是因为没有设置调试器（以前用的那个版本好像安装完就能直接调试）。</p>
+<p>如果下载的是完整版的，就按照以下步骤添加调试器路径：<br>Settings -&gt; Debugger -&gt; Default -&gt; Executable path</p>
+<p>路径为：CodeBlocks\MinGW\bin\gdb32.exe （也有可能是 gdb.exe）</p>
+<p>如果路径下没有这个文件，就从 <a href="http://www.equation.com/servlet/equation.cmd?fa=gdb" target="_blank" rel="noopener">http://www.equation.com/servlet/equation.cmd?fa=gdb</a> 下载一个。</p>
+<p>如果是没法编译，也是下载一个 MinGW ，安装，然后配置系统变量。最后在 CodeBlocks 软件中 Settings -&gt; Complier 选择 GUN GCC Compiler 编译器即可。</p>
 
       
 
@@ -247,11 +223,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">编程语言</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">软件使用</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">CodeBlocks</a>
         		</li>
       		
 		</ul>
@@ -270,18 +246,9 @@
   
 <nav id="article-nav">
   
-    <a href="/blog/2019/04/14/C-模板的编译问题/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          C++ 模板的编译问题
-        
-      </div>
-    </a>
   
-  
-    <a href="/blog/2019/04/12/爬虫网页基础/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">爬虫网页基础</div>
+    <a href="/blog/2019/04/14/C-模板的编译问题/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">C++ 模板的编译问题</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -308,7 +275,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#一、函数模板（Function-Template）"><span class="toc-number">1.</span> <span class="toc-text">一、函数模板（Function Template）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二、类模板（Class-Template）"><span class="toc-number">2.</span> <span class="toc-text">二、类模板（Class Template）</span></a></li></ol>
+                    目录，不存在的…
                     </div>
                 </span>
             </div>
