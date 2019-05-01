@@ -6,20 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>MSP430 中断系统 | Isaac前进4</title>
+  <title>Archives: 2019/5 | Isaac前进4</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="中断是 MSP430 的一大特色，因为几乎每个外设模块都能产生中断，MSP430 可以在没有任务时进入超低功耗状态，有事件时中断唤醒 cpu，处理完毕再次进入超低功耗状态。">
-<meta name="keywords" content="硬件拾忆,MSP430">
-<meta property="og:type" content="article">
-<meta property="og:title" content="MSP430 中断系统">
-<meta property="og:url" content="http://yoursite.com/blog/2019/02/23/MSP430-中断系统/index.html">
+  <meta name="description" content="学习笔记 思考感悟">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Isaac前进4">
+<meta property="og:url" content="http://yoursite.com/archives/2019/05/index.html">
 <meta property="og:site_name" content="Isaac前进4">
-<meta property="og:description" content="中断是 MSP430 的一大特色，因为几乎每个外设模块都能产生中断，MSP430 可以在没有任务时进入超低功耗状态，有事件时中断唤醒 cpu，处理完毕再次进入超低功耗状态。">
+<meta property="og:description" content="学习笔记 思考感悟">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-22T16:42:32.039Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MSP430 中断系统">
-<meta name="twitter:description" content="中断是 MSP430 的一大特色，因为几乎每个外设模块都能产生中断，MSP430 可以在没有任务时进入超低功耗状态，有事件时中断唤醒 cpu，处理完毕再次进入超低功耗状态。">
+<meta name="twitter:title" content="Isaac前进4">
+<meta name="twitter:description" content="学习笔记 思考感悟">
   
   
     <link rel="icon" href="/favicon.png">
@@ -181,20 +179,22 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-MSP430-中断系统" class="article article-type-post " itemscope itemprop="blogPost">
+            
+  
+    <article id="post-Markdown-语法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
-      MSP430 中断系统
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2019/05/01/Markdown-语法/">Markdown 语法</a>
     </h1>
   
 
         
-        <a href="/blog/2019/02/23/MSP430-中断系统/" class="archive-article-date">
-  	<time datetime="2019-02-22T16:38:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-23</time>
+        <a href="/blog/2019/05/01/Markdown-语法/" class="archive-article-date">
+  	<time datetime="2019-05-01T03:55:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-01</time>
 </a>
         
       </header>
@@ -202,18 +202,14 @@
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<p>中断是 MSP430 的一大特色，因为几乎每个外设模块都能产生中断，MSP430 可以在没有任务时进入超低功耗状态，有事件时中断唤醒 cpu，处理完毕再次进入超低功耗状态。 </p>
-<a id="more"></a>
-<p>整个中断的响应过程是这样的，当有中断请求时，如果 cpu 处于活动状态，先完成当前命令；如果处于低功耗，先退出，将下一条指令的 pc 值压入堆栈；如果有多个中断请求，先响应优先级高的；执行完后，等待中断请求标志位复位，要注意，单中断源的中断请求标志位自动复位，而多中断的标志位需要软件复位；然后系统总中断允许位 SR.GIE 复位，相应的中断向量值装入 pc，程序从这个地址继续执行。 </p>
-<p>这里要注意，中断允许位 SR.GIE 和中断嵌套问题。如果当你执行中断程序过程中，希望可以响应更高级别的中断请求时，必须在进入第一个中断时把 SR.GIE 置位。 </p>
-<p>其实，其他的外围模块时钟沿着时钟和中断这个核心来执行的。具体的结构我也不啰嗦了，可以参考 MSP430 系列手册。</p>
-<p>MSP430 中断格式</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#pragma vetcor = 中断向量</span><br><span class="line"></span><br><span class="line">__(两个)interrupt void 函数名(void)&#123;  //中断函数无返回值 无形参</span><br><span class="line"></span><br><span class="line">    用户程序;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<p>Markdown 是一种轻量级标记语言，可以让人专注于文字内容而不是排版样式，可读性强，直观，入门简单。<br>
+        
+          <a class="article-more-a" href="/blog/2019/05/01/Markdown-语法/#more">more >></a>
+        
       
 
       
-    </div>
+    </p></div>
     <div class="article-info article-info-index">
       
       
@@ -222,11 +218,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">编程语言</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">MSP430</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Markdown</a>
         		</li>
       		
 		</ul>
@@ -235,33 +231,16 @@
       
 
       
+        <p class="article-more-link">
+          <a class="article-more-a" href="/blog/2019/05/01/Markdown-语法/">展开全文 >></a>
+        </p>
+      
 
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/blog/2019/02/23/MSP430-仿真与下载/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          MSP430 仿真与下载
-        
-      </div>
-    </a>
-  
-  
-    <a href="/blog/2019/02/22/MSP430-时钟系统/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">MSP430 时钟系统</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -276,34 +255,14 @@
         </div>
         
         
-        <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category"></i>
-            <div class="tooltip tooltip-east">
-                <span class="tooltip-item">
-                </span>
-                <span class="tooltip-content">
-                    <div class="toc-article">
-                    目录，不存在的…
-                    </div>
-                </span>
-            </div>
-        </div>
-        
     </div>
 </aside>
 
 
 
-  
-  
-  
 
   
-
   
-
-  
-
 
           </div>
         </div>
@@ -325,8 +284,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,

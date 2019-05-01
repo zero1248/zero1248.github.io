@@ -6,20 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>MSP430 中断系统 | Isaac前进4</title>
+  <title>Markdown 语法 | Isaac前进4</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="中断是 MSP430 的一大特色，因为几乎每个外设模块都能产生中断，MSP430 可以在没有任务时进入超低功耗状态，有事件时中断唤醒 cpu，处理完毕再次进入超低功耗状态。">
-<meta name="keywords" content="硬件拾忆,MSP430">
+  <meta name="description" content="Markdown 是一种轻量级标记语言，可以让人专注于文字内容而不是排版样式，可读性强，直观，入门简单。">
+<meta name="keywords" content="编程语言,Markdown">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MSP430 中断系统">
-<meta property="og:url" content="http://yoursite.com/blog/2019/02/23/MSP430-中断系统/index.html">
+<meta property="og:title" content="Markdown 语法">
+<meta property="og:url" content="http://yoursite.com/blog/2019/05/01/Markdown-语法/index.html">
 <meta property="og:site_name" content="Isaac前进4">
-<meta property="og:description" content="中断是 MSP430 的一大特色，因为几乎每个外设模块都能产生中断，MSP430 可以在没有任务时进入超低功耗状态，有事件时中断唤醒 cpu，处理完毕再次进入超低功耗状态。">
+<meta property="og:description" content="Markdown 是一种轻量级标记语言，可以让人专注于文字内容而不是排版样式，可读性强，直观，入门简单。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-22T16:42:32.039Z">
+<meta property="og:image" content="en-resource://database/41716:0">
+<meta property="og:updated_time" content="2019-05-01T06:25:28.495Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MSP430 中断系统">
-<meta name="twitter:description" content="中断是 MSP430 的一大特色，因为几乎每个外设模块都能产生中断，MSP430 可以在没有任务时进入超低功耗状态，有事件时中断唤醒 cpu，处理完毕再次进入超低功耗状态。">
+<meta name="twitter:title" content="Markdown 语法">
+<meta name="twitter:description" content="Markdown 是一种轻量级标记语言，可以让人专注于文字内容而不是排版样式，可读性强，直观，入门简单。">
+<meta name="twitter:image" content="en-resource://database/41716:0">
   
   
     <link rel="icon" href="/favicon.png">
@@ -181,20 +183,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-MSP430-中断系统" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Markdown-语法" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      MSP430 中断系统
+      Markdown 语法
     </h1>
   
 
         
-        <a href="/blog/2019/02/23/MSP430-中断系统/" class="archive-article-date">
-  	<time datetime="2019-02-22T16:38:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-23</time>
+        <a href="/blog/2019/05/01/Markdown-语法/" class="archive-article-date">
+  	<time datetime="2019-05-01T03:55:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-01</time>
 </a>
         
       </header>
@@ -202,14 +204,89 @@
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<p>中断是 MSP430 的一大特色，因为几乎每个外设模块都能产生中断，MSP430 可以在没有任务时进入超低功耗状态，有事件时中断唤醒 cpu，处理完毕再次进入超低功耗状态。 </p>
-<a id="more"></a>
-<p>整个中断的响应过程是这样的，当有中断请求时，如果 cpu 处于活动状态，先完成当前命令；如果处于低功耗，先退出，将下一条指令的 pc 值压入堆栈；如果有多个中断请求，先响应优先级高的；执行完后，等待中断请求标志位复位，要注意，单中断源的中断请求标志位自动复位，而多中断的标志位需要软件复位；然后系统总中断允许位 SR.GIE 复位，相应的中断向量值装入 pc，程序从这个地址继续执行。 </p>
-<p>这里要注意，中断允许位 SR.GIE 和中断嵌套问题。如果当你执行中断程序过程中，希望可以响应更高级别的中断请求时，必须在进入第一个中断时把 SR.GIE 置位。 </p>
-<p>其实，其他的外围模块时钟沿着时钟和中断这个核心来执行的。具体的结构我也不啰嗦了，可以参考 MSP430 系列手册。</p>
-<p>MSP430 中断格式</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#pragma vetcor = 中断向量</span><br><span class="line"></span><br><span class="line">__(两个)interrupt void 函数名(void)&#123;  //中断函数无返回值 无形参</span><br><span class="line"></span><br><span class="line">    用户程序;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Markdown 是一种轻量级标记语言，可以让人专注于文字内容而不是排版样式，可读性强，直观，入门简单。<br><a id="more"></a></p>
+<h5 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 一级标题</span><br><span class="line">## 二级标题</span><br><span class="line">### 三级标题</span><br><span class="line">#### 四级标题</span><br><span class="line">##### 五级标题</span><br></pre></td></tr></table></figure>
+<p>效果：</p>
+<p><img src="en-resource://database/41716:0" alt="4ebbd5c4ed40b7a45f6838d1bcea83aa.png"></p>
+<p>标题最多 6 级。# 与标题之间用一个空格隔开。</p>
+<h5 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;123</span><br><span class="line">&gt;&gt; 234</span><br><span class="line">&gt;&gt;&gt; 345</span><br></pre></td></tr></table></figure>
+<p>效果：</p>
+<blockquote>
+<p>123</p>
+<blockquote>
+<p>234</p>
+<blockquote>
+<p>345</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h5 id="插入分割线"><a href="#插入分割线" class="headerlink" title="插入分割线"></a>插入分割线</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">***</span><br></pre></td></tr></table></figure>
+<p>效果：</p>
+<hr>
+<hr>
+<h5 id="插入图片或链接"><a href="#插入图片或链接" class="headerlink" title="插入图片或链接"></a>插入图片或链接</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">![图片文件名](图片链接)</span><br><span class="line">[显示的内容](链接)</span><br></pre></td></tr></table></figure>
+<p>插入图片需要使用图床产生链接，例如使用 <a href="https://sm.ms/" target="_blank" rel="noopener">SM.MS</a>。</p>
+<h5 id="插入表格"><a href="#插入表格" class="headerlink" title="插入表格"></a>插入表格</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">| 123 | 456 | 789 |</span><br><span class="line">| --- | --- | --- |</span><br><span class="line">| 111 | 111 | 111 |</span><br><span class="line">| 222 | 222 | 222 |</span><br><span class="line">| 333 | 333 | 333 |</span><br></pre></td></tr></table></figure>
+<p>效果：</p>
+<table>
+<thead>
+<tr>
+<th>123</th>
+<th>456</th>
+<th>789</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>111</td>
+<td>111</td>
+<td>111</td>
+</tr>
+<tr>
+<td>222</td>
+<td>222</td>
+<td>222</td>
+</tr>
+<tr>
+<td>333</td>
+<td>333</td>
+<td>333</td>
+</tr>
+</tbody>
+</table>
+<p>Markdown 中的表格也可以换行、合并单元格等。</p>
+<h5 id="插入代码"><a href="#插入代码" class="headerlink" title="插入代码"></a>插入代码</h5><p>使用 · 或 ··· 将代码上下括起来即可（主义不是单引号，是键盘中 Tab 键上方那个符号），通常 · 用于语句中内嵌代码，只能显示为一行，··· 用于插入代码块，可以按照输入格式显示为多行。</p>
+<p>效果：</p>
+<p>使用 · ：<br><code>print(123)
+    123</code><br>使用 ··· ：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(123)</span><br><span class="line">123</span><br></pre></td></tr></table></figure></p>
+<h5 id="粗体、斜体、下划线、删除线"><a href="#粗体、斜体、下划线、删除线" class="headerlink" title="粗体、斜体、下划线、删除线"></a>粗体、斜体、下划线、删除线</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">**粗体123**</span><br><span class="line">*斜体123*</span><br><span class="line">&lt;u&gt;下划线123&lt;/u&gt;</span><br><span class="line">~~删除线123~~</span><br></pre></td></tr></table></figure>
+<p>效果：</p>
+<p><strong>粗体123</strong><br><em>斜体123</em><br><u>下划线123</u><br><del>删除线123</del></p>
+<h5 id="字体、文字颜色、文字大小"><a href="#字体、文字颜色、文字大小" class="headerlink" title="字体、文字颜色、文字大小"></a>字体、文字颜色、文字大小</h5><p>通过内嵌 HTML，可以调整 Markdown 文本的字体、文字颜色、文字大小（有些编辑器内可能不支持）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;font face=&quot;黑体&quot;&gt;黑体&lt;/font&gt;</span><br><span class="line">&lt;font face=&quot;微软雅黑&quot;&gt;微软雅黑&lt;/font&gt;</span><br><span class="line">&lt;font face=&quot;STCAIYUN&quot;&gt;华文彩云&lt;/font&gt;</span><br><span class="line">&lt;font color=#0099ff size=10 face=&quot;黑体&quot;&gt;深蓝色黑体 10号&lt;/font&gt;</span><br><span class="line">&lt;font color=#00ffff size=10&gt;浅蓝色 10号&lt;/font&gt;</span><br><span class="line">&lt;font color=gray size=10&gt;灰色 10号&lt;/font&gt;</span><br></pre></td></tr></table></figure>
+<p>效果：</p>
+<font face="黑体">黑体</font><br><font face="微软雅黑">微软雅黑</font><br><font face="STCAIYUN">华文彩云</font><br><font color="#0099ff" size="10" face="黑体">深蓝色黑体 10号</font><br><font color="#00ffff" size="10">浅蓝色 10号</font><br><font color="gray" size="10">灰色 10号</font>
 
+<p>常用文字颜色：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">红色：</span><br><span class="line">&lt;font color=&quot;#dd0000&quot;&gt;显示文字&lt;/font&gt;</span><br><span class="line"></span><br><span class="line">绿色：</span><br><span class="line">&lt;font color=&quot;#00dd00&quot;&gt;显示文字&lt;/font&gt;</span><br><span class="line"></span><br><span class="line">蓝色：</span><br><span class="line">&lt;font color=&quot;#0000dd&quot;&gt;显示文字&lt;/font&gt; </span><br><span class="line"></span><br><span class="line">黄色：</span><br><span class="line">&lt;font color=&quot;#dddd00&quot;&gt;显示文字&lt;/font&gt;</span><br><span class="line"></span><br><span class="line">青色：</span><br><span class="line">&lt;font color=&quot;#00dddd&quot;&gt;显示文字&lt;/font&gt;</span><br><span class="line"></span><br><span class="line">紫色：</span><br><span class="line">&lt;font color=&quot;#dd00dd&quot;&gt;显示文字&lt;/font&gt;</span><br></pre></td></tr></table></figure>
+<p>效果：</p>
+<p>红色：</p>
+<font color="#dd0000">显示文字</font>
+
+<p>绿色：</p>
+<font color="#00dd00">显示文字</font>
+
+<p>蓝色：</p>
+<font color="#0000dd">显示文字</font> 
+
+<p>黄色：</p>
+<font color="#dddd00">显示文字</font>
+
+<p>青色：</p>
+<font color="#00dddd">显示文字</font>
+
+<p>紫色：</p>
+<font color="#dd00dd">显示文字</font> 
       
 
       
@@ -222,11 +299,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">编程语言</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">MSP430</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Markdown</a>
         		</li>
       		
 		</ul>
@@ -245,18 +322,9 @@
   
 <nav id="article-nav">
   
-    <a href="/blog/2019/02/23/MSP430-仿真与下载/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          MSP430 仿真与下载
-        
-      </div>
-    </a>
   
-  
-    <a href="/blog/2019/02/22/MSP430-时钟系统/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">MSP430 时钟系统</div>
+    <a href="/blog/2019/04/29/常用数学符号/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">常用数学符号</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -283,7 +351,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    目录，不存在的…
+                    <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#标题"><span class="toc-number">1.</span> <span class="toc-text">标题</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#引用"><span class="toc-number">2.</span> <span class="toc-text">引用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#插入分割线"><span class="toc-number">3.</span> <span class="toc-text">插入分割线</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#插入图片或链接"><span class="toc-number">4.</span> <span class="toc-text">插入图片或链接</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#插入表格"><span class="toc-number">5.</span> <span class="toc-text">插入表格</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#插入代码"><span class="toc-number">6.</span> <span class="toc-text">插入代码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#粗体、斜体、下划线、删除线"><span class="toc-number">7.</span> <span class="toc-text">粗体、斜体、下划线、删除线</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#字体、文字颜色、文字大小"><span class="toc-number">8.</span> <span class="toc-text">字体、文字颜色、文字大小</span></a></li></ol>
                     </div>
                 </span>
             </div>
