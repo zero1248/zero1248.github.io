@@ -6,22 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>STM8S 供电 | Isaac前进4</title>
+  <title>Tag: Python | Isaac前进4</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="STM8 MCU 有 4 种相对独立的供电电源： - VDD/VSS：主电源（3V 到 5.5V） - VDDIO/VSSIO：I/O 口供电电源（3V 到 5.5V ） - VDDA/VSSA：模拟部分供电电源 - VREF+/VREF-：ADC 参考电源">
-<meta name="keywords" content="硬件拾忆,STM8">
-<meta property="og:type" content="article">
-<meta property="og:title" content="STM8S 供电">
-<meta property="og:url" content="http://yoursite.com/blog/2019/03/03/STM8S-供电/index.html">
+  <meta name="description" content="学习笔记 思考感悟">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Isaac前进4">
+<meta property="og:url" content="http://yoursite.com/tags/Python/index.html">
 <meta property="og:site_name" content="Isaac前进4">
-<meta property="og:description" content="STM8 MCU 有 4 种相对独立的供电电源： - VDD/VSS：主电源（3V 到 5.5V） - VDDIO/VSSIO：I/O 口供电电源（3V 到 5.5V ） - VDDA/VSSA：模拟部分供电电源 - VREF+/VREF-：ADC 参考电源">
+<meta property="og:description" content="学习笔记 思考感悟">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://i.loli.net/2019/03/03/5c7b5ace894e7.png">
-<meta property="og:updated_time" content="2019-03-03T04:42:44.683Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="STM8S 供电">
-<meta name="twitter:description" content="STM8 MCU 有 4 种相对独立的供电电源： - VDD/VSS：主电源（3V 到 5.5V） - VDDIO/VSSIO：I/O 口供电电源（3V 到 5.5V ） - VDDA/VSSA：模拟部分供电电源 - VREF+/VREF-：ADC 参考电源">
-<meta name="twitter:image" content="https://i.loli.net/2019/03/03/5c7b5ace894e7.png">
+<meta name="twitter:title" content="Isaac前进4">
+<meta name="twitter:description" content="学习笔记 思考感悟">
   
   
     <link rel="icon" href="/favicon.png">
@@ -183,20 +179,22 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-STM8S-供电" class="article article-type-post " itemscope itemprop="blogPost">
+            
+  
+    <article id="post-Numpy-中-linspace-与-arange-的区别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
-      STM8S 供电
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2019/05/07/Numpy-中-linspace-与-arange-的区别/">Numpy 中 linspace() 与 arange() 的区别</a>
     </h1>
   
 
         
-        <a href="/blog/2019/03/03/STM8S-供电/" class="archive-article-date">
-  	<time datetime="2019-03-03T04:40:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-03</time>
+        <a href="/blog/2019/05/07/Numpy-中-linspace-与-arange-的区别/" class="archive-article-date">
+  	<time datetime="2019-05-07T11:09:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-07</time>
 </a>
         
       </header>
@@ -204,19 +202,10 @@
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<p>STM8 MCU 有 4 种相对独立的供电电源：</p>
-<p>- VDD/VSS：主电源（3V 到 5.5V）</p>
-<p>- VDDIO/VSSIO：I/O 口供电电源（3V 到 5.5V ）</p>
-<p>- VDDA/VSSA：模拟部分供电电源</p>
-<p>- VREF+/VREF-：ADC 参考电源</p>
-<a id="more"></a>
-<p>VDD/VSS 引脚用来为内部主稳压器（MVR）和内部低功耗稳压器（LPVR）供电。这两个调节器的输出连在一起，向MCU的核（CPU，Flash 和 RAM）提供 1.8V 电压。</p>
-<p>在低功耗模式下系统自动从 MVR 切换到 LPVR，以减少电流消耗。</p>
-<p><strong>为了稳定 MVR，必须在 VCAP 脚接一个电容</strong>。</p>
-<p>根据封装的大小，可能有一对或两对特定的 VDDIO/VSSIO 来给I/O供电。</p>
-<p>VDDA/VSSA和VREF+/VREF- 都与ADC模块相连接。</p>
-<p><img src="https://i.loli.net/2019/03/03/5c7b5ace894e7.png" alt="Image.png"></p>
-
+<p>从功能上，两者都是生成一个 numpy.ndarray 类型的等差数列。 </p>
+        
+          <a class="article-more-a" href="/blog/2019/05/07/Numpy-中-linspace-与-arange-的区别/#more">more >></a>
+        
       
 
       
@@ -229,11 +218,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">硬件拾忆</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">编程语言</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">STM8</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
         		</li>
       		
 		</ul>
@@ -242,33 +231,16 @@
       
 
       
+        <p class="article-more-link">
+          <a class="article-more-a" href="/blog/2019/05/07/Numpy-中-linspace-与-arange-的区别/">展开全文 >></a>
+        </p>
+      
 
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/blog/2019/03/03/STM8S-复位/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          STM8S 复位
-        
-      </div>
-    </a>
-  
-  
-    <a href="/blog/2019/03/03/STM8S-中断控制/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">STM8S 中断控制</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -283,34 +255,14 @@
         </div>
         
         
-        <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category"></i>
-            <div class="tooltip tooltip-east">
-                <span class="tooltip-item">
-                </span>
-                <span class="tooltip-content">
-                    <div class="toc-article">
-                    目录，不存在的…
-                    </div>
-                </span>
-            </div>
-        </div>
-        
     </div>
 </aside>
 
 
 
-  
-  
-  
 
   
-
   
-
-  
-
 
           </div>
         </div>
@@ -332,9 +284,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
