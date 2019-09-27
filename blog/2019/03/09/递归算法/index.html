@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Isaac前进4">
 <meta property="og:description" content="《数据结构（C++语言版）》（邓俊辉编著）笔记  〇、概念 递归 —— 允许函数和过程进行  自我调用 的一种特殊形式。 递归基 —— 保证递归能够结束（有穷性）的平凡情况，可以有多种，至少有一种，且迟早必然会出现。递归基可能是隐含的。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-09T07:50:22.750Z">
+<meta property="og:updated_time" content="2019-09-27T11:14:13.142Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="递归算法">
 <meta name="twitter:description" content="《数据结构（C++语言版）》（邓俊辉编著）笔记  〇、概念 递归 —— 允许函数和过程进行  自我调用 的一种特殊形式。 递归基 —— 保证递归能够结束（有穷性）的平凡情况，可以有多种，至少有一种，且迟早必然会出现。递归基可能是隐含的。">
@@ -233,6 +233,7 @@
 <p>边界条件往往可以分析递归基获得。</p>
 <hr>
 <h3 id="三、递归消除"><a href="#三、递归消除" class="headerlink" title="三、递归消除"></a>三、递归消除</h3><p>递归程序往往需要较多的空间，并进而影响实际的运行速度，因此，往往应将递归算法改写成等价的非递归版本。</p>
+<p>可以借助栈来消除递归。对于单向递归和尾递归，也可利用迭代的方式进行递归消除。</p>
 
       
 
@@ -436,15 +437,15 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">心花路放</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">硬件拾忆</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">MSP430</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">心花路放</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -456,11 +457,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">软件使用</a>
+                <a href="javascript:void(0)" class="js-tag color1">STM32</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">STM32</a>
+                <a href="javascript:void(0)" class="js-tag color5">软件使用</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -469,6 +470,14 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">C++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">数学</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">CodeBlocks</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -481,14 +490,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Github</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">CodeBlocks</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数学</a>
               </li>
              
               <li class="article-tag-list-item">
