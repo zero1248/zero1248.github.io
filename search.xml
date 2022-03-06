@@ -439,6 +439,43 @@
       </tags>
   </entry>
   <entry>
+    <title>MSP430 时钟系统</title>
+    <url>//blog/2019/02/22/MSP430-%E6%97%B6%E9%92%9F%E7%B3%BB%E7%BB%9F/</url>
+    <content><![CDATA[<hr>
+<p>系统时钟是一个程序运行的指挥官，时序和中断也是整个程序的核心和中轴线。</p>
+<a id="more"></a>
+<p>MSP430 最多有三个振荡器：</p>
+<p>DCO：内部数字控制振荡器，它的频率可以通过 DCOCLK 进行配置。在系统 PUC 之后，DCOx=7，MODx=3。在系统 PUC 之后，SMCLK 与 MCLK 都以 DCO 作为时钟源，震荡频率在 1.1M 左右，ACLK 以 LFXT1 作为时钟源，工作在 LF 模式下内部 6pF 的负载电容。</p>
+<p>LFXT1：可接高速和低速晶振，在低速模式下，它可以外接 32k 的晶振而不需要负载电容，在单片机内部已经集成了几个电容供选择。同时，通过寄存器进行配置，它还可以接内部的 VLOCLK，这个晶振是一个 12k 的低速晶振。高速模式下它可以接 0.4~16M（有的是 8M） 的晶振。通常将 LFXT1 配置成一个 32k 的振荡源，为 ACLK 提供低速的时钟信号。</p>
+<p>XT2：高速振荡器，它可以接一个 0.4~16M（有的是 8M） 的晶振，需要外接电容，它相当于高速模式下的 LFXT1。通常将它配置成一个高速的振荡源，为 MCLK 和 SMCLK 提供高速时钟信号。</p>
+<p>经验发现，接 XT2 时，需要注意自己开启 XT2，并延时 50us 等待 XT2 起振，然后手工清除 IFG1 中的 OFIFG 位，其操作顺序为：打开 XT2 -&gt; 等待 XT2 稳定 -&gt; 切换系统时钟为 XT2。</p>
+<p>MSP430 有三种时钟信号：MCLK 系统主时钟，可分频1 2 4 8，供 cpu 使用，其他外围模块在有选择情况下也可使用；SMCLK 系统子时钟，供高速外设使用，可选择不同振荡器产生的时钟信号；ACLK 辅助时钟，只能由 LFXT1 产生，供低速外设使用。</p>
+<p>DIVS0~DIVS1：DIVS=0,1,2,3 对应 SMCLK 的分频因子为 1,2,4,8</p>
+<p>SELS：选择 SMCLK 的时钟源，0：COCLK；1：XT2CLK/LFXTCLK</p>
+<p>DIVM0~1：选择 MCLK 的分频因子</p>
+<p>DIVM=0,1,2,3：对应分频因子为 1,2,4,8</p>
+<p>SELM0~1：选择 MCLK 的时钟源，0, 1：COCLK,    2：XT2CLK,   3：FXT1CL</p>
+<p>其它：</p>
+<p>1、LFXT1：一次有效的 PUC 信号将使 OSCOFF 复位，允许 LFXT1 工作，如果 LFXT1 信号没有用作 SMCLK 或 MCLK，可软件置 OSCOFF 关闭 LFXT1。</p>
+<p>2、XT2：XT2 产生 XT2CLK 时钟信号，如果 XT2CLK 信号没有用作时钟 MCLK 和 SMCLK，可以通过置 XT2OFF 关闭 XT2，PUC 信号后置 XT2OFF，即 XT2 的关闭的。</p>
+<p>3、振荡器失效时，DCO振荡器会自动被选做 MCLK 的时钟源。如果 DCO 信号没有用作 SMCLK 和 MCLK 时钟信号时，可置SCG0 位关闭 DCO 直流发生器。</p>
+<p>4、在 PUC 信号后，由 DCOCLK 作为 MCLK 的时钟信号，根据需要可将 MCLK 的时钟源另外设置为 LFXT1 或 XT2，设置顺序如下：</p>
+<p><1> 清 OSCOFF/XT2。</1></p>
+<p><2> 清 OFIFG。</2></p>
+<p><3> 延时等待至少 50us。</3></p>
+<p><4> 再次检查 OFIFG，如果仍置位，则重复(1)-(4)步，直到 OFIFG=0 为止。</4></p>
+<p><5> 设置 BCSCTL2 的相应 SELM。</5></p>
+<p>注意：</p>
+<p><1> 最好将 IFG1&amp;=~OFIFG; 放入 do-while 循环中</1></p>
+<p><2> 在 XT2 出现错误的情况下将 XT2 设定为 MCLK SMCLK 的时钟源，单片机会自动的把时钟源更换为 DCO 振荡器。当时钟信号丢失 50us 时，振荡器失效。如果 MCLK 信号来自 LFXT1 或者 XT2，那么 MSP430 自动把 MCLK 的信号切换为 DCO，这样可以保证程序继续运行。MSP430 不对低频模式的 LFXT1 进行监测。</2></p>
+<p><3> BCSCTL2=SELM_2+SELS; 语句必须放在 while 之后，因为当 XT2 没有起振之前，XT2 处于错误阶段，因此在 XT2 没有起振之前将它设定为主时钟与子系统时钟后，单片机会自动的将 DCO 设定为 SMCLK MCLK 的时钟源。</3></p>
+]]></content>
+      <tags>
+        <tag>硬件拾忆</tag>
+        <tag>MSP430</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MSP430 单片机入门指北</title>
     <url>//blog/2019/02/22/MSP430-%E5%8D%95%E7%89%87%E6%9C%BA%E5%85%A5%E9%97%A8%E6%8C%87%E5%8C%97/</url>
     <content><![CDATA[<hr>
@@ -525,43 +562,6 @@
       </tags>
   </entry>
   <entry>
-    <title>MSP430 时钟系统</title>
-    <url>//blog/2019/02/22/MSP430-%E6%97%B6%E9%92%9F%E7%B3%BB%E7%BB%9F/</url>
-    <content><![CDATA[<hr>
-<p>系统时钟是一个程序运行的指挥官，时序和中断也是整个程序的核心和中轴线。</p>
-<a id="more"></a>
-<p>MSP430 最多有三个振荡器：</p>
-<p>DCO：内部数字控制振荡器，它的频率可以通过 DCOCLK 进行配置。在系统 PUC 之后，DCOx=7，MODx=3。在系统 PUC 之后，SMCLK 与 MCLK 都以 DCO 作为时钟源，震荡频率在 1.1M 左右，ACLK 以 LFXT1 作为时钟源，工作在 LF 模式下内部 6pF 的负载电容。</p>
-<p>LFXT1：可接高速和低速晶振，在低速模式下，它可以外接 32k 的晶振而不需要负载电容，在单片机内部已经集成了几个电容供选择。同时，通过寄存器进行配置，它还可以接内部的 VLOCLK，这个晶振是一个 12k 的低速晶振。高速模式下它可以接 0.4~16M（有的是 8M） 的晶振。通常将 LFXT1 配置成一个 32k 的振荡源，为 ACLK 提供低速的时钟信号。</p>
-<p>XT2：高速振荡器，它可以接一个 0.4~16M（有的是 8M） 的晶振，需要外接电容，它相当于高速模式下的 LFXT1。通常将它配置成一个高速的振荡源，为 MCLK 和 SMCLK 提供高速时钟信号。</p>
-<p>经验发现，接 XT2 时，需要注意自己开启 XT2，并延时 50us 等待 XT2 起振，然后手工清除 IFG1 中的 OFIFG 位，其操作顺序为：打开 XT2 -&gt; 等待 XT2 稳定 -&gt; 切换系统时钟为 XT2。</p>
-<p>MSP430 有三种时钟信号：MCLK 系统主时钟，可分频1 2 4 8，供 cpu 使用，其他外围模块在有选择情况下也可使用；SMCLK 系统子时钟，供高速外设使用，可选择不同振荡器产生的时钟信号；ACLK 辅助时钟，只能由 LFXT1 产生，供低速外设使用。</p>
-<p>DIVS0~DIVS1：DIVS=0,1,2,3 对应 SMCLK 的分频因子为 1,2,4,8</p>
-<p>SELS：选择 SMCLK 的时钟源，0：COCLK；1：XT2CLK/LFXTCLK</p>
-<p>DIVM0~1：选择 MCLK 的分频因子</p>
-<p>DIVM=0,1,2,3：对应分频因子为 1,2,4,8</p>
-<p>SELM0~1：选择 MCLK 的时钟源，0, 1：COCLK,    2：XT2CLK,   3：FXT1CL</p>
-<p>其它：</p>
-<p>1、LFXT1：一次有效的 PUC 信号将使 OSCOFF 复位，允许 LFXT1 工作，如果 LFXT1 信号没有用作 SMCLK 或 MCLK，可软件置 OSCOFF 关闭 LFXT1。</p>
-<p>2、XT2：XT2 产生 XT2CLK 时钟信号，如果 XT2CLK 信号没有用作时钟 MCLK 和 SMCLK，可以通过置 XT2OFF 关闭 XT2，PUC 信号后置 XT2OFF，即 XT2 的关闭的。</p>
-<p>3、振荡器失效时，DCO振荡器会自动被选做 MCLK 的时钟源。如果 DCO 信号没有用作 SMCLK 和 MCLK 时钟信号时，可置SCG0 位关闭 DCO 直流发生器。</p>
-<p>4、在 PUC 信号后，由 DCOCLK 作为 MCLK 的时钟信号，根据需要可将 MCLK 的时钟源另外设置为 LFXT1 或 XT2，设置顺序如下：</p>
-<p><1> 清 OSCOFF/XT2。</1></p>
-<p><2> 清 OFIFG。</2></p>
-<p><3> 延时等待至少 50us。</3></p>
-<p><4> 再次检查 OFIFG，如果仍置位，则重复(1)-(4)步，直到 OFIFG=0 为止。</4></p>
-<p><5> 设置 BCSCTL2 的相应 SELM。</5></p>
-<p>注意：</p>
-<p><1> 最好将 IFG1&amp;=~OFIFG; 放入 do-while 循环中</1></p>
-<p><2> 在 XT2 出现错误的情况下将 XT2 设定为 MCLK SMCLK 的时钟源，单片机会自动的把时钟源更换为 DCO 振荡器。当时钟信号丢失 50us 时，振荡器失效。如果 MCLK 信号来自 LFXT1 或者 XT2，那么 MSP430 自动把 MCLK 的信号切换为 DCO，这样可以保证程序继续运行。MSP430 不对低频模式的 LFXT1 进行监测。</2></p>
-<p><3> BCSCTL2=SELM_2+SELS; 语句必须放在 while 之后，因为当 XT2 没有起振之前，XT2 处于错误阶段，因此在 XT2 没有起振之前将它设定为主时钟与子系统时钟后，单片机会自动的将 DCO 设定为 SMCLK MCLK 的时钟源。</3></p>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>MSP430</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>MSP430 中断系统</title>
     <url>//blog/2019/02/23/MSP430-%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F/</url>
     <content><![CDATA[<hr>
@@ -599,21 +599,6 @@
       <tags>
         <tag>硬件拾忆</tag>
         <tag>MSP430</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>STM8S Boot ROM</title>
-    <url>//blog/2019/03/02/STM8S-Boot-ROM/</url>
-    <content><![CDATA[<hr>
-<p>stm8s Boot ROM 是用于系统启动的只读存储器。</p>
-<a id="more"></a>
-<p>在某些 STM8 型号中有 2K 字节的内部 Boot ROM，其中包含有用于启动的代码。这段代码的主要作用是利用 STM8 的 SPI，CAN 或 UART 接口，将应用程序代码，数据，选项字节（Option Byte）和中断向量表下载到内部的 FLASH 和 E2RPOM 中去。</p>
-<p>执行的自举加载工作在 LIN 模式下，另一种引导装载程序通信协议在 UART2/UART3 和 UART1 中执行。</p>
-<p>复位后，启动代码开始执行。更多详细内容参考 STM8 启动代码用户手册 UM0560。</p>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>STM8</tag>
       </tags>
   </entry>
   <entry>
@@ -689,6 +674,21 @@
 <h4 id="全局配置寄存器（CFGGCR）"><a href="#全局配置寄存器（CFGGCR）" class="headerlink" title="全局配置寄存器（CFGGCR）"></a>全局配置寄存器（CFGGCR）</h4><p>地址偏移值 0x00</p>
 <p>复位值    0x00</p>
 <p><img src="https://i.loli.net/2019/03/02/5c7aa0f0747c9.png" alt="img"></p>
+]]></content>
+      <tags>
+        <tag>硬件拾忆</tag>
+        <tag>STM8</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>STM8S Boot ROM</title>
+    <url>//blog/2019/03/02/STM8S-Boot-ROM/</url>
+    <content><![CDATA[<hr>
+<p>stm8s Boot ROM 是用于系统启动的只读存储器。</p>
+<a id="more"></a>
+<p>在某些 STM8 型号中有 2K 字节的内部 Boot ROM，其中包含有用于启动的代码。这段代码的主要作用是利用 STM8 的 SPI，CAN 或 UART 接口，将应用程序代码，数据，选项字节（Option Byte）和中断向量表下载到内部的 FLASH 和 E2RPOM 中去。</p>
+<p>执行的自举加载工作在 LIN 模式下，另一种引导装载程序通信协议在 UART2/UART3 和 UART1 中执行。</p>
+<p>复位后，启动代码开始执行。更多详细内容参考 STM8 启动代码用户手册 UM0560。</p>
 ]]></content>
       <tags>
         <tag>硬件拾忆</tag>
@@ -1359,38 +1359,6 @@
       </tags>
   </entry>
   <entry>
-    <title>ARM CMSIS-DSP 库简介</title>
-    <url>//blog/2019/03/04/ARM-CMSIS-DSP-%E5%BA%93%E7%AE%80%E4%BB%8B/</url>
-    <content><![CDATA[<hr>
-<p>CMSIS 的 DSP 库主要提供以下数字信号处理算法：</p>
-<p>1、BasicMathFunctions</p>
-<p>提供基本的数据运算，如加减乘除，以 _f32 结尾的函数是浮点运算，以 _q8，_q15，_q31 结尾的函数是定点运算。</p>
-<a id="more"></a>
-<p>2、FastMathFunctions</p>
-<p>主要提供 SIN，COS 以及平方根 SPRT 的运算。</p>
-<p>3、ComplexMathFunctions</p>
-<p>复杂数学运算，主要是向量，求模等运算。</p>
-<p>4、FilteringFunctions</p>
-<p>主要是滤波函数，如 IIR，FIR，LMS 等。</p>
-<p>5、MatrixFunctions</p>
-<p>主要是矩阵运算。</p>
-<p>6、TransformFunctions</p>
-<p>变换功能。包括复数 FFT（CFFT）/负数 FFT 逆运算（CIFFT）、实数 FFT（RFFT）/实数 FFT 逆运算。</p>
-<p>7、ControllerFunctions</p>
-<p>控制功能，主要为 PID 控制函数。arm_sin_cos_f32/_q31.c 函数提供 360 点正余弦函数表和任意角度的正余弦函数值计算功能。</p>
-<p>8、StatisticsFunctions</p>
-<p>统计功能函数，如求平均值、计算 RMS 等。</p>
-<p>9、SupportFunctions</p>
-<p>支持功能函数，如数据拷贝，Q 格式和浮点格式相互转换。</p>
-<p>10、CommonTables</p>
-<p>arm_common_tables.c 文件提供位翻转或相关参数表。</p>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>STM32</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>STM8S 电源管理</title>
     <url>//blog/2019/03/03/STM8S-%E7%94%B5%E6%BA%90%E7%AE%A1%E7%90%86/</url>
     <content><![CDATA[<hr>
@@ -1547,22 +1515,35 @@
       </tags>
   </entry>
   <entry>
-    <title>Cadence Allegro 操作总结</title>
-    <url>//blog/2019/03/04/Cadence-Allegro-%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93/</url>
+    <title>ARM CMSIS-DSP 库简介</title>
+    <url>//blog/2019/03/04/ARM-CMSIS-DSP-%E5%BA%93%E7%AE%80%E4%BB%8B/</url>
     <content><![CDATA[<hr>
-<p>1、查看快捷键</p>
-<p>命令行输入alias</p>
+<p>CMSIS 的 DSP 库主要提供以下数字信号处理算法：</p>
+<p>1、BasicMathFunctions</p>
+<p>提供基本的数据运算，如加减乘除，以 _f32 结尾的函数是浮点运算，以 _q8，_q15，_q31 结尾的函数是定点运算。</p>
 <a id="more"></a>
-<hr>
-<p>2、显示丝印</p>
-<p>菜单栏 color192（四个方块）-&gt; component -&gt; silkscreen打钩</p>
-<hr>
-<p>3、关闭和显示网络飞线</p>
-<p>Display -&gt; Show Rats -&gt; All -&gt; 即可打开显示所有的网络飞线（未布线的网络）</p>
-<p>Display -&gt; Blank Rats -&gt; All -&gt; 关闭隐藏所有的网络飞线</p>
+<p>2、FastMathFunctions</p>
+<p>主要提供 SIN，COS 以及平方根 SPRT 的运算。</p>
+<p>3、ComplexMathFunctions</p>
+<p>复杂数学运算，主要是向量，求模等运算。</p>
+<p>4、FilteringFunctions</p>
+<p>主要是滤波函数，如 IIR，FIR，LMS 等。</p>
+<p>5、MatrixFunctions</p>
+<p>主要是矩阵运算。</p>
+<p>6、TransformFunctions</p>
+<p>变换功能。包括复数 FFT（CFFT）/负数 FFT 逆运算（CIFFT）、实数 FFT（RFFT）/实数 FFT 逆运算。</p>
+<p>7、ControllerFunctions</p>
+<p>控制功能，主要为 PID 控制函数。arm_sin_cos_f32/_q31.c 函数提供 360 点正余弦函数表和任意角度的正余弦函数值计算功能。</p>
+<p>8、StatisticsFunctions</p>
+<p>统计功能函数，如求平均值、计算 RMS 等。</p>
+<p>9、SupportFunctions</p>
+<p>支持功能函数，如数据拷贝，Q 格式和浮点格式相互转换。</p>
+<p>10、CommonTables</p>
+<p>arm_common_tables.c 文件提供位翻转或相关参数表。</p>
 ]]></content>
       <tags>
-        <tag>软件使用</tag>
+        <tag>硬件拾忆</tag>
+        <tag>STM32</tag>
       </tags>
   </entry>
   <entry>
@@ -1579,6 +1560,25 @@
 <hr>
 <p>3、导出 BOM</p>
 <p>需要将每一个器件的 comment 改成对应的阻值容值，template 选 BOM Default Template 95.xlt，最后点 Export</p>
+]]></content>
+      <tags>
+        <tag>软件使用</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Cadence Allegro 操作总结</title>
+    <url>//blog/2019/03/04/Cadence-Allegro-%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<hr>
+<p>1、查看快捷键</p>
+<p>命令行输入alias</p>
+<a id="more"></a>
+<hr>
+<p>2、显示丝印</p>
+<p>菜单栏 color192（四个方块）-&gt; component -&gt; silkscreen打钩</p>
+<hr>
+<p>3、关闭和显示网络飞线</p>
+<p>Display -&gt; Show Rats -&gt; All -&gt; 即可打开显示所有的网络飞线（未布线的网络）</p>
+<p>Display -&gt; Blank Rats -&gt; All -&gt; 关闭隐藏所有的网络飞线</p>
 ]]></content>
       <tags>
         <tag>软件使用</tag>
@@ -2238,6 +2238,34 @@
       </tags>
   </entry>
   <entry>
+    <title>STM8S 自动唤醒 AWU</title>
+    <url>//blog/2019/03/04/STM8S-%E8%87%AA%E5%8A%A8%E5%94%A4%E9%86%92-AWU/</url>
+    <content><![CDATA[<hr>
+<h3 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h3><p>AWU 是用来当 MCU 进入低功耗的 Active Halt 模式时提供一个内部的唤醒时间基准。该时间基准的时钟是由内部的低速 RC 振荡器时钟（LSI）或通过预分频的 HSE 晶振时钟来提供的。</p>
+<a id="more"></a>
+<p><strong>LSI 时钟测量</strong></p>
+<p>在使用 LSI 低速内部时钟时，为了确保最好的精度，它的频率可以通过 TIM3 的输入捕获 1 来测定。</p>
+<p><img src="https://i.loli.net/2019/03/04/5c7c75c9bab66.png" alt="Image.png"></p>
+<p>注意：LS 低速时钟源的选择是通过编程 CKAWUSEL 选项位来实现的。</p>
+<hr>
+<h3 id="二、AWU-功能描述"><a href="#二、AWU-功能描述" class="headerlink" title="二、AWU 功能描述"></a>二、AWU 功能描述</h3><h4 id="1、AUW-操作"><a href="#1、AUW-操作" class="headerlink" title="1、AUW 操作"></a>1、AUW 操作</h4><p>为了使用 AWU 功能，按顺序执行如下步骤：</p>
+<p><img src="https://i.loli.net/2019/03/04/5c7c75eb5d4df.png" alt="Image.png"></p>
+<p><strong>空闲模式</strong></p>
+<p>如果不使用 AWU，必须载入‘0000’值到 AWU_TBR 的 AWUTB[3:0] 来降低功耗。</p>
+<h4 id="2、时基选择"><a href="#2、时基选择" class="headerlink" title="2、时基选择"></a>2、时基选择</h4><p><img src="https://i.loli.net/2019/03/04/5c7c760388799.png" alt="Image.png"></p>
+<h4 id="3、LSI-低速内部时钟频率检测"><a href="#3、LSI-低速内部时钟频率检测" class="headerlink" title="3、LSI 低速内部时钟频率检测"></a>3、LSI 低速内部时钟频率检测</h4><p>在经过出厂校验后，在全温度范围内低速内部 RC（LSI）振荡器的频率离散性是 128kHz±12.5%。为了获得精确的 AWU 时间间隔或蜂鸣器输出，必须精确测量 LSI 频率。</p>
+<p><img src="https://i.loli.net/2019/03/04/5c7c761d6ced8.png" alt="Image.png"></p>
+<hr>
+<h3 id="三、AWU寄存器"><a href="#三、AWU寄存器" class="headerlink" title="三、AWU寄存器"></a>三、AWU寄存器</h3><p>控制/状态寄存器     AWU_CSR</p>
+<p>异步预分频寄存器   AWU_APR</p>
+<p>时基选择寄存器      AWU_TBR</p>
+]]></content>
+      <tags>
+        <tag>硬件拾忆</tag>
+        <tag>STM8</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>STM8S TIM1 时基单元</title>
     <url>//blog/2019/03/04/STM8S-TIM1-%E6%97%B6%E5%9F%BA%E5%8D%95%E5%85%83/</url>
     <content><![CDATA[<hr>
@@ -2402,34 +2430,6 @@
 <p>虽然这样限制了 PW 的最大循环周期为 128，但它能够在每个 PWM 周期 2 次更新占空比。在中央对齐模式下，因为波形是对称的，如果每个 PWM 周期中仅刷新一次比较寄存器，则最大的分辨率为 2*tCK_PSC。</p>
 <p>重复计数器是自动加载的，重复速率由 TIMx_RCR 寄存器的值定义。当更新事件由软件产生（通过设置 TIMx_EGR 中的 UG 位）或者通过硬件的从模式控制器产生，则无论重复计数器的值是多少，立即发生更新事件，并且 TIMx_RCR 寄存器中的内容被重载到重复计数器。</p>
 <p><img src="https://i.loli.net/2019/03/04/5c7c7d8ca3063.png" alt="Image.png"></p>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>STM8</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>STM8S 自动唤醒 AWU</title>
-    <url>//blog/2019/03/04/STM8S-%E8%87%AA%E5%8A%A8%E5%94%A4%E9%86%92-AWU/</url>
-    <content><![CDATA[<hr>
-<h3 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h3><p>AWU 是用来当 MCU 进入低功耗的 Active Halt 模式时提供一个内部的唤醒时间基准。该时间基准的时钟是由内部的低速 RC 振荡器时钟（LSI）或通过预分频的 HSE 晶振时钟来提供的。</p>
-<a id="more"></a>
-<p><strong>LSI 时钟测量</strong></p>
-<p>在使用 LSI 低速内部时钟时，为了确保最好的精度，它的频率可以通过 TIM3 的输入捕获 1 来测定。</p>
-<p><img src="https://i.loli.net/2019/03/04/5c7c75c9bab66.png" alt="Image.png"></p>
-<p>注意：LS 低速时钟源的选择是通过编程 CKAWUSEL 选项位来实现的。</p>
-<hr>
-<h3 id="二、AWU-功能描述"><a href="#二、AWU-功能描述" class="headerlink" title="二、AWU 功能描述"></a>二、AWU 功能描述</h3><h4 id="1、AUW-操作"><a href="#1、AUW-操作" class="headerlink" title="1、AUW 操作"></a>1、AUW 操作</h4><p>为了使用 AWU 功能，按顺序执行如下步骤：</p>
-<p><img src="https://i.loli.net/2019/03/04/5c7c75eb5d4df.png" alt="Image.png"></p>
-<p><strong>空闲模式</strong></p>
-<p>如果不使用 AWU，必须载入‘0000’值到 AWU_TBR 的 AWUTB[3:0] 来降低功耗。</p>
-<h4 id="2、时基选择"><a href="#2、时基选择" class="headerlink" title="2、时基选择"></a>2、时基选择</h4><p><img src="https://i.loli.net/2019/03/04/5c7c760388799.png" alt="Image.png"></p>
-<h4 id="3、LSI-低速内部时钟频率检测"><a href="#3、LSI-低速内部时钟频率检测" class="headerlink" title="3、LSI 低速内部时钟频率检测"></a>3、LSI 低速内部时钟频率检测</h4><p>在经过出厂校验后，在全温度范围内低速内部 RC（LSI）振荡器的频率离散性是 128kHz±12.5%。为了获得精确的 AWU 时间间隔或蜂鸣器输出，必须精确测量 LSI 频率。</p>
-<p><img src="https://i.loli.net/2019/03/04/5c7c761d6ced8.png" alt="Image.png"></p>
-<hr>
-<h3 id="三、AWU寄存器"><a href="#三、AWU寄存器" class="headerlink" title="三、AWU寄存器"></a>三、AWU寄存器</h3><p>控制/状态寄存器     AWU_CSR</p>
-<p>异步预分频寄存器   AWU_APR</p>
-<p>时基选择寄存器      AWU_TBR</p>
 ]]></content>
       <tags>
         <tag>硬件拾忆</tag>
@@ -2740,20 +2740,6 @@
       </tags>
   </entry>
   <entry>
-    <title>C++ string 转换为 int</title>
-    <url>//blog/2019/04/11/C-string-%E8%BD%AC%E6%8D%A2%E4%B8%BA-int/</url>
-    <content><![CDATA[<hr>
-<h4 id="方法一、使用-stringstream"><a href="#方法一、使用-stringstream" class="headerlink" title="方法一、使用 stringstream"></a>方法一、使用 stringstream</h4><p>需要包含 <sstream> 头文件。</sstream></p>
-<a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int val;</span><br><span class="line">string str = &quot;123&quot;;</span><br><span class="line">stringstream ss(str);</span><br><span class="line">ss &gt;&gt; val；</span><br></pre></td></tr></table></figure>
-<h4 id="方法二、"><a href="#方法二、" class="headerlink" title="方法二、"></a>方法二、</h4><p>未完待续。。。</p>
-]]></content>
-      <tags>
-        <tag>C++</tag>
-        <tag>编程语言</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>C++ 文件流输入输出</title>
     <url>//blog/2019/04/04/C-%E6%96%87%E4%BB%B6%E6%B5%81%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/</url>
     <content><![CDATA[<hr>
@@ -2832,6 +2818,20 @@
 <h4 id="六、各种流类之间的关系"><a href="#六、各种流类之间的关系" class="headerlink" title="六、各种流类之间的关系"></a>六、各种流类之间的关系</h4><p><img src="https://i.loli.net/2019/04/04/5ca5c9f50056b.png" alt="1554368740541"></p>
 <p>basic_ios 是所有流类的基类 ios_base 的模板类。</p>
 <p>在 ios_base 的基础上派生出 ios，又在 ios 基础上派生出其他类，详见上图。</p>
+]]></content>
+      <tags>
+        <tag>C++</tag>
+        <tag>编程语言</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++ string 转换为 int</title>
+    <url>//blog/2019/04/11/C-string-%E8%BD%AC%E6%8D%A2%E4%B8%BA-int/</url>
+    <content><![CDATA[<hr>
+<h4 id="方法一、使用-stringstream"><a href="#方法一、使用-stringstream" class="headerlink" title="方法一、使用 stringstream"></a>方法一、使用 stringstream</h4><p>需要包含 <sstream> 头文件。</sstream></p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int val;</span><br><span class="line">string str = &quot;123&quot;;</span><br><span class="line">stringstream ss(str);</span><br><span class="line">ss &gt;&gt; val；</span><br></pre></td></tr></table></figure>
+<h4 id="方法二、"><a href="#方法二、" class="headerlink" title="方法二、"></a>方法二、</h4><p>未完待续。。。</p>
 ]]></content>
       <tags>
         <tag>C++</tag>
