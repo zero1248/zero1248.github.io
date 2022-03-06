@@ -1,5 +1,6 @@
 <%- partial('_partial/head') %>
 <body>
+    
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
     <div class="left-col" q-class="show:isShow">
@@ -7,6 +8,33 @@
     </div>
     <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
       <%- partial('_partial/mobile-nav', null, {cache: !config.relative_link}) %>
+      <% if(theme.search) { %>
+        <div class="page-header" style="">
+            <%# 今日诗词网址： https://www.jinrishici.com/ %>
+            <span>🍻  
+                <span id="jinrishici-sentence" title="今日诗词">正在加载今日诗词....</span>
+            </span>
+            <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+        
+            <%# 《集成本地搜索 %>
+            <script type="text/javascript" src="/js/search.js"></script>
+            <span id="local-search" class="local-search local-search-plugin" style="">
+              <input type="search" placeholder="站内搜索" id="local-search-input" class="local-search-input-cls" style="">
+              <i id="local-search-icon-search" class="icon" aria-hidden="true" title="站内搜索">🔍</i>
+              <div id="local-search-result" class="local-search-result-cls"></div>
+            </span>
+        
+            <script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+            <script>
+                if ($('.local-search').size()) {
+                  $.getScript('/js/search.js', function() {
+                    searchFunc("/search.xml", 'local-search-input', 'local-search-result');
+                  });
+                }
+            </script>
+            <%# 集成本地搜索》 %>
+        </div>
+        <% } %>
       <div id="wrapper" class="body-wrap">
         <div class="menu-l">
           <div class="canvas-wrap">
