@@ -1,6 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>MSP430 串口</title>
+    <url>//blog/2019/02/22/MSP430-%E4%B8%B2%E5%8F%A3/</url>
+    <content><![CDATA[<hr>
+<p>MSP430 常见的 USART（universal synchronous/asynchronous receive/ransmit）接口通常有三种：UART、IIC、SPI。其中 UART（串口）是调试过程中最常用的接口，这里根据 User’s Guide 谈谈 MSP430x1xx 系列串口的使用。</p>
+<a id="more"></a>
+<p>在 UART 一章的开始，有这样一段文字：</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fb7ad78699.png" alt="img"></p>
+<p>可见，在 X14X 和 X16X 中，有两组串口，而 X12X 、X13X 和 X15X 中只有 UART0。使用不同型号，务必先查看手册中的资源介绍。</p>
+<h3 id="一、Introduction"><a href="#一、Introduction" class="headerlink" title="一、Introduction"></a>一、Introduction</h3><p>本节一开始，有这样一段话：</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fb8b4147a0.png" alt="img"></p>
+<p>说明了UART提供两个接口：UTXD（发送）和URXD（接收），使用时只需要这两个引脚就可以与其他串口设备通信，但要注意的一点是，除了这两个引脚的连接外，两设备还必须共地，也就是说他们的GND也要连在一起，这是两设备成功通信的关键！</p>
+<p>接下来介绍了该模块的特性：</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fb8ed393ef.png" alt="img"></p>
+<p>值得关注的几点是：</p>
+<p>1、430 UART 的发送和接收移位寄存器都是独立的</p>
+<p>2、发射和接收缓冲器是分离的，这一点不同于 51 单片机</p>
+<p>3、低位优先发送和接收</p>
+<h3 id="二、Operation"><a href="#二、Operation" class="headerlink" title="二、Operation"></a>二、Operation</h3><p>发送和接收使用相同的波特率。</p>
+<p>PUC（上电清除）或SWRST置位会导致USART复位。</p>
+<h4 id="1、上电复位后各位状态"><a href="#1、上电复位后各位状态" class="headerlink" title="1、上电复位后各位状态"></a>1、上电复位后各位状态</h4><p><img src="https://i.loli.net/2019/02/22/5c6fb93cad626.png" alt="img"></p>
+<p>上面这段话给出了上电后，各标志位的初始状态：</p>
+<p>1）USART 自动置位（置1）</p>
+<p>2） URXIEx、UTXIEx、URXIFGx、RXWAKE、TXWAKE、RXERR、BRK、PE、OE 和 FE 复位（置0）</p>
+<p>3） UTXIFGx、TXEPT 置位</p>
+<p>4） URXEx 和 UTXEx 不受影响</p>
+<p>清除 SWRST 将允许操作 USART。</p>
+<h4 id="2、初始化或重配置顺序"><a href="#2、初始化或重配置顺序" class="headerlink" title="2、初始化或重配置顺序"></a>2、初始化或重配置顺序</h4><p><img src="https://i.loli.net/2019/02/22/5c6fb9e5da6c4.png" alt="img"></p>
+<p>1）SWRST 置位（置1）</p>
+<p>2）在 SWRST=1 的前提下初试化各个 USART 寄存器</p>
+<p>3）通过 MEx 特殊功能寄存器使能 USART 模块</p>
+<p>4）软件清除 SWRST（置0）</p>
+<p>5）通过 IEx 特殊功能寄存器使能中断</p>
+<h4 id="3、字符格式"><a href="#3、字符格式" class="headerlink" title="3、字符格式"></a>3、字符格式</h4><p><img src="https://i.loli.net/2019/02/22/5c6fbb36cc550.png" alt="img"></p>
+<p>起始位 – 7 或 8 位数据位 – 地址位 – 奇偶校验位 – 1 或 2 位停止位。由波特率寄存器设置。</p>
+<h4 id="4、异步通信格式"><a href="#4、异步通信格式" class="headerlink" title="4、异步通信格式"></a>4、异步通信格式</h4><p>双机通信时，使用空闲总线模式。多机通信时，支持空闲总线模式和地址位处理模式。</p>
+<h5 id="1）空闲总线多处理机模式（MM-0）"><a href="#1）空闲总线多处理机模式（MM-0）" class="headerlink" title="1）空闲总线多处理机模式（MM=0）"></a>1）空闲总线多处理机模式（MM=0）</h5><p><img src="https://i.loli.net/2019/02/22/5c6fbbf2bfed8.png" alt="img"></p>
+<p>两个数据块之间隔了一个大于 10 个时钟的空闲时间，而数据块内的数据之间的间隔小于 10 个时钟。在前一个字符的的第一个停止位之后又接收了 10 或者更多连续的时钟后，将检测接收总线。当使用 2 个地址位时，第二个地址位将作为空闲周期的第一个标志。</p>
+<p>一个空闲周期之后的第一个接收到的数据是地址字符。RXWAKE 位用来标志每个数据块的地址位。空闲总线模式下，当接收到地址并且传送至 UxRXBUF 时，该位将置位。</p>
+<p>URXWIE 位用来控制数据接收。当该位置位时，所有的非地址字符被收集，但是不移送至 UxRXBUF 中，也不触发中断。接收到地址字符时接收器将暂时激活将字符传送至 UxRXBUF 中并且置位 URXIFGx 中断标志。任何满足条件的错误标志位也将置位。用户可以验证接收地址。</p>
+<p>如果接收到一个地址字符，用户可以软件验证地址，并且必须复位 URXWIE 以保证继续接收数据。如果保持置位，将只接收地址字符。URXWIE 位不会由硬件自动修改。</p>
+<p>在空闲总线模式下，可以由 USART 产生一个精准的空闲周期去产生 UTXDx 中的地址字符标志符来传送地址。WUT 暂时唤醒标志是一个由用户可访问的TXWAKE位双缓存的内部标志。当发送器从 UxTXBUF 中载入数据，WUT 也从 TXWAKE 中载入，并复位 TXWAKE。</p>
+<p>以下步骤可以传送一个空闲帧表明后面是地址字符：</p>
+<p>1&gt; 置位 TXWAKE，然后向 UxTXBUF 写入任意字符。UxTXBUF 必须准备好接收新字符（UTXIFGx = 1）。</p>
+<p>TXWAKE 值移入 WUT，当 UxTXBUF 准备好接收新数据时，UxTXBUF 的内容被移入发送移位寄存器。这将置位WUT，抑制正常传输中的起始位、数据位、奇偶校验位。然后发送大约十一位的空闲周期。当使用两个地址位时，第二个地址位将作为空闲周期的第一个标志。TXWAKE 自动复位。</p>
+<p>2&gt; 向 UxTXBUF 中写入所需地址字符。UxTXBUF 必须准备好接收新字符（UTXIFGx = 1）。</p>
+<p>在 UTXDx 的地址标志空闲周期之后，代表了特殊地址的新字符被发出。必须向 UxTXBUF 写入第一个任意字符，这是为了将 TXWAKE 位移入 WUT 并触发空闲总线条件。这个数据并不重要，也不会出现在 UTXDx 上。</p>
+<h5 id="2）地址位多处理机模式（MM-1）"><a href="#2）地址位多处理机模式（MM-1）" class="headerlink" title="2）地址位多处理机模式（MM=1）"></a>2）地址位多处理机模式（MM=1）</h5><p>每个数据包含一个额外的位用于地址表示。数据块中的第一个字符带有一个置位的地址位表明这个字符是地址。当接收到字符是一个有效的地址字符且被移入 UxRXBUF 中，USART 的 RXWAKE 位将被置位。</p>
+<p>URXWIE 位用来控制数据接收。当该位置位时，数据字符（地址位=0）将被接收器接收但不送入 UxRXBUF 并且不触发中断。当收到一个包含了地址位置位的字符时，接收器暂时唤醒将字符传送到 UxRXBUF 并将 URXIFGx 置位。所有满足条件的状态错误标志也会被置位。</p>
+<p>如果接收到一个地址，用户必须软件复位URXWIE以保证继续接收数据。如果 URXWIE 保持置位，值有地址字符（地址位=1）可以倍接收。URXWIE 位不会有 USART 硬件自动改变。</p>
+<p>在地址位模式下发送地址数据时，一个字符的地址位可以通过写入 TXWAKE 位来控制。TXWAKE 位的值将被载入从UxTXBUF 传送到移位寄存器的字符的地址位，然后自动清除 TXWAKE 位。TXWAKE 不能软件复位，它将在传送至 WUT 或被 SWRST 置位后有 USART 硬件清零。</p>
+<h5 id="3）自动错误检测"><a href="#3）自动错误检测" class="headerlink" title="3）自动错误检测"></a>3）自动错误检测</h5><p>参看User’s Guide。</p>
+<h4 id="5、USART接收使能"><a href="#5、USART接收使能" class="headerlink" title="5、USART接收使能"></a>5、USART接收使能</h4><p><img src="https://i.loli.net/2019/02/22/5c6fbd113b5d8.png" alt="img"></p>
+<p>从状态转移图可以清楚的看出 URXEx 对接收的影响。</p>
+<h4 id="6、USART发送使能"><a href="#6、USART发送使能" class="headerlink" title="6、USART发送使能"></a>6、USART发送使能</h4><p><img src="https://i.loli.net/2019/02/22/5c6fbd4edc15d.png" alt="img"></p>
+<p>​     </p>
+<p>当 UTXEx 置位时，UART 发送器使能。向 UxTXBUF 写入数据将发起发送。数据将在 TX 移位寄存器置空的下一个 BITCLK 被送进去，然后发送开始。</p>
+<p>当 UTXEx 位复位时发送终止。任何移入 UxTXBUF 的数据和任何正在发送移位寄存器中进行的数据发送，若先于清空 UTXEx 的操作，都将继续进行发送，直到所有的数据发送完毕。</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fbdb591472.png" alt="img"></p>
+<p>当发送器被使能（UTXEx=1），数据不应该被写入 UxTXBUF，除非 UxTXBUF 已经准备好接收新数据，表现为 UTXIFGx=1。如果 UxTXBUF 中的数据在它将被送至发送寄存器时被修改，这一扰乱将导致错误的发送。</p>
+<p>完成所有发送后，发送器需要关闭（UTXEx=0），表现为发送器清空标志位置位（TXEPT = 1）。在发送器关闭时，任何写入 UxTXBUF 的数据都将被保存在缓冲器中，但是不会移入发送移位寄存器或者被发送。一旦 UTXEx 被置位，发送缓存里的数据立即被载入发送移位寄存器中，而且数据发送重新开始。</p>
+<h4 id="7、UART波特率产生"><a href="#7、UART波特率产生" class="headerlink" title="7、UART波特率产生"></a>7、UART波特率产生</h4><p>USART 波特率发生器是由不标准的时钟频率产生标准的波特率。波特率发生器使用一个预定标器/除法器和一个调制器。这个组合为波特率发生器提供小数除数因子。USART 的最大波特率是 UART 时钟频率 BRCLK 的三分之一。</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fbeb2cc5f3.png" alt="img"></p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fbecf62cd1.png" alt="img"></p>
+<p>波特率配置常数及误差：</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fbf177d762.png" alt="img"></p>
+<h4 id="8、USART中断"><a href="#8、USART中断" class="headerlink" title="8、USART中断"></a>8、USART中断</h4><p>USART有一个发送中断向量和一个接收中断向量。</p>
+<h5 id="1）发送中断操作"><a href="#1）发送中断操作" class="headerlink" title="1）发送中断操作"></a>1）发送中断操作</h5><p>发送器置位 UTXIFGx 中断标志位，表明 UxTXBUF 准备好接收另一个字符。如果 UTXIEx 和GIE 置位，也会触发一个中断请求。若中断请求得到响应或者一个字符写入 UxTXBUF，UTXIFGx 将自动复位。</p>
+<p>UTXIFGx 在 PUC 之后或 SWRST=1 时都会被置位。</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fbf6c3b1f2.png" alt="img"></p>
+<h5 id="2）接收中断操作"><a href="#2）接收中断操作" class="headerlink" title="2）接收中断操作"></a>2）接收中断操作</h5><p>每次接收到一个数据并载入 UxRXBUF 都会置位 URXIFGx 中断标志。如果 URXIEx 和 GIE 置位，也会触发一个中断请求。URXIFGx 和 URXIEx 会在系统复位信号 PUC 之后或 SWRST=1 时复位。若悬而未决的中断得到响应（当 URXSE=0）或者当 UxRXBUF 被读取时，URXIFGx 将自动复位。</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fbfa5e7432.png" alt="img"></p>
+<p>URXEIE 用来使能或关闭置位 URXIFGx 造成的错误字符。在使用地址位模式时，URXWIE 用来自动检测有效的地址字符和拒绝不需要的数据字符。</p>
+<p>两种字符不能置位 URXIFGx：当 URXEIE=0 时的错误字符，当 URXWIE=1 时的非地址字符。</p>
+<p>当 URXEIE=1 一个 break 条件将置位 BRK 位和 URXIFGx 标志。</p>
+<h5 id="3）接收起始边沿检测操作"><a href="#3）接收起始边沿检测操作" class="headerlink" title="3）接收起始边沿检测操作"></a>3）接收起始边沿检测操作</h5><p>URXSE 位使能接收起始边沿检测特性。当 BRCLK 由 DCO 提供，以及当 DCO 因为低功耗模式而关闭时，推荐使用接收开始边沿特性。DCO 的超快振荡允许在起始边沿检测之后接收字符。</p>
+<p>当 URXSE，URXIEx 和 GIE 置位，并且一个起始边沿出现在 URXDx，内部信号 URXS 将会置位。当 URXS 置位，将会触发一个接收中断请求，但 URXIFGx 不会置位。用户在接收中断服务程序中可以检测 URXIFGx 来判断中断源。当 URXIFGx=0，检测起始边沿；当 URXIFGx=1，接收一个有效的字符（或 break）。</p>
+<p>当中断服务函数判断中断请求来自起始边沿，用户软件触发 URXSE，而且必须从中断服务函数中返回有效的模式或一个 BRCLK 激活的低功耗模式，以使能 BRCLK。如果中断服务函数返回到一个 BRCLK 未激活的低功耗模式，字符不能被接收。触发 URXSE 清除 URXS 信号并将为未来的字符重新使能起始边沿检测。</p>
+<p>当前激活的 BRCLK 允许 USART 接收字符。接收完一个字符并送入 UxRXBUF 之后，URXIFGx 将置位，并请求一个中断服务。在中断服务函数入口，URXIFGx=1 表明接收到一个字符。当用户软件读取 UxRXBUF 时 URXIFGx 标志被清除。</p>
+<p>当使用接收边沿检测时，若BRCLK关闭，将不能检测到break条件。</p>
+<h5 id="4）接收起始边沿检测条件"><a href="#4）接收起始边沿检测条件" class="headerlink" title="4）接收起始边沿检测条件"></a>4）接收起始边沿检测条件</h5><p>当 URXSE=1 时，故障将抑制阻止 USART 被意外启动。URXDs 的任何一个比抗尖峰脉冲时间（大约300ns）短的低电平都会被 USART 忽视而不会触发中断请求。</p>
+<p>当一个故障时间长于抗尖峰脉冲时间，或一个有效的起始位出现在 URXDx，USART 接收将启动，且会进行一个多数投票。如果多数投票认为没有检测到的不是起始位，将会中断字符接收。</p>
+<p>如果字符接收中断，就没有必要激活 BRCLK。软件可以通过一个比字符接收持续时间长的延时周期来表明没有在预期周期内接收到字符，且软件可以关闭 BRCLK。</p>
+<h3 id="三、Registers"><a href="#三、Registers" class="headerlink" title="三、Registers"></a>三、Registers</h3><p>寄存器详细内容参考相应手册。</p>
+]]></content>
+      <tags>
+        <tag>硬件拾忆</tag>
+        <tag>MSP430</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Git 与 Github</title>
     <url>//blog/2019/02/20/Git%20%E4%B8%8E%20Github/</url>
     <content><![CDATA[<hr>
@@ -119,105 +209,6 @@
       <tags>
         <tag>软件使用</tag>
         <tag>Github</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>MSP430 IO</title>
-    <url>//blog/2019/02/22/MSP430-IO/</url>
-    <content><![CDATA[<hr>
-<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>上电后寄存器状态为输入高电平。</p>
-<p>改变 PxOUT 或 PxDIR 时 PxIFG 标志将置位。</p>
-<p>向 PxIES 写入数据将导致相应的中断标志置位。</p>
-<a id="more"></a>
-<p>只置位 PxSELx 不能自动设置引脚方向。其他外设模块需要跟据模块功能配置 PxDIRx，改变引脚方向。</p>
-<font color="#FF0000"> 开启外部中断时，要先设置 OUT、DIR、IES，然后复位 IFG，最后开中断。 </font>
-
-<p>msp430x14x、x15x、x16x的 P1、P2 口具有中断能力。</p>
-<p>未使用的IO引脚应配置成IO功能，输出方向，并连接在PCB板上，以降低功耗。PxOUT位的值无所谓，因为其引脚未连接。</p>
-<p>未使用的引脚的正确连接方式：</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6fb3c7b5cc8.png" alt="1550824357362"></p>
-<h3 id="MSP430-IO-特点"><a href="#MSP430-IO-特点" class="headerlink" title="MSP430 IO 特点"></a>MSP430 IO 特点</h3><ul>
-<li><p>独立的可编程 IO</p>
-</li>
-<li><p>同组 IO 口输入输出任意组合</p>
-</li>
-<li><p>P1、P2 中断独立配置</p>
-</li>
-<li><p>输入输出数据寄存器独立</p>
-</li>
-</ul>
-<h3 id="一、输入寄存器-PxIN"><a href="#一、输入寄存器-PxIN" class="headerlink" title="一、输入寄存器 PxIN"></a>一、输入寄存器 PxIN</h3><p>Bit = 0 ： 输入为低</p>
-<p>Bit = 1 ： 输入为高</p>
-<p>PxIN是只读寄存器，执行写入指令将增加电流消耗。</p>
-<h3 id="二、输出寄存器-PxOUT"><a href="#二、输出寄存器-PxOUT" class="headerlink" title="二、输出寄存器 PxOUT"></a>二、输出寄存器 PxOUT</h3><p>Bit = 0 ： 输出为低</p>
-<p>Bit = 1 ： 输出为高</p>
-<h3 id="三、方向寄存器-PxDIR"><a href="#三、方向寄存器-PxDIR" class="headerlink" title="三、方向寄存器 PxDIR"></a>三、方向寄存器 PxDIR</h3><p>PxDIR 的每一位用来选择相应引脚的方向，无论选择了什么第二功能。</p>
-<p>如果 IO 开启了第二功能，必须根据需要来设置相应的方向。</p>
-<p>Bit = 0 ： 输入方向</p>
-<p>Bit = 1 ： 输出方向</p>
-<h3 id="四、功能选择寄存器-PxSEL"><a href="#四、功能选择寄存器-PxSEL" class="headerlink" title="四、功能选择寄存器 PxSEL"></a>四、功能选择寄存器 PxSEL</h3><p>端口引脚经常复用作其他内部外设模块功能。PxSEL 的每一位决定了引脚用作 IO 功能还是内部外设模块功能（第二功能）。</p>
-<p>Bit = 0 ： IO功能</p>
-<p>Bit = 1 ： 内部外设功能</p>
-<p>只置位PxSELx不能自动设置引脚方向。其他外设模块需要跟据模块功能配置 PxDIRx，改变引脚方向。</p>
-<p>PxSEL 置位时，中断关闭。</p>
-<p>当引脚作为外设的输入时，输入到外设的信号在因脚伤经过一次锁存。当 PxSELx=1 时，内部输入信号跟随引脚上的输入信号。若 PxSELx=0，输入到外设的信号将维持引脚上的输入信号的值，直到 PxSELx 位重置。</p>
-<ul>
-<li>P1、P2 口可中断的器件<ul>
-<li>通过配置 PxIFG、PxIE 和 PxIES 寄存器，P1 和 P2 口的每个引脚都能具有中断能力。所有的 P1 口引脚都使用一个单独的中断源，所有的 P2 引脚使用另一个单独的中断源。可以检测 PxIFG 来判断 P1 或 P2 中断。</li>
-</ul>
-</li>
-</ul>
-<h3 id="五、中断标志位寄存器-P1IFG，P2IFG"><a href="#五、中断标志位寄存器-P1IFG，P2IFG" class="headerlink" title="五、中断标志位寄存器 P1IFG，P2IFG"></a>五、中断标志位寄存器 P1IFG，P2IFG</h3><p>选择的输入信号边沿出现在引脚上时，相应的中断标志会置位。相应的 PxIE 以及 GIE 置位后，所有 PxIFGx 中断标志都需要一个中断响应。PxIFG 必须由软件复位。软件也可以置位PxIFG，提供一种软件触发中断的方法。</p>
-<p>Bit = 0 ： 无中断请求</p>
-<p>Bit = 1 ： 中断请求</p>
-<p>只有跳变能触发中断，而稳定的电平不能。如果任意 PxIFGx 在中断服务程序中置位，或者在中断服务程序执行 RETI 命令之后置位，PxIFGx 标志位将触发另一个中断。这样确保了每一个跳变得到响应。</p>
-<font color="#FF0000">   改变 PxOUT 或 PxDIR 时 PxIFG 标志将置位。 </font>
-
-
-
-<p>任何外部中断时间都应该至少是 MCLK 的 1.5 倍，以保证单片机能检测到并且中断标志置位。</p>
-<h3 id="六、中断边沿选择寄存器-P1IES，P2IES"><a href="#六、中断边沿选择寄存器-P1IES，P2IES" class="headerlink" title="六、中断边沿选择寄存器 P1IES，P2IES"></a>六、中断边沿选择寄存器 P1IES，P2IES</h3><p>PxIES 用来选择中断 IO 引脚的中断边沿。</p>
-<p>Bit = 0 ： 由低向高的跳变置位 PxIFGx</p>
-<p>Bit = 1 ： 由高向低的跳变置位 PxIFGx</p>
-<font color="#FF0000">   向 PxIES 写入数据将导致相应的中断标志置位。 </font>
-
-<table>
-<thead>
-<tr>
-<th style="text-align:center">PxIESx</th>
-<th style="text-align:center">PxINx</th>
-<th style="text-align:center">PxIFGx</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">0→1</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">May be set</td>
-</tr>
-<tr>
-<td style="text-align:center">0→1</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">Unchanged</td>
-</tr>
-<tr>
-<td style="text-align:center">1→0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">Unchanged</td>
-</tr>
-<tr>
-<td style="text-align:center">1→0</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">May be set</td>
-</tr>
-</tbody>
-</table>
-<h3 id="七、中断使能寄存器P1IE，P2IE"><a href="#七、中断使能寄存器P1IE，P2IE" class="headerlink" title="七、中断使能寄存器P1IE，P2IE"></a>七、中断使能寄存器P1IE，P2IE</h3><p>Bit = 0 ： 中断关闭</p>
-<p>Bit = 1 ： 中断使能</p>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>MSP430</tag>
       </tags>
   </entry>
   <entry>
@@ -349,89 +340,98 @@
       </tags>
   </entry>
   <entry>
-    <title>MSP430 串口</title>
-    <url>//blog/2019/02/22/MSP430-%E4%B8%B2%E5%8F%A3/</url>
+    <title>MSP430 IO</title>
+    <url>//blog/2019/02/22/MSP430-IO/</url>
     <content><![CDATA[<hr>
-<p>MSP430 常见的 USART（universal synchronous/asynchronous receive/ransmit）接口通常有三种：UART、IIC、SPI。其中 UART（串口）是调试过程中最常用的接口，这里根据 User’s Guide 谈谈 MSP430x1xx 系列串口的使用。</p>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>上电后寄存器状态为输入高电平。</p>
+<p>改变 PxOUT 或 PxDIR 时 PxIFG 标志将置位。</p>
+<p>向 PxIES 写入数据将导致相应的中断标志置位。</p>
 <a id="more"></a>
-<p>在 UART 一章的开始，有这样一段文字：</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6fb7ad78699.png" alt="img"></p>
-<p>可见，在 X14X 和 X16X 中，有两组串口，而 X12X 、X13X 和 X15X 中只有 UART0。使用不同型号，务必先查看手册中的资源介绍。</p>
-<h3 id="一、Introduction"><a href="#一、Introduction" class="headerlink" title="一、Introduction"></a>一、Introduction</h3><p>本节一开始，有这样一段话：</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6fb8b4147a0.png" alt="img"></p>
-<p>说明了UART提供两个接口：UTXD（发送）和URXD（接收），使用时只需要这两个引脚就可以与其他串口设备通信，但要注意的一点是，除了这两个引脚的连接外，两设备还必须共地，也就是说他们的GND也要连在一起，这是两设备成功通信的关键！</p>
-<p>接下来介绍了该模块的特性：</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6fb8ed393ef.png" alt="img"></p>
-<p>值得关注的几点是：</p>
-<p>1、430 UART 的发送和接收移位寄存器都是独立的</p>
-<p>2、发射和接收缓冲器是分离的，这一点不同于 51 单片机</p>
-<p>3、低位优先发送和接收</p>
-<h3 id="二、Operation"><a href="#二、Operation" class="headerlink" title="二、Operation"></a>二、Operation</h3><p>发送和接收使用相同的波特率。</p>
-<p>PUC（上电清除）或SWRST置位会导致USART复位。</p>
-<h4 id="1、上电复位后各位状态"><a href="#1、上电复位后各位状态" class="headerlink" title="1、上电复位后各位状态"></a>1、上电复位后各位状态</h4><p><img src="https://i.loli.net/2019/02/22/5c6fb93cad626.png" alt="img"></p>
-<p>上面这段话给出了上电后，各标志位的初始状态：</p>
-<p>1）USART 自动置位（置1）</p>
-<p>2） URXIEx、UTXIEx、URXIFGx、RXWAKE、TXWAKE、RXERR、BRK、PE、OE 和 FE 复位（置0）</p>
-<p>3） UTXIFGx、TXEPT 置位</p>
-<p>4） URXEx 和 UTXEx 不受影响</p>
-<p>清除 SWRST 将允许操作 USART。</p>
-<h4 id="2、初始化或重配置顺序"><a href="#2、初始化或重配置顺序" class="headerlink" title="2、初始化或重配置顺序"></a>2、初始化或重配置顺序</h4><p><img src="https://i.loli.net/2019/02/22/5c6fb9e5da6c4.png" alt="img"></p>
-<p>1）SWRST 置位（置1）</p>
-<p>2）在 SWRST=1 的前提下初试化各个 USART 寄存器</p>
-<p>3）通过 MEx 特殊功能寄存器使能 USART 模块</p>
-<p>4）软件清除 SWRST（置0）</p>
-<p>5）通过 IEx 特殊功能寄存器使能中断</p>
-<h4 id="3、字符格式"><a href="#3、字符格式" class="headerlink" title="3、字符格式"></a>3、字符格式</h4><p><img src="https://i.loli.net/2019/02/22/5c6fbb36cc550.png" alt="img"></p>
-<p>起始位 – 7 或 8 位数据位 – 地址位 – 奇偶校验位 – 1 或 2 位停止位。由波特率寄存器设置。</p>
-<h4 id="4、异步通信格式"><a href="#4、异步通信格式" class="headerlink" title="4、异步通信格式"></a>4、异步通信格式</h4><p>双机通信时，使用空闲总线模式。多机通信时，支持空闲总线模式和地址位处理模式。</p>
-<h5 id="1）空闲总线多处理机模式（MM-0）"><a href="#1）空闲总线多处理机模式（MM-0）" class="headerlink" title="1）空闲总线多处理机模式（MM=0）"></a>1）空闲总线多处理机模式（MM=0）</h5><p><img src="https://i.loli.net/2019/02/22/5c6fbbf2bfed8.png" alt="img"></p>
-<p>两个数据块之间隔了一个大于 10 个时钟的空闲时间，而数据块内的数据之间的间隔小于 10 个时钟。在前一个字符的的第一个停止位之后又接收了 10 或者更多连续的时钟后，将检测接收总线。当使用 2 个地址位时，第二个地址位将作为空闲周期的第一个标志。</p>
-<p>一个空闲周期之后的第一个接收到的数据是地址字符。RXWAKE 位用来标志每个数据块的地址位。空闲总线模式下，当接收到地址并且传送至 UxRXBUF 时，该位将置位。</p>
-<p>URXWIE 位用来控制数据接收。当该位置位时，所有的非地址字符被收集，但是不移送至 UxRXBUF 中，也不触发中断。接收到地址字符时接收器将暂时激活将字符传送至 UxRXBUF 中并且置位 URXIFGx 中断标志。任何满足条件的错误标志位也将置位。用户可以验证接收地址。</p>
-<p>如果接收到一个地址字符，用户可以软件验证地址，并且必须复位 URXWIE 以保证继续接收数据。如果保持置位，将只接收地址字符。URXWIE 位不会由硬件自动修改。</p>
-<p>在空闲总线模式下，可以由 USART 产生一个精准的空闲周期去产生 UTXDx 中的地址字符标志符来传送地址。WUT 暂时唤醒标志是一个由用户可访问的TXWAKE位双缓存的内部标志。当发送器从 UxTXBUF 中载入数据，WUT 也从 TXWAKE 中载入，并复位 TXWAKE。</p>
-<p>以下步骤可以传送一个空闲帧表明后面是地址字符：</p>
-<p>1&gt; 置位 TXWAKE，然后向 UxTXBUF 写入任意字符。UxTXBUF 必须准备好接收新字符（UTXIFGx = 1）。</p>
-<p>TXWAKE 值移入 WUT，当 UxTXBUF 准备好接收新数据时，UxTXBUF 的内容被移入发送移位寄存器。这将置位WUT，抑制正常传输中的起始位、数据位、奇偶校验位。然后发送大约十一位的空闲周期。当使用两个地址位时，第二个地址位将作为空闲周期的第一个标志。TXWAKE 自动复位。</p>
-<p>2&gt; 向 UxTXBUF 中写入所需地址字符。UxTXBUF 必须准备好接收新字符（UTXIFGx = 1）。</p>
-<p>在 UTXDx 的地址标志空闲周期之后，代表了特殊地址的新字符被发出。必须向 UxTXBUF 写入第一个任意字符，这是为了将 TXWAKE 位移入 WUT 并触发空闲总线条件。这个数据并不重要，也不会出现在 UTXDx 上。</p>
-<h5 id="2）地址位多处理机模式（MM-1）"><a href="#2）地址位多处理机模式（MM-1）" class="headerlink" title="2）地址位多处理机模式（MM=1）"></a>2）地址位多处理机模式（MM=1）</h5><p>每个数据包含一个额外的位用于地址表示。数据块中的第一个字符带有一个置位的地址位表明这个字符是地址。当接收到字符是一个有效的地址字符且被移入 UxRXBUF 中，USART 的 RXWAKE 位将被置位。</p>
-<p>URXWIE 位用来控制数据接收。当该位置位时，数据字符（地址位=0）将被接收器接收但不送入 UxRXBUF 并且不触发中断。当收到一个包含了地址位置位的字符时，接收器暂时唤醒将字符传送到 UxRXBUF 并将 URXIFGx 置位。所有满足条件的状态错误标志也会被置位。</p>
-<p>如果接收到一个地址，用户必须软件复位URXWIE以保证继续接收数据。如果 URXWIE 保持置位，值有地址字符（地址位=1）可以倍接收。URXWIE 位不会有 USART 硬件自动改变。</p>
-<p>在地址位模式下发送地址数据时，一个字符的地址位可以通过写入 TXWAKE 位来控制。TXWAKE 位的值将被载入从UxTXBUF 传送到移位寄存器的字符的地址位，然后自动清除 TXWAKE 位。TXWAKE 不能软件复位，它将在传送至 WUT 或被 SWRST 置位后有 USART 硬件清零。</p>
-<h5 id="3）自动错误检测"><a href="#3）自动错误检测" class="headerlink" title="3）自动错误检测"></a>3）自动错误检测</h5><p>参看User’s Guide。</p>
-<h4 id="5、USART接收使能"><a href="#5、USART接收使能" class="headerlink" title="5、USART接收使能"></a>5、USART接收使能</h4><p><img src="https://i.loli.net/2019/02/22/5c6fbd113b5d8.png" alt="img"></p>
-<p>从状态转移图可以清楚的看出 URXEx 对接收的影响。</p>
-<h4 id="6、USART发送使能"><a href="#6、USART发送使能" class="headerlink" title="6、USART发送使能"></a>6、USART发送使能</h4><p><img src="https://i.loli.net/2019/02/22/5c6fbd4edc15d.png" alt="img"></p>
-<p>​     </p>
-<p>当 UTXEx 置位时，UART 发送器使能。向 UxTXBUF 写入数据将发起发送。数据将在 TX 移位寄存器置空的下一个 BITCLK 被送进去，然后发送开始。</p>
-<p>当 UTXEx 位复位时发送终止。任何移入 UxTXBUF 的数据和任何正在发送移位寄存器中进行的数据发送，若先于清空 UTXEx 的操作，都将继续进行发送，直到所有的数据发送完毕。</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6fbdb591472.png" alt="img"></p>
-<p>当发送器被使能（UTXEx=1），数据不应该被写入 UxTXBUF，除非 UxTXBUF 已经准备好接收新数据，表现为 UTXIFGx=1。如果 UxTXBUF 中的数据在它将被送至发送寄存器时被修改，这一扰乱将导致错误的发送。</p>
-<p>完成所有发送后，发送器需要关闭（UTXEx=0），表现为发送器清空标志位置位（TXEPT = 1）。在发送器关闭时，任何写入 UxTXBUF 的数据都将被保存在缓冲器中，但是不会移入发送移位寄存器或者被发送。一旦 UTXEx 被置位，发送缓存里的数据立即被载入发送移位寄存器中，而且数据发送重新开始。</p>
-<h4 id="7、UART波特率产生"><a href="#7、UART波特率产生" class="headerlink" title="7、UART波特率产生"></a>7、UART波特率产生</h4><p>USART 波特率发生器是由不标准的时钟频率产生标准的波特率。波特率发生器使用一个预定标器/除法器和一个调制器。这个组合为波特率发生器提供小数除数因子。USART 的最大波特率是 UART 时钟频率 BRCLK 的三分之一。</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6fbeb2cc5f3.png" alt="img"></p>
-<p><img src="https://i.loli.net/2019/02/22/5c6fbecf62cd1.png" alt="img"></p>
-<p>波特率配置常数及误差：</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6fbf177d762.png" alt="img"></p>
-<h4 id="8、USART中断"><a href="#8、USART中断" class="headerlink" title="8、USART中断"></a>8、USART中断</h4><p>USART有一个发送中断向量和一个接收中断向量。</p>
-<h5 id="1）发送中断操作"><a href="#1）发送中断操作" class="headerlink" title="1）发送中断操作"></a>1）发送中断操作</h5><p>发送器置位 UTXIFGx 中断标志位，表明 UxTXBUF 准备好接收另一个字符。如果 UTXIEx 和GIE 置位，也会触发一个中断请求。若中断请求得到响应或者一个字符写入 UxTXBUF，UTXIFGx 将自动复位。</p>
-<p>UTXIFGx 在 PUC 之后或 SWRST=1 时都会被置位。</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6fbf6c3b1f2.png" alt="img"></p>
-<h5 id="2）接收中断操作"><a href="#2）接收中断操作" class="headerlink" title="2）接收中断操作"></a>2）接收中断操作</h5><p>每次接收到一个数据并载入 UxRXBUF 都会置位 URXIFGx 中断标志。如果 URXIEx 和 GIE 置位，也会触发一个中断请求。URXIFGx 和 URXIEx 会在系统复位信号 PUC 之后或 SWRST=1 时复位。若悬而未决的中断得到响应（当 URXSE=0）或者当 UxRXBUF 被读取时，URXIFGx 将自动复位。</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6fbfa5e7432.png" alt="img"></p>
-<p>URXEIE 用来使能或关闭置位 URXIFGx 造成的错误字符。在使用地址位模式时，URXWIE 用来自动检测有效的地址字符和拒绝不需要的数据字符。</p>
-<p>两种字符不能置位 URXIFGx：当 URXEIE=0 时的错误字符，当 URXWIE=1 时的非地址字符。</p>
-<p>当 URXEIE=1 一个 break 条件将置位 BRK 位和 URXIFGx 标志。</p>
-<h5 id="3）接收起始边沿检测操作"><a href="#3）接收起始边沿检测操作" class="headerlink" title="3）接收起始边沿检测操作"></a>3）接收起始边沿检测操作</h5><p>URXSE 位使能接收起始边沿检测特性。当 BRCLK 由 DCO 提供，以及当 DCO 因为低功耗模式而关闭时，推荐使用接收开始边沿特性。DCO 的超快振荡允许在起始边沿检测之后接收字符。</p>
-<p>当 URXSE，URXIEx 和 GIE 置位，并且一个起始边沿出现在 URXDx，内部信号 URXS 将会置位。当 URXS 置位，将会触发一个接收中断请求，但 URXIFGx 不会置位。用户在接收中断服务程序中可以检测 URXIFGx 来判断中断源。当 URXIFGx=0，检测起始边沿；当 URXIFGx=1，接收一个有效的字符（或 break）。</p>
-<p>当中断服务函数判断中断请求来自起始边沿，用户软件触发 URXSE，而且必须从中断服务函数中返回有效的模式或一个 BRCLK 激活的低功耗模式，以使能 BRCLK。如果中断服务函数返回到一个 BRCLK 未激活的低功耗模式，字符不能被接收。触发 URXSE 清除 URXS 信号并将为未来的字符重新使能起始边沿检测。</p>
-<p>当前激活的 BRCLK 允许 USART 接收字符。接收完一个字符并送入 UxRXBUF 之后，URXIFGx 将置位，并请求一个中断服务。在中断服务函数入口，URXIFGx=1 表明接收到一个字符。当用户软件读取 UxRXBUF 时 URXIFGx 标志被清除。</p>
-<p>当使用接收边沿检测时，若BRCLK关闭，将不能检测到break条件。</p>
-<h5 id="4）接收起始边沿检测条件"><a href="#4）接收起始边沿检测条件" class="headerlink" title="4）接收起始边沿检测条件"></a>4）接收起始边沿检测条件</h5><p>当 URXSE=1 时，故障将抑制阻止 USART 被意外启动。URXDs 的任何一个比抗尖峰脉冲时间（大约300ns）短的低电平都会被 USART 忽视而不会触发中断请求。</p>
-<p>当一个故障时间长于抗尖峰脉冲时间，或一个有效的起始位出现在 URXDx，USART 接收将启动，且会进行一个多数投票。如果多数投票认为没有检测到的不是起始位，将会中断字符接收。</p>
-<p>如果字符接收中断，就没有必要激活 BRCLK。软件可以通过一个比字符接收持续时间长的延时周期来表明没有在预期周期内接收到字符，且软件可以关闭 BRCLK。</p>
-<h3 id="三、Registers"><a href="#三、Registers" class="headerlink" title="三、Registers"></a>三、Registers</h3><p>寄存器详细内容参考相应手册。</p>
+<p>只置位 PxSELx 不能自动设置引脚方向。其他外设模块需要跟据模块功能配置 PxDIRx，改变引脚方向。</p>
+<font color="#FF0000"> 开启外部中断时，要先设置 OUT、DIR、IES，然后复位 IFG，最后开中断。 </font>
+
+<p>msp430x14x、x15x、x16x的 P1、P2 口具有中断能力。</p>
+<p>未使用的IO引脚应配置成IO功能，输出方向，并连接在PCB板上，以降低功耗。PxOUT位的值无所谓，因为其引脚未连接。</p>
+<p>未使用的引脚的正确连接方式：</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fb3c7b5cc8.png" alt="1550824357362"></p>
+<h3 id="MSP430-IO-特点"><a href="#MSP430-IO-特点" class="headerlink" title="MSP430 IO 特点"></a>MSP430 IO 特点</h3><ul>
+<li><p>独立的可编程 IO</p>
+</li>
+<li><p>同组 IO 口输入输出任意组合</p>
+</li>
+<li><p>P1、P2 中断独立配置</p>
+</li>
+<li><p>输入输出数据寄存器独立</p>
+</li>
+</ul>
+<h3 id="一、输入寄存器-PxIN"><a href="#一、输入寄存器-PxIN" class="headerlink" title="一、输入寄存器 PxIN"></a>一、输入寄存器 PxIN</h3><p>Bit = 0 ： 输入为低</p>
+<p>Bit = 1 ： 输入为高</p>
+<p>PxIN是只读寄存器，执行写入指令将增加电流消耗。</p>
+<h3 id="二、输出寄存器-PxOUT"><a href="#二、输出寄存器-PxOUT" class="headerlink" title="二、输出寄存器 PxOUT"></a>二、输出寄存器 PxOUT</h3><p>Bit = 0 ： 输出为低</p>
+<p>Bit = 1 ： 输出为高</p>
+<h3 id="三、方向寄存器-PxDIR"><a href="#三、方向寄存器-PxDIR" class="headerlink" title="三、方向寄存器 PxDIR"></a>三、方向寄存器 PxDIR</h3><p>PxDIR 的每一位用来选择相应引脚的方向，无论选择了什么第二功能。</p>
+<p>如果 IO 开启了第二功能，必须根据需要来设置相应的方向。</p>
+<p>Bit = 0 ： 输入方向</p>
+<p>Bit = 1 ： 输出方向</p>
+<h3 id="四、功能选择寄存器-PxSEL"><a href="#四、功能选择寄存器-PxSEL" class="headerlink" title="四、功能选择寄存器 PxSEL"></a>四、功能选择寄存器 PxSEL</h3><p>端口引脚经常复用作其他内部外设模块功能。PxSEL 的每一位决定了引脚用作 IO 功能还是内部外设模块功能（第二功能）。</p>
+<p>Bit = 0 ： IO功能</p>
+<p>Bit = 1 ： 内部外设功能</p>
+<p>只置位PxSELx不能自动设置引脚方向。其他外设模块需要跟据模块功能配置 PxDIRx，改变引脚方向。</p>
+<p>PxSEL 置位时，中断关闭。</p>
+<p>当引脚作为外设的输入时，输入到外设的信号在因脚伤经过一次锁存。当 PxSELx=1 时，内部输入信号跟随引脚上的输入信号。若 PxSELx=0，输入到外设的信号将维持引脚上的输入信号的值，直到 PxSELx 位重置。</p>
+<ul>
+<li>P1、P2 口可中断的器件<ul>
+<li>通过配置 PxIFG、PxIE 和 PxIES 寄存器，P1 和 P2 口的每个引脚都能具有中断能力。所有的 P1 口引脚都使用一个单独的中断源，所有的 P2 引脚使用另一个单独的中断源。可以检测 PxIFG 来判断 P1 或 P2 中断。</li>
+</ul>
+</li>
+</ul>
+<h3 id="五、中断标志位寄存器-P1IFG，P2IFG"><a href="#五、中断标志位寄存器-P1IFG，P2IFG" class="headerlink" title="五、中断标志位寄存器 P1IFG，P2IFG"></a>五、中断标志位寄存器 P1IFG，P2IFG</h3><p>选择的输入信号边沿出现在引脚上时，相应的中断标志会置位。相应的 PxIE 以及 GIE 置位后，所有 PxIFGx 中断标志都需要一个中断响应。PxIFG 必须由软件复位。软件也可以置位PxIFG，提供一种软件触发中断的方法。</p>
+<p>Bit = 0 ： 无中断请求</p>
+<p>Bit = 1 ： 中断请求</p>
+<p>只有跳变能触发中断，而稳定的电平不能。如果任意 PxIFGx 在中断服务程序中置位，或者在中断服务程序执行 RETI 命令之后置位，PxIFGx 标志位将触发另一个中断。这样确保了每一个跳变得到响应。</p>
+<font color="#FF0000">   改变 PxOUT 或 PxDIR 时 PxIFG 标志将置位。 </font>
+
+
+
+<p>任何外部中断时间都应该至少是 MCLK 的 1.5 倍，以保证单片机能检测到并且中断标志置位。</p>
+<h3 id="六、中断边沿选择寄存器-P1IES，P2IES"><a href="#六、中断边沿选择寄存器-P1IES，P2IES" class="headerlink" title="六、中断边沿选择寄存器 P1IES，P2IES"></a>六、中断边沿选择寄存器 P1IES，P2IES</h3><p>PxIES 用来选择中断 IO 引脚的中断边沿。</p>
+<p>Bit = 0 ： 由低向高的跳变置位 PxIFGx</p>
+<p>Bit = 1 ： 由高向低的跳变置位 PxIFGx</p>
+<font color="#FF0000">   向 PxIES 写入数据将导致相应的中断标志置位。 </font>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:center">PxIESx</th>
+<th style="text-align:center">PxINx</th>
+<th style="text-align:center">PxIFGx</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0→1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">May be set</td>
+</tr>
+<tr>
+<td style="text-align:center">0→1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Unchanged</td>
+</tr>
+<tr>
+<td style="text-align:center">1→0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Unchanged</td>
+</tr>
+<tr>
+<td style="text-align:center">1→0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">May be set</td>
+</tr>
+</tbody>
+</table>
+<h3 id="七、中断使能寄存器P1IE，P2IE"><a href="#七、中断使能寄存器P1IE，P2IE" class="headerlink" title="七、中断使能寄存器P1IE，P2IE"></a>七、中断使能寄存器P1IE，P2IE</h3><p>Bit = 0 ： 中断关闭</p>
+<p>Bit = 1 ： 中断使能</p>
 ]]></content>
       <tags>
         <tag>硬件拾忆</tag>
@@ -1159,6 +1159,94 @@
       </tags>
   </entry>
   <entry>
+    <title>STM8S 电源管理</title>
+    <url>//blog/2019/03/03/STM8S-%E7%94%B5%E6%BA%90%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[<hr>
+<p>默认情况下在系统或电源复位后，MCU 处于运行模式。在这种模式下，CPU 由 fCPU 提供时钟并执行程序代码，系统时钟分别为各个处于激活状态的外设提供时钟，MCU 功耗最大。</p>
+<a id="more"></a>
+<p>在运行模式下，为了保持 CPU 继续运行并执行代码，有以下几种途径可以降低功率消耗：</p>
+<ul>
+<li><p>降低系统时钟</p>
+</li>
+<li><p>关闭未使用外设的时钟</p>
+</li>
+<li><p>关闭所有未使用的模拟功能块</p>
+</li>
+</ul>
+<p>但是，如果 CPU 不需要保持运行，可使用下列三种低功耗模式：</p>
+<ul>
+<li><p>等待（Wait）</p>
+</li>
+<li><p>活跃停机（Active Halt）可配置为慢速或快速唤醒</p>
+</li>
+<li><p>停机（Halt）可配置为慢速或快速唤醒</p>
+</li>
+</ul>
+<p>用户可选择以上三种模式中的一种，并合理配置，以在最低功耗、最快唤醒速度和可使用的唤醒源之间获得最佳平衡点。</p>
+<hr>
+<h3 id="一、常规考虑"><a href="#一、常规考虑" class="headerlink" title="一、常规考虑"></a>一、常规考虑</h3><p>硅片中通常存在两种功耗：</p>
+<ul>
+<li><p>静态功耗：由极化电流和漏电流造成。静态功耗很小，只在停机（Halt）模式和活跃停机（Active Halt）模式下有意义。</p>
+</li>
+<li><p>动态功耗：来自于芯片上正在运行的数字模块。它取决于 VDD，时钟频率和负载电容。</p>
+</li>
+</ul>
+<p>一个 MCU 的功耗取决于：</p>
+<ul>
+<li><p>VDD 供电电压</p>
+</li>
+<li><p>模拟性能</p>
+</li>
+<li><p>MCU 大小及数字逻辑门数（漏电流及负载电容）</p>
+</li>
+<li><p>时钟频率</p>
+</li>
+<li><p>处于激活状态的外设数目</p>
+</li>
+<li><p>可用的低功耗模式及级别</p>
+</li>
+</ul>
+<p>MCU 的处理速度也很重要，这使得用户程序只需很短时间处于运行状态，而更多时间处于低功耗模式下。</p>
+<hr>
+<h3 id="二、低功耗的时钟管理"><a href="#二、低功耗的时钟管理" class="headerlink" title="二、低功耗的时钟管理"></a>二、低功耗的时钟管理</h3><h4 id="1、降低系统时钟"><a href="#1、降低系统时钟" class="headerlink" title="1、降低系统时钟"></a>1、降低系统时钟</h4><p>通过写时钟分频寄存器 CLK_CKDIVR 的位 CPUDIV[2:0]，可降低 fCPU 的时钟频率。这会降低 CPU 的速度，但同时可降低 CPU 的功耗。其它外设（由 fMASTER 提供时钟）不会受此设置影响。</p>
+<p>在运行模式下，任何时候需要恢复全速运行，将 CPUDIV[2:0] 清 0 即可。</p>
+<h4 id="2、外设时钟门控"><a href="#2、外设时钟门控" class="headerlink" title="2、外设时钟门控"></a>2、外设时钟门控</h4><p>使用时钟门控，用户可在任意时间打开或关闭 fMASTER 与各个外设的连接，在运行模式和等待模式均有效。</p>
+<hr>
+<h3 id="三、低功耗模式"><a href="#三、低功耗模式" class="headerlink" title="三、低功耗模式"></a>三、低功耗模式</h3><p><img src="https://i.loli.net/2019/03/03/5c7b6f3d4ef26.png" alt="Image.png"></p>
+<h4 id="1、等待模式（Wait）"><a href="#1、等待模式（Wait）" class="headerlink" title="1、等待模式（Wait）"></a>1、等待模式（Wait）</h4><p>在运行模式下执行 WFI（等待中断）指令，可进入等待模式。此时 CPU 停止运行，但外设与中断控制器仍保持运行，因此功耗会有所降低。等待模式可与 PCG（外设时钟门控），降低 CPU 时钟频率，以及选择低功耗时钟源（LSI，HSI）相结合使用，以进一步降低系统功耗。</p>
+<p>等待模式下，所有寄存器与 RAM 的内容保持不变，之前所定义的时钟配置也保持不变（CLK_CMSR） 。</p>
+<p>当一个内部或外部中断请求发生时，CPU 从等待模式唤醒并恢复工作。</p>
+<h4 id="2、停机模式（Halt）"><a href="#2、停机模式（Halt）" class="headerlink" title="2、停机模式（Halt）"></a>2、停机模式（Halt）</h4><p>该模式下主时钟停止。即由 fMASTER 提供时钟的 CPU 及所有外设均被关闭。因此，所有外设均没有时钟，MCU 的数字部分不消耗能量。</p>
+<p>停机模式下，所有寄存器与 RAM 的内容保持不变，默认情况下时钟配置也保持不变（CLK_CMSR）。</p>
+<p>MCU 可通过执行 HALT 指令进入停机模式。外部中断可将 MCU 从停机模式唤醒。外部中断指配置为中断输入的 GPIO 端口或具有触发外设中断能力的端口。</p>
+<p>这种模式下，仅低电压调节器（和掉电复位）处于工作状态。</p>
+<p><strong>快速时钟启动</strong></p>
+<p>HSI RC 的启动速度比 HSE 快。因此，为了减少 MCU 唤醒时间，建议在进入暂停模式前选择 HSI 作为 fMASTER 的时钟源。在进入停机模式前可通过设置内部时钟寄存器 CLK_ICKR 的 FHWU 位选择 HSI 作为 fMASTER 的时钟源，而无需时钟切换。 </p>
+<h4 id="3、活跃停机模式（Active-Halt）"><a href="#3、活跃停机模式（Active-Halt）" class="headerlink" title="3、活跃停机模式（Active Halt）"></a>3、活跃停机模式（Active Halt）</h4><p>活跃停机模式与停机模式类似，但它不需要外部中断唤醒。它使用 AWU，在一定的延时后，产生一个内部唤醒事件，延迟时间是用户可编程的。</p>
+<p>在活跃停机模式下，主振荡器，CPU 以及几乎所有外设都被停止。如果 AWU 和 IWD 已被使能，则只有 LSI RC 和 HSE 仍处于运行状态，以驱动 AWU 和 IWD 计数器。</p>
+<p>为进入活跃停机模式，需首先使能 AWU然后执行 HALT 指令。</p>
+<p><strong>主电源调节器自动关闭</strong></p>
+<p>默认情况下，为了从活跃停机模式快速唤醒，主电压调节器处于激活状态。但其电流消耗是不可忽视的。</p>
+<p>为进一步降低功耗，当 MCU 进入活跃停机模式时，主电压调节器可自动关闭。通过设置内部时钟寄存器 CLK_ICKR 的 REGAH 位可实现此功能。此时:</p>
+<p>- MCU 内核由低功耗电压调节器（LPVR）供电。</p>
+<p>- 仅 LSI 时钟源可用，因为 HSE 时钟源对于 LPVR 来说电流消耗太大。</p>
+<p>在唤醒时主电压调节器重新被打开，这需要一个比较长的唤醒时间。</p>
+<p><strong>快速唤醒时钟</strong></p>
+<p>为了缩短唤醒时间，建议使用 HSI 作为 fMASTER 的时钟源。FHWU 位也可用于缩短切换时间。</p>
+<p>在活跃停机模式下，快速唤醒时很重要的。这可以提高 CPU 的执行效率，使 MCU 处于运行状态与低功耗模式之间的时间最短，从而减少整体平均功耗。</p>
+<hr>
+<h3 id="四、附加的模拟功耗控制"><a href="#四、附加的模拟功耗控制" class="headerlink" title="四、附加的模拟功耗控制"></a>四、附加的模拟功耗控制</h3><h4 id="1、停机模式下的快速内存唤醒"><a href="#1、停机模式下的快速内存唤醒" class="headerlink" title="1、停机模式下的快速内存唤醒"></a>1、停机模式下的快速内存唤醒</h4><p>默认情况下，MCU 进入 Halt 模式后 FLASH 是处于掉电状态的。此时，漏电流可忽略，功耗是非常低的。但 FLASH 的唤醒时间较长（几us）。</p>
+<p>​    </p>
+<p>如果用户需要从 Halt 模式快速唤醒，可将 FLASH_CR1 的 HALT 位置 1。当 MCU 进入停机模式时，这将确保 FLASH 处于等待状态，唤醒时间降至几纳秒。但功耗将增至几 uA。</p>
+<h4 id="2、活跃停机模式下的超低内存功耗"><a href="#2、活跃停机模式下的超低内存功耗" class="headerlink" title="2、活跃停机模式下的超低内存功耗"></a>2、活跃停机模式下的超低内存功耗</h4><p>在活跃停机模式下，为加快唤醒时间，默认情况下 FLASH 处于工作状态，因此并没有降低功耗。</p>
+<p>为降低功耗，用户可将 FLASH_CR1 的 AHALT 位置 1。在进入活跃停机模式时，这将停止向 FLASH 供电以降低功耗，但唤醒时间将增至微秒级。</p>
+]]></content>
+      <tags>
+        <tag>硬件拾忆</tag>
+        <tag>STM8</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>STM8S 时钟控制</title>
     <url>//blog/2019/03/03/STM8S-%E6%97%B6%E9%92%9F%E6%8E%A7%E5%88%B6/</url>
     <content><![CDATA[<hr>
@@ -1359,94 +1447,6 @@
       </tags>
   </entry>
   <entry>
-    <title>STM8S 电源管理</title>
-    <url>//blog/2019/03/03/STM8S-%E7%94%B5%E6%BA%90%E7%AE%A1%E7%90%86/</url>
-    <content><![CDATA[<hr>
-<p>默认情况下在系统或电源复位后，MCU 处于运行模式。在这种模式下，CPU 由 fCPU 提供时钟并执行程序代码，系统时钟分别为各个处于激活状态的外设提供时钟，MCU 功耗最大。</p>
-<a id="more"></a>
-<p>在运行模式下，为了保持 CPU 继续运行并执行代码，有以下几种途径可以降低功率消耗：</p>
-<ul>
-<li><p>降低系统时钟</p>
-</li>
-<li><p>关闭未使用外设的时钟</p>
-</li>
-<li><p>关闭所有未使用的模拟功能块</p>
-</li>
-</ul>
-<p>但是，如果 CPU 不需要保持运行，可使用下列三种低功耗模式：</p>
-<ul>
-<li><p>等待（Wait）</p>
-</li>
-<li><p>活跃停机（Active Halt）可配置为慢速或快速唤醒</p>
-</li>
-<li><p>停机（Halt）可配置为慢速或快速唤醒</p>
-</li>
-</ul>
-<p>用户可选择以上三种模式中的一种，并合理配置，以在最低功耗、最快唤醒速度和可使用的唤醒源之间获得最佳平衡点。</p>
-<hr>
-<h3 id="一、常规考虑"><a href="#一、常规考虑" class="headerlink" title="一、常规考虑"></a>一、常规考虑</h3><p>硅片中通常存在两种功耗：</p>
-<ul>
-<li><p>静态功耗：由极化电流和漏电流造成。静态功耗很小，只在停机（Halt）模式和活跃停机（Active Halt）模式下有意义。</p>
-</li>
-<li><p>动态功耗：来自于芯片上正在运行的数字模块。它取决于 VDD，时钟频率和负载电容。</p>
-</li>
-</ul>
-<p>一个 MCU 的功耗取决于：</p>
-<ul>
-<li><p>VDD 供电电压</p>
-</li>
-<li><p>模拟性能</p>
-</li>
-<li><p>MCU 大小及数字逻辑门数（漏电流及负载电容）</p>
-</li>
-<li><p>时钟频率</p>
-</li>
-<li><p>处于激活状态的外设数目</p>
-</li>
-<li><p>可用的低功耗模式及级别</p>
-</li>
-</ul>
-<p>MCU 的处理速度也很重要，这使得用户程序只需很短时间处于运行状态，而更多时间处于低功耗模式下。</p>
-<hr>
-<h3 id="二、低功耗的时钟管理"><a href="#二、低功耗的时钟管理" class="headerlink" title="二、低功耗的时钟管理"></a>二、低功耗的时钟管理</h3><h4 id="1、降低系统时钟"><a href="#1、降低系统时钟" class="headerlink" title="1、降低系统时钟"></a>1、降低系统时钟</h4><p>通过写时钟分频寄存器 CLK_CKDIVR 的位 CPUDIV[2:0]，可降低 fCPU 的时钟频率。这会降低 CPU 的速度，但同时可降低 CPU 的功耗。其它外设（由 fMASTER 提供时钟）不会受此设置影响。</p>
-<p>在运行模式下，任何时候需要恢复全速运行，将 CPUDIV[2:0] 清 0 即可。</p>
-<h4 id="2、外设时钟门控"><a href="#2、外设时钟门控" class="headerlink" title="2、外设时钟门控"></a>2、外设时钟门控</h4><p>使用时钟门控，用户可在任意时间打开或关闭 fMASTER 与各个外设的连接，在运行模式和等待模式均有效。</p>
-<hr>
-<h3 id="三、低功耗模式"><a href="#三、低功耗模式" class="headerlink" title="三、低功耗模式"></a>三、低功耗模式</h3><p><img src="https://i.loli.net/2019/03/03/5c7b6f3d4ef26.png" alt="Image.png"></p>
-<h4 id="1、等待模式（Wait）"><a href="#1、等待模式（Wait）" class="headerlink" title="1、等待模式（Wait）"></a>1、等待模式（Wait）</h4><p>在运行模式下执行 WFI（等待中断）指令，可进入等待模式。此时 CPU 停止运行，但外设与中断控制器仍保持运行，因此功耗会有所降低。等待模式可与 PCG（外设时钟门控），降低 CPU 时钟频率，以及选择低功耗时钟源（LSI，HSI）相结合使用，以进一步降低系统功耗。</p>
-<p>等待模式下，所有寄存器与 RAM 的内容保持不变，之前所定义的时钟配置也保持不变（CLK_CMSR） 。</p>
-<p>当一个内部或外部中断请求发生时，CPU 从等待模式唤醒并恢复工作。</p>
-<h4 id="2、停机模式（Halt）"><a href="#2、停机模式（Halt）" class="headerlink" title="2、停机模式（Halt）"></a>2、停机模式（Halt）</h4><p>该模式下主时钟停止。即由 fMASTER 提供时钟的 CPU 及所有外设均被关闭。因此，所有外设均没有时钟，MCU 的数字部分不消耗能量。</p>
-<p>停机模式下，所有寄存器与 RAM 的内容保持不变，默认情况下时钟配置也保持不变（CLK_CMSR）。</p>
-<p>MCU 可通过执行 HALT 指令进入停机模式。外部中断可将 MCU 从停机模式唤醒。外部中断指配置为中断输入的 GPIO 端口或具有触发外设中断能力的端口。</p>
-<p>这种模式下，仅低电压调节器（和掉电复位）处于工作状态。</p>
-<p><strong>快速时钟启动</strong></p>
-<p>HSI RC 的启动速度比 HSE 快。因此，为了减少 MCU 唤醒时间，建议在进入暂停模式前选择 HSI 作为 fMASTER 的时钟源。在进入停机模式前可通过设置内部时钟寄存器 CLK_ICKR 的 FHWU 位选择 HSI 作为 fMASTER 的时钟源，而无需时钟切换。 </p>
-<h4 id="3、活跃停机模式（Active-Halt）"><a href="#3、活跃停机模式（Active-Halt）" class="headerlink" title="3、活跃停机模式（Active Halt）"></a>3、活跃停机模式（Active Halt）</h4><p>活跃停机模式与停机模式类似，但它不需要外部中断唤醒。它使用 AWU，在一定的延时后，产生一个内部唤醒事件，延迟时间是用户可编程的。</p>
-<p>在活跃停机模式下，主振荡器，CPU 以及几乎所有外设都被停止。如果 AWU 和 IWD 已被使能，则只有 LSI RC 和 HSE 仍处于运行状态，以驱动 AWU 和 IWD 计数器。</p>
-<p>为进入活跃停机模式，需首先使能 AWU然后执行 HALT 指令。</p>
-<p><strong>主电源调节器自动关闭</strong></p>
-<p>默认情况下，为了从活跃停机模式快速唤醒，主电压调节器处于激活状态。但其电流消耗是不可忽视的。</p>
-<p>为进一步降低功耗，当 MCU 进入活跃停机模式时，主电压调节器可自动关闭。通过设置内部时钟寄存器 CLK_ICKR 的 REGAH 位可实现此功能。此时:</p>
-<p>- MCU 内核由低功耗电压调节器（LPVR）供电。</p>
-<p>- 仅 LSI 时钟源可用，因为 HSE 时钟源对于 LPVR 来说电流消耗太大。</p>
-<p>在唤醒时主电压调节器重新被打开，这需要一个比较长的唤醒时间。</p>
-<p><strong>快速唤醒时钟</strong></p>
-<p>为了缩短唤醒时间，建议使用 HSI 作为 fMASTER 的时钟源。FHWU 位也可用于缩短切换时间。</p>
-<p>在活跃停机模式下，快速唤醒时很重要的。这可以提高 CPU 的执行效率，使 MCU 处于运行状态与低功耗模式之间的时间最短，从而减少整体平均功耗。</p>
-<hr>
-<h3 id="四、附加的模拟功耗控制"><a href="#四、附加的模拟功耗控制" class="headerlink" title="四、附加的模拟功耗控制"></a>四、附加的模拟功耗控制</h3><h4 id="1、停机模式下的快速内存唤醒"><a href="#1、停机模式下的快速内存唤醒" class="headerlink" title="1、停机模式下的快速内存唤醒"></a>1、停机模式下的快速内存唤醒</h4><p>默认情况下，MCU 进入 Halt 模式后 FLASH 是处于掉电状态的。此时，漏电流可忽略，功耗是非常低的。但 FLASH 的唤醒时间较长（几us）。</p>
-<p>​    </p>
-<p>如果用户需要从 Halt 模式快速唤醒，可将 FLASH_CR1 的 HALT 位置 1。当 MCU 进入停机模式时，这将确保 FLASH 处于等待状态，唤醒时间降至几纳秒。但功耗将增至几 uA。</p>
-<h4 id="2、活跃停机模式下的超低内存功耗"><a href="#2、活跃停机模式下的超低内存功耗" class="headerlink" title="2、活跃停机模式下的超低内存功耗"></a>2、活跃停机模式下的超低内存功耗</h4><p>在活跃停机模式下，为加快唤醒时间，默认情况下 FLASH 处于工作状态，因此并没有降低功耗。</p>
-<p>为降低功耗，用户可将 FLASH_CR1 的 AHALT 位置 1。在进入活跃停机模式时，这将停止向 FLASH 供电以降低功耗，但唤醒时间将增至微秒级。</p>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>STM8</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>ARM CMSIS-DSP 库简介</title>
     <url>//blog/2019/03/04/ARM-CMSIS-DSP-%E5%BA%93%E7%AE%80%E4%BB%8B/</url>
     <content><![CDATA[<hr>
@@ -1476,6 +1476,25 @@
       <tags>
         <tag>硬件拾忆</tag>
         <tag>STM32</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Cadence Allegro 操作总结</title>
+    <url>//blog/2019/03/04/Cadence-Allegro-%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<hr>
+<p>1、查看快捷键</p>
+<p>命令行输入alias</p>
+<a id="more"></a>
+<hr>
+<p>2、显示丝印</p>
+<p>菜单栏 color192（四个方块）-&gt; component -&gt; silkscreen打钩</p>
+<hr>
+<p>3、关闭和显示网络飞线</p>
+<p>Display -&gt; Show Rats -&gt; All -&gt; 即可打开显示所有的网络飞线（未布线的网络）</p>
+<p>Display -&gt; Blank Rats -&gt; All -&gt; 关闭隐藏所有的网络飞线</p>
+]]></content>
+      <tags>
+        <tag>软件使用</tag>
       </tags>
   </entry>
   <entry>
@@ -1560,25 +1579,6 @@
 <hr>
 <p>3、导出 BOM</p>
 <p>需要将每一个器件的 comment 改成对应的阻值容值，template 选 BOM Default Template 95.xlt，最后点 Export</p>
-]]></content>
-      <tags>
-        <tag>软件使用</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Cadence Allegro 操作总结</title>
-    <url>//blog/2019/03/04/Cadence-Allegro-%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<hr>
-<p>1、查看快捷键</p>
-<p>命令行输入alias</p>
-<a id="more"></a>
-<hr>
-<p>2、显示丝印</p>
-<p>菜单栏 color192（四个方块）-&gt; component -&gt; silkscreen打钩</p>
-<hr>
-<p>3、关闭和显示网络飞线</p>
-<p>Display -&gt; Show Rats -&gt; All -&gt; 即可打开显示所有的网络飞线（未布线的网络）</p>
-<p>Display -&gt; Blank Rats -&gt; All -&gt; 关闭隐藏所有的网络飞线</p>
 ]]></content>
       <tags>
         <tag>软件使用</tag>
@@ -1812,67 +1812,6 @@
       </tags>
   </entry>
   <entry>
-    <title>STM32 IO操作</title>
-    <url>//blog/2019/03/04/STM32-IO%E6%93%8D%E4%BD%9C/</url>
-    <content><![CDATA[<hr>
-<h3 id="一、位带操作"><a href="#一、位带操作" class="headerlink" title="一、位带操作"></a>一、位带操作</h3><p>SRAM 和片内外设区的最低 1MB 范围都支持位带操作。每一 bit 都有自己的 32 位“位带别名区”，可以用来访问原始 bit。</p>
-<a id="more"></a>
-<p>SRAM 中最低 1MB    ：0x2000 0000 - 0x200f ffff</p>
-<p>片内外设中最低 1MB：0x4000 0000 - 0x100f ffff</p>
-<p>​     </p>
-<p>当一个别名地址被访问时，会先把该地址变换成位带地址。位带区的每个比特都映射到别名地址区的一个 LSB 有效的字。</p>
-<p>对于读操作，读取位带地址中的一个字，再把需要的位右移到 LSB，并把 LSB 返回。</p>
-<p>对于写操作，把需要写的位左移至对应的位序号处，然后执行一个原子的“读-改-写”过程。</p>
-<p>对于 SRAM 位带区的某个比特，记它所在字节地址为 A，位序号为 n（0&lt;=n&lt;=7），则该比特在别名区的地址为：</p>
-<p>AliasAddr = 0x22000000+((A-0x20000000)<em>8+n)</em>4 = 0x22000000+(A-0x20000000)<em>32+n</em>4</p>
-<p><img src="https://i.loli.net/2019/03/04/5c7ccb6221a59.png" alt="Image.png"></p>
-<p>对于片上外设位带区的某个比特，记它所在字节的地址为 A，位序号为 n（0&lt;=n&lt;=7），则该比特在别名区的地址为：</p>
-<p>AliasAddr = 0x42000000+((A-0x40000000)<em>8+n)</em>4 = 0x42000000+(A-0x40000000)<em>32+n</em>4</p>
-<p><img src="https://i.loli.net/2019/03/04/5c7ccb8e16090.png" alt="Image.png"></p>
-<p>c 语言代码实现：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//位带操作,实现 51 类似的 GPIO 控制功能</span><br><span class="line"></span><br><span class="line">//具体实现思想,参考&lt;&lt;CM3权威指南&gt;&gt;第五章(87页~92页).</span><br><span class="line"></span><br><span class="line">//IO口操作宏定义</span><br><span class="line"></span><br><span class="line">#define BITBAND(addr, bitnum) ((addr &amp; 0xF0000000)+0x2000000+((addr &amp;0xFFFFF)&lt;&lt;5)+(bitnum&lt;&lt;2))</span><br><span class="line"></span><br><span class="line">#define MEM_ADDR(addr)  *((volatile unsigned long  *)(addr))</span><br><span class="line"></span><br><span class="line">#define BIT_ADDR(addr, bitnum)   MEM_ADDR(BITBAND(addr, bitnum))</span><br><span class="line"></span><br><span class="line">//IO口地址映射</span><br><span class="line"></span><br><span class="line">#define GPIOA_ODR_Addr    (GPIOA_BASE+12) //0x4001080C</span><br><span class="line"></span><br><span class="line">#define GPIOB_ODR_Addr    (GPIOB_BASE+12) //0x40010C0C</span><br><span class="line"></span><br><span class="line">#define GPIOC_ODR_Addr    (GPIOC_BASE+12) //0x4001100C</span><br><span class="line"></span><br><span class="line">#define GPIOD_ODR_Addr    (GPIOD_BASE+12) //0x4001140C</span><br><span class="line"></span><br><span class="line">#define GPIOE_ODR_Addr    (GPIOE_BASE+12) //0x4001180C</span><br><span class="line"></span><br><span class="line">#define GPIOF_ODR_Addr    (GPIOF_BASE+12) //0x40011A0C   </span><br><span class="line"></span><br><span class="line">#define GPIOG_ODR_Addr    (GPIOG_BASE+12) //0x40011E0C   </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#define GPIOA_IDR_Addr    (GPIOA_BASE+8) //0x40010808</span><br><span class="line"></span><br><span class="line">#define GPIOB_IDR_Addr    (GPIOB_BASE+8) //0x40010C08</span><br><span class="line"></span><br><span class="line">#define GPIOC_IDR_Addr    (GPIOC_BASE+8) //0x40011008</span><br><span class="line"></span><br><span class="line">#define GPIOD_IDR_Addr    (GPIOD_BASE+8) //0x40011408</span><br><span class="line"></span><br><span class="line">#define GPIOE_IDR_Addr    (GPIOE_BASE+8) //0x40011808</span><br><span class="line"></span><br><span class="line">#define GPIOF_IDR_Addr    (GPIOF_BASE+8) //0x40011A08</span><br><span class="line"></span><br><span class="line">#define GPIOG_IDR_Addr    (GPIOG_BASE+8) //0x40011E08</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//IO 口操作，只对单一的 IO 口</span><br><span class="line"></span><br><span class="line">//确保 n 的值小于16</span><br><span class="line"></span><br><span class="line">#define PAout(n)   BIT_ADDR(GPIOA_ODR_Addr,n)  //输出</span><br><span class="line"></span><br><span class="line">#define PAin(n)    BIT_ADDR(GPIOA_IDR_Addr,n)  //输入</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#define PBout(n)   BIT_ADDR(GPIOB_ODR_Addr,n)  //输出</span><br><span class="line"></span><br><span class="line">#define PBin(n)    BIT_ADDR(GPIOB_IDR_Addr,n)  //输入</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#define PCout(n)   BIT_ADDR(GPIOC_ODR_Addr,n)  //输出</span><br><span class="line"></span><br><span class="line">#define PCin(n)    BIT_ADDR(GPIOC_IDR_Addr,n)  //输入</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#define PDout(n)   BIT_ADDR(GPIOD_ODR_Addr,n)  //输出</span><br><span class="line"></span><br><span class="line">#define PDin(n)    BIT_ADDR(GPIOD_IDR_Addr,n)  //输入</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#define PEout(n)   BIT_ADDR(GPIOE_ODR_Addr,n)  //输出</span><br><span class="line"></span><br><span class="line">#define PEin(n)    BIT_ADDR(GPIOE_IDR_Addr,n)  //输入</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#define PFout(n)   BIT_ADDR(GPIOF_ODR_Addr,n)  //输出</span><br><span class="line"></span><br><span class="line">#define PFin(n)    BIT_ADDR(GPIOF_IDR_Addr,n)  //输入</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#define PGout(n)   BIT_ADDR(GPIOG_ODR_Addr,n)  //输出</span><br><span class="line"></span><br><span class="line">#define PGin(n)    BIT_ADDR(GPIOG_IDR_Addr,n)  //输入</span><br></pre></td></tr></table></figure>
-<hr>
-<h3 id="二、IO-口模式"><a href="#二、IO-口模式" class="headerlink" title="二、IO 口模式"></a>二、IO 口模式</h3><p>1、输入浮空</p>
-<p>2、输入上拉</p>
-<p>3、输入下拉</p>
-<p>4、模拟输入</p>
-<p>5、开漏输出</p>
-<p>6、推挽输出</p>
-<p>7、推挽式复用功能</p>
-<p>8、开漏复用功能</p>
-<p>每个 IO 口有 7 个寄存器：</p>
-<ul>
-<li><p>配置模式的 2 个 32 位端口配置寄存器 CRL 和 CRH</p>
-</li>
-<li><p>2 个 32 位数据寄存器 IDR 和 ODR</p>
-</li>
-<li><p>1 个 32 位的置位/复位寄存器 BSRR</p>
-</li>
-<li><p>1 个 16 位的复位寄存器 BRR</p>
-</li>
-<li><p>1 个 32 位的锁存寄存器 LCKR</p>
-</li>
-</ul>
-<p><img src="https://i.loli.net/2019/03/04/5c7ccc73aea1c.png" alt="Image.png"></p>
-<p><strong>CRL 和 CRH</strong></p>
-<p>每个 IO 口占 4 位，高 2 位为 CNF，低 2 位为 MODE。</p>
-<p>0x0 表示模拟输入（ADC 用）</p>
-<p>0x4 表示浮空输入</p>
-<p>0x8 表示上下拉模式（输入口）PxODR=0下拉；=1上拉</p>
-<p>0x3 表示推挽输出（输出口，50M速率）（0x2-2M、0x1-10M）</p>
-<p>0x7 表示开漏输出（0x6-2M 、0x5-10M ）</p>
-<p>0xb 表示复用推挽输出（IO口第二功能，50M速率 ）（0xa-2M 、0x9-10M ）</p>
-<p>0xf 表示复用开漏输出（IO口第二功能，50M速率 ）（0xe-2M 、0xd-10M ）</p>
-<p><strong>IDR 和 ODR</strong></p>
-<p>​     </p>
-<p>只用了低 16 位。IDR 为只读，ODR 为读写。</p>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>STM32</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>STM32 中断</title>
     <url>//blog/2019/03/04/STM32-%E4%B8%AD%E6%96%AD/</url>
     <content><![CDATA[<hr>
@@ -1948,6 +1887,67 @@
 <p>PR（挂起寄存器）</p>
 <p>​     写1清除该位</p>
 <h3 id="五、中断编号（f103）"><a href="#五、中断编号（f103）" class="headerlink" title="五、中断编号（f103）"></a>五、中断编号（f103）</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">/******  Cortex-M3 Processor Exceptions Numbers ***************************************************/</span><br><span class="line"></span><br><span class="line">  NonMaskableInt_IRQn         = -14,    /*!&lt; 2 Non Maskable Interrupt                             */</span><br><span class="line"></span><br><span class="line">  MemoryManagement_IRQn       = -12,    /*!&lt; 4 Cortex-M3 Memory Management Interrupt              */</span><br><span class="line"></span><br><span class="line">  BusFault_IRQn               = -11,    /*!&lt; 5 Cortex-M3 Bus Fault Interrupt                      */</span><br><span class="line"></span><br><span class="line">  UsageFault_IRQn             = -10,    /*!&lt; 6 Cortex-M3 Usage Fault Interrupt                    */</span><br><span class="line"></span><br><span class="line">  SVCall_IRQn                 = -5,     /*!&lt; 11 Cortex-M3 SV Call Interrupt                       */</span><br><span class="line"></span><br><span class="line">  DebugMonitor_IRQn           = -4,     /*!&lt; 12 Cortex-M3 Debug Monitor Interrupt                 */</span><br><span class="line"></span><br><span class="line">  PendSV_IRQn                 = -2,     /*!&lt; 14 Cortex-M3 Pend SV Interrupt                       */</span><br><span class="line"></span><br><span class="line">  SysTick_IRQn                = -1,     /*!&lt; 15 Cortex-M3 System Tick Interrupt                   */</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/******  STM32 specific Interrupt Numbers *********************************************************/</span><br><span class="line"></span><br><span class="line">  WWDG_IRQn                   = 0,      /*!&lt; Window WatchDog Interrupt                            */</span><br><span class="line"></span><br><span class="line">  PVD_IRQn                    = 1,      /*!&lt; PVD through EXTI Line detection Interrupt            */</span><br><span class="line"></span><br><span class="line">  TAMPER_IRQn                 = 2,      /*!&lt; Tamper Interrupt                                     */</span><br><span class="line"></span><br><span class="line">  RTC_IRQn                    = 3,      /*!&lt; RTC global Interrupt                                 */</span><br><span class="line"></span><br><span class="line">  FLASH_IRQn                  = 4,      /*!&lt; FLASH global Interrupt                               */</span><br><span class="line"></span><br><span class="line">  RCC_IRQn                    = 5,      /*!&lt; RCC global Interrupt                                 */</span><br><span class="line"></span><br><span class="line">  EXTI0_IRQn                  = 6,      /*!&lt; EXTI Line0 Interrupt                                 */</span><br><span class="line"></span><br><span class="line">  EXTI1_IRQn                  = 7,      /*!&lt; EXTI Line1 Interrupt                                 */</span><br><span class="line"></span><br><span class="line">  EXTI2_IRQn                  = 8,      /*!&lt; EXTI Line2 Interrupt                                 */</span><br><span class="line"></span><br><span class="line">  EXTI3_IRQn                  = 9,      /*!&lt; EXTI Line3 Interrupt                                 */</span><br><span class="line"></span><br><span class="line">  EXTI4_IRQn                  = 10,     /*!&lt; EXTI Line4 Interrupt                                 */</span><br><span class="line"></span><br><span class="line">  DMA1_Channel1_IRQn          = 11,     /*!&lt; DMA1 Channel 1 global Interrupt                      */</span><br><span class="line"></span><br><span class="line">  DMA1_Channel2_IRQn          = 12,     /*!&lt; DMA1 Channel 2 global Interrupt                      */</span><br><span class="line"></span><br><span class="line">  DMA1_Channel3_IRQn          = 13,     /*!&lt; DMA1 Channel 3 global Interrupt                      */</span><br><span class="line"></span><br><span class="line">  DMA1_Channel4_IRQn          = 14,     /*!&lt; DMA1 Channel 4 global Interrupt                      */</span><br><span class="line"></span><br><span class="line">  DMA1_Channel5_IRQn          = 15,     /*!&lt; DMA1 Channel 5 global Interrupt                      */</span><br><span class="line"></span><br><span class="line">  DMA1_Channel6_IRQn          = 16,     /*!&lt; DMA1 Channel 6 global Interrupt                      */</span><br><span class="line"></span><br><span class="line">  DMA1_Channel7_IRQn          = 17,     /*!&lt; DMA1 Channel 7 global Interrupt   </span><br><span class="line"></span><br><span class="line"> ADC1_2_IRQn                 = 18,     /*!&lt; ADC1 and ADC2 global Interrupt                       */</span><br><span class="line"></span><br><span class="line">  USB_HP_CAN1_TX_IRQn         = 19,     /*!&lt; USB Device High Priority or CAN1 TX Interrupts       */</span><br><span class="line"></span><br><span class="line">  USB_LP_CAN1_RX0_IRQn        = 20,     /*!&lt; USB Device Low Priority or CAN1 RX0 Interrupts       */</span><br><span class="line"></span><br><span class="line">  CAN1_RX1_IRQn               = 21,     /*!&lt; CAN1 RX1 Interrupt                                   */</span><br><span class="line"></span><br><span class="line">  CAN1_SCE_IRQn               = 22,     /*!&lt; CAN1 SCE Interrupt                                   */</span><br><span class="line"></span><br><span class="line">  EXTI9_5_IRQn                = 23,     /*!&lt; External Line[9:5] Interrupts                        */</span><br><span class="line"></span><br><span class="line">  TIM1_BRK_IRQn               = 24,     /*!&lt; TIM1 Break Interrupt                                 */</span><br><span class="line"></span><br><span class="line">  TIM1_UP_IRQn                = 25,     /*!&lt; TIM1 Update Interrupt                                */</span><br><span class="line"></span><br><span class="line">  TIM1_TRG_COM_IRQn           = 26,     /*!&lt; TIM1 Trigger and Commutation Interrupt               */</span><br><span class="line"></span><br><span class="line">  TIM1_CC_IRQn                = 27,     /*!&lt; TIM1 Capture Compare Interrupt                       */</span><br><span class="line"></span><br><span class="line">  TIM2_IRQn                   = 28,     /*!&lt; TIM2 global Interrupt                                */</span><br><span class="line"></span><br><span class="line">  TIM3_IRQn                   = 29,     /*!&lt; TIM3 global Interrupt                                */</span><br><span class="line"></span><br><span class="line">  TIM4_IRQn                   = 30,     /*!&lt; TIM4 global Interrupt                                */</span><br><span class="line"></span><br><span class="line">  I2C1_EV_IRQn                = 31,     /*!&lt; I2C1 Event Interrupt                                 */</span><br><span class="line"></span><br><span class="line">  I2C1_ER_IRQn                = 32,     /*!&lt; I2C1 Error Interrupt                                 */</span><br><span class="line"></span><br><span class="line">  I2C2_EV_IRQn                = 33,     /*!&lt; I2C2 Event Interrupt                                 */</span><br><span class="line"></span><br><span class="line">  I2C2_ER_IRQn                = 34,     /*!&lt; I2C2 Error Interrupt                                 */</span><br><span class="line"></span><br><span class="line">  SPI1_IRQn                   = 35,     /*!&lt; SPI1 global Interrupt                                */</span><br><span class="line"></span><br><span class="line">  SPI2_IRQn                   = 36,     /*!&lt; SPI2 global Interrupt                                */</span><br><span class="line"></span><br><span class="line">  USART1_IRQn                 = 37,     /*!&lt; USART1 global Interrupt                              */</span><br><span class="line"></span><br><span class="line">  USART2_IRQn                 = 38,     /*!&lt; USART2 global Interrupt                              */</span><br><span class="line"></span><br><span class="line">  USART3_IRQn                 = 39,     /*!&lt; USART3 global Interrupt                              */</span><br><span class="line"></span><br><span class="line">  EXTI15_10_IRQn              = 40,     /*!&lt; External Line[15:10] Interrupts                      */</span><br><span class="line"></span><br><span class="line">  RTCAlarm_IRQn               = 41,     /*!&lt; RTC Alarm through EXTI Line Interrupt                */</span><br><span class="line"></span><br><span class="line">  USBWakeUp_IRQn              = 42,     /*!&lt; USB Device WakeUp from suspend through EXTI Line Interrupt */</span><br><span class="line"></span><br><span class="line">  TIM8_BRK_IRQn               = 43,     /*!&lt; TIM8 Break Interrupt                                 */</span><br><span class="line"></span><br><span class="line">  TIM8_UP_IRQn                = 44,     /*!&lt; TIM8 Update Interrupt                                */</span><br><span class="line"></span><br><span class="line">  TIM8_TRG_COM_IRQn           = 45,     /*!&lt; TIM8 Trigger and Commutation Interrupt               */</span><br><span class="line"></span><br><span class="line">  TIM8_CC_IRQn                = 46,     /*!&lt; TIM8 Capture Compare Interrupt                       */</span><br><span class="line"></span><br><span class="line">  ADC3_IRQn                   = 47,     /*!&lt; ADC3 global Interrupt                                */</span><br><span class="line"></span><br><span class="line">  FSMC_IRQn                   = 48,     /*!&lt; FSMC global Interrupt                                */</span><br><span class="line"></span><br><span class="line">  SDIO_IRQn                   = 49,     /*!&lt; SDIO global Interrupt                                */</span><br><span class="line"></span><br><span class="line">  TIM5_IRQn                   = 50,     /*!&lt; TIM5 global Interrupt                                */</span><br><span class="line"></span><br><span class="line">  SPI3_IRQn                   = 51,     /*!&lt; SPI3 global Interrupt                                */</span><br><span class="line"></span><br><span class="line">  UART4_IRQn                  = 52,     /*!&lt; UART4 global Interrupt                               */</span><br><span class="line"></span><br><span class="line">  UART5_IRQn                  = 53,     /*!&lt; UART5 global Interrupt                               */</span><br><span class="line"></span><br><span class="line">  TIM6_IRQn                   = 54,     /*!&lt; TIM6 global Interrupt                                */</span><br><span class="line"></span><br><span class="line">  TIM7_IRQn                   = 55,     /*!&lt; TIM7 global Interrupt                                */</span><br><span class="line"></span><br><span class="line">  DMA2_Channel1_IRQn          = 56,     /*!&lt; DMA2 Channel 1 global Interrupt                      */</span><br><span class="line"></span><br><span class="line">  DMA2_Channel2_IRQn          = 57,     /*!&lt; DMA2 Channel 2 global Interrupt                      */</span><br><span class="line"></span><br><span class="line">  DMA2_Channel3_IRQn          = 58,     /*!&lt; DMA2 Channel 3 global Interrupt                      */</span><br><span class="line"></span><br><span class="line">  DMA2_Channel4_5_IRQn        = 59      /*!&lt; DMA2 Channel 4 and Channel 5 global Interrupt </span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>硬件拾忆</tag>
+        <tag>STM32</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>STM32 IO操作</title>
+    <url>//blog/2019/03/04/STM32-IO%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<hr>
+<h3 id="一、位带操作"><a href="#一、位带操作" class="headerlink" title="一、位带操作"></a>一、位带操作</h3><p>SRAM 和片内外设区的最低 1MB 范围都支持位带操作。每一 bit 都有自己的 32 位“位带别名区”，可以用来访问原始 bit。</p>
+<a id="more"></a>
+<p>SRAM 中最低 1MB    ：0x2000 0000 - 0x200f ffff</p>
+<p>片内外设中最低 1MB：0x4000 0000 - 0x100f ffff</p>
+<p>​     </p>
+<p>当一个别名地址被访问时，会先把该地址变换成位带地址。位带区的每个比特都映射到别名地址区的一个 LSB 有效的字。</p>
+<p>对于读操作，读取位带地址中的一个字，再把需要的位右移到 LSB，并把 LSB 返回。</p>
+<p>对于写操作，把需要写的位左移至对应的位序号处，然后执行一个原子的“读-改-写”过程。</p>
+<p>对于 SRAM 位带区的某个比特，记它所在字节地址为 A，位序号为 n（0&lt;=n&lt;=7），则该比特在别名区的地址为：</p>
+<p>AliasAddr = 0x22000000+((A-0x20000000)<em>8+n)</em>4 = 0x22000000+(A-0x20000000)<em>32+n</em>4</p>
+<p><img src="https://i.loli.net/2019/03/04/5c7ccb6221a59.png" alt="Image.png"></p>
+<p>对于片上外设位带区的某个比特，记它所在字节的地址为 A，位序号为 n（0&lt;=n&lt;=7），则该比特在别名区的地址为：</p>
+<p>AliasAddr = 0x42000000+((A-0x40000000)<em>8+n)</em>4 = 0x42000000+(A-0x40000000)<em>32+n</em>4</p>
+<p><img src="https://i.loli.net/2019/03/04/5c7ccb8e16090.png" alt="Image.png"></p>
+<p>c 语言代码实现：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//位带操作,实现 51 类似的 GPIO 控制功能</span><br><span class="line"></span><br><span class="line">//具体实现思想,参考&lt;&lt;CM3权威指南&gt;&gt;第五章(87页~92页).</span><br><span class="line"></span><br><span class="line">//IO口操作宏定义</span><br><span class="line"></span><br><span class="line">#define BITBAND(addr, bitnum) ((addr &amp; 0xF0000000)+0x2000000+((addr &amp;0xFFFFF)&lt;&lt;5)+(bitnum&lt;&lt;2))</span><br><span class="line"></span><br><span class="line">#define MEM_ADDR(addr)  *((volatile unsigned long  *)(addr))</span><br><span class="line"></span><br><span class="line">#define BIT_ADDR(addr, bitnum)   MEM_ADDR(BITBAND(addr, bitnum))</span><br><span class="line"></span><br><span class="line">//IO口地址映射</span><br><span class="line"></span><br><span class="line">#define GPIOA_ODR_Addr    (GPIOA_BASE+12) //0x4001080C</span><br><span class="line"></span><br><span class="line">#define GPIOB_ODR_Addr    (GPIOB_BASE+12) //0x40010C0C</span><br><span class="line"></span><br><span class="line">#define GPIOC_ODR_Addr    (GPIOC_BASE+12) //0x4001100C</span><br><span class="line"></span><br><span class="line">#define GPIOD_ODR_Addr    (GPIOD_BASE+12) //0x4001140C</span><br><span class="line"></span><br><span class="line">#define GPIOE_ODR_Addr    (GPIOE_BASE+12) //0x4001180C</span><br><span class="line"></span><br><span class="line">#define GPIOF_ODR_Addr    (GPIOF_BASE+12) //0x40011A0C   </span><br><span class="line"></span><br><span class="line">#define GPIOG_ODR_Addr    (GPIOG_BASE+12) //0x40011E0C   </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#define GPIOA_IDR_Addr    (GPIOA_BASE+8) //0x40010808</span><br><span class="line"></span><br><span class="line">#define GPIOB_IDR_Addr    (GPIOB_BASE+8) //0x40010C08</span><br><span class="line"></span><br><span class="line">#define GPIOC_IDR_Addr    (GPIOC_BASE+8) //0x40011008</span><br><span class="line"></span><br><span class="line">#define GPIOD_IDR_Addr    (GPIOD_BASE+8) //0x40011408</span><br><span class="line"></span><br><span class="line">#define GPIOE_IDR_Addr    (GPIOE_BASE+8) //0x40011808</span><br><span class="line"></span><br><span class="line">#define GPIOF_IDR_Addr    (GPIOF_BASE+8) //0x40011A08</span><br><span class="line"></span><br><span class="line">#define GPIOG_IDR_Addr    (GPIOG_BASE+8) //0x40011E08</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//IO 口操作，只对单一的 IO 口</span><br><span class="line"></span><br><span class="line">//确保 n 的值小于16</span><br><span class="line"></span><br><span class="line">#define PAout(n)   BIT_ADDR(GPIOA_ODR_Addr,n)  //输出</span><br><span class="line"></span><br><span class="line">#define PAin(n)    BIT_ADDR(GPIOA_IDR_Addr,n)  //输入</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#define PBout(n)   BIT_ADDR(GPIOB_ODR_Addr,n)  //输出</span><br><span class="line"></span><br><span class="line">#define PBin(n)    BIT_ADDR(GPIOB_IDR_Addr,n)  //输入</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#define PCout(n)   BIT_ADDR(GPIOC_ODR_Addr,n)  //输出</span><br><span class="line"></span><br><span class="line">#define PCin(n)    BIT_ADDR(GPIOC_IDR_Addr,n)  //输入</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#define PDout(n)   BIT_ADDR(GPIOD_ODR_Addr,n)  //输出</span><br><span class="line"></span><br><span class="line">#define PDin(n)    BIT_ADDR(GPIOD_IDR_Addr,n)  //输入</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#define PEout(n)   BIT_ADDR(GPIOE_ODR_Addr,n)  //输出</span><br><span class="line"></span><br><span class="line">#define PEin(n)    BIT_ADDR(GPIOE_IDR_Addr,n)  //输入</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#define PFout(n)   BIT_ADDR(GPIOF_ODR_Addr,n)  //输出</span><br><span class="line"></span><br><span class="line">#define PFin(n)    BIT_ADDR(GPIOF_IDR_Addr,n)  //输入</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#define PGout(n)   BIT_ADDR(GPIOG_ODR_Addr,n)  //输出</span><br><span class="line"></span><br><span class="line">#define PGin(n)    BIT_ADDR(GPIOG_IDR_Addr,n)  //输入</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="二、IO-口模式"><a href="#二、IO-口模式" class="headerlink" title="二、IO 口模式"></a>二、IO 口模式</h3><p>1、输入浮空</p>
+<p>2、输入上拉</p>
+<p>3、输入下拉</p>
+<p>4、模拟输入</p>
+<p>5、开漏输出</p>
+<p>6、推挽输出</p>
+<p>7、推挽式复用功能</p>
+<p>8、开漏复用功能</p>
+<p>每个 IO 口有 7 个寄存器：</p>
+<ul>
+<li><p>配置模式的 2 个 32 位端口配置寄存器 CRL 和 CRH</p>
+</li>
+<li><p>2 个 32 位数据寄存器 IDR 和 ODR</p>
+</li>
+<li><p>1 个 32 位的置位/复位寄存器 BSRR</p>
+</li>
+<li><p>1 个 16 位的复位寄存器 BRR</p>
+</li>
+<li><p>1 个 32 位的锁存寄存器 LCKR</p>
+</li>
+</ul>
+<p><img src="https://i.loli.net/2019/03/04/5c7ccc73aea1c.png" alt="Image.png"></p>
+<p><strong>CRL 和 CRH</strong></p>
+<p>每个 IO 口占 4 位，高 2 位为 CNF，低 2 位为 MODE。</p>
+<p>0x0 表示模拟输入（ADC 用）</p>
+<p>0x4 表示浮空输入</p>
+<p>0x8 表示上下拉模式（输入口）PxODR=0下拉；=1上拉</p>
+<p>0x3 表示推挽输出（输出口，50M速率）（0x2-2M、0x1-10M）</p>
+<p>0x7 表示开漏输出（0x6-2M 、0x5-10M ）</p>
+<p>0xb 表示复用推挽输出（IO口第二功能，50M速率 ）（0xa-2M 、0x9-10M ）</p>
+<p>0xf 表示复用开漏输出（IO口第二功能，50M速率 ）（0xe-2M 、0xd-10M ）</p>
+<p><strong>IDR 和 ODR</strong></p>
+<p>​     </p>
+<p>只用了低 16 位。IDR 为只读，ODR 为读写。</p>
 ]]></content>
       <tags>
         <tag>硬件拾忆</tag>
@@ -2164,23 +2164,6 @@
 <p>一般不使用内置 SRAM 启动，因为 SRAM 掉电数据丢失。多数情况下 SRAM 只在调试时使用，也可以做其他用途，如故障的局部诊断，写一小段程序加载到 SRAM 中诊断板上的其他电路，或用此方法读写板上的 FLASH 或 EEPROM 等。还可以通过这种方法接触内部FLASH的读写保护，当然接触读写保护的同时，FLASH 的内容也被自动清除，以防止恶意的软件拷贝。</p>
 <p>一般 BOOT0 和 BOOT1 跳线都跳到 0。只是在 ISP 下载的情况下，BOOT0=1，BOOT1=0，下载完成后，把 BOOT0 的跳线接回 0。</p>
 <p>STM32 内部 FLASH 地址起始于 0x08000000，一般情况下，程序文件就从此地址开始写入。此外 STM32 是基于Cortex-M3 内核的微控制器，其内部通过一张“中断向量表”来响应中断，程序启动后，将首先从“中断向量表”取出复位中断向量执行复位中断程序完成启动，而这张“中断向量表”的起始地址 0x08000004，当中断来临，STM32 的内部硬件机制亦会自动将 PC 指针定位到“中断向量表”处，并根据中断源取出对应的中断向量执行中断服务程序。复位中断服务函数执行完之后，会跳转到 main 函数。</p>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>STM32</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>STM32 程序编译</title>
-    <url>//blog/2019/03/04/STM32-%E7%A8%8B%E5%BA%8F%E7%BC%96%E8%AF%91/</url>
-    <content><![CDATA[<hr>
-<p>Code：表示程序所占用 FLASH 的大小（FLASH）</p>
-<p>RO-data：Read Only-data，表示程序定义的常量（FLASH）</p>
-<p>RW-data：Read Write-data，表示已被初始化的变量（SRAM）</p>
-<p>ZI-data：Zero Init-data，表示未被初始化的变量（SRAM）</p>
-<a id="more"></a>
-<p>程序的大小不是 .hex 文件的大小，而是编译后 Code 和 RO-data 之和。</p>
-<p>在 startup_stm32f10x_hd.s 里面，定义了堆栈（Heap+Stack）大小为 0x600，也就是 1536 字节，usart.c 里定义了 200 字节大小的接收缓冲，共占用 1736 字节的 SRAM。</p>
 ]]></content>
       <tags>
         <tag>硬件拾忆</tag>
@@ -2409,6 +2392,23 @@
       </tags>
   </entry>
   <entry>
+    <title>STM32 程序编译</title>
+    <url>//blog/2019/03/04/STM32-%E7%A8%8B%E5%BA%8F%E7%BC%96%E8%AF%91/</url>
+    <content><![CDATA[<hr>
+<p>Code：表示程序所占用 FLASH 的大小（FLASH）</p>
+<p>RO-data：Read Only-data，表示程序定义的常量（FLASH）</p>
+<p>RW-data：Read Write-data，表示已被初始化的变量（SRAM）</p>
+<p>ZI-data：Zero Init-data，表示未被初始化的变量（SRAM）</p>
+<a id="more"></a>
+<p>程序的大小不是 .hex 文件的大小，而是编译后 Code 和 RO-data 之和。</p>
+<p>在 startup_stm32f10x_hd.s 里面，定义了堆栈（Heap+Stack）大小为 0x600，也就是 1536 字节，usart.c 里定义了 200 字节大小的接收缓冲，共占用 1736 字节的 SRAM。</p>
+]]></content>
+      <tags>
+        <tag>硬件拾忆</tag>
+        <tag>STM32</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>STM8S 自动唤醒 AWU</title>
     <url>//blog/2019/03/04/STM8S-%E8%87%AA%E5%8A%A8%E5%94%A4%E9%86%92-AWU/</url>
     <content><![CDATA[<hr>
@@ -2611,39 +2611,26 @@
       </tags>
   </entry>
   <entry>
-    <title>算法复杂度度量</title>
-    <url>//blog/2019/03/08/%E7%AE%97%E6%B3%95%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%BA%A6%E9%87%8F/</url>
+    <title>送给2019</title>
+    <url>//blog/2019/03/12/%E9%80%81%E7%BB%992019/</url>
     <content><![CDATA[<hr>
-<p>《数据结构（C++语言版）》（邓俊辉编著）笔记</p>
-<hr>
-<h3 id="一、时间复杂度"><a href="#一、时间复杂度" class="headerlink" title="一、时间复杂度"></a>一、时间复杂度</h3><p>在规模为 n 的所有输入中，选择执行时间最长者作为 T(n)，并以 T(n) 度量算法的时间复杂度。</p>
-<a id="more"></a>
-<hr>
-<h3 id="二、渐进复杂度"><a href="#二、渐进复杂度" class="headerlink" title="二、渐进复杂度"></a>二、渐进复杂度</h3><h4 id="1、渐进分析（asymptotic-analysis）"><a href="#1、渐进分析（asymptotic-analysis）" class="headerlink" title="1、渐进分析（asymptotic analysis）"></a>1、渐进分析（asymptotic analysis）</h4><p>着眼长远、更为注重时间复杂度的总体变化趋势和增长速度的策略与方法。</p>
-<h4 id="2、大-O-记号（big-O-notation）"><a href="#2、大-O-记号（big-O-notation）" class="headerlink" title="2、大 O 记号（big-O notation）"></a>2、大 O 记号（big-O notation）</h4><p>若存在正的常数 c 和函数 f(n)，使得对任何 n &gt;&gt; 2 都有 T(n) ≤ c · f(n)，则可认为在 n 足够大之后，f(n) 给出了 T(n) 增长速度的一个<font color="#FF0000">  渐进上界</font>。记为 T(n) = O( f(n) )。</p>
-<p>性质：</p>
-<p>（1）对任一常数 c&gt;0，有 O( f(n) ) = O( c · f(n) )</p>
-<p>（2）对任意常数 a&gt;b&gt;0，有 O( n^a + n^b ) = O( n^a )</p>
-<font color="#FF0000">  以大 O 记号形式表示的时间复杂度，实质上是对算法执行时间的一种保守估计（最坏情况）。   </font>
-
-
-
-<h4 id="3、大-Ω-记号"><a href="#3、大-Ω-记号" class="headerlink" title="3、大 Ω 记号"></a>3、大 Ω 记号</h4><p>若存在正的常数 c 和函数 g(n)，使得对任何 n &gt;&gt; 2 都有 T(n) ≥ c · g(n)，则可认为在 n 足够大之后，g(n) 给出了 T(n) 的一个<font color="#FF0000">  渐进下界</font>。记为 T(n) = Ω( g(n) )。</p>
-<font color="#FF0000">  大 Ω 记号是对算法执行效率的一种乐观估计。</font>
-
-
-
-<h4 id="4、大-Θ-记号"><a href="#4、大-Θ-记号" class="headerlink" title="4、大 Θ 记号"></a>4、大 Θ 记号</h4><p>若存在正的常数 c1 &lt; c2 和函数 h(n)，使得对任何 n &gt;&gt; 2 都有 c1 · h(n) ≤ T(n) ≤ c · h(n)，则可认为在 n 足够大之后，h(n) 给出了 T(n) 的一个<font color="#FF0000">确界</font>。记为 T(n) = Θ( h(n) )。</p>
-<font color="#FF0000">  大 Θ 记号是对算法复杂度的一种准确估计。</font>
-
-
-
-<p>三种渐进复杂度记号之间的联系与区别</p>
-<p><img src="https://i.loli.net/2019/03/09/5c831cc1926dc.png" alt="1552096391930"></p>
-<hr>
-<h3 id="三、空间复杂度"><a href="#三、空间复杂度" class="headerlink" title="三、空间复杂度"></a>三、空间复杂度</h3><p>空间复杂度通常并不计入原始输入本身所占用的空间。其它（如转储、中转、索引、映射、缓冲等）各个方面所消耗的空间，都应计入。</p>
-<p>任一算法的任何一次运行过程汇总所消耗的存储空间，都不会多于其间所执行基本操作的累计次数。</p>
-<p>时间复杂度本身就是空间复杂度的一个天然上界。</p>
+<p>菩提本无树</p>
+<p>明镜亦非台</p>
+<p>本来无一物</p>
+<p>何处惹尘埃</p>
+]]></content>
+      <tags>
+        <tag>心花路放</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>对数复杂度的常底数不需要写具体数值的原因</title>
+    <url>//blog/2019/03/13/%E5%AF%B9%E6%95%B0%E5%A4%8D%E6%9D%82%E5%BA%A6%E7%9A%84%E5%B8%B8%E5%BA%95%E6%95%B0%E4%B8%8D%E9%9C%80%E8%A6%81%E5%86%99%E5%85%B7%E4%BD%93%E6%95%B0%E5%80%BC%E7%9A%84%E5%8E%9F%E5%9B%A0/</url>
+    <content><![CDATA[<hr>
+<p>设某函数的上界可以表示为 f(x) = O(logaN)，a&gt;1 为常数。</p>
+<p>对任一常数 b&gt;1，因 lna/lnb 为常数，则由大 O 记号的性质有：</p>
+<p>f(n) = O(logaN) = O(lnb/lna * logbN) = O(logbN)</p>
+<p>所以无论常底数更换为任意常数，都只会影响常系数，而在大 O 记号中，常系数又可忽略，因此在用大 O 记号表示对数复杂度的时候，无需写常底数。</p>
 ]]></content>
       <tags>
         <tag>算法</tag>
@@ -2691,16 +2678,42 @@
       </tags>
   </entry>
   <entry>
-    <title>送给2019</title>
-    <url>//blog/2019/03/12/%E9%80%81%E7%BB%992019/</url>
+    <title>算法复杂度度量</title>
+    <url>//blog/2019/03/08/%E7%AE%97%E6%B3%95%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%BA%A6%E9%87%8F/</url>
     <content><![CDATA[<hr>
-<p>菩提本无树</p>
-<p>明镜亦非台</p>
-<p>本来无一物</p>
-<p>何处惹尘埃</p>
+<p>《数据结构（C++语言版）》（邓俊辉编著）笔记</p>
+<hr>
+<h3 id="一、时间复杂度"><a href="#一、时间复杂度" class="headerlink" title="一、时间复杂度"></a>一、时间复杂度</h3><p>在规模为 n 的所有输入中，选择执行时间最长者作为 T(n)，并以 T(n) 度量算法的时间复杂度。</p>
+<a id="more"></a>
+<hr>
+<h3 id="二、渐进复杂度"><a href="#二、渐进复杂度" class="headerlink" title="二、渐进复杂度"></a>二、渐进复杂度</h3><h4 id="1、渐进分析（asymptotic-analysis）"><a href="#1、渐进分析（asymptotic-analysis）" class="headerlink" title="1、渐进分析（asymptotic analysis）"></a>1、渐进分析（asymptotic analysis）</h4><p>着眼长远、更为注重时间复杂度的总体变化趋势和增长速度的策略与方法。</p>
+<h4 id="2、大-O-记号（big-O-notation）"><a href="#2、大-O-记号（big-O-notation）" class="headerlink" title="2、大 O 记号（big-O notation）"></a>2、大 O 记号（big-O notation）</h4><p>若存在正的常数 c 和函数 f(n)，使得对任何 n &gt;&gt; 2 都有 T(n) ≤ c · f(n)，则可认为在 n 足够大之后，f(n) 给出了 T(n) 增长速度的一个<font color="#FF0000">  渐进上界</font>。记为 T(n) = O( f(n) )。</p>
+<p>性质：</p>
+<p>（1）对任一常数 c&gt;0，有 O( f(n) ) = O( c · f(n) )</p>
+<p>（2）对任意常数 a&gt;b&gt;0，有 O( n^a + n^b ) = O( n^a )</p>
+<font color="#FF0000">  以大 O 记号形式表示的时间复杂度，实质上是对算法执行时间的一种保守估计（最坏情况）。   </font>
+
+
+
+<h4 id="3、大-Ω-记号"><a href="#3、大-Ω-记号" class="headerlink" title="3、大 Ω 记号"></a>3、大 Ω 记号</h4><p>若存在正的常数 c 和函数 g(n)，使得对任何 n &gt;&gt; 2 都有 T(n) ≥ c · g(n)，则可认为在 n 足够大之后，g(n) 给出了 T(n) 的一个<font color="#FF0000">  渐进下界</font>。记为 T(n) = Ω( g(n) )。</p>
+<font color="#FF0000">  大 Ω 记号是对算法执行效率的一种乐观估计。</font>
+
+
+
+<h4 id="4、大-Θ-记号"><a href="#4、大-Θ-记号" class="headerlink" title="4、大 Θ 记号"></a>4、大 Θ 记号</h4><p>若存在正的常数 c1 &lt; c2 和函数 h(n)，使得对任何 n &gt;&gt; 2 都有 c1 · h(n) ≤ T(n) ≤ c · h(n)，则可认为在 n 足够大之后，h(n) 给出了 T(n) 的一个<font color="#FF0000">确界</font>。记为 T(n) = Θ( h(n) )。</p>
+<font color="#FF0000">  大 Θ 记号是对算法复杂度的一种准确估计。</font>
+
+
+
+<p>三种渐进复杂度记号之间的联系与区别</p>
+<p><img src="https://i.loli.net/2019/03/09/5c831cc1926dc.png" alt="1552096391930"></p>
+<hr>
+<h3 id="三、空间复杂度"><a href="#三、空间复杂度" class="headerlink" title="三、空间复杂度"></a>三、空间复杂度</h3><p>空间复杂度通常并不计入原始输入本身所占用的空间。其它（如转储、中转、索引、映射、缓冲等）各个方面所消耗的空间，都应计入。</p>
+<p>任一算法的任何一次运行过程汇总所消耗的存储空间，都不会多于其间所执行基本操作的累计次数。</p>
+<p>时间复杂度本身就是空间复杂度的一个天然上界。</p>
 ]]></content>
       <tags>
-        <tag>心花路放</tag>
+        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -2727,16 +2740,17 @@
       </tags>
   </entry>
   <entry>
-    <title>对数复杂度的常底数不需要写具体数值的原因</title>
-    <url>//blog/2019/03/13/%E5%AF%B9%E6%95%B0%E5%A4%8D%E6%9D%82%E5%BA%A6%E7%9A%84%E5%B8%B8%E5%BA%95%E6%95%B0%E4%B8%8D%E9%9C%80%E8%A6%81%E5%86%99%E5%85%B7%E4%BD%93%E6%95%B0%E5%80%BC%E7%9A%84%E5%8E%9F%E5%9B%A0/</url>
+    <title>C++ string 转换为 int</title>
+    <url>//blog/2019/04/11/C-string-%E8%BD%AC%E6%8D%A2%E4%B8%BA-int/</url>
     <content><![CDATA[<hr>
-<p>设某函数的上界可以表示为 f(x) = O(logaN)，a&gt;1 为常数。</p>
-<p>对任一常数 b&gt;1，因 lna/lnb 为常数，则由大 O 记号的性质有：</p>
-<p>f(n) = O(logaN) = O(lnb/lna * logbN) = O(logbN)</p>
-<p>所以无论常底数更换为任意常数，都只会影响常系数，而在大 O 记号中，常系数又可忽略，因此在用大 O 记号表示对数复杂度的时候，无需写常底数。</p>
+<h4 id="方法一、使用-stringstream"><a href="#方法一、使用-stringstream" class="headerlink" title="方法一、使用 stringstream"></a>方法一、使用 stringstream</h4><p>需要包含 <sstream> 头文件。</sstream></p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int val;</span><br><span class="line">string str = &quot;123&quot;;</span><br><span class="line">stringstream ss(str);</span><br><span class="line">ss &gt;&gt; val；</span><br></pre></td></tr></table></figure>
+<h4 id="方法二、"><a href="#方法二、" class="headerlink" title="方法二、"></a>方法二、</h4><p>未完待续。。。</p>
 ]]></content>
       <tags>
-        <tag>算法</tag>
+        <tag>C++</tag>
+        <tag>编程语言</tag>
       </tags>
   </entry>
   <entry>
@@ -2825,13 +2839,20 @@
       </tags>
   </entry>
   <entry>
-    <title>C++ string 转换为 int</title>
-    <url>//blog/2019/04/11/C-string-%E8%BD%AC%E6%8D%A2%E4%B8%BA-int/</url>
+    <title>C++ 数组内容初始化</title>
+    <url>//blog/2019/04/11/C-%E6%95%B0%E7%BB%84%E5%86%85%E5%AE%B9%E5%88%9D%E5%A7%8B%E5%8C%96/</url>
     <content><![CDATA[<hr>
-<h4 id="方法一、使用-stringstream"><a href="#方法一、使用-stringstream" class="headerlink" title="方法一、使用 stringstream"></a>方法一、使用 stringstream</h4><p>需要包含 <sstream> 头文件。</sstream></p>
+<p><strong>使用 memset 函数</strong></p>
+<p>需要包含 <cstring> 或 &lt;string.h&gt; 或 &lt;memory.h&gt;</cstring></p>
+<p>原型：</p>
 <a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int val;</span><br><span class="line">string str = &quot;123&quot;;</span><br><span class="line">stringstream ss(str);</span><br><span class="line">ss &gt;&gt; val；</span><br></pre></td></tr></table></figure>
-<h4 id="方法二、"><a href="#方法二、" class="headerlink" title="方法二、"></a>方法二、</h4><p>未完待续。。。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">memset(void *s,int ch,size_t n);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>void *s 传入数组名或某指针</li>
+<li>ch 传入欲初始化的内容</li>
+<li>n 传入欲初始化的地址范围（以字节为单位）</li>
+</ul>
+<p>用法：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">memset(bucket, 0, len*sizeof(ElemType_SqList));</span><br></pre></td></tr></table></figure></p>
 ]]></content>
       <tags>
         <tag>C++</tag>
@@ -3073,27 +3094,6 @@
 <p>3、string 类型是字符的序列，操作有 &gt;&gt;、&lt;&lt; 和 ==，代表读入、写出和比较字符串。</p>
 <p>4、类通常被定义在头文件中，且类所在头文件的名字应与类的名字一样。</p>
 <p>5、预处理变量无视 C++ 语言中关于作用域的规则。</p>
-]]></content>
-      <tags>
-        <tag>C++</tag>
-        <tag>编程语言</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>C++ 数组内容初始化</title>
-    <url>//blog/2019/04/11/C-%E6%95%B0%E7%BB%84%E5%86%85%E5%AE%B9%E5%88%9D%E5%A7%8B%E5%8C%96/</url>
-    <content><![CDATA[<hr>
-<p><strong>使用 memset 函数</strong></p>
-<p>需要包含 <cstring> 或 &lt;string.h&gt; 或 &lt;memory.h&gt;</cstring></p>
-<p>原型：</p>
-<a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">memset(void *s,int ch,size_t n);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>void *s 传入数组名或某指针</li>
-<li>ch 传入欲初始化的内容</li>
-<li>n 传入欲初始化的地址范围（以字节为单位）</li>
-</ul>
-<p>用法：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">memset(bucket, 0, len*sizeof(ElemType_SqList));</span><br></pre></td></tr></table></figure></p>
 ]]></content>
       <tags>
         <tag>C++</tag>
@@ -3838,6 +3838,85 @@
       </tags>
   </entry>
   <entry>
+    <title>Markdown 语法</title>
+    <url>//blog/2019/05/01/Markdown-%E8%AF%AD%E6%B3%95/</url>
+    <content><![CDATA[<hr>
+<p>Markdown 是一种轻量级标记语言，可以让人专注于文字内容而不是排版样式，可读性强，直观，入门简单。<br><a id="more"></a></p>
+<h5 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 一级标题</span><br><span class="line">## 二级标题</span><br><span class="line">### 三级标题</span><br><span class="line">#### 四级标题</span><br><span class="line">##### 五级标题</span><br></pre></td></tr></table></figure>
+<p>效果：</p>
+<h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><h5 id="五级标题"><a href="#五级标题" class="headerlink" title="五级标题"></a>五级标题</h5><p>标题最多 6 级。# 与标题之间用一个空格隔开。</p>
+<h5 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt;123</span><br><span class="line">&gt;&gt; 234</span><br><span class="line">&gt;&gt;&gt; 345</span><br></pre></td></tr></table></figure>
+<p>效果：</p>
+<blockquote>
+<p>123</p>
+<blockquote>
+<p>234</p>
+<blockquote>
+<p>345</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h5 id="插入分割线"><a href="#插入分割线" class="headerlink" title="插入分割线"></a>插入分割线</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">***</span><br></pre></td></tr></table></figure>
+<p>效果：</p>
+<hr>
+<hr>
+<h5 id="插入图片或链接"><a href="#插入图片或链接" class="headerlink" title="插入图片或链接"></a>插入图片或链接</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">![图片文件名](图片链接)</span><br><span class="line">[显示的内容](链接)</span><br></pre></td></tr></table></figure>
+<p>插入图片需要使用图床产生链接，例如使用 <a href="https://sm.ms/" target="_blank" rel="noopener">SM.MS</a>。</p>
+<h5 id="插入表格"><a href="#插入表格" class="headerlink" title="插入表格"></a>插入表格</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">| 123 | 456 | 789 |</span><br><span class="line">| --- | --- | --- |</span><br><span class="line">| 111 | 111 | 111 |</span><br><span class="line">| 222 | 222 | 222 |</span><br><span class="line">| 333 | 333 | 333 |</span><br></pre></td></tr></table></figure>
+<p>效果：</p>
+<table>
+<thead>
+<tr>
+<th>123</th>
+<th>456</th>
+<th>789</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>111</td>
+<td>111</td>
+<td>111</td>
+</tr>
+<tr>
+<td>222</td>
+<td>222</td>
+<td>222</td>
+</tr>
+<tr>
+<td>333</td>
+<td>333</td>
+<td>333</td>
+</tr>
+</tbody>
+</table>
+<p>Markdown 中的表格也可以换行、合并单元格等。</p>
+<h5 id="插入代码"><a href="#插入代码" class="headerlink" title="插入代码"></a>插入代码</h5><p>使用 · 或 ··· 将代码上下括起来即可（注意不是单引号，是键盘中 Tab 键上方那个符号），通常 · 用于语句中内嵌代码，只能显示为一行，··· 用于插入代码块，可以按照输入格式显示为多行。</p>
+<p>效果：</p>
+<p>使用 · ：<br><code>print(123)
+    123</code><br>使用 ··· ：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">print(123)</span><br><span class="line">123</span><br></pre></td></tr></table></figure>
+<h5 id="粗体、斜体、下划线、删除线"><a href="#粗体、斜体、下划线、删除线" class="headerlink" title="粗体、斜体、下划线、删除线"></a>粗体、斜体、下划线、删除线</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">**粗体123**</span><br><span class="line">*斜体123*</span><br><span class="line">&lt;u&gt;下划线123&lt;/u&gt;</span><br><span class="line">~~删除线123~~</span><br></pre></td></tr></table></figure>
+<p>效果：</p>
+<p><strong>粗体123</strong><br><em>斜体123</em><br><u>下划线123</u><br><del>删除线123</del></p>
+<h5 id="字体、文字颜色、文字大小"><a href="#字体、文字颜色、文字大小" class="headerlink" title="字体、文字颜色、文字大小"></a>字体、文字颜色、文字大小</h5><p>通过内嵌 HTML，可以调整 Markdown 文本的字体、文字颜色、文字大小（有些编辑器内可能不支持）。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;font face=&quot;黑体&quot;&gt;黑体&lt;/font&gt;</span><br><span class="line">&lt;font face=&quot;微软雅黑&quot;&gt;微软雅黑&lt;/font&gt;</span><br><span class="line">&lt;font face=&quot;STCAIYUN&quot;&gt;华文彩云&lt;/font&gt;</span><br><span class="line">&lt;font color=#0099ff size=10 face=&quot;黑体&quot;&gt;深蓝色黑体 10号&lt;/font&gt;</span><br><span class="line">&lt;font color=#00ffff size=10&gt;浅蓝色 10号&lt;/font&gt;</span><br><span class="line">&lt;font color=gray size=10&gt;灰色 10号&lt;/font&gt;</span><br></pre></td></tr></table></figure>
+<p>效果：</p>
+<font face="黑体">黑体</font><br><font face="微软雅黑">微软雅黑</font><br><font face="STCAIYUN">华文彩云</font><br><font color="#0099ff" size="10" face="黑体">深蓝色黑体 10号</font><br><font color="#00ffff" size="10">浅蓝色 10号</font><br><font color="gray" size="10">灰色 10号</font>
+
+<p>常用文字颜色：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">红色：</span><br><span class="line">&lt;font color=&quot;#dd0000&quot;&gt;显示文字&lt;/font&gt;</span><br><span class="line"></span><br><span class="line">绿色：</span><br><span class="line">&lt;font color=&quot;#00dd00&quot;&gt;显示文字&lt;/font&gt;</span><br><span class="line"></span><br><span class="line">蓝色：</span><br><span class="line">&lt;font color=&quot;#0000dd&quot;&gt;显示文字&lt;/font&gt; </span><br><span class="line"></span><br><span class="line">黄色：</span><br><span class="line">&lt;font color=&quot;#dddd00&quot;&gt;显示文字&lt;/font&gt;</span><br><span class="line"></span><br><span class="line">青色：</span><br><span class="line">&lt;font color=&quot;#00dddd&quot;&gt;显示文字&lt;/font&gt;</span><br><span class="line"></span><br><span class="line">紫色：</span><br><span class="line">&lt;font color=&quot;#dd00dd&quot;&gt;显示文字&lt;/font&gt;</span><br></pre></td></tr></table></figure>
+<p>效果：</p>
+<font color="#dd0000">显示文字</font><br><font color="#00dd00">显示文字</font><br><font color="#0000dd">显示文字</font><br><font color="#dddd00">显示文字</font><br><font color="#00dddd">显示文字</font><br><font color="#dd00dd">显示文字</font> 
+
+<p>其他颜色可查询：<br><a href="http://www.114la.com/other/rgb.htm" target="_blank" rel="noopener">RGB颜色查询对照表</a></p>
+]]></content>
+      <tags>
+        <tag>编程语言</tag>
+        <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>常用数学符号</title>
     <url>//blog/2019/04/29/%E5%B8%B8%E7%94%A8%E6%95%B0%E5%AD%A6%E7%AC%A6%E5%8F%B7/</url>
     <content><![CDATA[<hr>
@@ -3933,85 +4012,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Markdown 语法</title>
-    <url>//blog/2019/05/01/Markdown-%E8%AF%AD%E6%B3%95/</url>
-    <content><![CDATA[<hr>
-<p>Markdown 是一种轻量级标记语言，可以让人专注于文字内容而不是排版样式，可读性强，直观，入门简单。<br><a id="more"></a></p>
-<h5 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 一级标题</span><br><span class="line">## 二级标题</span><br><span class="line">### 三级标题</span><br><span class="line">#### 四级标题</span><br><span class="line">##### 五级标题</span><br></pre></td></tr></table></figure>
-<p>效果：</p>
-<h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><h5 id="五级标题"><a href="#五级标题" class="headerlink" title="五级标题"></a>五级标题</h5><p>标题最多 6 级。# 与标题之间用一个空格隔开。</p>
-<h5 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt;123</span><br><span class="line">&gt;&gt; 234</span><br><span class="line">&gt;&gt;&gt; 345</span><br></pre></td></tr></table></figure>
-<p>效果：</p>
-<blockquote>
-<p>123</p>
-<blockquote>
-<p>234</p>
-<blockquote>
-<p>345</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<h5 id="插入分割线"><a href="#插入分割线" class="headerlink" title="插入分割线"></a>插入分割线</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">***</span><br></pre></td></tr></table></figure>
-<p>效果：</p>
-<hr>
-<hr>
-<h5 id="插入图片或链接"><a href="#插入图片或链接" class="headerlink" title="插入图片或链接"></a>插入图片或链接</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">![图片文件名](图片链接)</span><br><span class="line">[显示的内容](链接)</span><br></pre></td></tr></table></figure>
-<p>插入图片需要使用图床产生链接，例如使用 <a href="https://sm.ms/" target="_blank" rel="noopener">SM.MS</a>。</p>
-<h5 id="插入表格"><a href="#插入表格" class="headerlink" title="插入表格"></a>插入表格</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">| 123 | 456 | 789 |</span><br><span class="line">| --- | --- | --- |</span><br><span class="line">| 111 | 111 | 111 |</span><br><span class="line">| 222 | 222 | 222 |</span><br><span class="line">| 333 | 333 | 333 |</span><br></pre></td></tr></table></figure>
-<p>效果：</p>
-<table>
-<thead>
-<tr>
-<th>123</th>
-<th>456</th>
-<th>789</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>111</td>
-<td>111</td>
-<td>111</td>
-</tr>
-<tr>
-<td>222</td>
-<td>222</td>
-<td>222</td>
-</tr>
-<tr>
-<td>333</td>
-<td>333</td>
-<td>333</td>
-</tr>
-</tbody>
-</table>
-<p>Markdown 中的表格也可以换行、合并单元格等。</p>
-<h5 id="插入代码"><a href="#插入代码" class="headerlink" title="插入代码"></a>插入代码</h5><p>使用 · 或 ··· 将代码上下括起来即可（注意不是单引号，是键盘中 Tab 键上方那个符号），通常 · 用于语句中内嵌代码，只能显示为一行，··· 用于插入代码块，可以按照输入格式显示为多行。</p>
-<p>效果：</p>
-<p>使用 · ：<br><code>print(123)
-    123</code><br>使用 ··· ：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">print(123)</span><br><span class="line">123</span><br></pre></td></tr></table></figure>
-<h5 id="粗体、斜体、下划线、删除线"><a href="#粗体、斜体、下划线、删除线" class="headerlink" title="粗体、斜体、下划线、删除线"></a>粗体、斜体、下划线、删除线</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">**粗体123**</span><br><span class="line">*斜体123*</span><br><span class="line">&lt;u&gt;下划线123&lt;/u&gt;</span><br><span class="line">~~删除线123~~</span><br></pre></td></tr></table></figure>
-<p>效果：</p>
-<p><strong>粗体123</strong><br><em>斜体123</em><br><u>下划线123</u><br><del>删除线123</del></p>
-<h5 id="字体、文字颜色、文字大小"><a href="#字体、文字颜色、文字大小" class="headerlink" title="字体、文字颜色、文字大小"></a>字体、文字颜色、文字大小</h5><p>通过内嵌 HTML，可以调整 Markdown 文本的字体、文字颜色、文字大小（有些编辑器内可能不支持）。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;font face=&quot;黑体&quot;&gt;黑体&lt;/font&gt;</span><br><span class="line">&lt;font face=&quot;微软雅黑&quot;&gt;微软雅黑&lt;/font&gt;</span><br><span class="line">&lt;font face=&quot;STCAIYUN&quot;&gt;华文彩云&lt;/font&gt;</span><br><span class="line">&lt;font color=#0099ff size=10 face=&quot;黑体&quot;&gt;深蓝色黑体 10号&lt;/font&gt;</span><br><span class="line">&lt;font color=#00ffff size=10&gt;浅蓝色 10号&lt;/font&gt;</span><br><span class="line">&lt;font color=gray size=10&gt;灰色 10号&lt;/font&gt;</span><br></pre></td></tr></table></figure>
-<p>效果：</p>
-<font face="黑体">黑体</font><br><font face="微软雅黑">微软雅黑</font><br><font face="STCAIYUN">华文彩云</font><br><font color="#0099ff" size="10" face="黑体">深蓝色黑体 10号</font><br><font color="#00ffff" size="10">浅蓝色 10号</font><br><font color="gray" size="10">灰色 10号</font>
-
-<p>常用文字颜色：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">红色：</span><br><span class="line">&lt;font color=&quot;#dd0000&quot;&gt;显示文字&lt;/font&gt;</span><br><span class="line"></span><br><span class="line">绿色：</span><br><span class="line">&lt;font color=&quot;#00dd00&quot;&gt;显示文字&lt;/font&gt;</span><br><span class="line"></span><br><span class="line">蓝色：</span><br><span class="line">&lt;font color=&quot;#0000dd&quot;&gt;显示文字&lt;/font&gt; </span><br><span class="line"></span><br><span class="line">黄色：</span><br><span class="line">&lt;font color=&quot;#dddd00&quot;&gt;显示文字&lt;/font&gt;</span><br><span class="line"></span><br><span class="line">青色：</span><br><span class="line">&lt;font color=&quot;#00dddd&quot;&gt;显示文字&lt;/font&gt;</span><br><span class="line"></span><br><span class="line">紫色：</span><br><span class="line">&lt;font color=&quot;#dd00dd&quot;&gt;显示文字&lt;/font&gt;</span><br></pre></td></tr></table></figure>
-<p>效果：</p>
-<font color="#dd0000">显示文字</font><br><font color="#00dd00">显示文字</font><br><font color="#0000dd">显示文字</font><br><font color="#dddd00">显示文字</font><br><font color="#00dddd">显示文字</font><br><font color="#dd00dd">显示文字</font> 
-
-<p>其他颜色可查询：<br><a href="http://www.114la.com/other/rgb.htm" target="_blank" rel="noopener">RGB颜色查询对照表</a></p>
-]]></content>
-      <tags>
-        <tag>编程语言</tag>
-        <tag>Markdown</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Numpy 中 linspace() 与 arange() 的区别</title>
     <url>//blog/2019/05/07/Numpy-%E4%B8%AD-linspace-%E4%B8%8E-arange-%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
     <content><![CDATA[<hr>
@@ -4038,6 +4038,11 @@
         <tag>编程语言</tag>
         <tag>Python</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>test</title>
+    <url>//blog/2022/03/06/test/</url>
+    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>逆波兰表达式</title>
@@ -4111,10 +4116,5 @@
       <tags>
         <tag>算法</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>test</title>
-    <url>//blog/2022/03/06/test/</url>
-    <content><![CDATA[]]></content>
   </entry>
 </search>
