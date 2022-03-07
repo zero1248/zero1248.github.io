@@ -80,7 +80,9 @@ var searchFunc = function (path, search_id, content_id) {
                     }
                     // show search results
                     if (isMatch) {
-                        str += "<li><a href='" + data_url +
+                        str += "<li><a href='" + data_url.slice(2) +
+                        // str += "<li><a href='" + "zero1248.github.io/" + data_url.slice(2) +
+                        // str += "<li><a href='" + data_url +
                             "' class='search-result-title'>" + data_title + "</a>";
                         var content = data.content.trim().replace(/<[^>]+>/g, "");
                         if (first_occur >= 0) {
