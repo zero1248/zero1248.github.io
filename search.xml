@@ -1,96 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>MSP430 串口</title>
-    <url>//blog/2019/02/22/MSP430-%E4%B8%B2%E5%8F%A3/</url>
-    <content><![CDATA[<hr>
-<p>MSP430 常见的 USART（universal synchronous/asynchronous receive/ransmit）接口通常有三种：UART、IIC、SPI。其中 UART（串口）是调试过程中最常用的接口，这里根据 User’s Guide 谈谈 MSP430x1xx 系列串口的使用。</p>
-<a id="more"></a>
-<p>在 UART 一章的开始，有这样一段文字：</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6fb7ad78699.png" alt="img"></p>
-<p>可见，在 X14X 和 X16X 中，有两组串口，而 X12X 、X13X 和 X15X 中只有 UART0。使用不同型号，务必先查看手册中的资源介绍。</p>
-<h3 id="一、Introduction"><a href="#一、Introduction" class="headerlink" title="一、Introduction"></a>一、Introduction</h3><p>本节一开始，有这样一段话：</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6fb8b4147a0.png" alt="img"></p>
-<p>说明了UART提供两个接口：UTXD（发送）和URXD（接收），使用时只需要这两个引脚就可以与其他串口设备通信，但要注意的一点是，除了这两个引脚的连接外，两设备还必须共地，也就是说他们的GND也要连在一起，这是两设备成功通信的关键！</p>
-<p>接下来介绍了该模块的特性：</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6fb8ed393ef.png" alt="img"></p>
-<p>值得关注的几点是：</p>
-<p>1、430 UART 的发送和接收移位寄存器都是独立的</p>
-<p>2、发射和接收缓冲器是分离的，这一点不同于 51 单片机</p>
-<p>3、低位优先发送和接收</p>
-<h3 id="二、Operation"><a href="#二、Operation" class="headerlink" title="二、Operation"></a>二、Operation</h3><p>发送和接收使用相同的波特率。</p>
-<p>PUC（上电清除）或SWRST置位会导致USART复位。</p>
-<h4 id="1、上电复位后各位状态"><a href="#1、上电复位后各位状态" class="headerlink" title="1、上电复位后各位状态"></a>1、上电复位后各位状态</h4><p><img src="https://i.loli.net/2019/02/22/5c6fb93cad626.png" alt="img"></p>
-<p>上面这段话给出了上电后，各标志位的初始状态：</p>
-<p>1）USART 自动置位（置1）</p>
-<p>2） URXIEx、UTXIEx、URXIFGx、RXWAKE、TXWAKE、RXERR、BRK、PE、OE 和 FE 复位（置0）</p>
-<p>3） UTXIFGx、TXEPT 置位</p>
-<p>4） URXEx 和 UTXEx 不受影响</p>
-<p>清除 SWRST 将允许操作 USART。</p>
-<h4 id="2、初始化或重配置顺序"><a href="#2、初始化或重配置顺序" class="headerlink" title="2、初始化或重配置顺序"></a>2、初始化或重配置顺序</h4><p><img src="https://i.loli.net/2019/02/22/5c6fb9e5da6c4.png" alt="img"></p>
-<p>1）SWRST 置位（置1）</p>
-<p>2）在 SWRST=1 的前提下初试化各个 USART 寄存器</p>
-<p>3）通过 MEx 特殊功能寄存器使能 USART 模块</p>
-<p>4）软件清除 SWRST（置0）</p>
-<p>5）通过 IEx 特殊功能寄存器使能中断</p>
-<h4 id="3、字符格式"><a href="#3、字符格式" class="headerlink" title="3、字符格式"></a>3、字符格式</h4><p><img src="https://i.loli.net/2019/02/22/5c6fbb36cc550.png" alt="img"></p>
-<p>起始位 – 7 或 8 位数据位 – 地址位 – 奇偶校验位 – 1 或 2 位停止位。由波特率寄存器设置。</p>
-<h4 id="4、异步通信格式"><a href="#4、异步通信格式" class="headerlink" title="4、异步通信格式"></a>4、异步通信格式</h4><p>双机通信时，使用空闲总线模式。多机通信时，支持空闲总线模式和地址位处理模式。</p>
-<h5 id="1）空闲总线多处理机模式（MM-0）"><a href="#1）空闲总线多处理机模式（MM-0）" class="headerlink" title="1）空闲总线多处理机模式（MM=0）"></a>1）空闲总线多处理机模式（MM=0）</h5><p><img src="https://i.loli.net/2019/02/22/5c6fbbf2bfed8.png" alt="img"></p>
-<p>两个数据块之间隔了一个大于 10 个时钟的空闲时间，而数据块内的数据之间的间隔小于 10 个时钟。在前一个字符的的第一个停止位之后又接收了 10 或者更多连续的时钟后，将检测接收总线。当使用 2 个地址位时，第二个地址位将作为空闲周期的第一个标志。</p>
-<p>一个空闲周期之后的第一个接收到的数据是地址字符。RXWAKE 位用来标志每个数据块的地址位。空闲总线模式下，当接收到地址并且传送至 UxRXBUF 时，该位将置位。</p>
-<p>URXWIE 位用来控制数据接收。当该位置位时，所有的非地址字符被收集，但是不移送至 UxRXBUF 中，也不触发中断。接收到地址字符时接收器将暂时激活将字符传送至 UxRXBUF 中并且置位 URXIFGx 中断标志。任何满足条件的错误标志位也将置位。用户可以验证接收地址。</p>
-<p>如果接收到一个地址字符，用户可以软件验证地址，并且必须复位 URXWIE 以保证继续接收数据。如果保持置位，将只接收地址字符。URXWIE 位不会由硬件自动修改。</p>
-<p>在空闲总线模式下，可以由 USART 产生一个精准的空闲周期去产生 UTXDx 中的地址字符标志符来传送地址。WUT 暂时唤醒标志是一个由用户可访问的TXWAKE位双缓存的内部标志。当发送器从 UxTXBUF 中载入数据，WUT 也从 TXWAKE 中载入，并复位 TXWAKE。</p>
-<p>以下步骤可以传送一个空闲帧表明后面是地址字符：</p>
-<p>1&gt; 置位 TXWAKE，然后向 UxTXBUF 写入任意字符。UxTXBUF 必须准备好接收新字符（UTXIFGx = 1）。</p>
-<p>TXWAKE 值移入 WUT，当 UxTXBUF 准备好接收新数据时，UxTXBUF 的内容被移入发送移位寄存器。这将置位WUT，抑制正常传输中的起始位、数据位、奇偶校验位。然后发送大约十一位的空闲周期。当使用两个地址位时，第二个地址位将作为空闲周期的第一个标志。TXWAKE 自动复位。</p>
-<p>2&gt; 向 UxTXBUF 中写入所需地址字符。UxTXBUF 必须准备好接收新字符（UTXIFGx = 1）。</p>
-<p>在 UTXDx 的地址标志空闲周期之后，代表了特殊地址的新字符被发出。必须向 UxTXBUF 写入第一个任意字符，这是为了将 TXWAKE 位移入 WUT 并触发空闲总线条件。这个数据并不重要，也不会出现在 UTXDx 上。</p>
-<h5 id="2）地址位多处理机模式（MM-1）"><a href="#2）地址位多处理机模式（MM-1）" class="headerlink" title="2）地址位多处理机模式（MM=1）"></a>2）地址位多处理机模式（MM=1）</h5><p>每个数据包含一个额外的位用于地址表示。数据块中的第一个字符带有一个置位的地址位表明这个字符是地址。当接收到字符是一个有效的地址字符且被移入 UxRXBUF 中，USART 的 RXWAKE 位将被置位。</p>
-<p>URXWIE 位用来控制数据接收。当该位置位时，数据字符（地址位=0）将被接收器接收但不送入 UxRXBUF 并且不触发中断。当收到一个包含了地址位置位的字符时，接收器暂时唤醒将字符传送到 UxRXBUF 并将 URXIFGx 置位。所有满足条件的状态错误标志也会被置位。</p>
-<p>如果接收到一个地址，用户必须软件复位URXWIE以保证继续接收数据。如果 URXWIE 保持置位，值有地址字符（地址位=1）可以倍接收。URXWIE 位不会有 USART 硬件自动改变。</p>
-<p>在地址位模式下发送地址数据时，一个字符的地址位可以通过写入 TXWAKE 位来控制。TXWAKE 位的值将被载入从UxTXBUF 传送到移位寄存器的字符的地址位，然后自动清除 TXWAKE 位。TXWAKE 不能软件复位，它将在传送至 WUT 或被 SWRST 置位后有 USART 硬件清零。</p>
-<h5 id="3）自动错误检测"><a href="#3）自动错误检测" class="headerlink" title="3）自动错误检测"></a>3）自动错误检测</h5><p>参看User’s Guide。</p>
-<h4 id="5、USART接收使能"><a href="#5、USART接收使能" class="headerlink" title="5、USART接收使能"></a>5、USART接收使能</h4><p><img src="https://i.loli.net/2019/02/22/5c6fbd113b5d8.png" alt="img"></p>
-<p>从状态转移图可以清楚的看出 URXEx 对接收的影响。</p>
-<h4 id="6、USART发送使能"><a href="#6、USART发送使能" class="headerlink" title="6、USART发送使能"></a>6、USART发送使能</h4><p><img src="https://i.loli.net/2019/02/22/5c6fbd4edc15d.png" alt="img"></p>
-<p>​     </p>
-<p>当 UTXEx 置位时，UART 发送器使能。向 UxTXBUF 写入数据将发起发送。数据将在 TX 移位寄存器置空的下一个 BITCLK 被送进去，然后发送开始。</p>
-<p>当 UTXEx 位复位时发送终止。任何移入 UxTXBUF 的数据和任何正在发送移位寄存器中进行的数据发送，若先于清空 UTXEx 的操作，都将继续进行发送，直到所有的数据发送完毕。</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6fbdb591472.png" alt="img"></p>
-<p>当发送器被使能（UTXEx=1），数据不应该被写入 UxTXBUF，除非 UxTXBUF 已经准备好接收新数据，表现为 UTXIFGx=1。如果 UxTXBUF 中的数据在它将被送至发送寄存器时被修改，这一扰乱将导致错误的发送。</p>
-<p>完成所有发送后，发送器需要关闭（UTXEx=0），表现为发送器清空标志位置位（TXEPT = 1）。在发送器关闭时，任何写入 UxTXBUF 的数据都将被保存在缓冲器中，但是不会移入发送移位寄存器或者被发送。一旦 UTXEx 被置位，发送缓存里的数据立即被载入发送移位寄存器中，而且数据发送重新开始。</p>
-<h4 id="7、UART波特率产生"><a href="#7、UART波特率产生" class="headerlink" title="7、UART波特率产生"></a>7、UART波特率产生</h4><p>USART 波特率发生器是由不标准的时钟频率产生标准的波特率。波特率发生器使用一个预定标器/除法器和一个调制器。这个组合为波特率发生器提供小数除数因子。USART 的最大波特率是 UART 时钟频率 BRCLK 的三分之一。</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6fbeb2cc5f3.png" alt="img"></p>
-<p><img src="https://i.loli.net/2019/02/22/5c6fbecf62cd1.png" alt="img"></p>
-<p>波特率配置常数及误差：</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6fbf177d762.png" alt="img"></p>
-<h4 id="8、USART中断"><a href="#8、USART中断" class="headerlink" title="8、USART中断"></a>8、USART中断</h4><p>USART有一个发送中断向量和一个接收中断向量。</p>
-<h5 id="1）发送中断操作"><a href="#1）发送中断操作" class="headerlink" title="1）发送中断操作"></a>1）发送中断操作</h5><p>发送器置位 UTXIFGx 中断标志位，表明 UxTXBUF 准备好接收另一个字符。如果 UTXIEx 和GIE 置位，也会触发一个中断请求。若中断请求得到响应或者一个字符写入 UxTXBUF，UTXIFGx 将自动复位。</p>
-<p>UTXIFGx 在 PUC 之后或 SWRST=1 时都会被置位。</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6fbf6c3b1f2.png" alt="img"></p>
-<h5 id="2）接收中断操作"><a href="#2）接收中断操作" class="headerlink" title="2）接收中断操作"></a>2）接收中断操作</h5><p>每次接收到一个数据并载入 UxRXBUF 都会置位 URXIFGx 中断标志。如果 URXIEx 和 GIE 置位，也会触发一个中断请求。URXIFGx 和 URXIEx 会在系统复位信号 PUC 之后或 SWRST=1 时复位。若悬而未决的中断得到响应（当 URXSE=0）或者当 UxRXBUF 被读取时，URXIFGx 将自动复位。</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6fbfa5e7432.png" alt="img"></p>
-<p>URXEIE 用来使能或关闭置位 URXIFGx 造成的错误字符。在使用地址位模式时，URXWIE 用来自动检测有效的地址字符和拒绝不需要的数据字符。</p>
-<p>两种字符不能置位 URXIFGx：当 URXEIE=0 时的错误字符，当 URXWIE=1 时的非地址字符。</p>
-<p>当 URXEIE=1 一个 break 条件将置位 BRK 位和 URXIFGx 标志。</p>
-<h5 id="3）接收起始边沿检测操作"><a href="#3）接收起始边沿检测操作" class="headerlink" title="3）接收起始边沿检测操作"></a>3）接收起始边沿检测操作</h5><p>URXSE 位使能接收起始边沿检测特性。当 BRCLK 由 DCO 提供，以及当 DCO 因为低功耗模式而关闭时，推荐使用接收开始边沿特性。DCO 的超快振荡允许在起始边沿检测之后接收字符。</p>
-<p>当 URXSE，URXIEx 和 GIE 置位，并且一个起始边沿出现在 URXDx，内部信号 URXS 将会置位。当 URXS 置位，将会触发一个接收中断请求，但 URXIFGx 不会置位。用户在接收中断服务程序中可以检测 URXIFGx 来判断中断源。当 URXIFGx=0，检测起始边沿；当 URXIFGx=1，接收一个有效的字符（或 break）。</p>
-<p>当中断服务函数判断中断请求来自起始边沿，用户软件触发 URXSE，而且必须从中断服务函数中返回有效的模式或一个 BRCLK 激活的低功耗模式，以使能 BRCLK。如果中断服务函数返回到一个 BRCLK 未激活的低功耗模式，字符不能被接收。触发 URXSE 清除 URXS 信号并将为未来的字符重新使能起始边沿检测。</p>
-<p>当前激活的 BRCLK 允许 USART 接收字符。接收完一个字符并送入 UxRXBUF 之后，URXIFGx 将置位，并请求一个中断服务。在中断服务函数入口，URXIFGx=1 表明接收到一个字符。当用户软件读取 UxRXBUF 时 URXIFGx 标志被清除。</p>
-<p>当使用接收边沿检测时，若BRCLK关闭，将不能检测到break条件。</p>
-<h5 id="4）接收起始边沿检测条件"><a href="#4）接收起始边沿检测条件" class="headerlink" title="4）接收起始边沿检测条件"></a>4）接收起始边沿检测条件</h5><p>当 URXSE=1 时，故障将抑制阻止 USART 被意外启动。URXDs 的任何一个比抗尖峰脉冲时间（大约300ns）短的低电平都会被 USART 忽视而不会触发中断请求。</p>
-<p>当一个故障时间长于抗尖峰脉冲时间，或一个有效的起始位出现在 URXDx，USART 接收将启动，且会进行一个多数投票。如果多数投票认为没有检测到的不是起始位，将会中断字符接收。</p>
-<p>如果字符接收中断，就没有必要激活 BRCLK。软件可以通过一个比字符接收持续时间长的延时周期来表明没有在预期周期内接收到字符，且软件可以关闭 BRCLK。</p>
-<h3 id="三、Registers"><a href="#三、Registers" class="headerlink" title="三、Registers"></a>三、Registers</h3><p>寄存器详细内容参考相应手册。</p>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>MSP430</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>2018 随笔</title>
     <url>//blog/2019/02/22/2018-%E9%9A%8F%E7%AC%94/</url>
     <content><![CDATA[<hr>
@@ -219,105 +129,6 @@
       </tags>
   </entry>
   <entry>
-    <title>MSP430 IO</title>
-    <url>//blog/2019/02/22/MSP430-IO/</url>
-    <content><![CDATA[<hr>
-<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>上电后寄存器状态为输入高电平。</p>
-<p>改变 PxOUT 或 PxDIR 时 PxIFG 标志将置位。</p>
-<p>向 PxIES 写入数据将导致相应的中断标志置位。</p>
-<a id="more"></a>
-<p>只置位 PxSELx 不能自动设置引脚方向。其他外设模块需要跟据模块功能配置 PxDIRx，改变引脚方向。</p>
-<font color="#FF0000"> 开启外部中断时，要先设置 OUT、DIR、IES，然后复位 IFG，最后开中断。 </font>
-
-<p>msp430x14x、x15x、x16x的 P1、P2 口具有中断能力。</p>
-<p>未使用的IO引脚应配置成IO功能，输出方向，并连接在PCB板上，以降低功耗。PxOUT位的值无所谓，因为其引脚未连接。</p>
-<p>未使用的引脚的正确连接方式：</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6fb3c7b5cc8.png" alt="1550824357362"></p>
-<h3 id="MSP430-IO-特点"><a href="#MSP430-IO-特点" class="headerlink" title="MSP430 IO 特点"></a>MSP430 IO 特点</h3><ul>
-<li><p>独立的可编程 IO</p>
-</li>
-<li><p>同组 IO 口输入输出任意组合</p>
-</li>
-<li><p>P1、P2 中断独立配置</p>
-</li>
-<li><p>输入输出数据寄存器独立</p>
-</li>
-</ul>
-<h3 id="一、输入寄存器-PxIN"><a href="#一、输入寄存器-PxIN" class="headerlink" title="一、输入寄存器 PxIN"></a>一、输入寄存器 PxIN</h3><p>Bit = 0 ： 输入为低</p>
-<p>Bit = 1 ： 输入为高</p>
-<p>PxIN是只读寄存器，执行写入指令将增加电流消耗。</p>
-<h3 id="二、输出寄存器-PxOUT"><a href="#二、输出寄存器-PxOUT" class="headerlink" title="二、输出寄存器 PxOUT"></a>二、输出寄存器 PxOUT</h3><p>Bit = 0 ： 输出为低</p>
-<p>Bit = 1 ： 输出为高</p>
-<h3 id="三、方向寄存器-PxDIR"><a href="#三、方向寄存器-PxDIR" class="headerlink" title="三、方向寄存器 PxDIR"></a>三、方向寄存器 PxDIR</h3><p>PxDIR 的每一位用来选择相应引脚的方向，无论选择了什么第二功能。</p>
-<p>如果 IO 开启了第二功能，必须根据需要来设置相应的方向。</p>
-<p>Bit = 0 ： 输入方向</p>
-<p>Bit = 1 ： 输出方向</p>
-<h3 id="四、功能选择寄存器-PxSEL"><a href="#四、功能选择寄存器-PxSEL" class="headerlink" title="四、功能选择寄存器 PxSEL"></a>四、功能选择寄存器 PxSEL</h3><p>端口引脚经常复用作其他内部外设模块功能。PxSEL 的每一位决定了引脚用作 IO 功能还是内部外设模块功能（第二功能）。</p>
-<p>Bit = 0 ： IO功能</p>
-<p>Bit = 1 ： 内部外设功能</p>
-<p>只置位PxSELx不能自动设置引脚方向。其他外设模块需要跟据模块功能配置 PxDIRx，改变引脚方向。</p>
-<p>PxSEL 置位时，中断关闭。</p>
-<p>当引脚作为外设的输入时，输入到外设的信号在因脚伤经过一次锁存。当 PxSELx=1 时，内部输入信号跟随引脚上的输入信号。若 PxSELx=0，输入到外设的信号将维持引脚上的输入信号的值，直到 PxSELx 位重置。</p>
-<ul>
-<li>P1、P2 口可中断的器件<ul>
-<li>通过配置 PxIFG、PxIE 和 PxIES 寄存器，P1 和 P2 口的每个引脚都能具有中断能力。所有的 P1 口引脚都使用一个单独的中断源，所有的 P2 引脚使用另一个单独的中断源。可以检测 PxIFG 来判断 P1 或 P2 中断。</li>
-</ul>
-</li>
-</ul>
-<h3 id="五、中断标志位寄存器-P1IFG，P2IFG"><a href="#五、中断标志位寄存器-P1IFG，P2IFG" class="headerlink" title="五、中断标志位寄存器 P1IFG，P2IFG"></a>五、中断标志位寄存器 P1IFG，P2IFG</h3><p>选择的输入信号边沿出现在引脚上时，相应的中断标志会置位。相应的 PxIE 以及 GIE 置位后，所有 PxIFGx 中断标志都需要一个中断响应。PxIFG 必须由软件复位。软件也可以置位PxIFG，提供一种软件触发中断的方法。</p>
-<p>Bit = 0 ： 无中断请求</p>
-<p>Bit = 1 ： 中断请求</p>
-<p>只有跳变能触发中断，而稳定的电平不能。如果任意 PxIFGx 在中断服务程序中置位，或者在中断服务程序执行 RETI 命令之后置位，PxIFGx 标志位将触发另一个中断。这样确保了每一个跳变得到响应。</p>
-<font color="#FF0000">   改变 PxOUT 或 PxDIR 时 PxIFG 标志将置位。 </font>
-
-
-
-<p>任何外部中断时间都应该至少是 MCLK 的 1.5 倍，以保证单片机能检测到并且中断标志置位。</p>
-<h3 id="六、中断边沿选择寄存器-P1IES，P2IES"><a href="#六、中断边沿选择寄存器-P1IES，P2IES" class="headerlink" title="六、中断边沿选择寄存器 P1IES，P2IES"></a>六、中断边沿选择寄存器 P1IES，P2IES</h3><p>PxIES 用来选择中断 IO 引脚的中断边沿。</p>
-<p>Bit = 0 ： 由低向高的跳变置位 PxIFGx</p>
-<p>Bit = 1 ： 由高向低的跳变置位 PxIFGx</p>
-<font color="#FF0000">   向 PxIES 写入数据将导致相应的中断标志置位。 </font>
-
-<table>
-<thead>
-<tr>
-<th style="text-align:center">PxIESx</th>
-<th style="text-align:center">PxINx</th>
-<th style="text-align:center">PxIFGx</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">0→1</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">May be set</td>
-</tr>
-<tr>
-<td style="text-align:center">0→1</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">Unchanged</td>
-</tr>
-<tr>
-<td style="text-align:center">1→0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">Unchanged</td>
-</tr>
-<tr>
-<td style="text-align:center">1→0</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">May be set</td>
-</tr>
-</tbody>
-</table>
-<h3 id="七、中断使能寄存器P1IE，P2IE"><a href="#七、中断使能寄存器P1IE，P2IE" class="headerlink" title="七、中断使能寄存器P1IE，P2IE"></a>七、中断使能寄存器P1IE，P2IE</h3><p>Bit = 0 ： 中断关闭</p>
-<p>Bit = 1 ： 中断使能</p>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>MSP430</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Git 与 Github</title>
     <url>//blog/2019/02/20/Git%20%E4%B8%8E%20Github/</url>
     <content><![CDATA[<hr>
@@ -439,6 +250,195 @@
       </tags>
   </entry>
   <entry>
+    <title>MSP430 串口</title>
+    <url>//blog/2019/02/22/MSP430-%E4%B8%B2%E5%8F%A3/</url>
+    <content><![CDATA[<hr>
+<p>MSP430 常见的 USART（universal synchronous/asynchronous receive/ransmit）接口通常有三种：UART、IIC、SPI。其中 UART（串口）是调试过程中最常用的接口，这里根据 User’s Guide 谈谈 MSP430x1xx 系列串口的使用。</p>
+<a id="more"></a>
+<p>在 UART 一章的开始，有这样一段文字：</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fb7ad78699.png" alt="img"></p>
+<p>可见，在 X14X 和 X16X 中，有两组串口，而 X12X 、X13X 和 X15X 中只有 UART0。使用不同型号，务必先查看手册中的资源介绍。</p>
+<h3 id="一、Introduction"><a href="#一、Introduction" class="headerlink" title="一、Introduction"></a>一、Introduction</h3><p>本节一开始，有这样一段话：</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fb8b4147a0.png" alt="img"></p>
+<p>说明了UART提供两个接口：UTXD（发送）和URXD（接收），使用时只需要这两个引脚就可以与其他串口设备通信，但要注意的一点是，除了这两个引脚的连接外，两设备还必须共地，也就是说他们的GND也要连在一起，这是两设备成功通信的关键！</p>
+<p>接下来介绍了该模块的特性：</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fb8ed393ef.png" alt="img"></p>
+<p>值得关注的几点是：</p>
+<p>1、430 UART 的发送和接收移位寄存器都是独立的</p>
+<p>2、发射和接收缓冲器是分离的，这一点不同于 51 单片机</p>
+<p>3、低位优先发送和接收</p>
+<h3 id="二、Operation"><a href="#二、Operation" class="headerlink" title="二、Operation"></a>二、Operation</h3><p>发送和接收使用相同的波特率。</p>
+<p>PUC（上电清除）或SWRST置位会导致USART复位。</p>
+<h4 id="1、上电复位后各位状态"><a href="#1、上电复位后各位状态" class="headerlink" title="1、上电复位后各位状态"></a>1、上电复位后各位状态</h4><p><img src="https://i.loli.net/2019/02/22/5c6fb93cad626.png" alt="img"></p>
+<p>上面这段话给出了上电后，各标志位的初始状态：</p>
+<p>1）USART 自动置位（置1）</p>
+<p>2） URXIEx、UTXIEx、URXIFGx、RXWAKE、TXWAKE、RXERR、BRK、PE、OE 和 FE 复位（置0）</p>
+<p>3） UTXIFGx、TXEPT 置位</p>
+<p>4） URXEx 和 UTXEx 不受影响</p>
+<p>清除 SWRST 将允许操作 USART。</p>
+<h4 id="2、初始化或重配置顺序"><a href="#2、初始化或重配置顺序" class="headerlink" title="2、初始化或重配置顺序"></a>2、初始化或重配置顺序</h4><p><img src="https://i.loli.net/2019/02/22/5c6fb9e5da6c4.png" alt="img"></p>
+<p>1）SWRST 置位（置1）</p>
+<p>2）在 SWRST=1 的前提下初试化各个 USART 寄存器</p>
+<p>3）通过 MEx 特殊功能寄存器使能 USART 模块</p>
+<p>4）软件清除 SWRST（置0）</p>
+<p>5）通过 IEx 特殊功能寄存器使能中断</p>
+<h4 id="3、字符格式"><a href="#3、字符格式" class="headerlink" title="3、字符格式"></a>3、字符格式</h4><p><img src="https://i.loli.net/2019/02/22/5c6fbb36cc550.png" alt="img"></p>
+<p>起始位 – 7 或 8 位数据位 – 地址位 – 奇偶校验位 – 1 或 2 位停止位。由波特率寄存器设置。</p>
+<h4 id="4、异步通信格式"><a href="#4、异步通信格式" class="headerlink" title="4、异步通信格式"></a>4、异步通信格式</h4><p>双机通信时，使用空闲总线模式。多机通信时，支持空闲总线模式和地址位处理模式。</p>
+<h5 id="1）空闲总线多处理机模式（MM-0）"><a href="#1）空闲总线多处理机模式（MM-0）" class="headerlink" title="1）空闲总线多处理机模式（MM=0）"></a>1）空闲总线多处理机模式（MM=0）</h5><p><img src="https://i.loli.net/2019/02/22/5c6fbbf2bfed8.png" alt="img"></p>
+<p>两个数据块之间隔了一个大于 10 个时钟的空闲时间，而数据块内的数据之间的间隔小于 10 个时钟。在前一个字符的的第一个停止位之后又接收了 10 或者更多连续的时钟后，将检测接收总线。当使用 2 个地址位时，第二个地址位将作为空闲周期的第一个标志。</p>
+<p>一个空闲周期之后的第一个接收到的数据是地址字符。RXWAKE 位用来标志每个数据块的地址位。空闲总线模式下，当接收到地址并且传送至 UxRXBUF 时，该位将置位。</p>
+<p>URXWIE 位用来控制数据接收。当该位置位时，所有的非地址字符被收集，但是不移送至 UxRXBUF 中，也不触发中断。接收到地址字符时接收器将暂时激活将字符传送至 UxRXBUF 中并且置位 URXIFGx 中断标志。任何满足条件的错误标志位也将置位。用户可以验证接收地址。</p>
+<p>如果接收到一个地址字符，用户可以软件验证地址，并且必须复位 URXWIE 以保证继续接收数据。如果保持置位，将只接收地址字符。URXWIE 位不会由硬件自动修改。</p>
+<p>在空闲总线模式下，可以由 USART 产生一个精准的空闲周期去产生 UTXDx 中的地址字符标志符来传送地址。WUT 暂时唤醒标志是一个由用户可访问的TXWAKE位双缓存的内部标志。当发送器从 UxTXBUF 中载入数据，WUT 也从 TXWAKE 中载入，并复位 TXWAKE。</p>
+<p>以下步骤可以传送一个空闲帧表明后面是地址字符：</p>
+<p>1&gt; 置位 TXWAKE，然后向 UxTXBUF 写入任意字符。UxTXBUF 必须准备好接收新字符（UTXIFGx = 1）。</p>
+<p>TXWAKE 值移入 WUT，当 UxTXBUF 准备好接收新数据时，UxTXBUF 的内容被移入发送移位寄存器。这将置位WUT，抑制正常传输中的起始位、数据位、奇偶校验位。然后发送大约十一位的空闲周期。当使用两个地址位时，第二个地址位将作为空闲周期的第一个标志。TXWAKE 自动复位。</p>
+<p>2&gt; 向 UxTXBUF 中写入所需地址字符。UxTXBUF 必须准备好接收新字符（UTXIFGx = 1）。</p>
+<p>在 UTXDx 的地址标志空闲周期之后，代表了特殊地址的新字符被发出。必须向 UxTXBUF 写入第一个任意字符，这是为了将 TXWAKE 位移入 WUT 并触发空闲总线条件。这个数据并不重要，也不会出现在 UTXDx 上。</p>
+<h5 id="2）地址位多处理机模式（MM-1）"><a href="#2）地址位多处理机模式（MM-1）" class="headerlink" title="2）地址位多处理机模式（MM=1）"></a>2）地址位多处理机模式（MM=1）</h5><p>每个数据包含一个额外的位用于地址表示。数据块中的第一个字符带有一个置位的地址位表明这个字符是地址。当接收到字符是一个有效的地址字符且被移入 UxRXBUF 中，USART 的 RXWAKE 位将被置位。</p>
+<p>URXWIE 位用来控制数据接收。当该位置位时，数据字符（地址位=0）将被接收器接收但不送入 UxRXBUF 并且不触发中断。当收到一个包含了地址位置位的字符时，接收器暂时唤醒将字符传送到 UxRXBUF 并将 URXIFGx 置位。所有满足条件的状态错误标志也会被置位。</p>
+<p>如果接收到一个地址，用户必须软件复位URXWIE以保证继续接收数据。如果 URXWIE 保持置位，值有地址字符（地址位=1）可以倍接收。URXWIE 位不会有 USART 硬件自动改变。</p>
+<p>在地址位模式下发送地址数据时，一个字符的地址位可以通过写入 TXWAKE 位来控制。TXWAKE 位的值将被载入从UxTXBUF 传送到移位寄存器的字符的地址位，然后自动清除 TXWAKE 位。TXWAKE 不能软件复位，它将在传送至 WUT 或被 SWRST 置位后有 USART 硬件清零。</p>
+<h5 id="3）自动错误检测"><a href="#3）自动错误检测" class="headerlink" title="3）自动错误检测"></a>3）自动错误检测</h5><p>参看User’s Guide。</p>
+<h4 id="5、USART接收使能"><a href="#5、USART接收使能" class="headerlink" title="5、USART接收使能"></a>5、USART接收使能</h4><p><img src="https://i.loli.net/2019/02/22/5c6fbd113b5d8.png" alt="img"></p>
+<p>从状态转移图可以清楚的看出 URXEx 对接收的影响。</p>
+<h4 id="6、USART发送使能"><a href="#6、USART发送使能" class="headerlink" title="6、USART发送使能"></a>6、USART发送使能</h4><p><img src="https://i.loli.net/2019/02/22/5c6fbd4edc15d.png" alt="img"></p>
+<p>​     </p>
+<p>当 UTXEx 置位时，UART 发送器使能。向 UxTXBUF 写入数据将发起发送。数据将在 TX 移位寄存器置空的下一个 BITCLK 被送进去，然后发送开始。</p>
+<p>当 UTXEx 位复位时发送终止。任何移入 UxTXBUF 的数据和任何正在发送移位寄存器中进行的数据发送，若先于清空 UTXEx 的操作，都将继续进行发送，直到所有的数据发送完毕。</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fbdb591472.png" alt="img"></p>
+<p>当发送器被使能（UTXEx=1），数据不应该被写入 UxTXBUF，除非 UxTXBUF 已经准备好接收新数据，表现为 UTXIFGx=1。如果 UxTXBUF 中的数据在它将被送至发送寄存器时被修改，这一扰乱将导致错误的发送。</p>
+<p>完成所有发送后，发送器需要关闭（UTXEx=0），表现为发送器清空标志位置位（TXEPT = 1）。在发送器关闭时，任何写入 UxTXBUF 的数据都将被保存在缓冲器中，但是不会移入发送移位寄存器或者被发送。一旦 UTXEx 被置位，发送缓存里的数据立即被载入发送移位寄存器中，而且数据发送重新开始。</p>
+<h4 id="7、UART波特率产生"><a href="#7、UART波特率产生" class="headerlink" title="7、UART波特率产生"></a>7、UART波特率产生</h4><p>USART 波特率发生器是由不标准的时钟频率产生标准的波特率。波特率发生器使用一个预定标器/除法器和一个调制器。这个组合为波特率发生器提供小数除数因子。USART 的最大波特率是 UART 时钟频率 BRCLK 的三分之一。</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fbeb2cc5f3.png" alt="img"></p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fbecf62cd1.png" alt="img"></p>
+<p>波特率配置常数及误差：</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fbf177d762.png" alt="img"></p>
+<h4 id="8、USART中断"><a href="#8、USART中断" class="headerlink" title="8、USART中断"></a>8、USART中断</h4><p>USART有一个发送中断向量和一个接收中断向量。</p>
+<h5 id="1）发送中断操作"><a href="#1）发送中断操作" class="headerlink" title="1）发送中断操作"></a>1）发送中断操作</h5><p>发送器置位 UTXIFGx 中断标志位，表明 UxTXBUF 准备好接收另一个字符。如果 UTXIEx 和GIE 置位，也会触发一个中断请求。若中断请求得到响应或者一个字符写入 UxTXBUF，UTXIFGx 将自动复位。</p>
+<p>UTXIFGx 在 PUC 之后或 SWRST=1 时都会被置位。</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fbf6c3b1f2.png" alt="img"></p>
+<h5 id="2）接收中断操作"><a href="#2）接收中断操作" class="headerlink" title="2）接收中断操作"></a>2）接收中断操作</h5><p>每次接收到一个数据并载入 UxRXBUF 都会置位 URXIFGx 中断标志。如果 URXIEx 和 GIE 置位，也会触发一个中断请求。URXIFGx 和 URXIEx 会在系统复位信号 PUC 之后或 SWRST=1 时复位。若悬而未决的中断得到响应（当 URXSE=0）或者当 UxRXBUF 被读取时，URXIFGx 将自动复位。</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fbfa5e7432.png" alt="img"></p>
+<p>URXEIE 用来使能或关闭置位 URXIFGx 造成的错误字符。在使用地址位模式时，URXWIE 用来自动检测有效的地址字符和拒绝不需要的数据字符。</p>
+<p>两种字符不能置位 URXIFGx：当 URXEIE=0 时的错误字符，当 URXWIE=1 时的非地址字符。</p>
+<p>当 URXEIE=1 一个 break 条件将置位 BRK 位和 URXIFGx 标志。</p>
+<h5 id="3）接收起始边沿检测操作"><a href="#3）接收起始边沿检测操作" class="headerlink" title="3）接收起始边沿检测操作"></a>3）接收起始边沿检测操作</h5><p>URXSE 位使能接收起始边沿检测特性。当 BRCLK 由 DCO 提供，以及当 DCO 因为低功耗模式而关闭时，推荐使用接收开始边沿特性。DCO 的超快振荡允许在起始边沿检测之后接收字符。</p>
+<p>当 URXSE，URXIEx 和 GIE 置位，并且一个起始边沿出现在 URXDx，内部信号 URXS 将会置位。当 URXS 置位，将会触发一个接收中断请求，但 URXIFGx 不会置位。用户在接收中断服务程序中可以检测 URXIFGx 来判断中断源。当 URXIFGx=0，检测起始边沿；当 URXIFGx=1，接收一个有效的字符（或 break）。</p>
+<p>当中断服务函数判断中断请求来自起始边沿，用户软件触发 URXSE，而且必须从中断服务函数中返回有效的模式或一个 BRCLK 激活的低功耗模式，以使能 BRCLK。如果中断服务函数返回到一个 BRCLK 未激活的低功耗模式，字符不能被接收。触发 URXSE 清除 URXS 信号并将为未来的字符重新使能起始边沿检测。</p>
+<p>当前激活的 BRCLK 允许 USART 接收字符。接收完一个字符并送入 UxRXBUF 之后，URXIFGx 将置位，并请求一个中断服务。在中断服务函数入口，URXIFGx=1 表明接收到一个字符。当用户软件读取 UxRXBUF 时 URXIFGx 标志被清除。</p>
+<p>当使用接收边沿检测时，若BRCLK关闭，将不能检测到break条件。</p>
+<h5 id="4）接收起始边沿检测条件"><a href="#4）接收起始边沿检测条件" class="headerlink" title="4）接收起始边沿检测条件"></a>4）接收起始边沿检测条件</h5><p>当 URXSE=1 时，故障将抑制阻止 USART 被意外启动。URXDs 的任何一个比抗尖峰脉冲时间（大约300ns）短的低电平都会被 USART 忽视而不会触发中断请求。</p>
+<p>当一个故障时间长于抗尖峰脉冲时间，或一个有效的起始位出现在 URXDx，USART 接收将启动，且会进行一个多数投票。如果多数投票认为没有检测到的不是起始位，将会中断字符接收。</p>
+<p>如果字符接收中断，就没有必要激活 BRCLK。软件可以通过一个比字符接收持续时间长的延时周期来表明没有在预期周期内接收到字符，且软件可以关闭 BRCLK。</p>
+<h3 id="三、Registers"><a href="#三、Registers" class="headerlink" title="三、Registers"></a>三、Registers</h3><p>寄存器详细内容参考相应手册。</p>
+]]></content>
+      <tags>
+        <tag>硬件拾忆</tag>
+        <tag>MSP430</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MSP430 IO</title>
+    <url>//blog/2019/02/22/MSP430-IO/</url>
+    <content><![CDATA[<hr>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>上电后寄存器状态为输入高电平。</p>
+<p>改变 PxOUT 或 PxDIR 时 PxIFG 标志将置位。</p>
+<p>向 PxIES 写入数据将导致相应的中断标志置位。</p>
+<a id="more"></a>
+<p>只置位 PxSELx 不能自动设置引脚方向。其他外设模块需要跟据模块功能配置 PxDIRx，改变引脚方向。</p>
+<font color="#FF0000"> 开启外部中断时，要先设置 OUT、DIR、IES，然后复位 IFG，最后开中断。 </font>
+
+<p>msp430x14x、x15x、x16x的 P1、P2 口具有中断能力。</p>
+<p>未使用的IO引脚应配置成IO功能，输出方向，并连接在PCB板上，以降低功耗。PxOUT位的值无所谓，因为其引脚未连接。</p>
+<p>未使用的引脚的正确连接方式：</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fb3c7b5cc8.png" alt="1550824357362"></p>
+<h3 id="MSP430-IO-特点"><a href="#MSP430-IO-特点" class="headerlink" title="MSP430 IO 特点"></a>MSP430 IO 特点</h3><ul>
+<li><p>独立的可编程 IO</p>
+</li>
+<li><p>同组 IO 口输入输出任意组合</p>
+</li>
+<li><p>P1、P2 中断独立配置</p>
+</li>
+<li><p>输入输出数据寄存器独立</p>
+</li>
+</ul>
+<h3 id="一、输入寄存器-PxIN"><a href="#一、输入寄存器-PxIN" class="headerlink" title="一、输入寄存器 PxIN"></a>一、输入寄存器 PxIN</h3><p>Bit = 0 ： 输入为低</p>
+<p>Bit = 1 ： 输入为高</p>
+<p>PxIN是只读寄存器，执行写入指令将增加电流消耗。</p>
+<h3 id="二、输出寄存器-PxOUT"><a href="#二、输出寄存器-PxOUT" class="headerlink" title="二、输出寄存器 PxOUT"></a>二、输出寄存器 PxOUT</h3><p>Bit = 0 ： 输出为低</p>
+<p>Bit = 1 ： 输出为高</p>
+<h3 id="三、方向寄存器-PxDIR"><a href="#三、方向寄存器-PxDIR" class="headerlink" title="三、方向寄存器 PxDIR"></a>三、方向寄存器 PxDIR</h3><p>PxDIR 的每一位用来选择相应引脚的方向，无论选择了什么第二功能。</p>
+<p>如果 IO 开启了第二功能，必须根据需要来设置相应的方向。</p>
+<p>Bit = 0 ： 输入方向</p>
+<p>Bit = 1 ： 输出方向</p>
+<h3 id="四、功能选择寄存器-PxSEL"><a href="#四、功能选择寄存器-PxSEL" class="headerlink" title="四、功能选择寄存器 PxSEL"></a>四、功能选择寄存器 PxSEL</h3><p>端口引脚经常复用作其他内部外设模块功能。PxSEL 的每一位决定了引脚用作 IO 功能还是内部外设模块功能（第二功能）。</p>
+<p>Bit = 0 ： IO功能</p>
+<p>Bit = 1 ： 内部外设功能</p>
+<p>只置位PxSELx不能自动设置引脚方向。其他外设模块需要跟据模块功能配置 PxDIRx，改变引脚方向。</p>
+<p>PxSEL 置位时，中断关闭。</p>
+<p>当引脚作为外设的输入时，输入到外设的信号在因脚伤经过一次锁存。当 PxSELx=1 时，内部输入信号跟随引脚上的输入信号。若 PxSELx=0，输入到外设的信号将维持引脚上的输入信号的值，直到 PxSELx 位重置。</p>
+<ul>
+<li>P1、P2 口可中断的器件<ul>
+<li>通过配置 PxIFG、PxIE 和 PxIES 寄存器，P1 和 P2 口的每个引脚都能具有中断能力。所有的 P1 口引脚都使用一个单独的中断源，所有的 P2 引脚使用另一个单独的中断源。可以检测 PxIFG 来判断 P1 或 P2 中断。</li>
+</ul>
+</li>
+</ul>
+<h3 id="五、中断标志位寄存器-P1IFG，P2IFG"><a href="#五、中断标志位寄存器-P1IFG，P2IFG" class="headerlink" title="五、中断标志位寄存器 P1IFG，P2IFG"></a>五、中断标志位寄存器 P1IFG，P2IFG</h3><p>选择的输入信号边沿出现在引脚上时，相应的中断标志会置位。相应的 PxIE 以及 GIE 置位后，所有 PxIFGx 中断标志都需要一个中断响应。PxIFG 必须由软件复位。软件也可以置位PxIFG，提供一种软件触发中断的方法。</p>
+<p>Bit = 0 ： 无中断请求</p>
+<p>Bit = 1 ： 中断请求</p>
+<p>只有跳变能触发中断，而稳定的电平不能。如果任意 PxIFGx 在中断服务程序中置位，或者在中断服务程序执行 RETI 命令之后置位，PxIFGx 标志位将触发另一个中断。这样确保了每一个跳变得到响应。</p>
+<font color="#FF0000">   改变 PxOUT 或 PxDIR 时 PxIFG 标志将置位。 </font>
+
+
+
+<p>任何外部中断时间都应该至少是 MCLK 的 1.5 倍，以保证单片机能检测到并且中断标志置位。</p>
+<h3 id="六、中断边沿选择寄存器-P1IES，P2IES"><a href="#六、中断边沿选择寄存器-P1IES，P2IES" class="headerlink" title="六、中断边沿选择寄存器 P1IES，P2IES"></a>六、中断边沿选择寄存器 P1IES，P2IES</h3><p>PxIES 用来选择中断 IO 引脚的中断边沿。</p>
+<p>Bit = 0 ： 由低向高的跳变置位 PxIFGx</p>
+<p>Bit = 1 ： 由高向低的跳变置位 PxIFGx</p>
+<font color="#FF0000">   向 PxIES 写入数据将导致相应的中断标志置位。 </font>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:center">PxIESx</th>
+<th style="text-align:center">PxINx</th>
+<th style="text-align:center">PxIFGx</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0→1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">May be set</td>
+</tr>
+<tr>
+<td style="text-align:center">0→1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Unchanged</td>
+</tr>
+<tr>
+<td style="text-align:center">1→0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Unchanged</td>
+</tr>
+<tr>
+<td style="text-align:center">1→0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">May be set</td>
+</tr>
+</tbody>
+</table>
+<h3 id="七、中断使能寄存器P1IE，P2IE"><a href="#七、中断使能寄存器P1IE，P2IE" class="headerlink" title="七、中断使能寄存器P1IE，P2IE"></a>七、中断使能寄存器P1IE，P2IE</h3><p>Bit = 0 ： 中断关闭</p>
+<p>Bit = 1 ： 中断使能</p>
+]]></content>
+      <tags>
+        <tag>硬件拾忆</tag>
+        <tag>MSP430</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MSP430 单片机入门指北</title>
     <url>//blog/2019/02/22/MSP430-%E5%8D%95%E7%89%87%E6%9C%BA%E5%85%A5%E9%97%A8%E6%8C%87%E5%8C%97/</url>
     <content><![CDATA[<hr>
@@ -525,29 +525,6 @@
       </tags>
   </entry>
   <entry>
-    <title>MSP430 仿真与下载</title>
-    <url>//blog/2019/02/23/MSP430-%E4%BB%BF%E7%9C%9F%E4%B8%8E%E4%B8%8B%E8%BD%BD/</url>
-    <content><![CDATA[<hr>
-<p>对于 MSP430 来说，无论仿真还是烧写程序一般可以通过：JTAG、SBW、BSL 接口进行。</p>
-<p>JTAG、SBW 接口可以用于仿真接口，BSL 接口不能用于仿真。而编程器则三种接口都支持。 </p>
-<p>所以并不能说 JTAG 只支持仿真不支持编程，这是概念错误，JTAG 仅仅是一种接口协议而已。 </p>
-<a id="more"></a>
-<p>J-TAG  6线</p>
-<p>SBW    2线</p>
-<p>BSL      2线（UART）</p>
-<p>下面简单描述一下三种接口的区别： </p>
-<p>1、JTAG 是边界扫描技术，其在 430 内部有逻辑接口给 JTAG 使用，内部有若干个寄存器连接到了 430 的内部数据地址总线上，所以可以用JTAG访问 430 内部的所有资源，包括对 FLASH 的读写操作。所以可以用于对 MSP430 的仿真及编程。主要连接线有 TMS、TCK、TDI、TDO、RST、TEST。 </p>
-<p>2、SBW 是 SPY-BI-WIRE，可以简称两线制 JTAG，主要用 SBWTCK（连接到 JTAG 仿真器的 7 脚 TCK）与 SBWTDIO（连接到 JTAG 仿真器的 1 脚 TDO/TDI），该接口主要用于小于 28 脚的 2 系列的 430 单片机，因为 28 脚以内的 2 系列单片机的 JTAG 接口一般与 IO 口复用，为了给用户预留更多的 IO 口，才推出了 SBW 接口。同样 SBW 接口可以用于仿真器及编程器。 </p>
-<p>3、BSL 是 TI 在对 MSP430 出厂时预先固化到MCU内部的一段代码，有点类似 bootloader，但又与 bootloader 有明显的区别，BSL 只能用于对 MCU 内部的 FLASH 访问，不能对其他的资源访问，所以只能用作编程器接口。BSL 通过UART协议与编程器连接通信。编程器可以发送不同的通信命令来对 MCU 的存储器做不同的操作。BSL 的启动有些特殊，一般 430 复位启动时 PC 指针指向 FFFE 复位向量，但可以通过特殊的启动方式可以使 MCU 在启动是让 PC 指向 BSL 内部固化的程序。启动方式一般是由 RST 引脚与 TEST（或TCK）引脚做一个稍复杂的启动逻辑后产生。 BSL 启动后，就可以对 MCU 进行访问了。 </p>
-<p>一般的 MCU 都有代码加密功能，430 是如何实现的呢？外部对 430 内部的代码读写只能通过上述的三种方式，所以又引入了熔丝位，熔丝位只存在于 JTAG、SBW接口逻辑内。BSL内部没有熔丝。当熔丝烧断时（物理破坏，且不可恢复）JTAG 与 SBW 的访问将被禁止，此时只有 BSL 可以访问。而通过 BSL 对 MCU 的访问是需要 32 个字节的密码，该密码就是用户代码的中断向量表。所以 430 的加密系统到目前为止尚无被解密的报告。一般个人学习用，不熔丝操作，只有成熟产品推向市场的时候，防止被其他人破解，才会熔丝。 </p>
-<p>仿真器的型号一般有 UIF（USB 接口，支持 JTAG、SBW）、PIF（并口，只支持 JTAG）、EZ430（USB 接口的，只支持 SBW 模式）。专业编程器有 GANG430（串口、一拖 8 个，支持 JTAG、SBW，不支持 BSL）；多功能编程器（JTAG、SBW、BSL）。这些编程器都可以做离线烧写，即脱离计算机来对目标板烧写。</p>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>MSP430</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>MSP430 时钟系统</title>
     <url>//blog/2019/02/22/MSP430-%E6%97%B6%E9%92%9F%E7%B3%BB%E7%BB%9F/</url>
     <content><![CDATA[<hr>
@@ -599,6 +576,77 @@
       <tags>
         <tag>硬件拾忆</tag>
         <tag>MSP430</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MSP430 仿真与下载</title>
+    <url>//blog/2019/02/23/MSP430-%E4%BB%BF%E7%9C%9F%E4%B8%8E%E4%B8%8B%E8%BD%BD/</url>
+    <content><![CDATA[<hr>
+<p>对于 MSP430 来说，无论仿真还是烧写程序一般可以通过：JTAG、SBW、BSL 接口进行。</p>
+<p>JTAG、SBW 接口可以用于仿真接口，BSL 接口不能用于仿真。而编程器则三种接口都支持。 </p>
+<p>所以并不能说 JTAG 只支持仿真不支持编程，这是概念错误，JTAG 仅仅是一种接口协议而已。 </p>
+<a id="more"></a>
+<p>J-TAG  6线</p>
+<p>SBW    2线</p>
+<p>BSL      2线（UART）</p>
+<p>下面简单描述一下三种接口的区别： </p>
+<p>1、JTAG 是边界扫描技术，其在 430 内部有逻辑接口给 JTAG 使用，内部有若干个寄存器连接到了 430 的内部数据地址总线上，所以可以用JTAG访问 430 内部的所有资源，包括对 FLASH 的读写操作。所以可以用于对 MSP430 的仿真及编程。主要连接线有 TMS、TCK、TDI、TDO、RST、TEST。 </p>
+<p>2、SBW 是 SPY-BI-WIRE，可以简称两线制 JTAG，主要用 SBWTCK（连接到 JTAG 仿真器的 7 脚 TCK）与 SBWTDIO（连接到 JTAG 仿真器的 1 脚 TDO/TDI），该接口主要用于小于 28 脚的 2 系列的 430 单片机，因为 28 脚以内的 2 系列单片机的 JTAG 接口一般与 IO 口复用，为了给用户预留更多的 IO 口，才推出了 SBW 接口。同样 SBW 接口可以用于仿真器及编程器。 </p>
+<p>3、BSL 是 TI 在对 MSP430 出厂时预先固化到MCU内部的一段代码，有点类似 bootloader，但又与 bootloader 有明显的区别，BSL 只能用于对 MCU 内部的 FLASH 访问，不能对其他的资源访问，所以只能用作编程器接口。BSL 通过UART协议与编程器连接通信。编程器可以发送不同的通信命令来对 MCU 的存储器做不同的操作。BSL 的启动有些特殊，一般 430 复位启动时 PC 指针指向 FFFE 复位向量，但可以通过特殊的启动方式可以使 MCU 在启动是让 PC 指向 BSL 内部固化的程序。启动方式一般是由 RST 引脚与 TEST（或TCK）引脚做一个稍复杂的启动逻辑后产生。 BSL 启动后，就可以对 MCU 进行访问了。 </p>
+<p>一般的 MCU 都有代码加密功能，430 是如何实现的呢？外部对 430 内部的代码读写只能通过上述的三种方式，所以又引入了熔丝位，熔丝位只存在于 JTAG、SBW接口逻辑内。BSL内部没有熔丝。当熔丝烧断时（物理破坏，且不可恢复）JTAG 与 SBW 的访问将被禁止，此时只有 BSL 可以访问。而通过 BSL 对 MCU 的访问是需要 32 个字节的密码，该密码就是用户代码的中断向量表。所以 430 的加密系统到目前为止尚无被解密的报告。一般个人学习用，不熔丝操作，只有成熟产品推向市场的时候，防止被其他人破解，才会熔丝。 </p>
+<p>仿真器的型号一般有 UIF（USB 接口，支持 JTAG、SBW）、PIF（并口，只支持 JTAG）、EZ430（USB 接口的，只支持 SBW 模式）。专业编程器有 GANG430（串口、一拖 8 个，支持 JTAG、SBW，不支持 BSL）；多功能编程器（JTAG、SBW、BSL）。这些编程器都可以做离线烧写，即脱离计算机来对目标板烧写。</p>
+]]></content>
+      <tags>
+        <tag>硬件拾忆</tag>
+        <tag>MSP430</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>STM8S Boot ROM</title>
+    <url>//blog/2019/03/02/STM8S-Boot-ROM/</url>
+    <content><![CDATA[<hr>
+<p>stm8s Boot ROM 是用于系统启动的只读存储器。</p>
+<a id="more"></a>
+<p>在某些 STM8 型号中有 2K 字节的内部 Boot ROM，其中包含有用于启动的代码。这段代码的主要作用是利用 STM8 的 SPI，CAN 或 UART 接口，将应用程序代码，数据，选项字节（Option Byte）和中断向量表下载到内部的 FLASH 和 E2RPOM 中去。</p>
+<p>执行的自举加载工作在 LIN 模式下，另一种引导装载程序通信协议在 UART2/UART3 和 UART1 中执行。</p>
+<p>复位后，启动代码开始执行。更多详细内容参考 STM8 启动代码用户手册 UM0560。</p>
+]]></content>
+      <tags>
+        <tag>硬件拾忆</tag>
+        <tag>STM8</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>STM8S Memory and register map</title>
+    <url>//blog/2019/03/02/STM8S-Memory-and-register-map/</url>
+    <content><![CDATA[<hr>
+<p>存储器映射、I/O 端口硬件寄存器映射和 CPU/SWIM、调试模块/中断控制寄存器的详细内容参见 datasheet。</p>
+<a id="more"></a>
+<hr>
+<h3 id="存储器映射"><a href="#存储器映射" class="headerlink" title="存储器映射"></a>存储器映射</h3><p><img src="https://i.loli.net/2019/03/02/5c7aa57fd53a6.png" alt="Image.png"></p>
+<p>各部分具体上限（upper limit）参看 datasheet。</p>
+<hr>
+<h3 id="stm8s-stack-handling-栈处理"><a href="#stm8s-stack-handling-栈处理" class="headerlink" title="stm8s stack handling  栈处理"></a>stm8s stack handling  栈处理</h3><p>stm8s 和 stm8af MCU 的栈在 user RAM 区实现。</p>
+<p><img src="https://i.loli.net/2019/03/02/5c7aa5bc24eaa.png" alt="Image.png"></p>
+<p>栈底所在的地址大于栈顶所在的地址。</p>
+<p>不是所有器件都有 roll-over limit  回卷限制。</p>
+<p>用户必须注意初始化栈指针。通常由开发工具（linker file）生成的初始化代码来正确加载这个指针，默认初始化到 RAM 尾地址。</p>
+<p>有些器件中，栈回卷限制为一个固定地址。如果使用 push 操作或为子函数或中断函数保存上下文时，栈指针减小到栈回卷限制处，栈指针将复位到 RAM 尾地址。当栈指针正参与运算时，不会回卷。</p>
+<hr>
+<h3 id="Customized-stack-model-自定义栈模型"><a href="#Customized-stack-model-自定义栈模型" class="headerlink" title="Customized stack model 自定义栈模型"></a>Customized stack model 自定义栈模型</h3><p>stm8s 和 stm8af 的栈指针操作允许执行一个自定义的栈模型。这就使得栈的大小变得灵活，而不用受到栈回卷限制的约束。执行自定义栈也有利于寄存器配置不同的器件的软件可移植性。</p>
+<p><img src="https://i.loli.net/2019/03/02/5c7aa5fb84939.png" alt="Image.png"></p>
+<p>并不是所有器件都有栈回卷限制。</p>
+<p>保护单元（guard cells）是必须被应用程序连续轮询检测是否发生栈溢出的 RAM 位置。</p>
+<p>在这个模型中，初始的栈指针必须指向超过栈回卷限制的位置（必须必回卷限制的地址小）。因此，增长的栈永远不会到达回卷限制。很明显，这样的操作下，栈大小不会受到溢出机制的限制。虽然如此，用户必须在 link file 中定义栈的位置和栈的大小，也必须确保栈指针不会超出定义的栈区域（栈顶溢出或低于栈底）。超过或在自定义栈之下的 RAM 位置可以被常规的用作 RAM 来存储变量或其他信息。</p>
+<p>保护单元可以被配置在比栈顶更低的位置以检测是否栈指针超过了规定的边界。这些单元是标准的 RAM 位置，初始化为固定值，一旦发生溢出，栈将在这里重写。用户软件可以常规轮询这些单元，检测溢出条件，并将应用置于故障保护状态。</p>
+<p>在软件有效期内，硬件断点可被设在栈的两个极端位置，以确认栈溢出和欠载都没有发生。</p>
+<hr>
+<h3 id="寄存器描述缩写"><a href="#寄存器描述缩写" class="headerlink" title="寄存器描述缩写"></a>寄存器描述缩写</h3><p><img src="https://i.loli.net/2019/03/02/5c7aa6501fc7b.png" alt="Image.png"> </p>
+<p><img src="https://i.loli.net/2019/03/02/5c7aa6502474f.png" alt="Image.png"></p>
+]]></content>
+      <tags>
+        <tag>硬件拾忆</tag>
+        <tag>STM8</tag>
       </tags>
   </entry>
   <entry>
@@ -694,54 +742,6 @@
 <h4 id="解法二：暴力枚举"><a href="#解法二：暴力枚举" class="headerlink" title="解法二：暴力枚举"></a>解法二：暴力枚举</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line"></span><br><span class="line">    int t, n;</span><br><span class="line">    scanf(&quot;%d&quot;, &amp;t);</span><br><span class="line">    while(t--)&#123;</span><br><span class="line">        scanf(&quot;%d&quot;, &amp;n);</span><br><span class="line">        int x = 0;</span><br><span class="line">        int sum = 0;</span><br><span class="line">        int ans = 0;</span><br><span class="line">        for(int i=n-50; i&lt;n; i++)&#123;</span><br><span class="line">            x = i;</span><br><span class="line">            sum = x;</span><br><span class="line">            while(x&gt;0)&#123;</span><br><span class="line">                sum += x%10;</span><br><span class="line">                x /= 10;</span><br><span class="line">            &#125;</span><br><span class="line">            if( sum == n)&#123;</span><br><span class="line">                ans = i;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        printf(&quot;%d\n&quot;, ans);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
         <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>STM8S Boot ROM</title>
-    <url>//blog/2019/03/02/STM8S-Boot-ROM/</url>
-    <content><![CDATA[<hr>
-<p>stm8s Boot ROM 是用于系统启动的只读存储器。</p>
-<a id="more"></a>
-<p>在某些 STM8 型号中有 2K 字节的内部 Boot ROM，其中包含有用于启动的代码。这段代码的主要作用是利用 STM8 的 SPI，CAN 或 UART 接口，将应用程序代码，数据，选项字节（Option Byte）和中断向量表下载到内部的 FLASH 和 E2RPOM 中去。</p>
-<p>执行的自举加载工作在 LIN 模式下，另一种引导装载程序通信协议在 UART2/UART3 和 UART1 中执行。</p>
-<p>复位后，启动代码开始执行。更多详细内容参考 STM8 启动代码用户手册 UM0560。</p>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>STM8</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>STM8S Memory and register map</title>
-    <url>//blog/2019/03/02/STM8S-Memory-and-register-map/</url>
-    <content><![CDATA[<hr>
-<p>存储器映射、I/O 端口硬件寄存器映射和 CPU/SWIM、调试模块/中断控制寄存器的详细内容参见 datasheet。</p>
-<a id="more"></a>
-<hr>
-<h3 id="存储器映射"><a href="#存储器映射" class="headerlink" title="存储器映射"></a>存储器映射</h3><p><img src="https://i.loli.net/2019/03/02/5c7aa57fd53a6.png" alt="Image.png"></p>
-<p>各部分具体上限（upper limit）参看 datasheet。</p>
-<hr>
-<h3 id="stm8s-stack-handling-栈处理"><a href="#stm8s-stack-handling-栈处理" class="headerlink" title="stm8s stack handling  栈处理"></a>stm8s stack handling  栈处理</h3><p>stm8s 和 stm8af MCU 的栈在 user RAM 区实现。</p>
-<p><img src="https://i.loli.net/2019/03/02/5c7aa5bc24eaa.png" alt="Image.png"></p>
-<p>栈底所在的地址大于栈顶所在的地址。</p>
-<p>不是所有器件都有 roll-over limit  回卷限制。</p>
-<p>用户必须注意初始化栈指针。通常由开发工具（linker file）生成的初始化代码来正确加载这个指针，默认初始化到 RAM 尾地址。</p>
-<p>有些器件中，栈回卷限制为一个固定地址。如果使用 push 操作或为子函数或中断函数保存上下文时，栈指针减小到栈回卷限制处，栈指针将复位到 RAM 尾地址。当栈指针正参与运算时，不会回卷。</p>
-<hr>
-<h3 id="Customized-stack-model-自定义栈模型"><a href="#Customized-stack-model-自定义栈模型" class="headerlink" title="Customized stack model 自定义栈模型"></a>Customized stack model 自定义栈模型</h3><p>stm8s 和 stm8af 的栈指针操作允许执行一个自定义的栈模型。这就使得栈的大小变得灵活，而不用受到栈回卷限制的约束。执行自定义栈也有利于寄存器配置不同的器件的软件可移植性。</p>
-<p><img src="https://i.loli.net/2019/03/02/5c7aa5fb84939.png" alt="Image.png"></p>
-<p>并不是所有器件都有栈回卷限制。</p>
-<p>保护单元（guard cells）是必须被应用程序连续轮询检测是否发生栈溢出的 RAM 位置。</p>
-<p>在这个模型中，初始的栈指针必须指向超过栈回卷限制的位置（必须必回卷限制的地址小）。因此，增长的栈永远不会到达回卷限制。很明显，这样的操作下，栈大小不会受到溢出机制的限制。虽然如此，用户必须在 link file 中定义栈的位置和栈的大小，也必须确保栈指针不会超出定义的栈区域（栈顶溢出或低于栈底）。超过或在自定义栈之下的 RAM 位置可以被常规的用作 RAM 来存储变量或其他信息。</p>
-<p>保护单元可以被配置在比栈顶更低的位置以检测是否栈指针超过了规定的边界。这些单元是标准的 RAM 位置，初始化为固定值，一旦发生溢出，栈将在这里重写。用户软件可以常规轮询这些单元，检测溢出条件，并将应用置于故障保护状态。</p>
-<p>在软件有效期内，硬件断点可被设在栈的两个极端位置，以确认栈溢出和欠载都没有发生。</p>
-<hr>
-<h3 id="寄存器描述缩写"><a href="#寄存器描述缩写" class="headerlink" title="寄存器描述缩写"></a>寄存器描述缩写</h3><p><img src="https://i.loli.net/2019/03/02/5c7aa6501fc7b.png" alt="Image.png"> </p>
-<p><img src="https://i.loli.net/2019/03/02/5c7aa6502474f.png" alt="Image.png"></p>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>STM8</tag>
       </tags>
   </entry>
   <entry>
@@ -945,75 +945,6 @@
       </tags>
   </entry>
   <entry>
-    <title>STM8S 供电</title>
-    <url>//blog/2019/03/03/STM8S-%E4%BE%9B%E7%94%B5/</url>
-    <content><![CDATA[<hr>
-<p>STM8 MCU 有 4 种相对独立的供电电源：</p>
-<p>- VDD/VSS：主电源（3V 到 5.5V）</p>
-<p>- VDDIO/VSSIO：I/O 口供电电源（3V 到 5.5V ）</p>
-<p>- VDDA/VSSA：模拟部分供电电源</p>
-<p>- VREF+/VREF-：ADC 参考电源</p>
-<a id="more"></a>
-<p>VDD/VSS 引脚用来为内部主稳压器（MVR）和内部低功耗稳压器（LPVR）供电。这两个调节器的输出连在一起，向MCU的核（CPU，Flash 和 RAM）提供 1.8V 电压。</p>
-<p>在低功耗模式下系统自动从 MVR 切换到 LPVR，以减少电流消耗。</p>
-<p><strong>为了稳定 MVR，必须在 VCAP 脚接一个电容</strong>。</p>
-<p>根据封装的大小，可能有一对或两对特定的 VDDIO/VSSIO 来给I/O供电。</p>
-<p>VDDA/VSSA和VREF+/VREF- 都与ADC模块相连接。</p>
-<p><img src="https://i.loli.net/2019/03/03/5c7b5ace894e7.png" alt="Image.png"></p>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>STM8</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>STM8S 复位</title>
-    <url>//blog/2019/03/03/STM8S-%E5%A4%8D%E4%BD%8D/</url>
-    <content><![CDATA[<hr>
-<p>stm8s 共 9 个复位源：</p>
-<ul>
-<li><p>NRST 引脚产生的外部复位</p>
-</li>
-<li><p>上电复位（POR）</p>
-</li>
-<li><p>掉电复位（BOR）</p>
-</li>
-<li><p>独立看门狗复位</p>
-</li>
-<li><p>窗口看门狗复位</p>
-</li>
-<li><p>软件复位 </p>
-</li>
-<li><p>SWIM 复位</p>
-</li>
-<li><p>非法操作码复位</p>
-</li>
-<li><p>EMS 复位：当一些关键的寄存器被破坏或错误加载时产生的复位</p>
-</li>
-</ul>
-<a id="more"></a>
-<hr>
-<h3 id="一、复位电路"><a href="#一、复位电路" class="headerlink" title="一、复位电路"></a>一、复位电路</h3><p><img src="https://i.loli.net/2019/03/03/5c7b5d5ae2a63.png" alt="Image.png"></p>
-<p>复位引脚 NRST 内部集成了弱上拉电阻 RPU，既可作为输入，也可作为开漏输出。</p>
-<p>一个在复位引脚上宽度最小为 500ns 的低电平脉冲即可产生一个外部复位。对于复位的检测是异步进行的，因此即使 MCU 处于停机（Halt）模式，也有可能进入复位状态。</p>
-<p>复位引脚也可以作为开漏输出用于对外部设备进行复位。</p>
-<p>无论内部复位源是什么，一旦复位，内部复位电路都会产生一个至少脉宽为 20us 的复位脉冲。当没有外部复位发生时，内部弱上拉电阻可保证复位引脚处于高电平。</p>
-<hr>
-<h3 id="二、内部复位源"><a href="#二、内部复位源" class="headerlink" title="二、内部复位源"></a>二、内部复位源</h3><p>除了 POR 和 BOR，每个内部复位源在复位状态寄存器中都有一个标志位与之相对应。复位时，根据导致复位的复位源，这些标志位被分别设置。因此，这些标志位可用于指示引起最后一次复位的复位源。通过软件写 1 可清除标志位。</p>
-<h4 id="1、上电复位（POR）和掉电复位（BOR）"><a href="#1、上电复位（POR）和掉电复位（BOR）" class="headerlink" title="1、上电复位（POR）和掉电复位（BOR）"></a>1、上电复位（POR）和掉电复位（BOR）</h4><p>上电期间，POR 保持设备处于复位状态，直到供电电压（VDD 和 VDDIO）到达 BOR 的启动电压。此时，BOR 复位取代 POR，POR 自动关闭。BOR 复位一直持续到供电电压到达工作电压。</p>
-<p>当工作电压降到们限制 VIT- 以下时，BOR 也将产生一个复位，此后 POR 模块将重新准备好以响应下一次上电复位。</p>
-<p>电压迟滞用以保证清楚地检测电压的上升和下降。</p>
-<p>即使是 MCU 处于低功耗模式，BOR 也总是保持激活状态。</p>
-<h4 id="2、非法操作码复位"><a href="#2、非法操作码复位" class="headerlink" title="2、非法操作码复位"></a>2、非法操作码复位</h4><p>为了提高设备的可靠性，防止意外行为的发生，使用了非法操作码检测系统。如果一个被执行的代码与任意操作码或预置字节均不相符，则产生一个复位。此功能与看门狗相配合，可是设备从一个意外错误或干扰中恢复。</p>
-<p>一个有效的预置字节与一个有效的操作码组成的一个非法的组合将不会产生复位。</p>
-<h4 id="3、EMS-复位"><a href="#3、EMS-复位" class="headerlink" title="3、EMS 复位"></a>3、EMS 复位</h4><p>为了避免由电磁干扰造成的对应用程序误写操作或系统挂起，大多数关键寄存器都有一个互补寄存器与之相对应。系统将会自动检测这些关键寄存器与其互补寄存器之间是否匹配。如果不匹配，则产生一个 EMS 复位，从而使应用程序恢复到正常操作。</p>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>STM8</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>STM8S 中断控制</title>
     <url>//blog/2019/03/03/STM8S-%E4%B8%AD%E6%96%AD%E6%8E%A7%E5%88%B6/</url>
     <content><![CDATA[<hr>
@@ -1159,35 +1090,72 @@
       </tags>
   </entry>
   <entry>
-    <title>ARM CMSIS-DSP 库简介</title>
-    <url>//blog/2019/03/04/ARM-CMSIS-DSP-%E5%BA%93%E7%AE%80%E4%BB%8B/</url>
+    <title>STM8S 供电</title>
+    <url>//blog/2019/03/03/STM8S-%E4%BE%9B%E7%94%B5/</url>
     <content><![CDATA[<hr>
-<p>CMSIS 的 DSP 库主要提供以下数字信号处理算法：</p>
-<p>1、BasicMathFunctions</p>
-<p>提供基本的数据运算，如加减乘除，以 _f32 结尾的函数是浮点运算，以 _q8，_q15，_q31 结尾的函数是定点运算。</p>
+<p>STM8 MCU 有 4 种相对独立的供电电源：</p>
+<p>- VDD/VSS：主电源（3V 到 5.5V）</p>
+<p>- VDDIO/VSSIO：I/O 口供电电源（3V 到 5.5V ）</p>
+<p>- VDDA/VSSA：模拟部分供电电源</p>
+<p>- VREF+/VREF-：ADC 参考电源</p>
 <a id="more"></a>
-<p>2、FastMathFunctions</p>
-<p>主要提供 SIN，COS 以及平方根 SPRT 的运算。</p>
-<p>3、ComplexMathFunctions</p>
-<p>复杂数学运算，主要是向量，求模等运算。</p>
-<p>4、FilteringFunctions</p>
-<p>主要是滤波函数，如 IIR，FIR，LMS 等。</p>
-<p>5、MatrixFunctions</p>
-<p>主要是矩阵运算。</p>
-<p>6、TransformFunctions</p>
-<p>变换功能。包括复数 FFT（CFFT）/负数 FFT 逆运算（CIFFT）、实数 FFT（RFFT）/实数 FFT 逆运算。</p>
-<p>7、ControllerFunctions</p>
-<p>控制功能，主要为 PID 控制函数。arm_sin_cos_f32/_q31.c 函数提供 360 点正余弦函数表和任意角度的正余弦函数值计算功能。</p>
-<p>8、StatisticsFunctions</p>
-<p>统计功能函数，如求平均值、计算 RMS 等。</p>
-<p>9、SupportFunctions</p>
-<p>支持功能函数，如数据拷贝，Q 格式和浮点格式相互转换。</p>
-<p>10、CommonTables</p>
-<p>arm_common_tables.c 文件提供位翻转或相关参数表。</p>
+<p>VDD/VSS 引脚用来为内部主稳压器（MVR）和内部低功耗稳压器（LPVR）供电。这两个调节器的输出连在一起，向MCU的核（CPU，Flash 和 RAM）提供 1.8V 电压。</p>
+<p>在低功耗模式下系统自动从 MVR 切换到 LPVR，以减少电流消耗。</p>
+<p><strong>为了稳定 MVR，必须在 VCAP 脚接一个电容</strong>。</p>
+<p>根据封装的大小，可能有一对或两对特定的 VDDIO/VSSIO 来给I/O供电。</p>
+<p>VDDA/VSSA和VREF+/VREF- 都与ADC模块相连接。</p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b5ace894e7.png" alt="Image.png"></p>
 ]]></content>
       <tags>
         <tag>硬件拾忆</tag>
-        <tag>STM32</tag>
+        <tag>STM8</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>STM8S 复位</title>
+    <url>//blog/2019/03/03/STM8S-%E5%A4%8D%E4%BD%8D/</url>
+    <content><![CDATA[<hr>
+<p>stm8s 共 9 个复位源：</p>
+<ul>
+<li><p>NRST 引脚产生的外部复位</p>
+</li>
+<li><p>上电复位（POR）</p>
+</li>
+<li><p>掉电复位（BOR）</p>
+</li>
+<li><p>独立看门狗复位</p>
+</li>
+<li><p>窗口看门狗复位</p>
+</li>
+<li><p>软件复位 </p>
+</li>
+<li><p>SWIM 复位</p>
+</li>
+<li><p>非法操作码复位</p>
+</li>
+<li><p>EMS 复位：当一些关键的寄存器被破坏或错误加载时产生的复位</p>
+</li>
+</ul>
+<a id="more"></a>
+<hr>
+<h3 id="一、复位电路"><a href="#一、复位电路" class="headerlink" title="一、复位电路"></a>一、复位电路</h3><p><img src="https://i.loli.net/2019/03/03/5c7b5d5ae2a63.png" alt="Image.png"></p>
+<p>复位引脚 NRST 内部集成了弱上拉电阻 RPU，既可作为输入，也可作为开漏输出。</p>
+<p>一个在复位引脚上宽度最小为 500ns 的低电平脉冲即可产生一个外部复位。对于复位的检测是异步进行的，因此即使 MCU 处于停机（Halt）模式，也有可能进入复位状态。</p>
+<p>复位引脚也可以作为开漏输出用于对外部设备进行复位。</p>
+<p>无论内部复位源是什么，一旦复位，内部复位电路都会产生一个至少脉宽为 20us 的复位脉冲。当没有外部复位发生时，内部弱上拉电阻可保证复位引脚处于高电平。</p>
+<hr>
+<h3 id="二、内部复位源"><a href="#二、内部复位源" class="headerlink" title="二、内部复位源"></a>二、内部复位源</h3><p>除了 POR 和 BOR，每个内部复位源在复位状态寄存器中都有一个标志位与之相对应。复位时，根据导致复位的复位源，这些标志位被分别设置。因此，这些标志位可用于指示引起最后一次复位的复位源。通过软件写 1 可清除标志位。</p>
+<h4 id="1、上电复位（POR）和掉电复位（BOR）"><a href="#1、上电复位（POR）和掉电复位（BOR）" class="headerlink" title="1、上电复位（POR）和掉电复位（BOR）"></a>1、上电复位（POR）和掉电复位（BOR）</h4><p>上电期间，POR 保持设备处于复位状态，直到供电电压（VDD 和 VDDIO）到达 BOR 的启动电压。此时，BOR 复位取代 POR，POR 自动关闭。BOR 复位一直持续到供电电压到达工作电压。</p>
+<p>当工作电压降到们限制 VIT- 以下时，BOR 也将产生一个复位，此后 POR 模块将重新准备好以响应下一次上电复位。</p>
+<p>电压迟滞用以保证清楚地检测电压的上升和下降。</p>
+<p>即使是 MCU 处于低功耗模式，BOR 也总是保持激活状态。</p>
+<h4 id="2、非法操作码复位"><a href="#2、非法操作码复位" class="headerlink" title="2、非法操作码复位"></a>2、非法操作码复位</h4><p>为了提高设备的可靠性，防止意外行为的发生，使用了非法操作码检测系统。如果一个被执行的代码与任意操作码或预置字节均不相符，则产生一个复位。此功能与看门狗相配合，可是设备从一个意外错误或干扰中恢复。</p>
+<p>一个有效的预置字节与一个有效的操作码组成的一个非法的组合将不会产生复位。</p>
+<h4 id="3、EMS-复位"><a href="#3、EMS-复位" class="headerlink" title="3、EMS 复位"></a>3、EMS 复位</h4><p>为了避免由电磁干扰造成的对应用程序误写操作或系统挂起，大多数关键寄存器都有一个互补寄存器与之相对应。系统将会自动检测这些关键寄存器与其互补寄存器之间是否匹配。如果不匹配，则产生一个 EMS 复位，从而使应用程序恢复到正常操作。</p>
+]]></content>
+      <tags>
+        <tag>硬件拾忆</tag>
+        <tag>STM8</tag>
       </tags>
   </entry>
   <entry>
@@ -1391,93 +1359,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Cadence Allegro 操作总结</title>
-    <url>//blog/2019/03/04/Cadence-Allegro-%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<hr>
-<p>1、查看快捷键</p>
-<p>命令行输入alias</p>
-<a id="more"></a>
-<hr>
-<p>2、显示丝印</p>
-<p>菜单栏 color192（四个方块）-&gt; component -&gt; silkscreen打钩</p>
-<hr>
-<p>3、关闭和显示网络飞线</p>
-<p>Display -&gt; Show Rats -&gt; All -&gt; 即可打开显示所有的网络飞线（未布线的网络）</p>
-<p>Display -&gt; Blank Rats -&gt; All -&gt; 关闭隐藏所有的网络飞线</p>
-]]></content>
-      <tags>
-        <tag>软件使用</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Altium Designer PCB 操作总结</title>
-    <url>//blog/2019/03/04/Altium-Designer-PCB-%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<hr>
-<p>1、定原点（PCB文件原点）</p>
-<p>Edit -&gt; origin</p>
-<a id="more"></a>
-<hr>
-<p>2、定义尺寸（可以最开始定，也可以最后定）</p>
-<p>先画mechanical layer，再复制到 keep-out-layer（要粘贴时先点Edit-&gt;paste special），然后  Design -&gt; Board Shape -&gt; Redefine Board Shape</p>
-<hr>
-<p>3、测量距离</p>
-<p>ctrl+M </p>
-<hr>
-<p>4、 更换线型</p>
-<p>ctrl+space，用“&lt;”和“&gt;”可改变倒角曲率半径</p>
-<hr>
-<p>5、铺地</p>
-<p>place -&gt; polygon pour -&gt; connect to GND，选 top layer 或 bottom layer，选 pour over all same objects -&gt; 选范围 -&gt; 确定</p>
-<hr>
-<p>6、焊盘</p>
-<p>贴片焊盘用 top layer，过孔焊盘用multi layer</p>
-<hr>
-<p>7、旋转</p>
-<p>空格</p>
-<hr>
-<p>8、打开/关闭层</p>
-<p>L</p>
-<hr>
-<p>9、切换层</p>
-<p>小键盘 *</p>
-<hr>
-<p>10、添加层</p>
-<p>design -&gt;layer stack manager -&gt;点击 Toplayer 或 Bottomlayer -&gt; 信号层 add layer/内电层 add plane</p>
-<p>如果要分割，不要添加 net</p>
-<hr>
-<p>11、泪滴</p>
-<p>Tools -&gt; Teardoops</p>
-<hr>
-<p>12、铺铜皮</p>
-<p>Place -&gt; 矩形 Fill / 多边形 Solid region</p>
-<hr>
-<p>13、灌铜</p>
-<p>Place -&gt; Polygon Pour（需要设置 net，也可以不设）</p>
-<p>灌铜掏空：Place -&gt; Polygon Pour Cutout</p>
-<hr>
-<p>14、走线换层</p>
-<p>shift + ctrl +鼠标滑轮</p>
-<hr>
-<p>15、原理图更新到 PCB 时出现 unknown pin</p>
-<p>删除 PCB 图中所有 net（design -&gt; netlist）</p>
-<hr>
-<p>16、元件换层</p>
-<p>拖住按 L</p>
-<hr>
-<p>17、选中需要修整的铜皮  M+G</p>
-<p>修钝角 P+Y</p>
-<hr>
-<p>18、PCB 图中修改丝印字体</p>
-<p>任一丝印右键 -&gt; find similar objects -&gt; text width 选 same -&gt; OK -&gt; 在 PCB inspector 中修改</p>
-<hr>
-<p>19、隐藏网络飞线</p>
-<p>N -&gt; Hide Connections 选 Net</p>
-]]></content>
-      <tags>
-        <tag>软件使用</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>STM8S 电源管理</title>
     <url>//blog/2019/03/03/STM8S-%E7%94%B5%E6%BA%90%E7%AE%A1%E7%90%86/</url>
     <content><![CDATA[<hr>
@@ -1566,6 +1447,106 @@
       </tags>
   </entry>
   <entry>
+    <title>ARM CMSIS-DSP 库简介</title>
+    <url>//blog/2019/03/04/ARM-CMSIS-DSP-%E5%BA%93%E7%AE%80%E4%BB%8B/</url>
+    <content><![CDATA[<hr>
+<p>CMSIS 的 DSP 库主要提供以下数字信号处理算法：</p>
+<p>1、BasicMathFunctions</p>
+<p>提供基本的数据运算，如加减乘除，以 _f32 结尾的函数是浮点运算，以 _q8，_q15，_q31 结尾的函数是定点运算。</p>
+<a id="more"></a>
+<p>2、FastMathFunctions</p>
+<p>主要提供 SIN，COS 以及平方根 SPRT 的运算。</p>
+<p>3、ComplexMathFunctions</p>
+<p>复杂数学运算，主要是向量，求模等运算。</p>
+<p>4、FilteringFunctions</p>
+<p>主要是滤波函数，如 IIR，FIR，LMS 等。</p>
+<p>5、MatrixFunctions</p>
+<p>主要是矩阵运算。</p>
+<p>6、TransformFunctions</p>
+<p>变换功能。包括复数 FFT（CFFT）/负数 FFT 逆运算（CIFFT）、实数 FFT（RFFT）/实数 FFT 逆运算。</p>
+<p>7、ControllerFunctions</p>
+<p>控制功能，主要为 PID 控制函数。arm_sin_cos_f32/_q31.c 函数提供 360 点正余弦函数表和任意角度的正余弦函数值计算功能。</p>
+<p>8、StatisticsFunctions</p>
+<p>统计功能函数，如求平均值、计算 RMS 等。</p>
+<p>9、SupportFunctions</p>
+<p>支持功能函数，如数据拷贝，Q 格式和浮点格式相互转换。</p>
+<p>10、CommonTables</p>
+<p>arm_common_tables.c 文件提供位翻转或相关参数表。</p>
+]]></content>
+      <tags>
+        <tag>硬件拾忆</tag>
+        <tag>STM32</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Altium Designer PCB 操作总结</title>
+    <url>//blog/2019/03/04/Altium-Designer-PCB-%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<hr>
+<p>1、定原点（PCB文件原点）</p>
+<p>Edit -&gt; origin</p>
+<a id="more"></a>
+<hr>
+<p>2、定义尺寸（可以最开始定，也可以最后定）</p>
+<p>先画mechanical layer，再复制到 keep-out-layer（要粘贴时先点Edit-&gt;paste special），然后  Design -&gt; Board Shape -&gt; Redefine Board Shape</p>
+<hr>
+<p>3、测量距离</p>
+<p>ctrl+M </p>
+<hr>
+<p>4、 更换线型</p>
+<p>ctrl+space，用“&lt;”和“&gt;”可改变倒角曲率半径</p>
+<hr>
+<p>5、铺地</p>
+<p>place -&gt; polygon pour -&gt; connect to GND，选 top layer 或 bottom layer，选 pour over all same objects -&gt; 选范围 -&gt; 确定</p>
+<hr>
+<p>6、焊盘</p>
+<p>贴片焊盘用 top layer，过孔焊盘用multi layer</p>
+<hr>
+<p>7、旋转</p>
+<p>空格</p>
+<hr>
+<p>8、打开/关闭层</p>
+<p>L</p>
+<hr>
+<p>9、切换层</p>
+<p>小键盘 *</p>
+<hr>
+<p>10、添加层</p>
+<p>design -&gt;layer stack manager -&gt;点击 Toplayer 或 Bottomlayer -&gt; 信号层 add layer/内电层 add plane</p>
+<p>如果要分割，不要添加 net</p>
+<hr>
+<p>11、泪滴</p>
+<p>Tools -&gt; Teardoops</p>
+<hr>
+<p>12、铺铜皮</p>
+<p>Place -&gt; 矩形 Fill / 多边形 Solid region</p>
+<hr>
+<p>13、灌铜</p>
+<p>Place -&gt; Polygon Pour（需要设置 net，也可以不设）</p>
+<p>灌铜掏空：Place -&gt; Polygon Pour Cutout</p>
+<hr>
+<p>14、走线换层</p>
+<p>shift + ctrl +鼠标滑轮</p>
+<hr>
+<p>15、原理图更新到 PCB 时出现 unknown pin</p>
+<p>删除 PCB 图中所有 net（design -&gt; netlist）</p>
+<hr>
+<p>16、元件换层</p>
+<p>拖住按 L</p>
+<hr>
+<p>17、选中需要修整的铜皮  M+G</p>
+<p>修钝角 P+Y</p>
+<hr>
+<p>18、PCB 图中修改丝印字体</p>
+<p>任一丝印右键 -&gt; find similar objects -&gt; text width 选 same -&gt; OK -&gt; 在 PCB inspector 中修改</p>
+<hr>
+<p>19、隐藏网络飞线</p>
+<p>N -&gt; Hide Connections 选 Net</p>
+]]></content>
+      <tags>
+        <tag>软件使用</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Altium Designer 原理图操作总结</title>
     <url>//blog/2019/03/04/Altium-Designer-%E5%8E%9F%E7%90%86%E5%9B%BE%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<hr>
@@ -1579,6 +1560,25 @@
 <hr>
 <p>3、导出 BOM</p>
 <p>需要将每一个器件的 comment 改成对应的阻值容值，template 选 BOM Default Template 95.xlt，最后点 Export</p>
+]]></content>
+      <tags>
+        <tag>软件使用</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Cadence Allegro 操作总结</title>
+    <url>//blog/2019/03/04/Cadence-Allegro-%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<hr>
+<p>1、查看快捷键</p>
+<p>命令行输入alias</p>
+<a id="more"></a>
+<hr>
+<p>2、显示丝印</p>
+<p>菜单栏 color192（四个方块）-&gt; component -&gt; silkscreen打钩</p>
+<hr>
+<p>3、关闭和显示网络飞线</p>
+<p>Display -&gt; Show Rats -&gt; All -&gt; 即可打开显示所有的网络飞线（未布线的网络）</p>
+<p>Display -&gt; Blank Rats -&gt; All -&gt; 关闭隐藏所有的网络飞线</p>
 ]]></content>
       <tags>
         <tag>软件使用</tag>
@@ -1600,75 +1600,6 @@
 ]]></content>
       <tags>
         <tag>软件使用</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>STM32 F4 GPIO</title>
-    <url>//blog/2019/03/04/STM32-F4-GPIO/</url>
-    <content><![CDATA[<hr>
-<p>1、在 RESET 期间和刚 RESET 之后，IO 端口配置为浮空输入。除了调试接口会在 RESET 之后配置为相应的上下拉模式。</p>
-<p>2、每个 AHB1 时钟周期输入寄存器 GPIOx_IDR 捕获当前引脚数据。</p>
-<a id="more"></a>
-<p>3、输出开漏模式时，只有 N-MOS 工作，写 0 时输出低，写 1 时位高阻态。</p>
-<p>输出模式下，施密特触发器输入是开启的。</p>
-<p>输出模式下读取输入寄存器可获得 IO 状态，读取输出寄存器可获得上一次写入的值。</p>
-<p>4、RESET 之后，所有 IO 连接至第二功能 0（AF0）。</p>
-<p>5、外设第二功能映射为从 AF1 到 AF13。</p>
-<p>6、RTC_REFIN 引脚应配成浮空输入。</p>
-<p>7、MCO1 和 MCO2 引脚必须配成第二功能模式。</p>
-<p>8、ADC 和 DAC 配置成模拟功能。</p>
-<p>9、通过映射到 AF15 可将 IO 用来输出 CM4 的 FPU EVENTOUT 信号。</p>
-<p>10、EVENTOUT 不能映射到P C13，PC14，PC15，PH0，PH1 和 PI8。</p>
-<p>11、每组 IO 口有 4 个控制寄存器</p>
-<table>
-<thead>
-<tr>
-<th>GPIOx_MODER</th>
-<th>select IO direction（Input，Output，AF，Analog）</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>GPIOx_OTYPER</td>
-<td>select output type（push-pull or open-drain）</td>
-</tr>
-<tr>
-<td>GPIOx_OSPEEDR</td>
-<td>select speed</td>
-</tr>
-<tr>
-<td>GPIOx_PUPDR</td>
-<td>select pull-up/pull-down whatever the IO direction</td>
-</tr>
-</tbody>
-</table>
-<p>12、每组 IO 口有 2 个数据寄存器。</p>
-<table>
-<thead>
-<tr>
-<th>GPIOx_IDR</th>
-<th>input</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>GPIOx_ODR</td>
-<td>output</td>
-</tr>
-</tbody>
-</table>
-<p>13、GPIOx_BSRR 允许对 GPIOx_ODR 寄存器进行位元操作。set 比 reset 的优先级高。位元操作时不需要关闭中断。</p>
-<p>14、通过操作 GPIOx_AFRL 和 GPIOx_AFRH 寄存器可以将任一 IO 引脚连接至 16 种第二功能（AF0到AF15）的任意一个。</p>
-<p>15、写 GPIOx_LCKR 寄存器需要特定的读写序列，可以锁存 4 个控制寄存器、GPIOx_AFRL 和 GPIOx_AFRH 寄存器。</p>
-<p>16、使用 IO 外部中断必须配置成输入 模式。</p>
-<p>17、使用模拟功能时，输出 buffer 关闭，施密特触发器关闭，施密特触发器的输出强制为 0，上下拉电阻关闭，读输入寄存器只能读到 0。</p>
-<p>18、不使用 LSE 振荡器时，可将 PC14 和 PC15 用作普通 IO。LSE 的优先级比 GPIO 功能高，当 RCC_BDCR 寄存器的 LSEON 位置位时，LSE 振荡器打开 PC14 和 PC15 作为 OSC32_IN 和 OSC32_OFF。</p>
-<p>1.2V 域掉电时（器件进入掉电模式），或备份域有 VBAT 供电时，PC14 和 PC15 的 GPIO 功能丧失，这种情况下，处于模拟输入模式。</p>
-<p>19、RESET 后，HSE 振荡器默认关闭，此时 PH0/PH1 可以作为普通 IO，而非 OSC_IN 和 OSC_OUT 功能。通过置位 RCC_CR 寄存器的 HSEON 位可开启 HSE 振荡器。HSE 比 GPIO 优先级高。</p>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>STM32</tag>
       </tags>
   </entry>
   <entry>
@@ -1782,6 +1713,105 @@
       </tags>
   </entry>
   <entry>
+    <title>STM32 F(S)MC 总线</title>
+    <url>//blog/2019/03/04/STM32-F-S-MC-%E6%80%BB%E7%BA%BF/</url>
+    <content><![CDATA[<hr>
+<p>CPU 内置灵活的静态存储器控制器（FSMC），可以外扩总线型的存储器（如SRAM、NOR Flash）。FSMC 的英文全称为“Flexible static memory controller”。</p>
+<p>所有的外部存储器共享控制器输出的地址、数据和控制信号，每个外部设备可以通过一个唯一的片选信号加以区分。FSMC 在任一时刻只访问一个外部设备。</p>
+<a id="more"></a>
+<p><img src="https://i.loli.net/2019/03/04/5c7c9846e4e2b.png" alt="Image.png"></p>
+<p>注意： 上图中的有些信号是多个信号引到同一个 CPU 管脚。</p>
+<p>比如 FSMC_NCE4_1 和 FSMC_NE3同时引到了 PG10 管脚。软件可配置 GPIO 和 FSMC 相关的寄存器进行选择。</p>
+<p>从 FSMC 的角度看，可以把外部存储器划分为固定大小为 256M 字节的四个存储块（BLOCK），见下图。</p>
+<p><img src="https://i.loli.net/2019/03/04/5c7c988c991ba.png" alt="Image.png"></p>
+<ul>
+<li>存储块 1 用于访问最多 4 个 NOR 闪存或 SRAM 存储设备。这个存储区被划分为 4 个 BANK 并有 4 个专用的片选 FSMC_NE[4:1]。 CPU 的数据手册将这个区命名为 NOR/PSRAM 区，其中 NOR 指 NOR Flash；PSRAM 指伪 SRAM，即接口封装为 SRAM 形式的动态 RAM（DRAM）。其实，这个区也可以直接用于 SRAM。</li>
+<li>存储块 2 和 3 用于访问 NAND 闪存设备，每个存储块连接一个 NAND 闪存。</li>
+<li>存储块 4 用于访问 PC 卡设备 每一个存储块上的存储器类型是由用户在配置寄存器中定义的。</li>
+</ul>
+<p>HADDR 是需要转换到外部存储器的内部 AHB 地址线。HADDR[25:0] 已连接到 CPU 口线，对应 FSMC_A[25:0]。HADDR[27:26] 仅在 CPU 内部使用，没有连接到 CPU 口线。</p>
+<p>HADDR[27:26] 位用于选择四个存储块之一：</p>
+<p><img src="https://i.loli.net/2019/03/04/5c7c98a311812.png" alt="Image.png"></p>
+<p>HADDR 是字节地址，而存储器访问不都是按字节访问，因此接到存储器的地址线依存储器的数据宽度有所不同，如下表：</p>
+<p><img src="https://i.loli.net/2019/03/04/5c7c98bab02cd.png" alt="Image.png"></p>
+<p>在同一时刻，CPU 只能访问一个外部总线设备（SRAM、NOR Flash、NAND Flash、LCD）。外部总线设备间的协调就靠 CS 片选信号进行的，也就是同一时刻，只有一个外设的片选信号为低。除了片选信号外，其它的地址线、数据线、控制线都是共用的。</p>
+<p>当 SRAM 的片选为高电平时，也就是不被选中时，SRAM 的数据线 I/O15~I/O0 呈高阻状态，这样就不会影响其它总线设备的通信。</p>
+]]></content>
+      <tags>
+        <tag>硬件拾忆</tag>
+        <tag>STM32</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>STM32 F4 GPIO</title>
+    <url>//blog/2019/03/04/STM32-F4-GPIO/</url>
+    <content><![CDATA[<hr>
+<p>1、在 RESET 期间和刚 RESET 之后，IO 端口配置为浮空输入。除了调试接口会在 RESET 之后配置为相应的上下拉模式。</p>
+<p>2、每个 AHB1 时钟周期输入寄存器 GPIOx_IDR 捕获当前引脚数据。</p>
+<a id="more"></a>
+<p>3、输出开漏模式时，只有 N-MOS 工作，写 0 时输出低，写 1 时位高阻态。</p>
+<p>输出模式下，施密特触发器输入是开启的。</p>
+<p>输出模式下读取输入寄存器可获得 IO 状态，读取输出寄存器可获得上一次写入的值。</p>
+<p>4、RESET 之后，所有 IO 连接至第二功能 0（AF0）。</p>
+<p>5、外设第二功能映射为从 AF1 到 AF13。</p>
+<p>6、RTC_REFIN 引脚应配成浮空输入。</p>
+<p>7、MCO1 和 MCO2 引脚必须配成第二功能模式。</p>
+<p>8、ADC 和 DAC 配置成模拟功能。</p>
+<p>9、通过映射到 AF15 可将 IO 用来输出 CM4 的 FPU EVENTOUT 信号。</p>
+<p>10、EVENTOUT 不能映射到P C13，PC14，PC15，PH0，PH1 和 PI8。</p>
+<p>11、每组 IO 口有 4 个控制寄存器</p>
+<table>
+<thead>
+<tr>
+<th>GPIOx_MODER</th>
+<th>select IO direction（Input，Output，AF，Analog）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GPIOx_OTYPER</td>
+<td>select output type（push-pull or open-drain）</td>
+</tr>
+<tr>
+<td>GPIOx_OSPEEDR</td>
+<td>select speed</td>
+</tr>
+<tr>
+<td>GPIOx_PUPDR</td>
+<td>select pull-up/pull-down whatever the IO direction</td>
+</tr>
+</tbody>
+</table>
+<p>12、每组 IO 口有 2 个数据寄存器。</p>
+<table>
+<thead>
+<tr>
+<th>GPIOx_IDR</th>
+<th>input</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GPIOx_ODR</td>
+<td>output</td>
+</tr>
+</tbody>
+</table>
+<p>13、GPIOx_BSRR 允许对 GPIOx_ODR 寄存器进行位元操作。set 比 reset 的优先级高。位元操作时不需要关闭中断。</p>
+<p>14、通过操作 GPIOx_AFRL 和 GPIOx_AFRH 寄存器可以将任一 IO 引脚连接至 16 种第二功能（AF0到AF15）的任意一个。</p>
+<p>15、写 GPIOx_LCKR 寄存器需要特定的读写序列，可以锁存 4 个控制寄存器、GPIOx_AFRL 和 GPIOx_AFRH 寄存器。</p>
+<p>16、使用 IO 外部中断必须配置成输入 模式。</p>
+<p>17、使用模拟功能时，输出 buffer 关闭，施密特触发器关闭，施密特触发器的输出强制为 0，上下拉电阻关闭，读输入寄存器只能读到 0。</p>
+<p>18、不使用 LSE 振荡器时，可将 PC14 和 PC15 用作普通 IO。LSE 的优先级比 GPIO 功能高，当 RCC_BDCR 寄存器的 LSEON 位置位时，LSE 振荡器打开 PC14 和 PC15 作为 OSC32_IN 和 OSC32_OFF。</p>
+<p>1.2V 域掉电时（器件进入掉电模式），或备份域有 VBAT 供电时，PC14 和 PC15 的 GPIO 功能丧失，这种情况下，处于模拟输入模式。</p>
+<p>19、RESET 后，HSE 振荡器默认关闭，此时 PH0/PH1 可以作为普通 IO，而非 OSC_IN 和 OSC_OUT 功能。通过置位 RCC_CR 寄存器的 HSEON 位可开启 HSE 振荡器。HSE 比 GPIO 优先级高。</p>
+]]></content>
+      <tags>
+        <tag>硬件拾忆</tag>
+        <tag>STM32</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>STM32 IO操作</title>
     <url>//blog/2019/03/04/STM32-IO%E6%93%8D%E4%BD%9C/</url>
     <content><![CDATA[<hr>
@@ -1836,32 +1866,6 @@
 <p><strong>IDR 和 ODR</strong></p>
 <p>​     </p>
 <p>只用了低 16 位。IDR 为只读，ODR 为读写。</p>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>STM32</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>STM32 外部中断</title>
-    <url>//blog/2019/03/04/STM32-%E5%A4%96%E9%83%A8%E4%B8%AD%E6%96%AD/</url>
-    <content><![CDATA[<hr>
-<p>STM32 的每个 IO 口都可以作为中断输入，但每一个中断线只能分配到某一个 IO 口的相应管脚，如中断 2 只能分配到 PA2 或 PB2 或 PC2 等其中的一个。</p>
-<a id="more"></a>
-<p>把 IO 口作为外部中断输入的步骤：</p>
-<p>1、初始化 IO 为输入</p>
-<p>可以上拉，下拉，或浮空输入。浮空的时候外部一定要上拉或下拉，否则中断可能不停触发。干扰打的地方，就算使用了内部上/下拉，最好外部再上/下拉一下，一定程度上防止外部干扰。</p>
-<p>2、开启 IO 口复用时钟，设置 IO 口与中断线的映射关系</p>
-<p>IO 口复用时钟在 RCC-&gt;APB2ENR 处使能（AFIOEN），在 AFIO-&gt;EXTICR 处将 EXTI.BITx 映射到 GPIO.BITx。</p>
-<p>3、开启与该 IO 口相对的线上中断/事件，设置触发条件</p>
-<p>从 EXTI-&gt;IMR 处开启中断请求，从 EXTI-&gt;EMR 处开启事件请求，从 EXTI-&gt;FTSR（下降沿）和 RTSR（上升沿）设置触发条件。</p>
-<p>触发条件只能是上升沿或下降沿。不配置 EMR 位，软硬件仿真都可以进入外部中断，配置以后，软件仿真不能进入外部中断。</p>
-<p>4、配置中断分组（NVIC），并使能中断</p>
-<p>从 SCB-&gt;AIRCR[10:8] 配置中断分组，从 NVIC-&gt;ISER 使能外部中断，从 NVIC-&gt;IP 设置优先级。见 PM0056。</p>
-<p>5、编写中断服务函数</p>
-<p>0~4 有各自的 ISR：void EXTI0_IRQHandler(void)</p>
-<p>9~5 共用 ISR：void EXTI9_5_IRQHandler(void)</p>
-<p>15~10 共用 ISR：void EXTI15_10_IRQHandler(void)</p>
 ]]></content>
       <tags>
         <tag>硬件拾忆</tag>
@@ -1951,29 +1955,25 @@
       </tags>
   </entry>
   <entry>
-    <title>STM32 F(S)MC 总线</title>
-    <url>//blog/2019/03/04/STM32-F-S-MC-%E6%80%BB%E7%BA%BF/</url>
+    <title>STM32 外部中断</title>
+    <url>//blog/2019/03/04/STM32-%E5%A4%96%E9%83%A8%E4%B8%AD%E6%96%AD/</url>
     <content><![CDATA[<hr>
-<p>CPU 内置灵活的静态存储器控制器（FSMC），可以外扩总线型的存储器（如SRAM、NOR Flash）。FSMC 的英文全称为“Flexible static memory controller”。</p>
-<p>所有的外部存储器共享控制器输出的地址、数据和控制信号，每个外部设备可以通过一个唯一的片选信号加以区分。FSMC 在任一时刻只访问一个外部设备。</p>
+<p>STM32 的每个 IO 口都可以作为中断输入，但每一个中断线只能分配到某一个 IO 口的相应管脚，如中断 2 只能分配到 PA2 或 PB2 或 PC2 等其中的一个。</p>
 <a id="more"></a>
-<p><img src="https://i.loli.net/2019/03/04/5c7c9846e4e2b.png" alt="Image.png"></p>
-<p>注意： 上图中的有些信号是多个信号引到同一个 CPU 管脚。</p>
-<p>比如 FSMC_NCE4_1 和 FSMC_NE3同时引到了 PG10 管脚。软件可配置 GPIO 和 FSMC 相关的寄存器进行选择。</p>
-<p>从 FSMC 的角度看，可以把外部存储器划分为固定大小为 256M 字节的四个存储块（BLOCK），见下图。</p>
-<p><img src="https://i.loli.net/2019/03/04/5c7c988c991ba.png" alt="Image.png"></p>
-<ul>
-<li>存储块 1 用于访问最多 4 个 NOR 闪存或 SRAM 存储设备。这个存储区被划分为 4 个 BANK 并有 4 个专用的片选 FSMC_NE[4:1]。 CPU 的数据手册将这个区命名为 NOR/PSRAM 区，其中 NOR 指 NOR Flash；PSRAM 指伪 SRAM，即接口封装为 SRAM 形式的动态 RAM（DRAM）。其实，这个区也可以直接用于 SRAM。</li>
-<li>存储块 2 和 3 用于访问 NAND 闪存设备，每个存储块连接一个 NAND 闪存。</li>
-<li>存储块 4 用于访问 PC 卡设备 每一个存储块上的存储器类型是由用户在配置寄存器中定义的。</li>
-</ul>
-<p>HADDR 是需要转换到外部存储器的内部 AHB 地址线。HADDR[25:0] 已连接到 CPU 口线，对应 FSMC_A[25:0]。HADDR[27:26] 仅在 CPU 内部使用，没有连接到 CPU 口线。</p>
-<p>HADDR[27:26] 位用于选择四个存储块之一：</p>
-<p><img src="https://i.loli.net/2019/03/04/5c7c98a311812.png" alt="Image.png"></p>
-<p>HADDR 是字节地址，而存储器访问不都是按字节访问，因此接到存储器的地址线依存储器的数据宽度有所不同，如下表：</p>
-<p><img src="https://i.loli.net/2019/03/04/5c7c98bab02cd.png" alt="Image.png"></p>
-<p>在同一时刻，CPU 只能访问一个外部总线设备（SRAM、NOR Flash、NAND Flash、LCD）。外部总线设备间的协调就靠 CS 片选信号进行的，也就是同一时刻，只有一个外设的片选信号为低。除了片选信号外，其它的地址线、数据线、控制线都是共用的。</p>
-<p>当 SRAM 的片选为高电平时，也就是不被选中时，SRAM 的数据线 I/O15~I/O0 呈高阻状态，这样就不会影响其它总线设备的通信。</p>
+<p>把 IO 口作为外部中断输入的步骤：</p>
+<p>1、初始化 IO 为输入</p>
+<p>可以上拉，下拉，或浮空输入。浮空的时候外部一定要上拉或下拉，否则中断可能不停触发。干扰打的地方，就算使用了内部上/下拉，最好外部再上/下拉一下，一定程度上防止外部干扰。</p>
+<p>2、开启 IO 口复用时钟，设置 IO 口与中断线的映射关系</p>
+<p>IO 口复用时钟在 RCC-&gt;APB2ENR 处使能（AFIOEN），在 AFIO-&gt;EXTICR 处将 EXTI.BITx 映射到 GPIO.BITx。</p>
+<p>3、开启与该 IO 口相对的线上中断/事件，设置触发条件</p>
+<p>从 EXTI-&gt;IMR 处开启中断请求，从 EXTI-&gt;EMR 处开启事件请求，从 EXTI-&gt;FTSR（下降沿）和 RTSR（上升沿）设置触发条件。</p>
+<p>触发条件只能是上升沿或下降沿。不配置 EMR 位，软硬件仿真都可以进入外部中断，配置以后，软件仿真不能进入外部中断。</p>
+<p>4、配置中断分组（NVIC），并使能中断</p>
+<p>从 SCB-&gt;AIRCR[10:8] 配置中断分组，从 NVIC-&gt;ISER 使能外部中断，从 NVIC-&gt;IP 设置优先级。见 PM0056。</p>
+<p>5、编写中断服务函数</p>
+<p>0~4 有各自的 ISR：void EXTI0_IRQHandler(void)</p>
+<p>9~5 共用 ISR：void EXTI9_5_IRQHandler(void)</p>
+<p>15~10 共用 ISR：void EXTI15_10_IRQHandler(void)</p>
 ]]></content>
       <tags>
         <tag>硬件拾忆</tag>
@@ -2114,56 +2114,6 @@
       </tags>
   </entry>
   <entry>
-    <title>STM32 通用定时器</title>
-    <url>//blog/2019/03/04/STM32-%E9%80%9A%E7%94%A8%E5%AE%9A%E6%97%B6%E5%99%A8/</url>
-    <content><![CDATA[<hr>
-<h3 id="一、stm32-定时器简介"><a href="#一、stm32-定时器简介" class="headerlink" title="一、stm32 定时器简介"></a>一、stm32 定时器简介</h3><p>高级定时器 TIM1 TIM8</p>
-<p>通用定时器 TIM2~TIM5</p>
-<p>基本定时器 TIM6 TIM7</p>
-<a id="more"></a>
-<hr>
-<h3 id="二、通用定时器"><a href="#二、通用定时器" class="headerlink" title="二、通用定时器"></a>二、通用定时器</h3><p>通用定时器通过一个可编程预分频器驱动的 16 位自动装在计数器构成。</p>
-<p>它使用于多种场合，包括测量输入信号的脉冲长度（输入捕获）或者产生输出波形（输出比较和 PWM）。</p>
-<p>使用定时器预分频器和 RCC 时钟控制器预分频器，脉冲长度和波形周期可以在几个微秒到几个毫秒间调整。</p>
-<p>每个定时器完全独立，没有共享任何资源，可同步操作。 </p>
-<p>通用定时器的功能包括：</p>
-<p>1）16 位向上、向下、向上/向下自动装载计数器（TIMx_CNT）</p>
-<p>2）16 位可编程（可实时修改）预分频器（TIMx_PSC），计数器时钟频率的分频系数为 1~65535 之间的任意数值。</p>
-<p>3）4 个独立通道（TIMxCH1~4），这些通道可以用来作为：</p>
-<p>​    A. 输入捕获</p>
-<p>​    B. 输出比较</p>
-<p>​    C. PWM 生成（边缘或中间对齐模式）</p>
-<p>​    D. 单脉冲模式输出</p>
-<p>4）可使用外部信号（TIMx_ETR）控制定时器和定时器互连（可以用1个定时器控制另外一个定时器）的同步电路。</p>
-<p>5）如下事件发生时产生中断/DMA</p>
-<ul>
-<li><p>更新：计数器向上溢出/向下溢出，计数器初始化（通过软件或者内/外部触发）</p>
-</li>
-<li><p>触发事件（计数器启动、停止、初始化或者由内/外部触发计数）</p>
-</li>
-<li><p>输入捕获</p>
-</li>
-<li><p>输出比较</p>
-</li>
-</ul>
-<p>6）支持针对定位的增量（正交）编码器和霍尔传感器电路</p>
-<p>7）触发输入作为外部时钟或者按周期的电流管理</p>
-<p><img src="https://i.loli.net/2019/03/04/5c7ce26498d19.png" alt="Image.png"></p>
-<hr>
-<h3 id="三、通用定时器使用步骤："><a href="#三、通用定时器使用步骤：" class="headerlink" title="三、通用定时器使用步骤："></a>三、通用定时器使用步骤：</h3><p>1）TIMx 时钟使能</p>
-<p>因为 Stm32_Clock_Init() 函数里把 APB1 的分频设置为 2，所以 TIM3 时钟是 APB1 时钟的 2 倍，等于 72M。</p>
-<p>2）设置 TIM3_ARR 和 TIM3_PSC 的值</p>
-<p>3）设置 TIM3_DIER 允许更新中断</p>
-<p>4）允许 TIM3 工作</p>
-<p>5）TIM3 中断分组</p>
-<p>6）编写中断服务函数</p>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>STM32</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>STM32 程序烧录</title>
     <url>//blog/2019/03/04/STM32-%E7%A8%8B%E5%BA%8F%E7%83%A7%E5%BD%95/</url>
     <content><![CDATA[<hr>
@@ -2238,31 +2188,53 @@
       </tags>
   </entry>
   <entry>
-    <title>STM8S 自动唤醒 AWU</title>
-    <url>//blog/2019/03/04/STM8S-%E8%87%AA%E5%8A%A8%E5%94%A4%E9%86%92-AWU/</url>
+    <title>STM32 通用定时器</title>
+    <url>//blog/2019/03/04/STM32-%E9%80%9A%E7%94%A8%E5%AE%9A%E6%97%B6%E5%99%A8/</url>
     <content><![CDATA[<hr>
-<h3 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h3><p>AWU 是用来当 MCU 进入低功耗的 Active Halt 模式时提供一个内部的唤醒时间基准。该时间基准的时钟是由内部的低速 RC 振荡器时钟（LSI）或通过预分频的 HSE 晶振时钟来提供的。</p>
+<h3 id="一、stm32-定时器简介"><a href="#一、stm32-定时器简介" class="headerlink" title="一、stm32 定时器简介"></a>一、stm32 定时器简介</h3><p>高级定时器 TIM1 TIM8</p>
+<p>通用定时器 TIM2~TIM5</p>
+<p>基本定时器 TIM6 TIM7</p>
 <a id="more"></a>
-<p><strong>LSI 时钟测量</strong></p>
-<p>在使用 LSI 低速内部时钟时，为了确保最好的精度，它的频率可以通过 TIM3 的输入捕获 1 来测定。</p>
-<p><img src="https://i.loli.net/2019/03/04/5c7c75c9bab66.png" alt="Image.png"></p>
-<p>注意：LS 低速时钟源的选择是通过编程 CKAWUSEL 选项位来实现的。</p>
 <hr>
-<h3 id="二、AWU-功能描述"><a href="#二、AWU-功能描述" class="headerlink" title="二、AWU 功能描述"></a>二、AWU 功能描述</h3><h4 id="1、AUW-操作"><a href="#1、AUW-操作" class="headerlink" title="1、AUW 操作"></a>1、AUW 操作</h4><p>为了使用 AWU 功能，按顺序执行如下步骤：</p>
-<p><img src="https://i.loli.net/2019/03/04/5c7c75eb5d4df.png" alt="Image.png"></p>
-<p><strong>空闲模式</strong></p>
-<p>如果不使用 AWU，必须载入‘0000’值到 AWU_TBR 的 AWUTB[3:0] 来降低功耗。</p>
-<h4 id="2、时基选择"><a href="#2、时基选择" class="headerlink" title="2、时基选择"></a>2、时基选择</h4><p><img src="https://i.loli.net/2019/03/04/5c7c760388799.png" alt="Image.png"></p>
-<h4 id="3、LSI-低速内部时钟频率检测"><a href="#3、LSI-低速内部时钟频率检测" class="headerlink" title="3、LSI 低速内部时钟频率检测"></a>3、LSI 低速内部时钟频率检测</h4><p>在经过出厂校验后，在全温度范围内低速内部 RC（LSI）振荡器的频率离散性是 128kHz±12.5%。为了获得精确的 AWU 时间间隔或蜂鸣器输出，必须精确测量 LSI 频率。</p>
-<p><img src="https://i.loli.net/2019/03/04/5c7c761d6ced8.png" alt="Image.png"></p>
+<h3 id="二、通用定时器"><a href="#二、通用定时器" class="headerlink" title="二、通用定时器"></a>二、通用定时器</h3><p>通用定时器通过一个可编程预分频器驱动的 16 位自动装在计数器构成。</p>
+<p>它使用于多种场合，包括测量输入信号的脉冲长度（输入捕获）或者产生输出波形（输出比较和 PWM）。</p>
+<p>使用定时器预分频器和 RCC 时钟控制器预分频器，脉冲长度和波形周期可以在几个微秒到几个毫秒间调整。</p>
+<p>每个定时器完全独立，没有共享任何资源，可同步操作。 </p>
+<p>通用定时器的功能包括：</p>
+<p>1）16 位向上、向下、向上/向下自动装载计数器（TIMx_CNT）</p>
+<p>2）16 位可编程（可实时修改）预分频器（TIMx_PSC），计数器时钟频率的分频系数为 1~65535 之间的任意数值。</p>
+<p>3）4 个独立通道（TIMxCH1~4），这些通道可以用来作为：</p>
+<p>​    A. 输入捕获</p>
+<p>​    B. 输出比较</p>
+<p>​    C. PWM 生成（边缘或中间对齐模式）</p>
+<p>​    D. 单脉冲模式输出</p>
+<p>4）可使用外部信号（TIMx_ETR）控制定时器和定时器互连（可以用1个定时器控制另外一个定时器）的同步电路。</p>
+<p>5）如下事件发生时产生中断/DMA</p>
+<ul>
+<li><p>更新：计数器向上溢出/向下溢出，计数器初始化（通过软件或者内/外部触发）</p>
+</li>
+<li><p>触发事件（计数器启动、停止、初始化或者由内/外部触发计数）</p>
+</li>
+<li><p>输入捕获</p>
+</li>
+<li><p>输出比较</p>
+</li>
+</ul>
+<p>6）支持针对定位的增量（正交）编码器和霍尔传感器电路</p>
+<p>7）触发输入作为外部时钟或者按周期的电流管理</p>
+<p><img src="https://i.loli.net/2019/03/04/5c7ce26498d19.png" alt="Image.png"></p>
 <hr>
-<h3 id="三、AWU寄存器"><a href="#三、AWU寄存器" class="headerlink" title="三、AWU寄存器"></a>三、AWU寄存器</h3><p>控制/状态寄存器     AWU_CSR</p>
-<p>异步预分频寄存器   AWU_APR</p>
-<p>时基选择寄存器      AWU_TBR</p>
+<h3 id="三、通用定时器使用步骤："><a href="#三、通用定时器使用步骤：" class="headerlink" title="三、通用定时器使用步骤："></a>三、通用定时器使用步骤：</h3><p>1）TIMx 时钟使能</p>
+<p>因为 Stm32_Clock_Init() 函数里把 APB1 的分频设置为 2，所以 TIM3 时钟是 APB1 时钟的 2 倍，等于 72M。</p>
+<p>2）设置 TIM3_ARR 和 TIM3_PSC 的值</p>
+<p>3）设置 TIM3_DIER 允许更新中断</p>
+<p>4）允许 TIM3 工作</p>
+<p>5）TIM3 中断分组</p>
+<p>6）编写中断服务函数</p>
 ]]></content>
       <tags>
         <tag>硬件拾忆</tag>
-        <tag>STM8</tag>
+        <tag>STM32</tag>
       </tags>
   </entry>
   <entry>
@@ -2437,23 +2409,31 @@
       </tags>
   </entry>
   <entry>
-    <title>Win7 下 Cadence Capture 窗口最小化无法打开问题解决办法</title>
-    <url>//blog/2019/03/04/Win7-%E4%B8%8B-Cadence-Capture-%E7%AA%97%E5%8F%A3%E6%9C%80%E5%B0%8F%E5%8C%96%E6%97%A0%E6%B3%95%E6%89%93%E5%BC%80%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</url>
+    <title>STM8S 自动唤醒 AWU</title>
+    <url>//blog/2019/03/04/STM8S-%E8%87%AA%E5%8A%A8%E5%94%A4%E9%86%92-AWU/</url>
     <content><![CDATA[<hr>
-<h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>打开 Capture 时，软件一直最小化到下方任务栏，点击后无反应。</p>
+<h3 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h3><p>AWU 是用来当 MCU 进入低功耗的 Active Halt 模式时提供一个内部的唤醒时间基准。该时间基准的时钟是由内部的低速 RC 振荡器时钟（LSI）或通过预分频的 HSE 晶振时钟来提供的。</p>
 <a id="more"></a>
+<p><strong>LSI 时钟测量</strong></p>
+<p>在使用 LSI 低速内部时钟时，为了确保最好的精度，它的频率可以通过 TIM3 的输入捕获 1 来测定。</p>
+<p><img src="https://i.loli.net/2019/03/04/5c7c75c9bab66.png" alt="Image.png"></p>
+<p>注意：LS 低速时钟源的选择是通过编程 CKAWUSEL 选项位来实现的。</p>
 <hr>
-<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><h4 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h4><p>直接删除 capture.ini</p>
-<h4 id="方法二："><a href="#方法二：" class="headerlink" title="方法二："></a>方法二：</h4><p>先关闭软件。</p>
-<p>打开 capture.ini，找到 [Window Placement] 配置选项，将窗口大小改为默认大小。</p>
-<p><em>[Window Placement]</em></p>
-<p><em>Max Position…=(-1,-1)</em></p>
-<p><em>Min Position…=(-32000,-32000)</em></p>
-<p><em>Normal Position=(138,105,1176,877)</em></p>
-<p><em>Show………..=ShowNormal</em></p>
+<h3 id="二、AWU-功能描述"><a href="#二、AWU-功能描述" class="headerlink" title="二、AWU 功能描述"></a>二、AWU 功能描述</h3><h4 id="1、AUW-操作"><a href="#1、AUW-操作" class="headerlink" title="1、AUW 操作"></a>1、AUW 操作</h4><p>为了使用 AWU 功能，按顺序执行如下步骤：</p>
+<p><img src="https://i.loli.net/2019/03/04/5c7c75eb5d4df.png" alt="Image.png"></p>
+<p><strong>空闲模式</strong></p>
+<p>如果不使用 AWU，必须载入‘0000’值到 AWU_TBR 的 AWUTB[3:0] 来降低功耗。</p>
+<h4 id="2、时基选择"><a href="#2、时基选择" class="headerlink" title="2、时基选择"></a>2、时基选择</h4><p><img src="https://i.loli.net/2019/03/04/5c7c760388799.png" alt="Image.png"></p>
+<h4 id="3、LSI-低速内部时钟频率检测"><a href="#3、LSI-低速内部时钟频率检测" class="headerlink" title="3、LSI 低速内部时钟频率检测"></a>3、LSI 低速内部时钟频率检测</h4><p>在经过出厂校验后，在全温度范围内低速内部 RC（LSI）振荡器的频率离散性是 128kHz±12.5%。为了获得精确的 AWU 时间间隔或蜂鸣器输出，必须精确测量 LSI 频率。</p>
+<p><img src="https://i.loli.net/2019/03/04/5c7c761d6ced8.png" alt="Image.png"></p>
+<hr>
+<h3 id="三、AWU寄存器"><a href="#三、AWU寄存器" class="headerlink" title="三、AWU寄存器"></a>三、AWU寄存器</h3><p>控制/状态寄存器     AWU_CSR</p>
+<p>异步预分频寄存器   AWU_APR</p>
+<p>时基选择寄存器      AWU_TBR</p>
 ]]></content>
       <tags>
-        <tag>软件使用</tag>
+        <tag>硬件拾忆</tag>
+        <tag>STM8</tag>
       </tags>
   </entry>
   <entry>
@@ -2545,29 +2525,23 @@
       </tags>
   </entry>
   <entry>
-    <title>送给2019</title>
-    <url>//blog/2019/03/12/%E9%80%81%E7%BB%992019/</url>
+    <title>Win7 下 Cadence Capture 窗口最小化无法打开问题解决办法</title>
+    <url>//blog/2019/03/04/Win7-%E4%B8%8B-Cadence-Capture-%E7%AA%97%E5%8F%A3%E6%9C%80%E5%B0%8F%E5%8C%96%E6%97%A0%E6%B3%95%E6%89%93%E5%BC%80%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</url>
     <content><![CDATA[<hr>
-<p>菩提本无树</p>
-<p>明镜亦非台</p>
-<p>本来无一物</p>
-<p>何处惹尘埃</p>
+<h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>打开 Capture 时，软件一直最小化到下方任务栏，点击后无反应。</p>
+<a id="more"></a>
+<hr>
+<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><h4 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h4><p>直接删除 capture.ini</p>
+<h4 id="方法二："><a href="#方法二：" class="headerlink" title="方法二："></a>方法二：</h4><p>先关闭软件。</p>
+<p>打开 capture.ini，找到 [Window Placement] 配置选项，将窗口大小改为默认大小。</p>
+<p><em>[Window Placement]</em></p>
+<p><em>Max Position…=(-1,-1)</em></p>
+<p><em>Min Position…=(-32000,-32000)</em></p>
+<p><em>Normal Position=(138,105,1176,877)</em></p>
+<p><em>Show………..=ShowNormal</em></p>
 ]]></content>
       <tags>
-        <tag>心花路放</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>对数复杂度的常底数不需要写具体数值的原因</title>
-    <url>//blog/2019/03/13/%E5%AF%B9%E6%95%B0%E5%A4%8D%E6%9D%82%E5%BA%A6%E7%9A%84%E5%B8%B8%E5%BA%95%E6%95%B0%E4%B8%8D%E9%9C%80%E8%A6%81%E5%86%99%E5%85%B7%E4%BD%93%E6%95%B0%E5%80%BC%E7%9A%84%E5%8E%9F%E5%9B%A0/</url>
-    <content><![CDATA[<hr>
-<p>设某函数的上界可以表示为 f(x) = O(logaN)，a&gt;1 为常数。</p>
-<p>对任一常数 b&gt;1，因 lna/lnb 为常数，则由大 O 记号的性质有：</p>
-<p>f(n) = O(logaN) = O(lnb/lna * logbN) = O(logbN)</p>
-<p>所以无论常底数更换为任意常数，都只会影响常系数，而在大 O 记号中，常系数又可忽略，因此在用大 O 记号表示对数复杂度的时候，无需写常底数。</p>
-]]></content>
-      <tags>
-        <tag>算法</tag>
+        <tag>软件使用</tag>
       </tags>
   </entry>
   <entry>
@@ -2637,6 +2611,45 @@
       </tags>
   </entry>
   <entry>
+    <title>算法复杂度度量</title>
+    <url>//blog/2019/03/08/%E7%AE%97%E6%B3%95%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%BA%A6%E9%87%8F/</url>
+    <content><![CDATA[<hr>
+<p>《数据结构（C++语言版）》（邓俊辉编著）笔记</p>
+<hr>
+<h3 id="一、时间复杂度"><a href="#一、时间复杂度" class="headerlink" title="一、时间复杂度"></a>一、时间复杂度</h3><p>在规模为 n 的所有输入中，选择执行时间最长者作为 T(n)，并以 T(n) 度量算法的时间复杂度。</p>
+<a id="more"></a>
+<hr>
+<h3 id="二、渐进复杂度"><a href="#二、渐进复杂度" class="headerlink" title="二、渐进复杂度"></a>二、渐进复杂度</h3><h4 id="1、渐进分析（asymptotic-analysis）"><a href="#1、渐进分析（asymptotic-analysis）" class="headerlink" title="1、渐进分析（asymptotic analysis）"></a>1、渐进分析（asymptotic analysis）</h4><p>着眼长远、更为注重时间复杂度的总体变化趋势和增长速度的策略与方法。</p>
+<h4 id="2、大-O-记号（big-O-notation）"><a href="#2、大-O-记号（big-O-notation）" class="headerlink" title="2、大 O 记号（big-O notation）"></a>2、大 O 记号（big-O notation）</h4><p>若存在正的常数 c 和函数 f(n)，使得对任何 n &gt;&gt; 2 都有 T(n) ≤ c · f(n)，则可认为在 n 足够大之后，f(n) 给出了 T(n) 增长速度的一个<font color="#FF0000">  渐进上界</font>。记为 T(n) = O( f(n) )。</p>
+<p>性质：</p>
+<p>（1）对任一常数 c&gt;0，有 O( f(n) ) = O( c · f(n) )</p>
+<p>（2）对任意常数 a&gt;b&gt;0，有 O( n^a + n^b ) = O( n^a )</p>
+<font color="#FF0000">  以大 O 记号形式表示的时间复杂度，实质上是对算法执行时间的一种保守估计（最坏情况）。   </font>
+
+
+
+<h4 id="3、大-Ω-记号"><a href="#3、大-Ω-记号" class="headerlink" title="3、大 Ω 记号"></a>3、大 Ω 记号</h4><p>若存在正的常数 c 和函数 g(n)，使得对任何 n &gt;&gt; 2 都有 T(n) ≥ c · g(n)，则可认为在 n 足够大之后，g(n) 给出了 T(n) 的一个<font color="#FF0000">  渐进下界</font>。记为 T(n) = Ω( g(n) )。</p>
+<font color="#FF0000">  大 Ω 记号是对算法执行效率的一种乐观估计。</font>
+
+
+
+<h4 id="4、大-Θ-记号"><a href="#4、大-Θ-记号" class="headerlink" title="4、大 Θ 记号"></a>4、大 Θ 记号</h4><p>若存在正的常数 c1 &lt; c2 和函数 h(n)，使得对任何 n &gt;&gt; 2 都有 c1 · h(n) ≤ T(n) ≤ c · h(n)，则可认为在 n 足够大之后，h(n) 给出了 T(n) 的一个<font color="#FF0000">确界</font>。记为 T(n) = Θ( h(n) )。</p>
+<font color="#FF0000">  大 Θ 记号是对算法复杂度的一种准确估计。</font>
+
+
+
+<p>三种渐进复杂度记号之间的联系与区别</p>
+<p><img src="https://i.loli.net/2019/03/09/5c831cc1926dc.png" alt="1552096391930"></p>
+<hr>
+<h3 id="三、空间复杂度"><a href="#三、空间复杂度" class="headerlink" title="三、空间复杂度"></a>三、空间复杂度</h3><p>空间复杂度通常并不计入原始输入本身所占用的空间。其它（如转储、中转、索引、映射、缓冲等）各个方面所消耗的空间，都应计入。</p>
+<p>任一算法的任何一次运行过程汇总所消耗的存储空间，都不会多于其间所执行基本操作的累计次数。</p>
+<p>时间复杂度本身就是空间复杂度的一个天然上界。</p>
+]]></content>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>递归算法</title>
     <url>//blog/2019/03/09/%E9%80%92%E5%BD%92%E7%AE%97%E6%B3%95/</url>
     <content><![CDATA[<hr>
@@ -2678,56 +2691,29 @@
       </tags>
   </entry>
   <entry>
-    <title>算法复杂度度量</title>
-    <url>//blog/2019/03/08/%E7%AE%97%E6%B3%95%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%BA%A6%E9%87%8F/</url>
+    <title>送给2019</title>
+    <url>//blog/2019/03/12/%E9%80%81%E7%BB%992019/</url>
     <content><![CDATA[<hr>
-<p>《数据结构（C++语言版）》（邓俊辉编著）笔记</p>
-<hr>
-<h3 id="一、时间复杂度"><a href="#一、时间复杂度" class="headerlink" title="一、时间复杂度"></a>一、时间复杂度</h3><p>在规模为 n 的所有输入中，选择执行时间最长者作为 T(n)，并以 T(n) 度量算法的时间复杂度。</p>
-<a id="more"></a>
-<hr>
-<h3 id="二、渐进复杂度"><a href="#二、渐进复杂度" class="headerlink" title="二、渐进复杂度"></a>二、渐进复杂度</h3><h4 id="1、渐进分析（asymptotic-analysis）"><a href="#1、渐进分析（asymptotic-analysis）" class="headerlink" title="1、渐进分析（asymptotic analysis）"></a>1、渐进分析（asymptotic analysis）</h4><p>着眼长远、更为注重时间复杂度的总体变化趋势和增长速度的策略与方法。</p>
-<h4 id="2、大-O-记号（big-O-notation）"><a href="#2、大-O-记号（big-O-notation）" class="headerlink" title="2、大 O 记号（big-O notation）"></a>2、大 O 记号（big-O notation）</h4><p>若存在正的常数 c 和函数 f(n)，使得对任何 n &gt;&gt; 2 都有 T(n) ≤ c · f(n)，则可认为在 n 足够大之后，f(n) 给出了 T(n) 增长速度的一个<font color="#FF0000">  渐进上界</font>。记为 T(n) = O( f(n) )。</p>
-<p>性质：</p>
-<p>（1）对任一常数 c&gt;0，有 O( f(n) ) = O( c · f(n) )</p>
-<p>（2）对任意常数 a&gt;b&gt;0，有 O( n^a + n^b ) = O( n^a )</p>
-<font color="#FF0000">  以大 O 记号形式表示的时间复杂度，实质上是对算法执行时间的一种保守估计（最坏情况）。   </font>
-
-
-
-<h4 id="3、大-Ω-记号"><a href="#3、大-Ω-记号" class="headerlink" title="3、大 Ω 记号"></a>3、大 Ω 记号</h4><p>若存在正的常数 c 和函数 g(n)，使得对任何 n &gt;&gt; 2 都有 T(n) ≥ c · g(n)，则可认为在 n 足够大之后，g(n) 给出了 T(n) 的一个<font color="#FF0000">  渐进下界</font>。记为 T(n) = Ω( g(n) )。</p>
-<font color="#FF0000">  大 Ω 记号是对算法执行效率的一种乐观估计。</font>
-
-
-
-<h4 id="4、大-Θ-记号"><a href="#4、大-Θ-记号" class="headerlink" title="4、大 Θ 记号"></a>4、大 Θ 记号</h4><p>若存在正的常数 c1 &lt; c2 和函数 h(n)，使得对任何 n &gt;&gt; 2 都有 c1 · h(n) ≤ T(n) ≤ c · h(n)，则可认为在 n 足够大之后，h(n) 给出了 T(n) 的一个<font color="#FF0000">确界</font>。记为 T(n) = Θ( h(n) )。</p>
-<font color="#FF0000">  大 Θ 记号是对算法复杂度的一种准确估计。</font>
-
-
-
-<p>三种渐进复杂度记号之间的联系与区别</p>
-<p><img src="https://i.loli.net/2019/03/09/5c831cc1926dc.png" alt="1552096391930"></p>
-<hr>
-<h3 id="三、空间复杂度"><a href="#三、空间复杂度" class="headerlink" title="三、空间复杂度"></a>三、空间复杂度</h3><p>空间复杂度通常并不计入原始输入本身所占用的空间。其它（如转储、中转、索引、映射、缓冲等）各个方面所消耗的空间，都应计入。</p>
-<p>任一算法的任何一次运行过程汇总所消耗的存储空间，都不会多于其间所执行基本操作的累计次数。</p>
-<p>时间复杂度本身就是空间复杂度的一个天然上界。</p>
+<p>菩提本无树</p>
+<p>明镜亦非台</p>
+<p>本来无一物</p>
+<p>何处惹尘埃</p>
 ]]></content>
       <tags>
-        <tag>算法</tag>
+        <tag>心花路放</tag>
       </tags>
   </entry>
   <entry>
-    <title>C++ string 转换为 int</title>
-    <url>//blog/2019/04/11/C-string-%E8%BD%AC%E6%8D%A2%E4%B8%BA-int/</url>
+    <title>对数复杂度的常底数不需要写具体数值的原因</title>
+    <url>//blog/2019/03/13/%E5%AF%B9%E6%95%B0%E5%A4%8D%E6%9D%82%E5%BA%A6%E7%9A%84%E5%B8%B8%E5%BA%95%E6%95%B0%E4%B8%8D%E9%9C%80%E8%A6%81%E5%86%99%E5%85%B7%E4%BD%93%E6%95%B0%E5%80%BC%E7%9A%84%E5%8E%9F%E5%9B%A0/</url>
     <content><![CDATA[<hr>
-<h4 id="方法一、使用-stringstream"><a href="#方法一、使用-stringstream" class="headerlink" title="方法一、使用 stringstream"></a>方法一、使用 stringstream</h4><p>需要包含 <sstream> 头文件。</sstream></p>
-<a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int val;</span><br><span class="line">string str = &quot;123&quot;;</span><br><span class="line">stringstream ss(str);</span><br><span class="line">ss &gt;&gt; val；</span><br></pre></td></tr></table></figure>
-<h4 id="方法二、"><a href="#方法二、" class="headerlink" title="方法二、"></a>方法二、</h4><p>未完待续。。。</p>
+<p>设某函数的上界可以表示为 f(x) = O(logaN)，a&gt;1 为常数。</p>
+<p>对任一常数 b&gt;1，因 lna/lnb 为常数，则由大 O 记号的性质有：</p>
+<p>f(n) = O(logaN) = O(lnb/lna * logbN) = O(logbN)</p>
+<p>所以无论常底数更换为任意常数，都只会影响常系数，而在大 O 记号中，常系数又可忽略，因此在用大 O 记号表示对数复杂度的时候，无需写常底数。</p>
 ]]></content>
       <tags>
-        <tag>编程语言</tag>
-        <tag>C++</tag>
+        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -2750,27 +2736,6 @@
 ]]></content>
       <tags>
         <tag>算法</tag>
-        <tag>C++</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>C++ 数组内容初始化</title>
-    <url>//blog/2019/04/11/C-%E6%95%B0%E7%BB%84%E5%86%85%E5%AE%B9%E5%88%9D%E5%A7%8B%E5%8C%96/</url>
-    <content><![CDATA[<hr>
-<p><strong>使用 memset 函数</strong></p>
-<p>需要包含 <cstring> 或 &lt;string.h&gt; 或 &lt;memory.h&gt;</cstring></p>
-<p>原型：</p>
-<a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">memset(void *s,int ch,size_t n);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>void *s 传入数组名或某指针</li>
-<li>ch 传入欲初始化的内容</li>
-<li>n 传入欲初始化的地址范围（以字节为单位）</li>
-</ul>
-<p>用法：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">memset(bucket, 0, len*sizeof(ElemType_SqList));</span><br></pre></td></tr></table></figure></p>
-]]></content>
-      <tags>
-        <tag>编程语言</tag>
         <tag>C++</tag>
       </tags>
   </entry>
@@ -2855,8 +2820,22 @@
 <p>在 ios_base 的基础上派生出 ios，又在 ios 基础上派生出其他类，详见上图。</p>
 ]]></content>
       <tags>
-        <tag>编程语言</tag>
         <tag>C++</tag>
+        <tag>编程语言</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++ string 转换为 int</title>
+    <url>//blog/2019/04/11/C-string-%E8%BD%AC%E6%8D%A2%E4%B8%BA-int/</url>
+    <content><![CDATA[<hr>
+<h4 id="方法一、使用-stringstream"><a href="#方法一、使用-stringstream" class="headerlink" title="方法一、使用 stringstream"></a>方法一、使用 stringstream</h4><p>需要包含 <sstream> 头文件。</sstream></p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int val;</span><br><span class="line">string str = &quot;123&quot;;</span><br><span class="line">stringstream ss(str);</span><br><span class="line">ss &gt;&gt; val；</span><br></pre></td></tr></table></figure>
+<h4 id="方法二、"><a href="#方法二、" class="headerlink" title="方法二、"></a>方法二、</h4><p>未完待续。。。</p>
+]]></content>
+      <tags>
+        <tag>C++</tag>
+        <tag>编程语言</tag>
       </tags>
   </entry>
   <entry>
@@ -2970,8 +2949,8 @@
 <p>3、可用类型别名简化多维数组的指针</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">using int_array = int[4];</span><br><span class="line">typedef int int_array[4];</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
-        <tag>编程语言</tag>
         <tag>C++</tag>
+        <tag>编程语言</tag>
       </tags>
   </entry>
   <entry>
@@ -3096,8 +3075,29 @@
 <p>5、预处理变量无视 C++ 语言中关于作用域的规则。</p>
 ]]></content>
       <tags>
-        <tag>编程语言</tag>
         <tag>C++</tag>
+        <tag>编程语言</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++ 数组内容初始化</title>
+    <url>//blog/2019/04/11/C-%E6%95%B0%E7%BB%84%E5%86%85%E5%AE%B9%E5%88%9D%E5%A7%8B%E5%8C%96/</url>
+    <content><![CDATA[<hr>
+<p><strong>使用 memset 函数</strong></p>
+<p>需要包含 <cstring> 或 &lt;string.h&gt; 或 &lt;memory.h&gt;</cstring></p>
+<p>原型：</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">memset(void *s,int ch,size_t n);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>void *s 传入数组名或某指针</li>
+<li>ch 传入欲初始化的内容</li>
+<li>n 传入欲初始化的地址范围（以字节为单位）</li>
+</ul>
+<p>用法：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">memset(bucket, 0, len*sizeof(ElemType_SqList));</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <tags>
+        <tag>C++</tag>
+        <tag>编程语言</tag>
       </tags>
   </entry>
   <entry>
@@ -3114,8 +3114,8 @@
 <p>如果只需要对类型进行对比，可以直接 <code>if(typeid(a) == typeid(b))</code>。</p>
 ]]></content>
       <tags>
-        <tag>编程语言</tag>
         <tag>C++</tag>
+        <tag>编程语言</tag>
       </tags>
   </entry>
   <entry>
@@ -3232,8 +3232,8 @@
 <p>class 可使用模板，struct 不能使用模板。</p>
 ]]></content>
       <tags>
-        <tag>编程语言</tag>
         <tag>C++</tag>
+        <tag>编程语言</tag>
       </tags>
   </entry>
   <entry>
@@ -3778,8 +3778,8 @@
 <p>另外，也可以仿造类模板定义结构体模板。</p>
 ]]></content>
       <tags>
-        <tag>编程语言</tag>
         <tag>C++</tag>
+        <tag>编程语言</tag>
       </tags>
   </entry>
   <entry>
@@ -3815,8 +3815,8 @@
 <p>参考博文及书籍：<br>《C++ primer（中文第 5 版）》<br><a href="https://blog.csdn.net/xiaoyaohuqijun/article/details/50558208" target="_blank" rel="noopener">https://blog.csdn.net/xiaoyaohuqijun/article/details/50558208</a><br><a href="https://blog.csdn.net/qq_41230365/article/details/80207842" target="_blank" rel="noopener">https://blog.csdn.net/qq_41230365/article/details/80207842</a><br><a href="https://blog.csdn.net/u012814856/article/details/84645963" target="_blank" rel="noopener">https://blog.csdn.net/u012814856/article/details/84645963</a><br><a href="https://blog.csdn.net/chenyiming_1990/article/details/9094593" target="_blank" rel="noopener">https://blog.csdn.net/chenyiming_1990/article/details/9094593</a></p>
 ]]></content>
       <tags>
-        <tag>编程语言</tag>
         <tag>C++</tag>
+        <tag>编程语言</tag>
       </tags>
   </entry>
   <entry>
@@ -4040,11 +4040,6 @@
       </tags>
   </entry>
   <entry>
-    <title>test</title>
-    <url>//blog/2022/03/06/test/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
     <title>逆波兰表达式</title>
     <url>//blog/2019/09/27/%E9%80%86%E6%B3%A2%E5%85%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
     <content><![CDATA[<hr>
@@ -4116,5 +4111,10 @@
       <tags>
         <tag>算法</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>test</title>
+    <url>//blog/2022/03/06/test/</url>
+    <content><![CDATA[]]></content>
   </entry>
 </search>
