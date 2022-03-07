@@ -349,60 +349,6 @@
       </tags>
   </entry>
   <entry>
-    <title>MSP430 时钟系统</title>
-    <url>//blog/2019/02/22/MSP430-%E6%97%B6%E9%92%9F%E7%B3%BB%E7%BB%9F/</url>
-    <content><![CDATA[<hr>
-<p>系统时钟是一个程序运行的指挥官，时序和中断也是整个程序的核心和中轴线。</p>
-<a id="more"></a>
-<p>MSP430 最多有三个振荡器：</p>
-<p>DCO：内部数字控制振荡器，它的频率可以通过 DCOCLK 进行配置。在系统 PUC 之后，DCOx=7，MODx=3。在系统 PUC 之后，SMCLK 与 MCLK 都以 DCO 作为时钟源，震荡频率在 1.1M 左右，ACLK 以 LFXT1 作为时钟源，工作在 LF 模式下内部 6pF 的负载电容。</p>
-<p>LFXT1：可接高速和低速晶振，在低速模式下，它可以外接 32k 的晶振而不需要负载电容，在单片机内部已经集成了几个电容供选择。同时，通过寄存器进行配置，它还可以接内部的 VLOCLK，这个晶振是一个 12k 的低速晶振。高速模式下它可以接 0.4~16M（有的是 8M） 的晶振。通常将 LFXT1 配置成一个 32k 的振荡源，为 ACLK 提供低速的时钟信号。</p>
-<p>XT2：高速振荡器，它可以接一个 0.4~16M（有的是 8M） 的晶振，需要外接电容，它相当于高速模式下的 LFXT1。通常将它配置成一个高速的振荡源，为 MCLK 和 SMCLK 提供高速时钟信号。</p>
-<p>经验发现，接 XT2 时，需要注意自己开启 XT2，并延时 50us 等待 XT2 起振，然后手工清除 IFG1 中的 OFIFG 位，其操作顺序为：打开 XT2 -&gt; 等待 XT2 稳定 -&gt; 切换系统时钟为 XT2。</p>
-<p>MSP430 有三种时钟信号：MCLK 系统主时钟，可分频1 2 4 8，供 cpu 使用，其他外围模块在有选择情况下也可使用；SMCLK 系统子时钟，供高速外设使用，可选择不同振荡器产生的时钟信号；ACLK 辅助时钟，只能由 LFXT1 产生，供低速外设使用。</p>
-<p>DIVS0~DIVS1：DIVS=0,1,2,3 对应 SMCLK 的分频因子为 1,2,4,8</p>
-<p>SELS：选择 SMCLK 的时钟源，0：COCLK；1：XT2CLK/LFXTCLK</p>
-<p>DIVM0~1：选择 MCLK 的分频因子</p>
-<p>DIVM=0,1,2,3：对应分频因子为 1,2,4,8</p>
-<p>SELM0~1：选择 MCLK 的时钟源，0, 1：COCLK,    2：XT2CLK,   3：FXT1CL</p>
-<p>其它：</p>
-<p>1、LFXT1：一次有效的 PUC 信号将使 OSCOFF 复位，允许 LFXT1 工作，如果 LFXT1 信号没有用作 SMCLK 或 MCLK，可软件置 OSCOFF 关闭 LFXT1。</p>
-<p>2、XT2：XT2 产生 XT2CLK 时钟信号，如果 XT2CLK 信号没有用作时钟 MCLK 和 SMCLK，可以通过置 XT2OFF 关闭 XT2，PUC 信号后置 XT2OFF，即 XT2 的关闭的。</p>
-<p>3、振荡器失效时，DCO振荡器会自动被选做 MCLK 的时钟源。如果 DCO 信号没有用作 SMCLK 和 MCLK 时钟信号时，可置SCG0 位关闭 DCO 直流发生器。</p>
-<p>4、在 PUC 信号后，由 DCOCLK 作为 MCLK 的时钟信号，根据需要可将 MCLK 的时钟源另外设置为 LFXT1 或 XT2，设置顺序如下：</p>
-<p><1> 清 OSCOFF/XT2。</1></p>
-<p><2> 清 OFIFG。</2></p>
-<p><3> 延时等待至少 50us。</3></p>
-<p><4> 再次检查 OFIFG，如果仍置位，则重复(1)-(4)步，直到 OFIFG=0 为止。</4></p>
-<p><5> 设置 BCSCTL2 的相应 SELM。</5></p>
-<p>注意：</p>
-<p><1> 最好将 IFG1&amp;=~OFIFG; 放入 do-while 循环中</1></p>
-<p><2> 在 XT2 出现错误的情况下将 XT2 设定为 MCLK SMCLK 的时钟源，单片机会自动的把时钟源更换为 DCO 振荡器。当时钟信号丢失 50us 时，振荡器失效。如果 MCLK 信号来自 LFXT1 或者 XT2，那么 MSP430 自动把 MCLK 的信号切换为 DCO，这样可以保证程序继续运行。MSP430 不对低频模式的 LFXT1 进行监测。</2></p>
-<p><3> BCSCTL2=SELM_2+SELS; 语句必须放在 while 之后，因为当 XT2 没有起振之前，XT2 处于错误阶段，因此在 XT2 没有起振之前将它设定为主时钟与子系统时钟后，单片机会自动的将 DCO 设定为 SMCLK MCLK 的时钟源。</3></p>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>MSP430</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>MSP430 中断系统</title>
-    <url>//blog/2019/02/23/MSP430-%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F/</url>
-    <content><![CDATA[<hr>
-<p>中断是 MSP430 的一大特色，因为几乎每个外设模块都能产生中断，MSP430 可以在没有任务时进入超低功耗状态，有事件时中断唤醒 cpu，处理完毕再次进入超低功耗状态。 </p>
-<a id="more"></a>
-<p>整个中断的响应过程是这样的，当有中断请求时，如果 cpu 处于活动状态，先完成当前命令；如果处于低功耗，先退出，将下一条指令的 pc 值压入堆栈；如果有多个中断请求，先响应优先级高的；执行完后，等待中断请求标志位复位，要注意，单中断源的中断请求标志位自动复位，而多中断的标志位需要软件复位；然后系统总中断允许位 SR.GIE 复位，相应的中断向量值装入 pc，程序从这个地址继续执行。 </p>
-<p>这里要注意，中断允许位 SR.GIE 和中断嵌套问题。如果当你执行中断程序过程中，希望可以响应更高级别的中断请求时，必须在进入第一个中断时把 SR.GIE 置位。 </p>
-<p>其实，其他的外围模块时钟沿着时钟和中断这个核心来执行的。具体的结构我也不啰嗦了，可以参考 MSP430 系列手册。</p>
-<p>MSP430 中断格式</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#pragma vetcor = 中断向量</span><br><span class="line"></span><br><span class="line">__(两个)interrupt void 函数名(void)&#123;  //中断函数无返回值 无形参</span><br><span class="line"></span><br><span class="line">    用户程序;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>MSP430</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>MSP430 串口</title>
     <url>//blog/2019/02/22/MSP430-%E4%B8%B2%E5%8F%A3/</url>
     <content><![CDATA[<hr>
@@ -493,29 +439,6 @@
       </tags>
   </entry>
   <entry>
-    <title>MSP430 仿真与下载</title>
-    <url>//blog/2019/02/23/MSP430-%E4%BB%BF%E7%9C%9F%E4%B8%8E%E4%B8%8B%E8%BD%BD/</url>
-    <content><![CDATA[<hr>
-<p>对于 MSP430 来说，无论仿真还是烧写程序一般可以通过：JTAG、SBW、BSL 接口进行。</p>
-<p>JTAG、SBW 接口可以用于仿真接口，BSL 接口不能用于仿真。而编程器则三种接口都支持。 </p>
-<p>所以并不能说 JTAG 只支持仿真不支持编程，这是概念错误，JTAG 仅仅是一种接口协议而已。 </p>
-<a id="more"></a>
-<p>J-TAG  6线</p>
-<p>SBW    2线</p>
-<p>BSL      2线（UART）</p>
-<p>下面简单描述一下三种接口的区别： </p>
-<p>1、JTAG 是边界扫描技术，其在 430 内部有逻辑接口给 JTAG 使用，内部有若干个寄存器连接到了 430 的内部数据地址总线上，所以可以用JTAG访问 430 内部的所有资源，包括对 FLASH 的读写操作。所以可以用于对 MSP430 的仿真及编程。主要连接线有 TMS、TCK、TDI、TDO、RST、TEST。 </p>
-<p>2、SBW 是 SPY-BI-WIRE，可以简称两线制 JTAG，主要用 SBWTCK（连接到 JTAG 仿真器的 7 脚 TCK）与 SBWTDIO（连接到 JTAG 仿真器的 1 脚 TDO/TDI），该接口主要用于小于 28 脚的 2 系列的 430 单片机，因为 28 脚以内的 2 系列单片机的 JTAG 接口一般与 IO 口复用，为了给用户预留更多的 IO 口，才推出了 SBW 接口。同样 SBW 接口可以用于仿真器及编程器。 </p>
-<p>3、BSL 是 TI 在对 MSP430 出厂时预先固化到MCU内部的一段代码，有点类似 bootloader，但又与 bootloader 有明显的区别，BSL 只能用于对 MCU 内部的 FLASH 访问，不能对其他的资源访问，所以只能用作编程器接口。BSL 通过UART协议与编程器连接通信。编程器可以发送不同的通信命令来对 MCU 的存储器做不同的操作。BSL 的启动有些特殊，一般 430 复位启动时 PC 指针指向 FFFE 复位向量，但可以通过特殊的启动方式可以使 MCU 在启动是让 PC 指向 BSL 内部固化的程序。启动方式一般是由 RST 引脚与 TEST（或TCK）引脚做一个稍复杂的启动逻辑后产生。 BSL 启动后，就可以对 MCU 进行访问了。 </p>
-<p>一般的 MCU 都有代码加密功能，430 是如何实现的呢？外部对 430 内部的代码读写只能通过上述的三种方式，所以又引入了熔丝位，熔丝位只存在于 JTAG、SBW接口逻辑内。BSL内部没有熔丝。当熔丝烧断时（物理破坏，且不可恢复）JTAG 与 SBW 的访问将被禁止，此时只有 BSL 可以访问。而通过 BSL 对 MCU 的访问是需要 32 个字节的密码，该密码就是用户代码的中断向量表。所以 430 的加密系统到目前为止尚无被解密的报告。一般个人学习用，不熔丝操作，只有成熟产品推向市场的时候，防止被其他人破解，才会熔丝。 </p>
-<p>仿真器的型号一般有 UIF（USB 接口，支持 JTAG、SBW）、PIF（并口，只支持 JTAG）、EZ430（USB 接口的，只支持 SBW 模式）。专业编程器有 GANG430（串口、一拖 8 个，支持 JTAG、SBW，不支持 BSL）；多功能编程器（JTAG、SBW、BSL）。这些编程器都可以做离线烧写，即脱离计算机来对目标板烧写。</p>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>MSP430</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>MSP430 单片机入门指北</title>
     <url>//blog/2019/02/22/MSP430-%E5%8D%95%E7%89%87%E6%9C%BA%E5%85%A5%E9%97%A8%E6%8C%87%E5%8C%97/</url>
     <content><![CDATA[<hr>
@@ -595,6 +518,83 @@
 <p><img src="https://i.loli.net/2019/02/22/5c6fa4d3283ba.png" alt="img"></p>
 <p>这些都是 ADC12 的相关寄存器的宏定义，具体使用则要看后面的注释。一般来说注释就能很清楚的表达其功能，如果表达不清楚，再参看 User’s Guide 的《Register》章节即可。</p>
 <p>在这里简要谈了 430 的学习方法，后面会推出各模块的独立编程方法。我们的目标是参看手册去编程，而不是参看例程去编程。</p>
+]]></content>
+      <tags>
+        <tag>硬件拾忆</tag>
+        <tag>MSP430</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MSP430 中断系统</title>
+    <url>//blog/2019/02/23/MSP430-%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F/</url>
+    <content><![CDATA[<hr>
+<p>中断是 MSP430 的一大特色，因为几乎每个外设模块都能产生中断，MSP430 可以在没有任务时进入超低功耗状态，有事件时中断唤醒 cpu，处理完毕再次进入超低功耗状态。 </p>
+<a id="more"></a>
+<p>整个中断的响应过程是这样的，当有中断请求时，如果 cpu 处于活动状态，先完成当前命令；如果处于低功耗，先退出，将下一条指令的 pc 值压入堆栈；如果有多个中断请求，先响应优先级高的；执行完后，等待中断请求标志位复位，要注意，单中断源的中断请求标志位自动复位，而多中断的标志位需要软件复位；然后系统总中断允许位 SR.GIE 复位，相应的中断向量值装入 pc，程序从这个地址继续执行。 </p>
+<p>这里要注意，中断允许位 SR.GIE 和中断嵌套问题。如果当你执行中断程序过程中，希望可以响应更高级别的中断请求时，必须在进入第一个中断时把 SR.GIE 置位。 </p>
+<p>其实，其他的外围模块时钟沿着时钟和中断这个核心来执行的。具体的结构我也不啰嗦了，可以参考 MSP430 系列手册。</p>
+<p>MSP430 中断格式</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#pragma vetcor = 中断向量</span><br><span class="line"></span><br><span class="line">__(两个)interrupt void 函数名(void)&#123;  //中断函数无返回值 无形参</span><br><span class="line"></span><br><span class="line">    用户程序;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>硬件拾忆</tag>
+        <tag>MSP430</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MSP430 时钟系统</title>
+    <url>//blog/2019/02/22/MSP430-%E6%97%B6%E9%92%9F%E7%B3%BB%E7%BB%9F/</url>
+    <content><![CDATA[<hr>
+<p>系统时钟是一个程序运行的指挥官，时序和中断也是整个程序的核心和中轴线。</p>
+<a id="more"></a>
+<p>MSP430 最多有三个振荡器：</p>
+<p>DCO：内部数字控制振荡器，它的频率可以通过 DCOCLK 进行配置。在系统 PUC 之后，DCOx=7，MODx=3。在系统 PUC 之后，SMCLK 与 MCLK 都以 DCO 作为时钟源，震荡频率在 1.1M 左右，ACLK 以 LFXT1 作为时钟源，工作在 LF 模式下内部 6pF 的负载电容。</p>
+<p>LFXT1：可接高速和低速晶振，在低速模式下，它可以外接 32k 的晶振而不需要负载电容，在单片机内部已经集成了几个电容供选择。同时，通过寄存器进行配置，它还可以接内部的 VLOCLK，这个晶振是一个 12k 的低速晶振。高速模式下它可以接 0.4~16M（有的是 8M） 的晶振。通常将 LFXT1 配置成一个 32k 的振荡源，为 ACLK 提供低速的时钟信号。</p>
+<p>XT2：高速振荡器，它可以接一个 0.4~16M（有的是 8M） 的晶振，需要外接电容，它相当于高速模式下的 LFXT1。通常将它配置成一个高速的振荡源，为 MCLK 和 SMCLK 提供高速时钟信号。</p>
+<p>经验发现，接 XT2 时，需要注意自己开启 XT2，并延时 50us 等待 XT2 起振，然后手工清除 IFG1 中的 OFIFG 位，其操作顺序为：打开 XT2 -&gt; 等待 XT2 稳定 -&gt; 切换系统时钟为 XT2。</p>
+<p>MSP430 有三种时钟信号：MCLK 系统主时钟，可分频1 2 4 8，供 cpu 使用，其他外围模块在有选择情况下也可使用；SMCLK 系统子时钟，供高速外设使用，可选择不同振荡器产生的时钟信号；ACLK 辅助时钟，只能由 LFXT1 产生，供低速外设使用。</p>
+<p>DIVS0~DIVS1：DIVS=0,1,2,3 对应 SMCLK 的分频因子为 1,2,4,8</p>
+<p>SELS：选择 SMCLK 的时钟源，0：COCLK；1：XT2CLK/LFXTCLK</p>
+<p>DIVM0~1：选择 MCLK 的分频因子</p>
+<p>DIVM=0,1,2,3：对应分频因子为 1,2,4,8</p>
+<p>SELM0~1：选择 MCLK 的时钟源，0, 1：COCLK,    2：XT2CLK,   3：FXT1CL</p>
+<p>其它：</p>
+<p>1、LFXT1：一次有效的 PUC 信号将使 OSCOFF 复位，允许 LFXT1 工作，如果 LFXT1 信号没有用作 SMCLK 或 MCLK，可软件置 OSCOFF 关闭 LFXT1。</p>
+<p>2、XT2：XT2 产生 XT2CLK 时钟信号，如果 XT2CLK 信号没有用作时钟 MCLK 和 SMCLK，可以通过置 XT2OFF 关闭 XT2，PUC 信号后置 XT2OFF，即 XT2 的关闭的。</p>
+<p>3、振荡器失效时，DCO振荡器会自动被选做 MCLK 的时钟源。如果 DCO 信号没有用作 SMCLK 和 MCLK 时钟信号时，可置SCG0 位关闭 DCO 直流发生器。</p>
+<p>4、在 PUC 信号后，由 DCOCLK 作为 MCLK 的时钟信号，根据需要可将 MCLK 的时钟源另外设置为 LFXT1 或 XT2，设置顺序如下：</p>
+<p><1> 清 OSCOFF/XT2。</1></p>
+<p><2> 清 OFIFG。</2></p>
+<p><3> 延时等待至少 50us。</3></p>
+<p><4> 再次检查 OFIFG，如果仍置位，则重复(1)-(4)步，直到 OFIFG=0 为止。</4></p>
+<p><5> 设置 BCSCTL2 的相应 SELM。</5></p>
+<p>注意：</p>
+<p><1> 最好将 IFG1&amp;=~OFIFG; 放入 do-while 循环中</1></p>
+<p><2> 在 XT2 出现错误的情况下将 XT2 设定为 MCLK SMCLK 的时钟源，单片机会自动的把时钟源更换为 DCO 振荡器。当时钟信号丢失 50us 时，振荡器失效。如果 MCLK 信号来自 LFXT1 或者 XT2，那么 MSP430 自动把 MCLK 的信号切换为 DCO，这样可以保证程序继续运行。MSP430 不对低频模式的 LFXT1 进行监测。</2></p>
+<p><3> BCSCTL2=SELM_2+SELS; 语句必须放在 while 之后，因为当 XT2 没有起振之前，XT2 处于错误阶段，因此在 XT2 没有起振之前将它设定为主时钟与子系统时钟后，单片机会自动的将 DCO 设定为 SMCLK MCLK 的时钟源。</3></p>
+]]></content>
+      <tags>
+        <tag>硬件拾忆</tag>
+        <tag>MSP430</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MSP430 仿真与下载</title>
+    <url>//blog/2019/02/23/MSP430-%E4%BB%BF%E7%9C%9F%E4%B8%8E%E4%B8%8B%E8%BD%BD/</url>
+    <content><![CDATA[<hr>
+<p>对于 MSP430 来说，无论仿真还是烧写程序一般可以通过：JTAG、SBW、BSL 接口进行。</p>
+<p>JTAG、SBW 接口可以用于仿真接口，BSL 接口不能用于仿真。而编程器则三种接口都支持。 </p>
+<p>所以并不能说 JTAG 只支持仿真不支持编程，这是概念错误，JTAG 仅仅是一种接口协议而已。 </p>
+<a id="more"></a>
+<p>J-TAG  6线</p>
+<p>SBW    2线</p>
+<p>BSL      2线（UART）</p>
+<p>下面简单描述一下三种接口的区别： </p>
+<p>1、JTAG 是边界扫描技术，其在 430 内部有逻辑接口给 JTAG 使用，内部有若干个寄存器连接到了 430 的内部数据地址总线上，所以可以用JTAG访问 430 内部的所有资源，包括对 FLASH 的读写操作。所以可以用于对 MSP430 的仿真及编程。主要连接线有 TMS、TCK、TDI、TDO、RST、TEST。 </p>
+<p>2、SBW 是 SPY-BI-WIRE，可以简称两线制 JTAG，主要用 SBWTCK（连接到 JTAG 仿真器的 7 脚 TCK）与 SBWTDIO（连接到 JTAG 仿真器的 1 脚 TDO/TDI），该接口主要用于小于 28 脚的 2 系列的 430 单片机，因为 28 脚以内的 2 系列单片机的 JTAG 接口一般与 IO 口复用，为了给用户预留更多的 IO 口，才推出了 SBW 接口。同样 SBW 接口可以用于仿真器及编程器。 </p>
+<p>3、BSL 是 TI 在对 MSP430 出厂时预先固化到MCU内部的一段代码，有点类似 bootloader，但又与 bootloader 有明显的区别，BSL 只能用于对 MCU 内部的 FLASH 访问，不能对其他的资源访问，所以只能用作编程器接口。BSL 通过UART协议与编程器连接通信。编程器可以发送不同的通信命令来对 MCU 的存储器做不同的操作。BSL 的启动有些特殊，一般 430 复位启动时 PC 指针指向 FFFE 复位向量，但可以通过特殊的启动方式可以使 MCU 在启动是让 PC 指向 BSL 内部固化的程序。启动方式一般是由 RST 引脚与 TEST（或TCK）引脚做一个稍复杂的启动逻辑后产生。 BSL 启动后，就可以对 MCU 进行访问了。 </p>
+<p>一般的 MCU 都有代码加密功能，430 是如何实现的呢？外部对 430 内部的代码读写只能通过上述的三种方式，所以又引入了熔丝位，熔丝位只存在于 JTAG、SBW接口逻辑内。BSL内部没有熔丝。当熔丝烧断时（物理破坏，且不可恢复）JTAG 与 SBW 的访问将被禁止，此时只有 BSL 可以访问。而通过 BSL 对 MCU 的访问是需要 32 个字节的密码，该密码就是用户代码的中断向量表。所以 430 的加密系统到目前为止尚无被解密的报告。一般个人学习用，不熔丝操作，只有成熟产品推向市场的时候，防止被其他人破解，才会熔丝。 </p>
+<p>仿真器的型号一般有 UIF（USB 接口，支持 JTAG、SBW）、PIF（并口，只支持 JTAG）、EZ430（USB 接口的，只支持 SBW 模式）。专业编程器有 GANG430（串口、一拖 8 个，支持 JTAG、SBW，不支持 BSL）；多功能编程器（JTAG、SBW、BSL）。这些编程器都可以做离线烧写，即脱离计算机来对目标板烧写。</p>
 ]]></content>
       <tags>
         <tag>硬件拾忆</tag>
@@ -945,6 +945,28 @@
       </tags>
   </entry>
   <entry>
+    <title>STM8S 供电</title>
+    <url>//blog/2019/03/03/STM8S-%E4%BE%9B%E7%94%B5/</url>
+    <content><![CDATA[<hr>
+<p>STM8 MCU 有 4 种相对独立的供电电源：</p>
+<p>- VDD/VSS：主电源（3V 到 5.5V）</p>
+<p>- VDDIO/VSSIO：I/O 口供电电源（3V 到 5.5V ）</p>
+<p>- VDDA/VSSA：模拟部分供电电源</p>
+<p>- VREF+/VREF-：ADC 参考电源</p>
+<a id="more"></a>
+<p>VDD/VSS 引脚用来为内部主稳压器（MVR）和内部低功耗稳压器（LPVR）供电。这两个调节器的输出连在一起，向MCU的核（CPU，Flash 和 RAM）提供 1.8V 电压。</p>
+<p>在低功耗模式下系统自动从 MVR 切换到 LPVR，以减少电流消耗。</p>
+<p><strong>为了稳定 MVR，必须在 VCAP 脚接一个电容</strong>。</p>
+<p>根据封装的大小，可能有一对或两对特定的 VDDIO/VSSIO 来给I/O供电。</p>
+<p>VDDA/VSSA和VREF+/VREF- 都与ADC模块相连接。</p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b5ace894e7.png" alt="Image.png"></p>
+]]></content>
+      <tags>
+        <tag>硬件拾忆</tag>
+        <tag>STM8</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>STM8S 中断控制</title>
     <url>//blog/2019/03/03/STM8S-%E4%B8%AD%E6%96%AD%E6%8E%A7%E5%88%B6/</url>
     <content><![CDATA[<hr>
@@ -1083,28 +1105,6 @@
 <h4 id="三、外部中断控制寄存器-1（EXTI-CR1）"><a href="#三、外部中断控制寄存器-1（EXTI-CR1）" class="headerlink" title="三、外部中断控制寄存器 1（EXTI_CR1）"></a>三、外部中断控制寄存器 1（EXTI_CR1）</h4><p><img src="https://i.loli.net/2019/03/03/5c7b5893277f1.png" alt="Image.png"></p>
 <h4 id="四、外部中断控制寄存器-2（EXTI-CR2）"><a href="#四、外部中断控制寄存器-2（EXTI-CR2）" class="headerlink" title="四、外部中断控制寄存器 2（EXTI_CR2）"></a>四、外部中断控制寄存器 2（EXTI_CR2）</h4><p><img src="https://i.loli.net/2019/03/03/5c7b58e6cd03b.png" alt="Image.png"></p>
 <h4 id="五、ITC-和-EXTI-寄存器映射和复位值"><a href="#五、ITC-和-EXTI-寄存器映射和复位值" class="headerlink" title="五、ITC 和 EXTI 寄存器映射和复位值"></a>五、ITC 和 EXTI 寄存器映射和复位值</h4><p><img src="https://i.loli.net/2019/03/03/5c7b59026b53a.png" alt="Image.png"></p>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>STM8</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>STM8S 供电</title>
-    <url>//blog/2019/03/03/STM8S-%E4%BE%9B%E7%94%B5/</url>
-    <content><![CDATA[<hr>
-<p>STM8 MCU 有 4 种相对独立的供电电源：</p>
-<p>- VDD/VSS：主电源（3V 到 5.5V）</p>
-<p>- VDDIO/VSSIO：I/O 口供电电源（3V 到 5.5V ）</p>
-<p>- VDDA/VSSA：模拟部分供电电源</p>
-<p>- VREF+/VREF-：ADC 参考电源</p>
-<a id="more"></a>
-<p>VDD/VSS 引脚用来为内部主稳压器（MVR）和内部低功耗稳压器（LPVR）供电。这两个调节器的输出连在一起，向MCU的核（CPU，Flash 和 RAM）提供 1.8V 电压。</p>
-<p>在低功耗模式下系统自动从 MVR 切换到 LPVR，以减少电流消耗。</p>
-<p><strong>为了稳定 MVR，必须在 VCAP 脚接一个电容</strong>。</p>
-<p>根据封装的大小，可能有一对或两对特定的 VDDIO/VSSIO 来给I/O供电。</p>
-<p>VDDA/VSSA和VREF+/VREF- 都与ADC模块相连接。</p>
-<p><img src="https://i.loli.net/2019/03/03/5c7b5ace894e7.png" alt="Image.png"></p>
 ]]></content>
       <tags>
         <tag>硬件拾忆</tag>
@@ -1359,38 +1359,6 @@
       </tags>
   </entry>
   <entry>
-    <title>ARM CMSIS-DSP 库简介</title>
-    <url>//blog/2019/03/04/ARM-CMSIS-DSP-%E5%BA%93%E7%AE%80%E4%BB%8B/</url>
-    <content><![CDATA[<hr>
-<p>CMSIS 的 DSP 库主要提供以下数字信号处理算法：</p>
-<p>1、BasicMathFunctions</p>
-<p>提供基本的数据运算，如加减乘除，以 _f32 结尾的函数是浮点运算，以 _q8，_q15，_q31 结尾的函数是定点运算。</p>
-<a id="more"></a>
-<p>2、FastMathFunctions</p>
-<p>主要提供 SIN，COS 以及平方根 SPRT 的运算。</p>
-<p>3、ComplexMathFunctions</p>
-<p>复杂数学运算，主要是向量，求模等运算。</p>
-<p>4、FilteringFunctions</p>
-<p>主要是滤波函数，如 IIR，FIR，LMS 等。</p>
-<p>5、MatrixFunctions</p>
-<p>主要是矩阵运算。</p>
-<p>6、TransformFunctions</p>
-<p>变换功能。包括复数 FFT（CFFT）/负数 FFT 逆运算（CIFFT）、实数 FFT（RFFT）/实数 FFT 逆运算。</p>
-<p>7、ControllerFunctions</p>
-<p>控制功能，主要为 PID 控制函数。arm_sin_cos_f32/_q31.c 函数提供 360 点正余弦函数表和任意角度的正余弦函数值计算功能。</p>
-<p>8、StatisticsFunctions</p>
-<p>统计功能函数，如求平均值、计算 RMS 等。</p>
-<p>9、SupportFunctions</p>
-<p>支持功能函数，如数据拷贝，Q 格式和浮点格式相互转换。</p>
-<p>10、CommonTables</p>
-<p>arm_common_tables.c 文件提供位翻转或相关参数表。</p>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>STM32</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>STM8S 电源管理</title>
     <url>//blog/2019/03/03/STM8S-%E7%94%B5%E6%BA%90%E7%AE%A1%E7%90%86/</url>
     <content><![CDATA[<hr>
@@ -1476,6 +1444,38 @@
       <tags>
         <tag>硬件拾忆</tag>
         <tag>STM8</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ARM CMSIS-DSP 库简介</title>
+    <url>//blog/2019/03/04/ARM-CMSIS-DSP-%E5%BA%93%E7%AE%80%E4%BB%8B/</url>
+    <content><![CDATA[<hr>
+<p>CMSIS 的 DSP 库主要提供以下数字信号处理算法：</p>
+<p>1、BasicMathFunctions</p>
+<p>提供基本的数据运算，如加减乘除，以 _f32 结尾的函数是浮点运算，以 _q8，_q15，_q31 结尾的函数是定点运算。</p>
+<a id="more"></a>
+<p>2、FastMathFunctions</p>
+<p>主要提供 SIN，COS 以及平方根 SPRT 的运算。</p>
+<p>3、ComplexMathFunctions</p>
+<p>复杂数学运算，主要是向量，求模等运算。</p>
+<p>4、FilteringFunctions</p>
+<p>主要是滤波函数，如 IIR，FIR，LMS 等。</p>
+<p>5、MatrixFunctions</p>
+<p>主要是矩阵运算。</p>
+<p>6、TransformFunctions</p>
+<p>变换功能。包括复数 FFT（CFFT）/负数 FFT 逆运算（CIFFT）、实数 FFT（RFFT）/实数 FFT 逆运算。</p>
+<p>7、ControllerFunctions</p>
+<p>控制功能，主要为 PID 控制函数。arm_sin_cos_f32/_q31.c 函数提供 360 点正余弦函数表和任意角度的正余弦函数值计算功能。</p>
+<p>8、StatisticsFunctions</p>
+<p>统计功能函数，如求平均值、计算 RMS 等。</p>
+<p>9、SupportFunctions</p>
+<p>支持功能函数，如数据拷贝，Q 格式和浮点格式相互转换。</p>
+<p>10、CommonTables</p>
+<p>arm_common_tables.c 文件提供位翻转或相关参数表。</p>
+]]></content>
+      <tags>
+        <tag>硬件拾忆</tag>
+        <tag>STM32</tag>
       </tags>
   </entry>
   <entry>
@@ -3237,6 +3237,48 @@
       </tags>
   </entry>
   <entry>
+    <title>C++ 模板</title>
+    <url>//blog/2019/04/13/C-%E6%A8%A1%E6%9D%BF/</url>
+    <content><![CDATA[<hr>
+<h4 id="一、函数模板（Function-Template）"><a href="#一、函数模板（Function-Template）" class="headerlink" title="一、函数模板（Function Template）"></a>一、函数模板（Function Template）</h4><p>值的参数化：</p>
+<a id="more"></a>
+<ul>
+<li>在函数定义时形参数据的值是未知的，只有等到函数调用时接收了实参才能确定其值。</li>
+</ul>
+<p>类型的参数化：</p>
+<ul>
+<li>在 C++ 中，数据类型也可以通过参数来传递，在函数定义时不指明具体数据类型，函数调用时，编译器可以根据传入的实参自动推断数据类型。</li>
+</ul>
+<p>函数模板：</p>
+<ul>
+<li>建立一个函数的模板，其用到的数据类型（返回值、形参、局部变量的类型）用一个虚拟的类型代替。</li>
+</ul>
+<p>函数模板的语法：（模板头 + 使用新定义的类型参数的函数定义）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">template &lt;typename 类型参数1 , typename 类型参数2 , ...&gt; </span><br><span class="line">返回值类型  函数名(形参列表)&#123;</span><br><span class="line">	…</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>比如：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">template&lt;typename T&gt; void Swap(T &amp;a, T &amp;b)&#123;</span><br><span class="line"></span><br><span class="line">	T temp = a;</span><br><span class="line">	a = b;</span><br><span class="line">	b = temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>函数模板也可以先声明后定义，但是声明的时候也必须带上模板头。</p>
+<p>可以用多个 typename 声明多种不同的类型参数。</p>
+<p>typename 关键字也可以使用 class 关键字代替。</p>
+<hr>
+<h4 id="二、类模板（Class-Template）"><a href="#二、类模板（Class-Template）" class="headerlink" title="二、类模板（Class Template）"></a>二、类模板（Class Template）</h4><p>类模板的定义与函数模板类似，语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">template&lt;typename 类型参数1, typename 类型参数2 , …&gt; class 类名&#123;</span><br><span class="line">    …</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>类的成员函数的定义时，语法为：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">template &lt;typename 类型参数1, typename 类型参数2,  …&gt;</span><br><span class="line"></span><br><span class="line">返回值类型 类名&lt;类型参数1, 类型参数2, … &gt; :: 函数名(参数表)&#123;</span><br><span class="line">	…</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在类名之后，需带上该类全部的类型参数表（不需要写 typename），函数的参数表中，用到了哪个类型参数写哪个就可以。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">template&lt;typename T&gt; class Operation&#123;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line"></span><br><span class="line">	Operation(T a, T b) :m_a(a), m_b(b)&#123;&#125;</span><br><span class="line">	T Sum();</span><br><span class="line">	bool SetValue(T a, T b);</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line"></span><br><span class="line">	T m_a;</span><br><span class="line">	T m_b;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">template&lt;typename T&gt;</span><br><span class="line">T Operation&lt;T&gt;::Sum()&#123;</span><br><span class="line"></span><br><span class="line">	T c = m_a + m_b;</span><br><span class="line">	return c;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">template&lt;typename T&gt;</span><br><span class="line">bool Operation&lt;T&gt;::SetValue(T a, T b)&#123;</span><br><span class="line"></span><br><span class="line">	m_a = a;</span><br><span class="line">	m_b = b;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line"></span><br><span class="line">	Operation&lt;float&gt; ope(2.3, 3.4);</span><br><span class="line">	float sum = ope.Sum();</span><br><span class="line">	cout &lt;&lt; sum &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">return 0;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用类模板创建对象时，需显示指明类型参数，例如：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Operation&lt;float&gt; ope(2.3, 3.4);</span><br></pre></td></tr></table></figure>
+<p>如果是创建对象指针，赋值时两边都要指明具体类型，且要保持一致：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Operation&lt;float&gt; *ope = new Operation&lt;float&gt;(1.2, 2.3);</span><br></pre></td></tr></table></figure>
+<p>另外，也可以仿造类模板定义结构体模板。</p>
+]]></content>
+      <tags>
+        <tag>C++</tag>
+        <tag>编程语言</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>爬虫网页基础</title>
     <url>//blog/2019/04/12/%E7%88%AC%E8%99%AB%E7%BD%91%E9%A1%B5%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<hr>
@@ -3738,48 +3780,6 @@
 ]]></content>
       <tags>
         <tag>CS基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>C++ 模板</title>
-    <url>//blog/2019/04/13/C-%E6%A8%A1%E6%9D%BF/</url>
-    <content><![CDATA[<hr>
-<h4 id="一、函数模板（Function-Template）"><a href="#一、函数模板（Function-Template）" class="headerlink" title="一、函数模板（Function Template）"></a>一、函数模板（Function Template）</h4><p>值的参数化：</p>
-<a id="more"></a>
-<ul>
-<li>在函数定义时形参数据的值是未知的，只有等到函数调用时接收了实参才能确定其值。</li>
-</ul>
-<p>类型的参数化：</p>
-<ul>
-<li>在 C++ 中，数据类型也可以通过参数来传递，在函数定义时不指明具体数据类型，函数调用时，编译器可以根据传入的实参自动推断数据类型。</li>
-</ul>
-<p>函数模板：</p>
-<ul>
-<li>建立一个函数的模板，其用到的数据类型（返回值、形参、局部变量的类型）用一个虚拟的类型代替。</li>
-</ul>
-<p>函数模板的语法：（模板头 + 使用新定义的类型参数的函数定义）</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">template &lt;typename 类型参数1 , typename 类型参数2 , ...&gt; </span><br><span class="line">返回值类型  函数名(形参列表)&#123;</span><br><span class="line">	…</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>比如：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">template&lt;typename T&gt; void Swap(T &amp;a, T &amp;b)&#123;</span><br><span class="line"></span><br><span class="line">	T temp = a;</span><br><span class="line">	a = b;</span><br><span class="line">	b = temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>函数模板也可以先声明后定义，但是声明的时候也必须带上模板头。</p>
-<p>可以用多个 typename 声明多种不同的类型参数。</p>
-<p>typename 关键字也可以使用 class 关键字代替。</p>
-<hr>
-<h4 id="二、类模板（Class-Template）"><a href="#二、类模板（Class-Template）" class="headerlink" title="二、类模板（Class Template）"></a>二、类模板（Class Template）</h4><p>类模板的定义与函数模板类似，语法如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">template&lt;typename 类型参数1, typename 类型参数2 , …&gt; class 类名&#123;</span><br><span class="line">    …</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>类的成员函数的定义时，语法为：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">template &lt;typename 类型参数1, typename 类型参数2,  …&gt;</span><br><span class="line"></span><br><span class="line">返回值类型 类名&lt;类型参数1, 类型参数2, … &gt; :: 函数名(参数表)&#123;</span><br><span class="line">	…</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在类名之后，需带上该类全部的类型参数表（不需要写 typename），函数的参数表中，用到了哪个类型参数写哪个就可以。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">template&lt;typename T&gt; class Operation&#123;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line"></span><br><span class="line">	Operation(T a, T b) :m_a(a), m_b(b)&#123;&#125;</span><br><span class="line">	T Sum();</span><br><span class="line">	bool SetValue(T a, T b);</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line"></span><br><span class="line">	T m_a;</span><br><span class="line">	T m_b;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">template&lt;typename T&gt;</span><br><span class="line">T Operation&lt;T&gt;::Sum()&#123;</span><br><span class="line"></span><br><span class="line">	T c = m_a + m_b;</span><br><span class="line">	return c;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">template&lt;typename T&gt;</span><br><span class="line">bool Operation&lt;T&gt;::SetValue(T a, T b)&#123;</span><br><span class="line"></span><br><span class="line">	m_a = a;</span><br><span class="line">	m_b = b;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line"></span><br><span class="line">	Operation&lt;float&gt; ope(2.3, 3.4);</span><br><span class="line">	float sum = ope.Sum();</span><br><span class="line">	cout &lt;&lt; sum &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">return 0;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>使用类模板创建对象时，需显示指明类型参数，例如：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Operation&lt;float&gt; ope(2.3, 3.4);</span><br></pre></td></tr></table></figure>
-<p>如果是创建对象指针，赋值时两边都要指明具体类型，且要保持一致：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Operation&lt;float&gt; *ope = new Operation&lt;float&gt;(1.2, 2.3);</span><br></pre></td></tr></table></figure>
-<p>另外，也可以仿造类模板定义结构体模板。</p>
-]]></content>
-      <tags>
-        <tag>C++</tag>
-        <tag>编程语言</tag>
       </tags>
   </entry>
   <entry>
