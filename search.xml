@@ -1,6 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Git 与 Github</title>
+    <url>//blog/2019/02/20/Git%20%E4%B8%8E%20Github/</url>
+    <content><![CDATA[<hr>
+<h3 id="〇、Github-与-Git-的关系"><a href="#〇、Github-与-Git-的关系" class="headerlink" title="〇、Github 与 Git 的关系"></a>〇、Github 与 Git 的关系</h3><h4 id="1、Git-与-Github-简介"><a href="#1、Git-与-Github-简介" class="headerlink" title="1、Git 与 Github 简介"></a>1、Git 与 Github 简介</h4><ul>
+<li>Git 是一款免费、开源的分布式版本控制系统</li>
+<li>GitHub 是一个面向开源及私有软件项目的托管平台，因为只支持 Git 作为唯一的版本库格式进行托管，故名 GitHub。另外还有其他的平台，如国内的 <a href="https://gitee.com/" target="_blank" rel="noopener">码云</a> </li>
+<li>Git 负责本地的代码版本控制，而 Github 负责远程托管</li>
+</ul>
+<a id="more"></a>
+<h4 id="2、Git-的工作流程："><a href="#2、Git-的工作流程：" class="headerlink" title="2、Git 的工作流程："></a>2、Git 的工作流程：</h4><ul>
+<li><p>1）在工作目录（Working Directory）中修改文件。</p>
+</li>
+<li><p>2）暂存文件，将文件的快照放入暂存区域（Staging Area）。</p>
+</li>
+<li><p>3）提交更新，找到暂存区域的文件，将快照永久性存储到 Git 仓库目录（Repository）。</p>
+</li>
+<li><p>其中：</p>
+<ul>
+<li>Git <strong>仓库目录 </strong> 是 Git 用来保存项目的元数据和对象数据库的地方。 这是 Git 中最重要的部分，从其它计算机克隆仓库时，拷贝的就是这里的数据。</li>
+<li><strong>工作目录</strong> 是对项目的某个版本独立提取出来的内容。 这些从 Git 仓库的压缩数据库中提取出来的文件，放在磁盘上供你使用或修改。</li>
+<li><strong>暂存区域</strong> 是一个文件，保存了下次将提交的文件列表信息，一般在 Git 仓库目录中。 有时候也被称作`‘索引’’，不过一般说法还是叫暂存区域。</li>
+</ul>
+<p><a href><img src="https://i.loli.net/2019/02/22/5c6f7b352931b.png" alt="1550655399046"></a></p>
+</li>
+</ul>
+<h4 id="3、Git-与-Github关系图示："><a href="#3、Git-与-Github关系图示：" class="headerlink" title="3、Git 与 Github关系图示："></a>3、Git 与 Github关系图示：</h4><p><img src="https://i.loli.net/2019/02/22/5c6f7b3522b74.png" alt="1550656393570"></p>
+<hr>
+<h3 id="一、注册-Github-账号"><a href="#一、注册-Github-账号" class="headerlink" title="一、注册 Github 账号"></a>一、注册 Github 账号</h3><p>注册没有难度，这里不赘述，建议使用简单大方的用户名和注册邮箱，方便后期使用。</p>
+<p>网址： <a href="https://github.com/" target="_blank" rel="noopener">Github</a></p>
+<hr>
+<h3 id="二、下载安装-Git"><a href="#二、下载安装-Git" class="headerlink" title="二、下载安装 Git"></a>二、下载安装 Git</h3><p>网址： <a href="https://book.git-scm.com/downloads" target="_blank" rel="noopener">Git</a> （如果链接打不开可在网上搜索其他下载站点）</p>
+<p>软件安装也没有什么难度，安装完成之后在任意文件夹下右键出现 Git Bash Here 说明安装成功。</p>
+<p>在任意文件夹中都可以使用 Git Bash Here，既可以将所有需要代码版本管理的项目放在同一个文件夹中，也可以分散在任意地方，建议前者。</p>
+<p>关于 Git 的一些资料</p>
+<p><a href="https://book.git-scm.com/docs" target="_blank" rel="noopener">Reference Manual</a>（可查看各种 Git 指令的说明）</p>
+<p><a href="https://book.git-scm.com/book" target="_blank" rel="noopener">Pro Git</a> （Git 的详细介绍）</p>
+<hr>
+<h3 id="三、安装-Git-后的配置"><a href="#三、安装-Git-后的配置" class="headerlink" title="三、安装 Git 后的配置"></a>三、安装 Git 后的配置</h3><h4 id="1、如果是个人使用"><a href="#1、如果是个人使用" class="headerlink" title="1、如果是个人使用"></a>1、如果是个人使用</h4><p>大部分配置可以暂时忽略，仅设置用户名称和邮件地址即可：</p>
+<p>通过 Git Bash Here 进入命令行界面，输入：</p>
+<p><code>git config --global user.name &quot;YourName&quot;</code>  （引号不可省略）</p>
+<p><code>git config --global user.email YourEmail</code></p>
+<p>YourName 和 YourEmail 设置成你 Github 里注册的用户名和邮箱。</p>
+<p><strong>这里的设置是为了让 Github 根据用户名和邮箱去确定代码上传者的信息，也可以只设置其中一个。</strong></p>
+<h4 id="2、如果是团队使用"><a href="#2、如果是团队使用" class="headerlink" title="2、如果是团队使用"></a>2、如果是团队使用</h4><p>若需要设置统一的提交信息格式，可以创建一个模板文件，通过 commit.template 来设置模板文件。</p>
+<p>也可以通过 core.editor 修改编辑<strong>提交信息</strong>的默认编辑器。</p>
+<p>详情都请查看 <a href="https://book.git-scm.com/docs" target="_blank" rel="noopener">Reference Manual</a> 中的 <a href="https://book.git-scm.com/book/zh/v2/%E8%87%AA%E5%AE%9A%E4%B9%89-Git-%E9%85%8D%E7%BD%AE-Git" target="_blank" rel="noopener">自定义 Git - 配置 Git</a> ，也可以输入 <code>git config</code> 自行探索。</p>
+<hr>
+<h3 id="四、创建自己的代码仓库"><a href="#四、创建自己的代码仓库" class="headerlink" title="四、创建自己的代码仓库"></a>四、创建自己的代码仓库</h3><h4 id="1、在-Github-上创建-Repository"><a href="#1、在-Github-上创建-Repository" class="headerlink" title="1、在 Github 上创建 Repository"></a>1、在 Github 上创建 Repository</h4><p>1）点击 Github 页面右上角 “+” 号，点击 New repository</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6f7b3519899.png" alt="1550660057745"></p>
+<p>2）填写基本信息后，点击 Create repository</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6f7b3540ee4.png" alt="1550660339034"></p>
+<p>3）建成的仓库如下图</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6f7c69a0e58.png" alt="1550660390202"></p>
+<ul>
+<li><p>README.md 文件是 markdown 格式的文件，通常用来描述项目信息（可以看看其他人是怎么写的），可以后期自己建立并上传。Github 会显示根目录下的 md 文件内容。</p>
+</li>
+<li><p>如果需要删除代码仓库，点击上图中的 Settings，在页面最下方的 Danger Zone 中有 Delete  this repository 按钮。</p>
+</li>
+</ul>
+<h4 id="2、在本地建立-Repository"><a href="#2、在本地建立-Repository" class="headerlink" title="2、在本地建立 Repository"></a>2、在本地建立 Repository</h4><h5 id="添加-SSH-key"><a href="#添加-SSH-key" class="headerlink" title="添加 SSH key"></a>添加 SSH key</h5><h6 id="Github-的仓库链接有两种格式："><a href="#Github-的仓库链接有两种格式：" class="headerlink" title="Github 的仓库链接有两种格式："></a>Github 的仓库链接有两种格式：</h6><ul>
+<li>https 格式，例如 <a href="https://github.com/YourName/YourRepo.git" target="_blank" rel="noopener">https://github.com/YourName/YourRepo.git</a> </li>
+<li><p>SSH 格式，例如 <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:YourName/YourRepo.git</p>
+</li>
+<li><p>两种形式的地址都可以用于 Github 与本地 Git 建立连接，但是如果用的是 https，每次上传代码的时候，都需要输入 Github 用户名和密码，因此<strong>建议使用 SSH</strong>。</p>
+</li>
+</ul>
+<h6 id="生成-SSH-key-的步骤："><a href="#生成-SSH-key-的步骤：" class="headerlink" title="生成 SSH key 的步骤："></a>生成 SSH key 的步骤：</h6><ul>
+<li>提示： Git Bash 命令行界面中，复制/粘贴的快捷键分别是 Ctrl+Ins 和 Shift+Ins</li>
+</ul>
+<p>1&gt; 在任意文件夹内右击，选择 Git Bash Here，进入命令行界面。</p>
+<p>2&gt; 输入 <code>ssh-keygen -t rsa -C &quot;YourEmail@YourEmail.com&quot;</code></p>
+<p>​    引号内是 Github 的登录邮箱，引号不能省略。</p>
+<p>3&gt; 一般不建议修改 SSH Key 的保存目录，因此连按三下回车，选择默认路径以及无密码。从提示信息中可以找到你的电脑上 SSH Key 的保存位置。</p>
+<p>4&gt; 从 3&gt; 中的保存位置找到 id_rsa.pub 文件，通常路径为 <code>C:\Users\Administrator\.ssh</code>，用记事本或其他编辑软件打开并复制里面的内容。也可以在 Git Bash 命令行界面中输入 clip &lt; ~/.ssh/id_rsa.pub 后按回车，若无错误提示表示复制成功。</p>
+<p>5&gt; 打开 Github，鼠标指向自己的头像，选择 Settings。</p>
+<p>6&gt; 在左边栏中选择 SSH and GPG keys，点击 New SSH Key，添加复制的 SSH Key 即可。如果个人有多台电脑，为了方便区分，SSH Key 的 Title 取一个辨识度较高的名字。</p>
+<p>7&gt; Git Bash 命令行界面中输入 <code>ssh -T git@github.com</code></p>
+<p>​    问是否继续连接，输入 yes ，按回车。</p>
+<p>​    如果出现 <code>Hi YourName! You&#39;ve successfully authenticated, but GitHub does not ...</code> 说明设置成功了。</p>
+<h5 id="本地建立-Repository"><a href="#本地建立-Repository" class="headerlink" title="本地建立 Repository"></a>本地建立 Repository</h5><h6 id="方法一：（git-clone-指令）"><a href="#方法一：（git-clone-指令）" class="headerlink" title="方法一：（git clone 指令）"></a>方法一：（git clone 指令）</h6><p>使用 git clone 指令可以直接将 Github 上的代码仓库（可以是新建的，也可以是已经有内容的） clone 到本地仓库。</p>
+<p>步骤如下：</p>
+<p>1&gt; 在 Github 页面进入准备 clone 到本地的代码仓库，点击如下图①位置的 Clone or download 即可复制代码仓库链接。注意应使用 SSH 格式的链接，在②位置可以切换两种格式。</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6f7b3549236.png" alt="1550770191930"></p>
+<p>2&gt; 在欲存放代码的地方进入 Git Bash（不需要自己再建立文件夹），输入 <code>git clone git@github.com:YourName/YourRepo.git</code>（复制的仓库链接），即可完成本地仓库的建立。此时可直接上传新的代码文件至 Github，具体操作见后文。 </p>
+<p>注意：如果选择了 https 格式的地址，想修改成 SSH 格式的地址，可以按照以下步骤操作：</p>
+<p>git remote rm origin # 移除当前远端服务器</p>
+<p>git remote -v # 查看当前 Github 仓库服务器地址，无返回信息说明已移除</p>
+<p>git remote add origin <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:YourName/YourRepo.git # 添加 SSH 格式地址</p>
+<p>git remote -v # 再次查看当前 Github 仓库服务器地址，是否已修改成功</p>
+<h6 id="方法二：（git-init-指令）"><a href="#方法二：（git-init-指令）" class="headerlink" title="方法二：（git init 指令）"></a>方法二：（git init 指令）</h6><p>使用 git init 指令可以在本地初始化一个代码仓库，然后与 Github 上的代码仓库进行连接，操作如下：</p>
+<p>1&gt; 在欲存放代码的地方建立项目文件夹，进入该文件夹后右击进入 Git Bash，输入 <code>git init</code>，可以看到此时在文件夹中生成了一个隐藏的 .git 文件夹，此文件夹内存放着此代码仓库的各种信息。</p>
+<p>2&gt; 如果在安装好 Git 后已经配置了用户名和邮箱，此步骤可跳过，否则输入</p>
+<p><code>git config --global user.name &quot;YourName&quot;</code>  （引号不可省略）</p>
+<p><code>git config --global user.email YourEmail</code>    </p>
+<p>3&gt; 输入 <code>git remote add origin git@github.com:yourName/yourRepo.git</code>，依旧建议使用 SSH 格式地址。此时就建立起了与 Github 服务器的连接。</p>
+<p>在方法一中，由于是直接 clone 远端的 Github 仓库的内容，所以无论是新建的 Github 仓库，还是已经上传过内容的 Github 仓库，都可以完整地克隆到本地。</p>
+<p>但在方法二中，由于是从本地先初始化了一个代码仓库，仓库中无任何内容，所以如果本地仓库中的内容和 Github 仓库中的内容不一致（例如 Github 仓库初始化时生成了 README.md 文件），就需要先把 Github 仓库中的内容下载（pull）到本地，保持两者的一致性之后，才能上传（push）代码到 Github 仓库，具体操作是输入 <code>git pull origin master</code> ，等代码下载完成，即可添加新内容并上传。</p>
+<hr>
+<h3 id="五、简单-Git-操作指令"><a href="#五、简单-Git-操作指令" class="headerlink" title="五、简单 Git 操作指令"></a>五、简单 Git 操作指令</h3><h4 id="1、push-代码到-Github"><a href="#1、push-代码到-Github" class="headerlink" title="1、push 代码到 Github"></a>1、push 代码到 Github</h4><p>假设要 push 一个名为 123.txt 的文件，在项目文件夹中进入 Git Bash，分别输入以下内容：</p>
+<p><code>git add 123.txt  # 将文件内容添加到缓存区快照</code></p>
+<p><code>git commit -m &quot;123.txt&quot; # 将改动点记录到代码仓</code></p>
+<p><code>git push origin master # 将改动提交到 Github 远端服务器，分支为 master</code></p>
+<p>说明：</p>
+<ul>
+<li><p>若一次提交多个文件，可使用 <code>git add .</code> ，注意 “.” 不能省略</p>
+</li>
+<li><p>第二行中引号内的内容是提交信息，会显示在 Github 上，如果需要提交很多信息，输入 <code>git commit</code> 即可，会弹出默认编辑器 GUN nano，如果不会使用该编辑器，可以运行 <code>git config --global core.editor &quot;F：\Program Files\Sublime Text 3\sublime text.exe&quot;</code> ，其中引号中是想修改的新编辑器的路径，根据自己电脑上的位置修改。</p>
+</li>
+<li><p>master 是指该仓库的 master 分支，关于分支的概念请参考 Git 官网。</p>
+</li>
+</ul>
+<h4 id="2、从-Github-pull-代码"><a href="#2、从-Github-pull-代码" class="headerlink" title="2、从 Github pull 代码"></a>2、从 Github pull 代码</h4><p><code>git pull origin master</code></p>
+<h4 id="3、查看工作目录状态"><a href="#3、查看工作目录状态" class="headerlink" title="3、查看工作目录状态"></a>3、查看工作目录状态</h4><p><code>git status</code></p>
+<p>以上几个指令是个人使用时最常用的指令，如果多人合作，或 fork 其他人的项目，可以从官网查询其他指令。</p>
+]]></content>
+      <tags>
+        <tag>软件使用</tag>
+        <tag>Github</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>2018 随笔</title>
     <url>//blog/2019/02/22/2018-%E9%9A%8F%E7%AC%94/</url>
     <content><![CDATA[<hr>
@@ -129,6 +250,195 @@
       </tags>
   </entry>
   <entry>
+    <title>MSP430 IO</title>
+    <url>//blog/2019/02/22/MSP430-IO/</url>
+    <content><![CDATA[<hr>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>上电后寄存器状态为输入高电平。</p>
+<p>改变 PxOUT 或 PxDIR 时 PxIFG 标志将置位。</p>
+<p>向 PxIES 写入数据将导致相应的中断标志置位。</p>
+<a id="more"></a>
+<p>只置位 PxSELx 不能自动设置引脚方向。其他外设模块需要跟据模块功能配置 PxDIRx，改变引脚方向。</p>
+<font color="#FF0000"> 开启外部中断时，要先设置 OUT、DIR、IES，然后复位 IFG，最后开中断。 </font>
+
+<p>msp430x14x、x15x、x16x的 P1、P2 口具有中断能力。</p>
+<p>未使用的IO引脚应配置成IO功能，输出方向，并连接在PCB板上，以降低功耗。PxOUT位的值无所谓，因为其引脚未连接。</p>
+<p>未使用的引脚的正确连接方式：</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fb3c7b5cc8.png" alt="1550824357362"></p>
+<h3 id="MSP430-IO-特点"><a href="#MSP430-IO-特点" class="headerlink" title="MSP430 IO 特点"></a>MSP430 IO 特点</h3><ul>
+<li><p>独立的可编程 IO</p>
+</li>
+<li><p>同组 IO 口输入输出任意组合</p>
+</li>
+<li><p>P1、P2 中断独立配置</p>
+</li>
+<li><p>输入输出数据寄存器独立</p>
+</li>
+</ul>
+<h3 id="一、输入寄存器-PxIN"><a href="#一、输入寄存器-PxIN" class="headerlink" title="一、输入寄存器 PxIN"></a>一、输入寄存器 PxIN</h3><p>Bit = 0 ： 输入为低</p>
+<p>Bit = 1 ： 输入为高</p>
+<p>PxIN是只读寄存器，执行写入指令将增加电流消耗。</p>
+<h3 id="二、输出寄存器-PxOUT"><a href="#二、输出寄存器-PxOUT" class="headerlink" title="二、输出寄存器 PxOUT"></a>二、输出寄存器 PxOUT</h3><p>Bit = 0 ： 输出为低</p>
+<p>Bit = 1 ： 输出为高</p>
+<h3 id="三、方向寄存器-PxDIR"><a href="#三、方向寄存器-PxDIR" class="headerlink" title="三、方向寄存器 PxDIR"></a>三、方向寄存器 PxDIR</h3><p>PxDIR 的每一位用来选择相应引脚的方向，无论选择了什么第二功能。</p>
+<p>如果 IO 开启了第二功能，必须根据需要来设置相应的方向。</p>
+<p>Bit = 0 ： 输入方向</p>
+<p>Bit = 1 ： 输出方向</p>
+<h3 id="四、功能选择寄存器-PxSEL"><a href="#四、功能选择寄存器-PxSEL" class="headerlink" title="四、功能选择寄存器 PxSEL"></a>四、功能选择寄存器 PxSEL</h3><p>端口引脚经常复用作其他内部外设模块功能。PxSEL 的每一位决定了引脚用作 IO 功能还是内部外设模块功能（第二功能）。</p>
+<p>Bit = 0 ： IO功能</p>
+<p>Bit = 1 ： 内部外设功能</p>
+<p>只置位PxSELx不能自动设置引脚方向。其他外设模块需要跟据模块功能配置 PxDIRx，改变引脚方向。</p>
+<p>PxSEL 置位时，中断关闭。</p>
+<p>当引脚作为外设的输入时，输入到外设的信号在因脚伤经过一次锁存。当 PxSELx=1 时，内部输入信号跟随引脚上的输入信号。若 PxSELx=0，输入到外设的信号将维持引脚上的输入信号的值，直到 PxSELx 位重置。</p>
+<ul>
+<li>P1、P2 口可中断的器件<ul>
+<li>通过配置 PxIFG、PxIE 和 PxIES 寄存器，P1 和 P2 口的每个引脚都能具有中断能力。所有的 P1 口引脚都使用一个单独的中断源，所有的 P2 引脚使用另一个单独的中断源。可以检测 PxIFG 来判断 P1 或 P2 中断。</li>
+</ul>
+</li>
+</ul>
+<h3 id="五、中断标志位寄存器-P1IFG，P2IFG"><a href="#五、中断标志位寄存器-P1IFG，P2IFG" class="headerlink" title="五、中断标志位寄存器 P1IFG，P2IFG"></a>五、中断标志位寄存器 P1IFG，P2IFG</h3><p>选择的输入信号边沿出现在引脚上时，相应的中断标志会置位。相应的 PxIE 以及 GIE 置位后，所有 PxIFGx 中断标志都需要一个中断响应。PxIFG 必须由软件复位。软件也可以置位PxIFG，提供一种软件触发中断的方法。</p>
+<p>Bit = 0 ： 无中断请求</p>
+<p>Bit = 1 ： 中断请求</p>
+<p>只有跳变能触发中断，而稳定的电平不能。如果任意 PxIFGx 在中断服务程序中置位，或者在中断服务程序执行 RETI 命令之后置位，PxIFGx 标志位将触发另一个中断。这样确保了每一个跳变得到响应。</p>
+<font color="#FF0000">   改变 PxOUT 或 PxDIR 时 PxIFG 标志将置位。 </font>
+
+
+
+<p>任何外部中断时间都应该至少是 MCLK 的 1.5 倍，以保证单片机能检测到并且中断标志置位。</p>
+<h3 id="六、中断边沿选择寄存器-P1IES，P2IES"><a href="#六、中断边沿选择寄存器-P1IES，P2IES" class="headerlink" title="六、中断边沿选择寄存器 P1IES，P2IES"></a>六、中断边沿选择寄存器 P1IES，P2IES</h3><p>PxIES 用来选择中断 IO 引脚的中断边沿。</p>
+<p>Bit = 0 ： 由低向高的跳变置位 PxIFGx</p>
+<p>Bit = 1 ： 由高向低的跳变置位 PxIFGx</p>
+<font color="#FF0000">   向 PxIES 写入数据将导致相应的中断标志置位。 </font>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:center">PxIESx</th>
+<th style="text-align:center">PxINx</th>
+<th style="text-align:center">PxIFGx</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0→1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">May be set</td>
+</tr>
+<tr>
+<td style="text-align:center">0→1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Unchanged</td>
+</tr>
+<tr>
+<td style="text-align:center">1→0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">Unchanged</td>
+</tr>
+<tr>
+<td style="text-align:center">1→0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">May be set</td>
+</tr>
+</tbody>
+</table>
+<h3 id="七、中断使能寄存器P1IE，P2IE"><a href="#七、中断使能寄存器P1IE，P2IE" class="headerlink" title="七、中断使能寄存器P1IE，P2IE"></a>七、中断使能寄存器P1IE，P2IE</h3><p>Bit = 0 ： 中断关闭</p>
+<p>Bit = 1 ： 中断使能</p>
+]]></content>
+      <tags>
+        <tag>硬件拾忆</tag>
+        <tag>MSP430</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MSP430 串口</title>
+    <url>//blog/2019/02/22/MSP430-%E4%B8%B2%E5%8F%A3/</url>
+    <content><![CDATA[<hr>
+<p>MSP430 常见的 USART（universal synchronous/asynchronous receive/ransmit）接口通常有三种：UART、IIC、SPI。其中 UART（串口）是调试过程中最常用的接口，这里根据 User’s Guide 谈谈 MSP430x1xx 系列串口的使用。</p>
+<a id="more"></a>
+<p>在 UART 一章的开始，有这样一段文字：</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fb7ad78699.png" alt="img"></p>
+<p>可见，在 X14X 和 X16X 中，有两组串口，而 X12X 、X13X 和 X15X 中只有 UART0。使用不同型号，务必先查看手册中的资源介绍。</p>
+<h3 id="一、Introduction"><a href="#一、Introduction" class="headerlink" title="一、Introduction"></a>一、Introduction</h3><p>本节一开始，有这样一段话：</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fb8b4147a0.png" alt="img"></p>
+<p>说明了UART提供两个接口：UTXD（发送）和URXD（接收），使用时只需要这两个引脚就可以与其他串口设备通信，但要注意的一点是，除了这两个引脚的连接外，两设备还必须共地，也就是说他们的GND也要连在一起，这是两设备成功通信的关键！</p>
+<p>接下来介绍了该模块的特性：</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fb8ed393ef.png" alt="img"></p>
+<p>值得关注的几点是：</p>
+<p>1、430 UART 的发送和接收移位寄存器都是独立的</p>
+<p>2、发射和接收缓冲器是分离的，这一点不同于 51 单片机</p>
+<p>3、低位优先发送和接收</p>
+<h3 id="二、Operation"><a href="#二、Operation" class="headerlink" title="二、Operation"></a>二、Operation</h3><p>发送和接收使用相同的波特率。</p>
+<p>PUC（上电清除）或SWRST置位会导致USART复位。</p>
+<h4 id="1、上电复位后各位状态"><a href="#1、上电复位后各位状态" class="headerlink" title="1、上电复位后各位状态"></a>1、上电复位后各位状态</h4><p><img src="https://i.loli.net/2019/02/22/5c6fb93cad626.png" alt="img"></p>
+<p>上面这段话给出了上电后，各标志位的初始状态：</p>
+<p>1）USART 自动置位（置1）</p>
+<p>2） URXIEx、UTXIEx、URXIFGx、RXWAKE、TXWAKE、RXERR、BRK、PE、OE 和 FE 复位（置0）</p>
+<p>3） UTXIFGx、TXEPT 置位</p>
+<p>4） URXEx 和 UTXEx 不受影响</p>
+<p>清除 SWRST 将允许操作 USART。</p>
+<h4 id="2、初始化或重配置顺序"><a href="#2、初始化或重配置顺序" class="headerlink" title="2、初始化或重配置顺序"></a>2、初始化或重配置顺序</h4><p><img src="https://i.loli.net/2019/02/22/5c6fb9e5da6c4.png" alt="img"></p>
+<p>1）SWRST 置位（置1）</p>
+<p>2）在 SWRST=1 的前提下初试化各个 USART 寄存器</p>
+<p>3）通过 MEx 特殊功能寄存器使能 USART 模块</p>
+<p>4）软件清除 SWRST（置0）</p>
+<p>5）通过 IEx 特殊功能寄存器使能中断</p>
+<h4 id="3、字符格式"><a href="#3、字符格式" class="headerlink" title="3、字符格式"></a>3、字符格式</h4><p><img src="https://i.loli.net/2019/02/22/5c6fbb36cc550.png" alt="img"></p>
+<p>起始位 – 7 或 8 位数据位 – 地址位 – 奇偶校验位 – 1 或 2 位停止位。由波特率寄存器设置。</p>
+<h4 id="4、异步通信格式"><a href="#4、异步通信格式" class="headerlink" title="4、异步通信格式"></a>4、异步通信格式</h4><p>双机通信时，使用空闲总线模式。多机通信时，支持空闲总线模式和地址位处理模式。</p>
+<h5 id="1）空闲总线多处理机模式（MM-0）"><a href="#1）空闲总线多处理机模式（MM-0）" class="headerlink" title="1）空闲总线多处理机模式（MM=0）"></a>1）空闲总线多处理机模式（MM=0）</h5><p><img src="https://i.loli.net/2019/02/22/5c6fbbf2bfed8.png" alt="img"></p>
+<p>两个数据块之间隔了一个大于 10 个时钟的空闲时间，而数据块内的数据之间的间隔小于 10 个时钟。在前一个字符的的第一个停止位之后又接收了 10 或者更多连续的时钟后，将检测接收总线。当使用 2 个地址位时，第二个地址位将作为空闲周期的第一个标志。</p>
+<p>一个空闲周期之后的第一个接收到的数据是地址字符。RXWAKE 位用来标志每个数据块的地址位。空闲总线模式下，当接收到地址并且传送至 UxRXBUF 时，该位将置位。</p>
+<p>URXWIE 位用来控制数据接收。当该位置位时，所有的非地址字符被收集，但是不移送至 UxRXBUF 中，也不触发中断。接收到地址字符时接收器将暂时激活将字符传送至 UxRXBUF 中并且置位 URXIFGx 中断标志。任何满足条件的错误标志位也将置位。用户可以验证接收地址。</p>
+<p>如果接收到一个地址字符，用户可以软件验证地址，并且必须复位 URXWIE 以保证继续接收数据。如果保持置位，将只接收地址字符。URXWIE 位不会由硬件自动修改。</p>
+<p>在空闲总线模式下，可以由 USART 产生一个精准的空闲周期去产生 UTXDx 中的地址字符标志符来传送地址。WUT 暂时唤醒标志是一个由用户可访问的TXWAKE位双缓存的内部标志。当发送器从 UxTXBUF 中载入数据，WUT 也从 TXWAKE 中载入，并复位 TXWAKE。</p>
+<p>以下步骤可以传送一个空闲帧表明后面是地址字符：</p>
+<p>1&gt; 置位 TXWAKE，然后向 UxTXBUF 写入任意字符。UxTXBUF 必须准备好接收新字符（UTXIFGx = 1）。</p>
+<p>TXWAKE 值移入 WUT，当 UxTXBUF 准备好接收新数据时，UxTXBUF 的内容被移入发送移位寄存器。这将置位WUT，抑制正常传输中的起始位、数据位、奇偶校验位。然后发送大约十一位的空闲周期。当使用两个地址位时，第二个地址位将作为空闲周期的第一个标志。TXWAKE 自动复位。</p>
+<p>2&gt; 向 UxTXBUF 中写入所需地址字符。UxTXBUF 必须准备好接收新字符（UTXIFGx = 1）。</p>
+<p>在 UTXDx 的地址标志空闲周期之后，代表了特殊地址的新字符被发出。必须向 UxTXBUF 写入第一个任意字符，这是为了将 TXWAKE 位移入 WUT 并触发空闲总线条件。这个数据并不重要，也不会出现在 UTXDx 上。</p>
+<h5 id="2）地址位多处理机模式（MM-1）"><a href="#2）地址位多处理机模式（MM-1）" class="headerlink" title="2）地址位多处理机模式（MM=1）"></a>2）地址位多处理机模式（MM=1）</h5><p>每个数据包含一个额外的位用于地址表示。数据块中的第一个字符带有一个置位的地址位表明这个字符是地址。当接收到字符是一个有效的地址字符且被移入 UxRXBUF 中，USART 的 RXWAKE 位将被置位。</p>
+<p>URXWIE 位用来控制数据接收。当该位置位时，数据字符（地址位=0）将被接收器接收但不送入 UxRXBUF 并且不触发中断。当收到一个包含了地址位置位的字符时，接收器暂时唤醒将字符传送到 UxRXBUF 并将 URXIFGx 置位。所有满足条件的状态错误标志也会被置位。</p>
+<p>如果接收到一个地址，用户必须软件复位URXWIE以保证继续接收数据。如果 URXWIE 保持置位，值有地址字符（地址位=1）可以倍接收。URXWIE 位不会有 USART 硬件自动改变。</p>
+<p>在地址位模式下发送地址数据时，一个字符的地址位可以通过写入 TXWAKE 位来控制。TXWAKE 位的值将被载入从UxTXBUF 传送到移位寄存器的字符的地址位，然后自动清除 TXWAKE 位。TXWAKE 不能软件复位，它将在传送至 WUT 或被 SWRST 置位后有 USART 硬件清零。</p>
+<h5 id="3）自动错误检测"><a href="#3）自动错误检测" class="headerlink" title="3）自动错误检测"></a>3）自动错误检测</h5><p>参看User’s Guide。</p>
+<h4 id="5、USART接收使能"><a href="#5、USART接收使能" class="headerlink" title="5、USART接收使能"></a>5、USART接收使能</h4><p><img src="https://i.loli.net/2019/02/22/5c6fbd113b5d8.png" alt="img"></p>
+<p>从状态转移图可以清楚的看出 URXEx 对接收的影响。</p>
+<h4 id="6、USART发送使能"><a href="#6、USART发送使能" class="headerlink" title="6、USART发送使能"></a>6、USART发送使能</h4><p><img src="https://i.loli.net/2019/02/22/5c6fbd4edc15d.png" alt="img"></p>
+<p>​     </p>
+<p>当 UTXEx 置位时，UART 发送器使能。向 UxTXBUF 写入数据将发起发送。数据将在 TX 移位寄存器置空的下一个 BITCLK 被送进去，然后发送开始。</p>
+<p>当 UTXEx 位复位时发送终止。任何移入 UxTXBUF 的数据和任何正在发送移位寄存器中进行的数据发送，若先于清空 UTXEx 的操作，都将继续进行发送，直到所有的数据发送完毕。</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fbdb591472.png" alt="img"></p>
+<p>当发送器被使能（UTXEx=1），数据不应该被写入 UxTXBUF，除非 UxTXBUF 已经准备好接收新数据，表现为 UTXIFGx=1。如果 UxTXBUF 中的数据在它将被送至发送寄存器时被修改，这一扰乱将导致错误的发送。</p>
+<p>完成所有发送后，发送器需要关闭（UTXEx=0），表现为发送器清空标志位置位（TXEPT = 1）。在发送器关闭时，任何写入 UxTXBUF 的数据都将被保存在缓冲器中，但是不会移入发送移位寄存器或者被发送。一旦 UTXEx 被置位，发送缓存里的数据立即被载入发送移位寄存器中，而且数据发送重新开始。</p>
+<h4 id="7、UART波特率产生"><a href="#7、UART波特率产生" class="headerlink" title="7、UART波特率产生"></a>7、UART波特率产生</h4><p>USART 波特率发生器是由不标准的时钟频率产生标准的波特率。波特率发生器使用一个预定标器/除法器和一个调制器。这个组合为波特率发生器提供小数除数因子。USART 的最大波特率是 UART 时钟频率 BRCLK 的三分之一。</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fbeb2cc5f3.png" alt="img"></p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fbecf62cd1.png" alt="img"></p>
+<p>波特率配置常数及误差：</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fbf177d762.png" alt="img"></p>
+<h4 id="8、USART中断"><a href="#8、USART中断" class="headerlink" title="8、USART中断"></a>8、USART中断</h4><p>USART有一个发送中断向量和一个接收中断向量。</p>
+<h5 id="1）发送中断操作"><a href="#1）发送中断操作" class="headerlink" title="1）发送中断操作"></a>1）发送中断操作</h5><p>发送器置位 UTXIFGx 中断标志位，表明 UxTXBUF 准备好接收另一个字符。如果 UTXIEx 和GIE 置位，也会触发一个中断请求。若中断请求得到响应或者一个字符写入 UxTXBUF，UTXIFGx 将自动复位。</p>
+<p>UTXIFGx 在 PUC 之后或 SWRST=1 时都会被置位。</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fbf6c3b1f2.png" alt="img"></p>
+<h5 id="2）接收中断操作"><a href="#2）接收中断操作" class="headerlink" title="2）接收中断操作"></a>2）接收中断操作</h5><p>每次接收到一个数据并载入 UxRXBUF 都会置位 URXIFGx 中断标志。如果 URXIEx 和 GIE 置位，也会触发一个中断请求。URXIFGx 和 URXIEx 会在系统复位信号 PUC 之后或 SWRST=1 时复位。若悬而未决的中断得到响应（当 URXSE=0）或者当 UxRXBUF 被读取时，URXIFGx 将自动复位。</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fbfa5e7432.png" alt="img"></p>
+<p>URXEIE 用来使能或关闭置位 URXIFGx 造成的错误字符。在使用地址位模式时，URXWIE 用来自动检测有效的地址字符和拒绝不需要的数据字符。</p>
+<p>两种字符不能置位 URXIFGx：当 URXEIE=0 时的错误字符，当 URXWIE=1 时的非地址字符。</p>
+<p>当 URXEIE=1 一个 break 条件将置位 BRK 位和 URXIFGx 标志。</p>
+<h5 id="3）接收起始边沿检测操作"><a href="#3）接收起始边沿检测操作" class="headerlink" title="3）接收起始边沿检测操作"></a>3）接收起始边沿检测操作</h5><p>URXSE 位使能接收起始边沿检测特性。当 BRCLK 由 DCO 提供，以及当 DCO 因为低功耗模式而关闭时，推荐使用接收开始边沿特性。DCO 的超快振荡允许在起始边沿检测之后接收字符。</p>
+<p>当 URXSE，URXIEx 和 GIE 置位，并且一个起始边沿出现在 URXDx，内部信号 URXS 将会置位。当 URXS 置位，将会触发一个接收中断请求，但 URXIFGx 不会置位。用户在接收中断服务程序中可以检测 URXIFGx 来判断中断源。当 URXIFGx=0，检测起始边沿；当 URXIFGx=1，接收一个有效的字符（或 break）。</p>
+<p>当中断服务函数判断中断请求来自起始边沿，用户软件触发 URXSE，而且必须从中断服务函数中返回有效的模式或一个 BRCLK 激活的低功耗模式，以使能 BRCLK。如果中断服务函数返回到一个 BRCLK 未激活的低功耗模式，字符不能被接收。触发 URXSE 清除 URXS 信号并将为未来的字符重新使能起始边沿检测。</p>
+<p>当前激活的 BRCLK 允许 USART 接收字符。接收完一个字符并送入 UxRXBUF 之后，URXIFGx 将置位，并请求一个中断服务。在中断服务函数入口，URXIFGx=1 表明接收到一个字符。当用户软件读取 UxRXBUF 时 URXIFGx 标志被清除。</p>
+<p>当使用接收边沿检测时，若BRCLK关闭，将不能检测到break条件。</p>
+<h5 id="4）接收起始边沿检测条件"><a href="#4）接收起始边沿检测条件" class="headerlink" title="4）接收起始边沿检测条件"></a>4）接收起始边沿检测条件</h5><p>当 URXSE=1 时，故障将抑制阻止 USART 被意外启动。URXDs 的任何一个比抗尖峰脉冲时间（大约300ns）短的低电平都会被 USART 忽视而不会触发中断请求。</p>
+<p>当一个故障时间长于抗尖峰脉冲时间，或一个有效的起始位出现在 URXDx，USART 接收将启动，且会进行一个多数投票。如果多数投票认为没有检测到的不是起始位，将会中断字符接收。</p>
+<p>如果字符接收中断，就没有必要激活 BRCLK。软件可以通过一个比字符接收持续时间长的延时周期来表明没有在预期周期内接收到字符，且软件可以关闭 BRCLK。</p>
+<h3 id="三、Registers"><a href="#三、Registers" class="headerlink" title="三、Registers"></a>三、Registers</h3><p>寄存器详细内容参考相应手册。</p>
+]]></content>
+      <tags>
+        <tag>硬件拾忆</tag>
+        <tag>MSP430</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MSP430 单片机入门指北</title>
     <url>//blog/2019/02/22/MSP430-%E5%8D%95%E7%89%87%E6%9C%BA%E5%85%A5%E9%97%A8%E6%8C%87%E5%8C%97/</url>
     <content><![CDATA[<hr>
@@ -252,195 +562,6 @@
       </tags>
   </entry>
   <entry>
-    <title>MSP430 串口</title>
-    <url>//blog/2019/02/22/MSP430-%E4%B8%B2%E5%8F%A3/</url>
-    <content><![CDATA[<hr>
-<p>MSP430 常见的 USART（universal synchronous/asynchronous receive/ransmit）接口通常有三种：UART、IIC、SPI。其中 UART（串口）是调试过程中最常用的接口，这里根据 User’s Guide 谈谈 MSP430x1xx 系列串口的使用。</p>
-<a id="more"></a>
-<p>在 UART 一章的开始，有这样一段文字：</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6fb7ad78699.png" alt="img"></p>
-<p>可见，在 X14X 和 X16X 中，有两组串口，而 X12X 、X13X 和 X15X 中只有 UART0。使用不同型号，务必先查看手册中的资源介绍。</p>
-<h3 id="一、Introduction"><a href="#一、Introduction" class="headerlink" title="一、Introduction"></a>一、Introduction</h3><p>本节一开始，有这样一段话：</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6fb8b4147a0.png" alt="img"></p>
-<p>说明了UART提供两个接口：UTXD（发送）和URXD（接收），使用时只需要这两个引脚就可以与其他串口设备通信，但要注意的一点是，除了这两个引脚的连接外，两设备还必须共地，也就是说他们的GND也要连在一起，这是两设备成功通信的关键！</p>
-<p>接下来介绍了该模块的特性：</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6fb8ed393ef.png" alt="img"></p>
-<p>值得关注的几点是：</p>
-<p>1、430 UART 的发送和接收移位寄存器都是独立的</p>
-<p>2、发射和接收缓冲器是分离的，这一点不同于 51 单片机</p>
-<p>3、低位优先发送和接收</p>
-<h3 id="二、Operation"><a href="#二、Operation" class="headerlink" title="二、Operation"></a>二、Operation</h3><p>发送和接收使用相同的波特率。</p>
-<p>PUC（上电清除）或SWRST置位会导致USART复位。</p>
-<h4 id="1、上电复位后各位状态"><a href="#1、上电复位后各位状态" class="headerlink" title="1、上电复位后各位状态"></a>1、上电复位后各位状态</h4><p><img src="https://i.loli.net/2019/02/22/5c6fb93cad626.png" alt="img"></p>
-<p>上面这段话给出了上电后，各标志位的初始状态：</p>
-<p>1）USART 自动置位（置1）</p>
-<p>2） URXIEx、UTXIEx、URXIFGx、RXWAKE、TXWAKE、RXERR、BRK、PE、OE 和 FE 复位（置0）</p>
-<p>3） UTXIFGx、TXEPT 置位</p>
-<p>4） URXEx 和 UTXEx 不受影响</p>
-<p>清除 SWRST 将允许操作 USART。</p>
-<h4 id="2、初始化或重配置顺序"><a href="#2、初始化或重配置顺序" class="headerlink" title="2、初始化或重配置顺序"></a>2、初始化或重配置顺序</h4><p><img src="https://i.loli.net/2019/02/22/5c6fb9e5da6c4.png" alt="img"></p>
-<p>1）SWRST 置位（置1）</p>
-<p>2）在 SWRST=1 的前提下初试化各个 USART 寄存器</p>
-<p>3）通过 MEx 特殊功能寄存器使能 USART 模块</p>
-<p>4）软件清除 SWRST（置0）</p>
-<p>5）通过 IEx 特殊功能寄存器使能中断</p>
-<h4 id="3、字符格式"><a href="#3、字符格式" class="headerlink" title="3、字符格式"></a>3、字符格式</h4><p><img src="https://i.loli.net/2019/02/22/5c6fbb36cc550.png" alt="img"></p>
-<p>起始位 – 7 或 8 位数据位 – 地址位 – 奇偶校验位 – 1 或 2 位停止位。由波特率寄存器设置。</p>
-<h4 id="4、异步通信格式"><a href="#4、异步通信格式" class="headerlink" title="4、异步通信格式"></a>4、异步通信格式</h4><p>双机通信时，使用空闲总线模式。多机通信时，支持空闲总线模式和地址位处理模式。</p>
-<h5 id="1）空闲总线多处理机模式（MM-0）"><a href="#1）空闲总线多处理机模式（MM-0）" class="headerlink" title="1）空闲总线多处理机模式（MM=0）"></a>1）空闲总线多处理机模式（MM=0）</h5><p><img src="https://i.loli.net/2019/02/22/5c6fbbf2bfed8.png" alt="img"></p>
-<p>两个数据块之间隔了一个大于 10 个时钟的空闲时间，而数据块内的数据之间的间隔小于 10 个时钟。在前一个字符的的第一个停止位之后又接收了 10 或者更多连续的时钟后，将检测接收总线。当使用 2 个地址位时，第二个地址位将作为空闲周期的第一个标志。</p>
-<p>一个空闲周期之后的第一个接收到的数据是地址字符。RXWAKE 位用来标志每个数据块的地址位。空闲总线模式下，当接收到地址并且传送至 UxRXBUF 时，该位将置位。</p>
-<p>URXWIE 位用来控制数据接收。当该位置位时，所有的非地址字符被收集，但是不移送至 UxRXBUF 中，也不触发中断。接收到地址字符时接收器将暂时激活将字符传送至 UxRXBUF 中并且置位 URXIFGx 中断标志。任何满足条件的错误标志位也将置位。用户可以验证接收地址。</p>
-<p>如果接收到一个地址字符，用户可以软件验证地址，并且必须复位 URXWIE 以保证继续接收数据。如果保持置位，将只接收地址字符。URXWIE 位不会由硬件自动修改。</p>
-<p>在空闲总线模式下，可以由 USART 产生一个精准的空闲周期去产生 UTXDx 中的地址字符标志符来传送地址。WUT 暂时唤醒标志是一个由用户可访问的TXWAKE位双缓存的内部标志。当发送器从 UxTXBUF 中载入数据，WUT 也从 TXWAKE 中载入，并复位 TXWAKE。</p>
-<p>以下步骤可以传送一个空闲帧表明后面是地址字符：</p>
-<p>1&gt; 置位 TXWAKE，然后向 UxTXBUF 写入任意字符。UxTXBUF 必须准备好接收新字符（UTXIFGx = 1）。</p>
-<p>TXWAKE 值移入 WUT，当 UxTXBUF 准备好接收新数据时，UxTXBUF 的内容被移入发送移位寄存器。这将置位WUT，抑制正常传输中的起始位、数据位、奇偶校验位。然后发送大约十一位的空闲周期。当使用两个地址位时，第二个地址位将作为空闲周期的第一个标志。TXWAKE 自动复位。</p>
-<p>2&gt; 向 UxTXBUF 中写入所需地址字符。UxTXBUF 必须准备好接收新字符（UTXIFGx = 1）。</p>
-<p>在 UTXDx 的地址标志空闲周期之后，代表了特殊地址的新字符被发出。必须向 UxTXBUF 写入第一个任意字符，这是为了将 TXWAKE 位移入 WUT 并触发空闲总线条件。这个数据并不重要，也不会出现在 UTXDx 上。</p>
-<h5 id="2）地址位多处理机模式（MM-1）"><a href="#2）地址位多处理机模式（MM-1）" class="headerlink" title="2）地址位多处理机模式（MM=1）"></a>2）地址位多处理机模式（MM=1）</h5><p>每个数据包含一个额外的位用于地址表示。数据块中的第一个字符带有一个置位的地址位表明这个字符是地址。当接收到字符是一个有效的地址字符且被移入 UxRXBUF 中，USART 的 RXWAKE 位将被置位。</p>
-<p>URXWIE 位用来控制数据接收。当该位置位时，数据字符（地址位=0）将被接收器接收但不送入 UxRXBUF 并且不触发中断。当收到一个包含了地址位置位的字符时，接收器暂时唤醒将字符传送到 UxRXBUF 并将 URXIFGx 置位。所有满足条件的状态错误标志也会被置位。</p>
-<p>如果接收到一个地址，用户必须软件复位URXWIE以保证继续接收数据。如果 URXWIE 保持置位，值有地址字符（地址位=1）可以倍接收。URXWIE 位不会有 USART 硬件自动改变。</p>
-<p>在地址位模式下发送地址数据时，一个字符的地址位可以通过写入 TXWAKE 位来控制。TXWAKE 位的值将被载入从UxTXBUF 传送到移位寄存器的字符的地址位，然后自动清除 TXWAKE 位。TXWAKE 不能软件复位，它将在传送至 WUT 或被 SWRST 置位后有 USART 硬件清零。</p>
-<h5 id="3）自动错误检测"><a href="#3）自动错误检测" class="headerlink" title="3）自动错误检测"></a>3）自动错误检测</h5><p>参看User’s Guide。</p>
-<h4 id="5、USART接收使能"><a href="#5、USART接收使能" class="headerlink" title="5、USART接收使能"></a>5、USART接收使能</h4><p><img src="https://i.loli.net/2019/02/22/5c6fbd113b5d8.png" alt="img"></p>
-<p>从状态转移图可以清楚的看出 URXEx 对接收的影响。</p>
-<h4 id="6、USART发送使能"><a href="#6、USART发送使能" class="headerlink" title="6、USART发送使能"></a>6、USART发送使能</h4><p><img src="https://i.loli.net/2019/02/22/5c6fbd4edc15d.png" alt="img"></p>
-<p>​     </p>
-<p>当 UTXEx 置位时，UART 发送器使能。向 UxTXBUF 写入数据将发起发送。数据将在 TX 移位寄存器置空的下一个 BITCLK 被送进去，然后发送开始。</p>
-<p>当 UTXEx 位复位时发送终止。任何移入 UxTXBUF 的数据和任何正在发送移位寄存器中进行的数据发送，若先于清空 UTXEx 的操作，都将继续进行发送，直到所有的数据发送完毕。</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6fbdb591472.png" alt="img"></p>
-<p>当发送器被使能（UTXEx=1），数据不应该被写入 UxTXBUF，除非 UxTXBUF 已经准备好接收新数据，表现为 UTXIFGx=1。如果 UxTXBUF 中的数据在它将被送至发送寄存器时被修改，这一扰乱将导致错误的发送。</p>
-<p>完成所有发送后，发送器需要关闭（UTXEx=0），表现为发送器清空标志位置位（TXEPT = 1）。在发送器关闭时，任何写入 UxTXBUF 的数据都将被保存在缓冲器中，但是不会移入发送移位寄存器或者被发送。一旦 UTXEx 被置位，发送缓存里的数据立即被载入发送移位寄存器中，而且数据发送重新开始。</p>
-<h4 id="7、UART波特率产生"><a href="#7、UART波特率产生" class="headerlink" title="7、UART波特率产生"></a>7、UART波特率产生</h4><p>USART 波特率发生器是由不标准的时钟频率产生标准的波特率。波特率发生器使用一个预定标器/除法器和一个调制器。这个组合为波特率发生器提供小数除数因子。USART 的最大波特率是 UART 时钟频率 BRCLK 的三分之一。</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6fbeb2cc5f3.png" alt="img"></p>
-<p><img src="https://i.loli.net/2019/02/22/5c6fbecf62cd1.png" alt="img"></p>
-<p>波特率配置常数及误差：</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6fbf177d762.png" alt="img"></p>
-<h4 id="8、USART中断"><a href="#8、USART中断" class="headerlink" title="8、USART中断"></a>8、USART中断</h4><p>USART有一个发送中断向量和一个接收中断向量。</p>
-<h5 id="1）发送中断操作"><a href="#1）发送中断操作" class="headerlink" title="1）发送中断操作"></a>1）发送中断操作</h5><p>发送器置位 UTXIFGx 中断标志位，表明 UxTXBUF 准备好接收另一个字符。如果 UTXIEx 和GIE 置位，也会触发一个中断请求。若中断请求得到响应或者一个字符写入 UxTXBUF，UTXIFGx 将自动复位。</p>
-<p>UTXIFGx 在 PUC 之后或 SWRST=1 时都会被置位。</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6fbf6c3b1f2.png" alt="img"></p>
-<h5 id="2）接收中断操作"><a href="#2）接收中断操作" class="headerlink" title="2）接收中断操作"></a>2）接收中断操作</h5><p>每次接收到一个数据并载入 UxRXBUF 都会置位 URXIFGx 中断标志。如果 URXIEx 和 GIE 置位，也会触发一个中断请求。URXIFGx 和 URXIEx 会在系统复位信号 PUC 之后或 SWRST=1 时复位。若悬而未决的中断得到响应（当 URXSE=0）或者当 UxRXBUF 被读取时，URXIFGx 将自动复位。</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6fbfa5e7432.png" alt="img"></p>
-<p>URXEIE 用来使能或关闭置位 URXIFGx 造成的错误字符。在使用地址位模式时，URXWIE 用来自动检测有效的地址字符和拒绝不需要的数据字符。</p>
-<p>两种字符不能置位 URXIFGx：当 URXEIE=0 时的错误字符，当 URXWIE=1 时的非地址字符。</p>
-<p>当 URXEIE=1 一个 break 条件将置位 BRK 位和 URXIFGx 标志。</p>
-<h5 id="3）接收起始边沿检测操作"><a href="#3）接收起始边沿检测操作" class="headerlink" title="3）接收起始边沿检测操作"></a>3）接收起始边沿检测操作</h5><p>URXSE 位使能接收起始边沿检测特性。当 BRCLK 由 DCO 提供，以及当 DCO 因为低功耗模式而关闭时，推荐使用接收开始边沿特性。DCO 的超快振荡允许在起始边沿检测之后接收字符。</p>
-<p>当 URXSE，URXIEx 和 GIE 置位，并且一个起始边沿出现在 URXDx，内部信号 URXS 将会置位。当 URXS 置位，将会触发一个接收中断请求，但 URXIFGx 不会置位。用户在接收中断服务程序中可以检测 URXIFGx 来判断中断源。当 URXIFGx=0，检测起始边沿；当 URXIFGx=1，接收一个有效的字符（或 break）。</p>
-<p>当中断服务函数判断中断请求来自起始边沿，用户软件触发 URXSE，而且必须从中断服务函数中返回有效的模式或一个 BRCLK 激活的低功耗模式，以使能 BRCLK。如果中断服务函数返回到一个 BRCLK 未激活的低功耗模式，字符不能被接收。触发 URXSE 清除 URXS 信号并将为未来的字符重新使能起始边沿检测。</p>
-<p>当前激活的 BRCLK 允许 USART 接收字符。接收完一个字符并送入 UxRXBUF 之后，URXIFGx 将置位，并请求一个中断服务。在中断服务函数入口，URXIFGx=1 表明接收到一个字符。当用户软件读取 UxRXBUF 时 URXIFGx 标志被清除。</p>
-<p>当使用接收边沿检测时，若BRCLK关闭，将不能检测到break条件。</p>
-<h5 id="4）接收起始边沿检测条件"><a href="#4）接收起始边沿检测条件" class="headerlink" title="4）接收起始边沿检测条件"></a>4）接收起始边沿检测条件</h5><p>当 URXSE=1 时，故障将抑制阻止 USART 被意外启动。URXDs 的任何一个比抗尖峰脉冲时间（大约300ns）短的低电平都会被 USART 忽视而不会触发中断请求。</p>
-<p>当一个故障时间长于抗尖峰脉冲时间，或一个有效的起始位出现在 URXDx，USART 接收将启动，且会进行一个多数投票。如果多数投票认为没有检测到的不是起始位，将会中断字符接收。</p>
-<p>如果字符接收中断，就没有必要激活 BRCLK。软件可以通过一个比字符接收持续时间长的延时周期来表明没有在预期周期内接收到字符，且软件可以关闭 BRCLK。</p>
-<h3 id="三、Registers"><a href="#三、Registers" class="headerlink" title="三、Registers"></a>三、Registers</h3><p>寄存器详细内容参考相应手册。</p>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>MSP430</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>MSP430 IO</title>
-    <url>//blog/2019/02/22/MSP430-IO/</url>
-    <content><![CDATA[<hr>
-<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>上电后寄存器状态为输入高电平。</p>
-<p>改变 PxOUT 或 PxDIR 时 PxIFG 标志将置位。</p>
-<p>向 PxIES 写入数据将导致相应的中断标志置位。</p>
-<a id="more"></a>
-<p>只置位 PxSELx 不能自动设置引脚方向。其他外设模块需要跟据模块功能配置 PxDIRx，改变引脚方向。</p>
-<font color="#FF0000"> 开启外部中断时，要先设置 OUT、DIR、IES，然后复位 IFG，最后开中断。 </font>
-
-<p>msp430x14x、x15x、x16x的 P1、P2 口具有中断能力。</p>
-<p>未使用的IO引脚应配置成IO功能，输出方向，并连接在PCB板上，以降低功耗。PxOUT位的值无所谓，因为其引脚未连接。</p>
-<p>未使用的引脚的正确连接方式：</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6fb3c7b5cc8.png" alt="1550824357362"></p>
-<h3 id="MSP430-IO-特点"><a href="#MSP430-IO-特点" class="headerlink" title="MSP430 IO 特点"></a>MSP430 IO 特点</h3><ul>
-<li><p>独立的可编程 IO</p>
-</li>
-<li><p>同组 IO 口输入输出任意组合</p>
-</li>
-<li><p>P1、P2 中断独立配置</p>
-</li>
-<li><p>输入输出数据寄存器独立</p>
-</li>
-</ul>
-<h3 id="一、输入寄存器-PxIN"><a href="#一、输入寄存器-PxIN" class="headerlink" title="一、输入寄存器 PxIN"></a>一、输入寄存器 PxIN</h3><p>Bit = 0 ： 输入为低</p>
-<p>Bit = 1 ： 输入为高</p>
-<p>PxIN是只读寄存器，执行写入指令将增加电流消耗。</p>
-<h3 id="二、输出寄存器-PxOUT"><a href="#二、输出寄存器-PxOUT" class="headerlink" title="二、输出寄存器 PxOUT"></a>二、输出寄存器 PxOUT</h3><p>Bit = 0 ： 输出为低</p>
-<p>Bit = 1 ： 输出为高</p>
-<h3 id="三、方向寄存器-PxDIR"><a href="#三、方向寄存器-PxDIR" class="headerlink" title="三、方向寄存器 PxDIR"></a>三、方向寄存器 PxDIR</h3><p>PxDIR 的每一位用来选择相应引脚的方向，无论选择了什么第二功能。</p>
-<p>如果 IO 开启了第二功能，必须根据需要来设置相应的方向。</p>
-<p>Bit = 0 ： 输入方向</p>
-<p>Bit = 1 ： 输出方向</p>
-<h3 id="四、功能选择寄存器-PxSEL"><a href="#四、功能选择寄存器-PxSEL" class="headerlink" title="四、功能选择寄存器 PxSEL"></a>四、功能选择寄存器 PxSEL</h3><p>端口引脚经常复用作其他内部外设模块功能。PxSEL 的每一位决定了引脚用作 IO 功能还是内部外设模块功能（第二功能）。</p>
-<p>Bit = 0 ： IO功能</p>
-<p>Bit = 1 ： 内部外设功能</p>
-<p>只置位PxSELx不能自动设置引脚方向。其他外设模块需要跟据模块功能配置 PxDIRx，改变引脚方向。</p>
-<p>PxSEL 置位时，中断关闭。</p>
-<p>当引脚作为外设的输入时，输入到外设的信号在因脚伤经过一次锁存。当 PxSELx=1 时，内部输入信号跟随引脚上的输入信号。若 PxSELx=0，输入到外设的信号将维持引脚上的输入信号的值，直到 PxSELx 位重置。</p>
-<ul>
-<li>P1、P2 口可中断的器件<ul>
-<li>通过配置 PxIFG、PxIE 和 PxIES 寄存器，P1 和 P2 口的每个引脚都能具有中断能力。所有的 P1 口引脚都使用一个单独的中断源，所有的 P2 引脚使用另一个单独的中断源。可以检测 PxIFG 来判断 P1 或 P2 中断。</li>
-</ul>
-</li>
-</ul>
-<h3 id="五、中断标志位寄存器-P1IFG，P2IFG"><a href="#五、中断标志位寄存器-P1IFG，P2IFG" class="headerlink" title="五、中断标志位寄存器 P1IFG，P2IFG"></a>五、中断标志位寄存器 P1IFG，P2IFG</h3><p>选择的输入信号边沿出现在引脚上时，相应的中断标志会置位。相应的 PxIE 以及 GIE 置位后，所有 PxIFGx 中断标志都需要一个中断响应。PxIFG 必须由软件复位。软件也可以置位PxIFG，提供一种软件触发中断的方法。</p>
-<p>Bit = 0 ： 无中断请求</p>
-<p>Bit = 1 ： 中断请求</p>
-<p>只有跳变能触发中断，而稳定的电平不能。如果任意 PxIFGx 在中断服务程序中置位，或者在中断服务程序执行 RETI 命令之后置位，PxIFGx 标志位将触发另一个中断。这样确保了每一个跳变得到响应。</p>
-<font color="#FF0000">   改变 PxOUT 或 PxDIR 时 PxIFG 标志将置位。 </font>
-
-
-
-<p>任何外部中断时间都应该至少是 MCLK 的 1.5 倍，以保证单片机能检测到并且中断标志置位。</p>
-<h3 id="六、中断边沿选择寄存器-P1IES，P2IES"><a href="#六、中断边沿选择寄存器-P1IES，P2IES" class="headerlink" title="六、中断边沿选择寄存器 P1IES，P2IES"></a>六、中断边沿选择寄存器 P1IES，P2IES</h3><p>PxIES 用来选择中断 IO 引脚的中断边沿。</p>
-<p>Bit = 0 ： 由低向高的跳变置位 PxIFGx</p>
-<p>Bit = 1 ： 由高向低的跳变置位 PxIFGx</p>
-<font color="#FF0000">   向 PxIES 写入数据将导致相应的中断标志置位。 </font>
-
-<table>
-<thead>
-<tr>
-<th style="text-align:center">PxIESx</th>
-<th style="text-align:center">PxINx</th>
-<th style="text-align:center">PxIFGx</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">0→1</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">May be set</td>
-</tr>
-<tr>
-<td style="text-align:center">0→1</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">Unchanged</td>
-</tr>
-<tr>
-<td style="text-align:center">1→0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">Unchanged</td>
-</tr>
-<tr>
-<td style="text-align:center">1→0</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">May be set</td>
-</tr>
-</tbody>
-</table>
-<h3 id="七、中断使能寄存器P1IE，P2IE"><a href="#七、中断使能寄存器P1IE，P2IE" class="headerlink" title="七、中断使能寄存器P1IE，P2IE"></a>七、中断使能寄存器P1IE，P2IE</h3><p>Bit = 0 ： 中断关闭</p>
-<p>Bit = 1 ： 中断使能</p>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>MSP430</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>MSP430 中断系统</title>
     <url>//blog/2019/02/23/MSP430-%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F/</url>
     <content><![CDATA[<hr>
@@ -478,6 +599,21 @@
       <tags>
         <tag>硬件拾忆</tag>
         <tag>MSP430</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>STM8S Boot ROM</title>
+    <url>//blog/2019/03/02/STM8S-Boot-ROM/</url>
+    <content><![CDATA[<hr>
+<p>stm8s Boot ROM 是用于系统启动的只读存储器。</p>
+<a id="more"></a>
+<p>在某些 STM8 型号中有 2K 字节的内部 Boot ROM，其中包含有用于启动的代码。这段代码的主要作用是利用 STM8 的 SPI，CAN 或 UART 接口，将应用程序代码，数据，选项字节（Option Byte）和中断向量表下载到内部的 FLASH 和 E2RPOM 中去。</p>
+<p>执行的自举加载工作在 LIN 模式下，另一种引导装载程序通信协议在 UART2/UART3 和 UART1 中执行。</p>
+<p>复位后，启动代码开始执行。更多详细内容参考 STM8 启动代码用户手册 UM0560。</p>
+]]></content>
+      <tags>
+        <tag>硬件拾忆</tag>
+        <tag>STM8</tag>
       </tags>
   </entry>
   <entry>
@@ -560,158 +696,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Git 与 Github</title>
-    <url>//blog/2019/02/20/Git%20%E4%B8%8E%20Github/</url>
-    <content><![CDATA[<hr>
-<h3 id="〇、Github-与-Git-的关系"><a href="#〇、Github-与-Git-的关系" class="headerlink" title="〇、Github 与 Git 的关系"></a>〇、Github 与 Git 的关系</h3><h4 id="1、Git-与-Github-简介"><a href="#1、Git-与-Github-简介" class="headerlink" title="1、Git 与 Github 简介"></a>1、Git 与 Github 简介</h4><ul>
-<li>Git 是一款免费、开源的分布式版本控制系统</li>
-<li>GitHub 是一个面向开源及私有软件项目的托管平台，因为只支持 Git 作为唯一的版本库格式进行托管，故名 GitHub。另外还有其他的平台，如国内的 <a href="https://gitee.com/" target="_blank" rel="noopener">码云</a> </li>
-<li>Git 负责本地的代码版本控制，而 Github 负责远程托管</li>
-</ul>
-<a id="more"></a>
-<h4 id="2、Git-的工作流程："><a href="#2、Git-的工作流程：" class="headerlink" title="2、Git 的工作流程："></a>2、Git 的工作流程：</h4><ul>
-<li><p>1）在工作目录（Working Directory）中修改文件。</p>
-</li>
-<li><p>2）暂存文件，将文件的快照放入暂存区域（Staging Area）。</p>
-</li>
-<li><p>3）提交更新，找到暂存区域的文件，将快照永久性存储到 Git 仓库目录（Repository）。</p>
-</li>
-<li><p>其中：</p>
-<ul>
-<li>Git <strong>仓库目录 </strong> 是 Git 用来保存项目的元数据和对象数据库的地方。 这是 Git 中最重要的部分，从其它计算机克隆仓库时，拷贝的就是这里的数据。</li>
-<li><strong>工作目录</strong> 是对项目的某个版本独立提取出来的内容。 这些从 Git 仓库的压缩数据库中提取出来的文件，放在磁盘上供你使用或修改。</li>
-<li><strong>暂存区域</strong> 是一个文件，保存了下次将提交的文件列表信息，一般在 Git 仓库目录中。 有时候也被称作`‘索引’’，不过一般说法还是叫暂存区域。</li>
-</ul>
-<p><a href><img src="https://i.loli.net/2019/02/22/5c6f7b352931b.png" alt="1550655399046"></a></p>
-</li>
-</ul>
-<h4 id="3、Git-与-Github关系图示："><a href="#3、Git-与-Github关系图示：" class="headerlink" title="3、Git 与 Github关系图示："></a>3、Git 与 Github关系图示：</h4><p><img src="https://i.loli.net/2019/02/22/5c6f7b3522b74.png" alt="1550656393570"></p>
-<hr>
-<h3 id="一、注册-Github-账号"><a href="#一、注册-Github-账号" class="headerlink" title="一、注册 Github 账号"></a>一、注册 Github 账号</h3><p>注册没有难度，这里不赘述，建议使用简单大方的用户名和注册邮箱，方便后期使用。</p>
-<p>网址： <a href="https://github.com/" target="_blank" rel="noopener">Github</a></p>
-<hr>
-<h3 id="二、下载安装-Git"><a href="#二、下载安装-Git" class="headerlink" title="二、下载安装 Git"></a>二、下载安装 Git</h3><p>网址： <a href="https://book.git-scm.com/downloads" target="_blank" rel="noopener">Git</a> （如果链接打不开可在网上搜索其他下载站点）</p>
-<p>软件安装也没有什么难度，安装完成之后在任意文件夹下右键出现 Git Bash Here 说明安装成功。</p>
-<p>在任意文件夹中都可以使用 Git Bash Here，既可以将所有需要代码版本管理的项目放在同一个文件夹中，也可以分散在任意地方，建议前者。</p>
-<p>关于 Git 的一些资料</p>
-<p><a href="https://book.git-scm.com/docs" target="_blank" rel="noopener">Reference Manual</a>（可查看各种 Git 指令的说明）</p>
-<p><a href="https://book.git-scm.com/book" target="_blank" rel="noopener">Pro Git</a> （Git 的详细介绍）</p>
-<hr>
-<h3 id="三、安装-Git-后的配置"><a href="#三、安装-Git-后的配置" class="headerlink" title="三、安装 Git 后的配置"></a>三、安装 Git 后的配置</h3><h4 id="1、如果是个人使用"><a href="#1、如果是个人使用" class="headerlink" title="1、如果是个人使用"></a>1、如果是个人使用</h4><p>大部分配置可以暂时忽略，仅设置用户名称和邮件地址即可：</p>
-<p>通过 Git Bash Here 进入命令行界面，输入：</p>
-<p><code>git config --global user.name &quot;YourName&quot;</code>  （引号不可省略）</p>
-<p><code>git config --global user.email YourEmail</code></p>
-<p>YourName 和 YourEmail 设置成你 Github 里注册的用户名和邮箱。</p>
-<p><strong>这里的设置是为了让 Github 根据用户名和邮箱去确定代码上传者的信息，也可以只设置其中一个。</strong></p>
-<h4 id="2、如果是团队使用"><a href="#2、如果是团队使用" class="headerlink" title="2、如果是团队使用"></a>2、如果是团队使用</h4><p>若需要设置统一的提交信息格式，可以创建一个模板文件，通过 commit.template 来设置模板文件。</p>
-<p>也可以通过 core.editor 修改编辑<strong>提交信息</strong>的默认编辑器。</p>
-<p>详情都请查看 <a href="https://book.git-scm.com/docs" target="_blank" rel="noopener">Reference Manual</a> 中的 <a href="https://book.git-scm.com/book/zh/v2/%E8%87%AA%E5%AE%9A%E4%B9%89-Git-%E9%85%8D%E7%BD%AE-Git" target="_blank" rel="noopener">自定义 Git - 配置 Git</a> ，也可以输入 <code>git config</code> 自行探索。</p>
-<hr>
-<h3 id="四、创建自己的代码仓库"><a href="#四、创建自己的代码仓库" class="headerlink" title="四、创建自己的代码仓库"></a>四、创建自己的代码仓库</h3><h4 id="1、在-Github-上创建-Repository"><a href="#1、在-Github-上创建-Repository" class="headerlink" title="1、在 Github 上创建 Repository"></a>1、在 Github 上创建 Repository</h4><p>1）点击 Github 页面右上角 “+” 号，点击 New repository</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6f7b3519899.png" alt="1550660057745"></p>
-<p>2）填写基本信息后，点击 Create repository</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6f7b3540ee4.png" alt="1550660339034"></p>
-<p>3）建成的仓库如下图</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6f7c69a0e58.png" alt="1550660390202"></p>
-<ul>
-<li><p>README.md 文件是 markdown 格式的文件，通常用来描述项目信息（可以看看其他人是怎么写的），可以后期自己建立并上传。Github 会显示根目录下的 md 文件内容。</p>
-</li>
-<li><p>如果需要删除代码仓库，点击上图中的 Settings，在页面最下方的 Danger Zone 中有 Delete  this repository 按钮。</p>
-</li>
-</ul>
-<h4 id="2、在本地建立-Repository"><a href="#2、在本地建立-Repository" class="headerlink" title="2、在本地建立 Repository"></a>2、在本地建立 Repository</h4><h5 id="添加-SSH-key"><a href="#添加-SSH-key" class="headerlink" title="添加 SSH key"></a>添加 SSH key</h5><h6 id="Github-的仓库链接有两种格式："><a href="#Github-的仓库链接有两种格式：" class="headerlink" title="Github 的仓库链接有两种格式："></a>Github 的仓库链接有两种格式：</h6><ul>
-<li>https 格式，例如 <a href="https://github.com/YourName/YourRepo.git" target="_blank" rel="noopener">https://github.com/YourName/YourRepo.git</a> </li>
-<li><p>SSH 格式，例如 <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:YourName/YourRepo.git</p>
-</li>
-<li><p>两种形式的地址都可以用于 Github 与本地 Git 建立连接，但是如果用的是 https，每次上传代码的时候，都需要输入 Github 用户名和密码，因此<strong>建议使用 SSH</strong>。</p>
-</li>
-</ul>
-<h6 id="生成-SSH-key-的步骤："><a href="#生成-SSH-key-的步骤：" class="headerlink" title="生成 SSH key 的步骤："></a>生成 SSH key 的步骤：</h6><ul>
-<li>提示： Git Bash 命令行界面中，复制/粘贴的快捷键分别是 Ctrl+Ins 和 Shift+Ins</li>
-</ul>
-<p>1&gt; 在任意文件夹内右击，选择 Git Bash Here，进入命令行界面。</p>
-<p>2&gt; 输入 <code>ssh-keygen -t rsa -C &quot;YourEmail@YourEmail.com&quot;</code></p>
-<p>​    引号内是 Github 的登录邮箱，引号不能省略。</p>
-<p>3&gt; 一般不建议修改 SSH Key 的保存目录，因此连按三下回车，选择默认路径以及无密码。从提示信息中可以找到你的电脑上 SSH Key 的保存位置。</p>
-<p>4&gt; 从 3&gt; 中的保存位置找到 id_rsa.pub 文件，通常路径为 <code>C:\Users\Administrator\.ssh</code>，用记事本或其他编辑软件打开并复制里面的内容。也可以在 Git Bash 命令行界面中输入 clip &lt; ~/.ssh/id_rsa.pub 后按回车，若无错误提示表示复制成功。</p>
-<p>5&gt; 打开 Github，鼠标指向自己的头像，选择 Settings。</p>
-<p>6&gt; 在左边栏中选择 SSH and GPG keys，点击 New SSH Key，添加复制的 SSH Key 即可。如果个人有多台电脑，为了方便区分，SSH Key 的 Title 取一个辨识度较高的名字。</p>
-<p>7&gt; Git Bash 命令行界面中输入 <code>ssh -T git@github.com</code></p>
-<p>​    问是否继续连接，输入 yes ，按回车。</p>
-<p>​    如果出现 <code>Hi YourName! You&#39;ve successfully authenticated, but GitHub does not ...</code> 说明设置成功了。</p>
-<h5 id="本地建立-Repository"><a href="#本地建立-Repository" class="headerlink" title="本地建立 Repository"></a>本地建立 Repository</h5><h6 id="方法一：（git-clone-指令）"><a href="#方法一：（git-clone-指令）" class="headerlink" title="方法一：（git clone 指令）"></a>方法一：（git clone 指令）</h6><p>使用 git clone 指令可以直接将 Github 上的代码仓库（可以是新建的，也可以是已经有内容的） clone 到本地仓库。</p>
-<p>步骤如下：</p>
-<p>1&gt; 在 Github 页面进入准备 clone 到本地的代码仓库，点击如下图①位置的 Clone or download 即可复制代码仓库链接。注意应使用 SSH 格式的链接，在②位置可以切换两种格式。</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6f7b3549236.png" alt="1550770191930"></p>
-<p>2&gt; 在欲存放代码的地方进入 Git Bash（不需要自己再建立文件夹），输入 <code>git clone git@github.com:YourName/YourRepo.git</code>（复制的仓库链接），即可完成本地仓库的建立。此时可直接上传新的代码文件至 Github，具体操作见后文。 </p>
-<p>注意：如果选择了 https 格式的地址，想修改成 SSH 格式的地址，可以按照以下步骤操作：</p>
-<p>git remote rm origin # 移除当前远端服务器</p>
-<p>git remote -v # 查看当前 Github 仓库服务器地址，无返回信息说明已移除</p>
-<p>git remote add origin <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:YourName/YourRepo.git # 添加 SSH 格式地址</p>
-<p>git remote -v # 再次查看当前 Github 仓库服务器地址，是否已修改成功</p>
-<h6 id="方法二：（git-init-指令）"><a href="#方法二：（git-init-指令）" class="headerlink" title="方法二：（git init 指令）"></a>方法二：（git init 指令）</h6><p>使用 git init 指令可以在本地初始化一个代码仓库，然后与 Github 上的代码仓库进行连接，操作如下：</p>
-<p>1&gt; 在欲存放代码的地方建立项目文件夹，进入该文件夹后右击进入 Git Bash，输入 <code>git init</code>，可以看到此时在文件夹中生成了一个隐藏的 .git 文件夹，此文件夹内存放着此代码仓库的各种信息。</p>
-<p>2&gt; 如果在安装好 Git 后已经配置了用户名和邮箱，此步骤可跳过，否则输入</p>
-<p><code>git config --global user.name &quot;YourName&quot;</code>  （引号不可省略）</p>
-<p><code>git config --global user.email YourEmail</code>    </p>
-<p>3&gt; 输入 <code>git remote add origin git@github.com:yourName/yourRepo.git</code>，依旧建议使用 SSH 格式地址。此时就建立起了与 Github 服务器的连接。</p>
-<p>在方法一中，由于是直接 clone 远端的 Github 仓库的内容，所以无论是新建的 Github 仓库，还是已经上传过内容的 Github 仓库，都可以完整地克隆到本地。</p>
-<p>但在方法二中，由于是从本地先初始化了一个代码仓库，仓库中无任何内容，所以如果本地仓库中的内容和 Github 仓库中的内容不一致（例如 Github 仓库初始化时生成了 README.md 文件），就需要先把 Github 仓库中的内容下载（pull）到本地，保持两者的一致性之后，才能上传（push）代码到 Github 仓库，具体操作是输入 <code>git pull origin master</code> ，等代码下载完成，即可添加新内容并上传。</p>
-<hr>
-<h3 id="五、简单-Git-操作指令"><a href="#五、简单-Git-操作指令" class="headerlink" title="五、简单 Git 操作指令"></a>五、简单 Git 操作指令</h3><h4 id="1、push-代码到-Github"><a href="#1、push-代码到-Github" class="headerlink" title="1、push 代码到 Github"></a>1、push 代码到 Github</h4><p>假设要 push 一个名为 123.txt 的文件，在项目文件夹中进入 Git Bash，分别输入以下内容：</p>
-<p><code>git add 123.txt  # 将文件内容添加到缓存区快照</code></p>
-<p><code>git commit -m &quot;123.txt&quot; # 将改动点记录到代码仓</code></p>
-<p><code>git push origin master # 将改动提交到 Github 远端服务器，分支为 master</code></p>
-<p>说明：</p>
-<ul>
-<li><p>若一次提交多个文件，可使用 <code>git add .</code> ，注意 “.” 不能省略</p>
-</li>
-<li><p>第二行中引号内的内容是提交信息，会显示在 Github 上，如果需要提交很多信息，输入 <code>git commit</code> 即可，会弹出默认编辑器 GUN nano，如果不会使用该编辑器，可以运行 <code>git config --global core.editor &quot;F：\Program Files\Sublime Text 3\sublime text.exe&quot;</code> ，其中引号中是想修改的新编辑器的路径，根据自己电脑上的位置修改。</p>
-</li>
-<li><p>master 是指该仓库的 master 分支，关于分支的概念请参考 Git 官网。</p>
-</li>
-</ul>
-<h4 id="2、从-Github-pull-代码"><a href="#2、从-Github-pull-代码" class="headerlink" title="2、从 Github pull 代码"></a>2、从 Github pull 代码</h4><p><code>git pull origin master</code></p>
-<h4 id="3、查看工作目录状态"><a href="#3、查看工作目录状态" class="headerlink" title="3、查看工作目录状态"></a>3、查看工作目录状态</h4><p><code>git status</code></p>
-<p>以上几个指令是个人使用时最常用的指令，如果多人合作，或 fork 其他人的项目，可以从官网查询其他指令。</p>
-]]></content>
-      <tags>
-        <tag>软件使用</tag>
-        <tag>Github</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>STM8S Boot ROM</title>
-    <url>//blog/2019/03/02/STM8S-Boot-ROM/</url>
-    <content><![CDATA[<hr>
-<p>stm8s Boot ROM 是用于系统启动的只读存储器。</p>
-<a id="more"></a>
-<p>在某些 STM8 型号中有 2K 字节的内部 Boot ROM，其中包含有用于启动的代码。这段代码的主要作用是利用 STM8 的 SPI，CAN 或 UART 接口，将应用程序代码，数据，选项字节（Option Byte）和中断向量表下载到内部的 FLASH 和 E2RPOM 中去。</p>
-<p>执行的自举加载工作在 LIN 模式下，另一种引导装载程序通信协议在 UART2/UART3 和 UART1 中执行。</p>
-<p>复位后，启动代码开始执行。更多详细内容参考 STM8 启动代码用户手册 UM0560。</p>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>STM8</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>UVa1583（DigitGenerator）解决思路</title>
-    <url>//blog/2019/03/02/UVa1583%EF%BC%88DigitGenerator%EF%BC%89%E8%A7%A3%E5%86%B3%E6%80%9D%E8%B7%AF/</url>
-    <content><![CDATA[<hr>
-<h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><p>如果x加上x的各个位数字之和得到y，就说x是y的生成元；给出n（1≤n≤100000），求最小生成元。无解输出0。例如，n=216，121，2005时的解分别为198 , 0, 1979。</p>
-<a id="more"></a>
-<h4 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h4><p>本题核心部分在于判断是否存在小于给定数字的一个数字，其本身与其各位数字之和等于给定数字，并不复杂。</p>
-<p>由于输入数字范围并不大，因此可以考虑用事先计算好范围内所有数字的最小元，然后通过查表的方式输出。而且建立查找表的过程也很简单，不需要计算生成元，而是从小到大遍历数值范围一遍，将数字与各位数值相加，便可作为生成元存放到对应的表中。</p>
-<p>另外，也可以每次都直接根据输入值来计算其生成元，省去了存放查找表的内存开销，但是每次都要重新计算。如果每次计算是用暴力方法遍历计算，会导致时间溢出，因此可根据题目的特点进行优化：</p>
-<p>由于生成元的数值本身加上各位数值即为输入数字，因此，根据输入数字的数量级，生成元最多比输入数值小 9x6=54（其实是9x5=45）。因此在求解生成元时，无需从 1 开始遍历，只需从比输入数值小 50 的数值开始遍历即可。至于输入小于 50 的情况也无需考虑，只是在负数的地方浪费了一点时间，不会影响平均时间复杂度。</p>
-<h4 id="解法一：查表"><a href="#解法一：查表" class="headerlink" title="解法一：查表"></a>解法一：查表</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">#define MAXM 100005</span><br><span class="line">int ans[MAXM];</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line"></span><br><span class="line">    int t, n;</span><br><span class="line">    memset(ans, 0, sizeof(ans));</span><br><span class="line">    for(int m=1; m&lt;MAXM; m++)&#123;</span><br><span class="line">        int x=m, y=m;</span><br><span class="line">        while(x&gt;0)&#123;</span><br><span class="line">            y += x%10;</span><br><span class="line">            x /= 10;</span><br><span class="line">        &#125;</span><br><span class="line">        if(y&gt;MAXM)</span><br><span class="line">            continue;</span><br><span class="line">        if(ans[y]==0 || m&lt;ans[y])</span><br><span class="line">            ans[y] = m;</span><br><span class="line">    &#125;</span><br><span class="line">//    for(int i=1; i&lt;MAXM; i++)&#123;</span><br><span class="line">//        printf(&quot;%7d %7d\n&quot;, i, ans[i]);</span><br><span class="line">//    &#125;</span><br><span class="line">    scanf(&quot;%d&quot;, &amp;t);</span><br><span class="line">    while(t--)&#123;</span><br><span class="line">        scanf(&quot;%d&quot;, &amp;n);</span><br><span class="line">        printf(&quot;%d\n&quot;, ans[n]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="解法二：暴力枚举"><a href="#解法二：暴力枚举" class="headerlink" title="解法二：暴力枚举"></a>解法二：暴力枚举</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line"></span><br><span class="line">    int t, n;</span><br><span class="line">    scanf(&quot;%d&quot;, &amp;t);</span><br><span class="line">    while(t--)&#123;</span><br><span class="line">        scanf(&quot;%d&quot;, &amp;n);</span><br><span class="line">        int x = 0;</span><br><span class="line">        int sum = 0;</span><br><span class="line">        int ans = 0;</span><br><span class="line">        for(int i=n-50; i&lt;n; i++)&#123;</span><br><span class="line">            x = i;</span><br><span class="line">            sum = x;</span><br><span class="line">            while(x&gt;0)&#123;</span><br><span class="line">                sum += x%10;</span><br><span class="line">                x /= 10;</span><br><span class="line">            &#125;</span><br><span class="line">            if( sum == n)&#123;</span><br><span class="line">                ans = i;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        printf(&quot;%d\n&quot;, ans);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>STM8S Memory and register map</title>
     <url>//blog/2019/03/02/STM8S-Memory-and-register-map/</url>
     <content><![CDATA[<hr>
@@ -745,443 +729,19 @@
       </tags>
   </entry>
   <entry>
-    <title>STM8S 供电</title>
-    <url>//blog/2019/03/03/STM8S-%E4%BE%9B%E7%94%B5/</url>
+    <title>UVa1583（DigitGenerator）解决思路</title>
+    <url>//blog/2019/03/02/UVa1583%EF%BC%88DigitGenerator%EF%BC%89%E8%A7%A3%E5%86%B3%E6%80%9D%E8%B7%AF/</url>
     <content><![CDATA[<hr>
-<p>STM8 MCU 有 4 种相对独立的供电电源：</p>
-<p>- VDD/VSS：主电源（3V 到 5.5V）</p>
-<p>- VDDIO/VSSIO：I/O 口供电电源（3V 到 5.5V ）</p>
-<p>- VDDA/VSSA：模拟部分供电电源</p>
-<p>- VREF+/VREF-：ADC 参考电源</p>
+<h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><p>如果x加上x的各个位数字之和得到y，就说x是y的生成元；给出n（1≤n≤100000），求最小生成元。无解输出0。例如，n=216，121，2005时的解分别为198 , 0, 1979。</p>
 <a id="more"></a>
-<p>VDD/VSS 引脚用来为内部主稳压器（MVR）和内部低功耗稳压器（LPVR）供电。这两个调节器的输出连在一起，向MCU的核（CPU，Flash 和 RAM）提供 1.8V 电压。</p>
-<p>在低功耗模式下系统自动从 MVR 切换到 LPVR，以减少电流消耗。</p>
-<p><strong>为了稳定 MVR，必须在 VCAP 脚接一个电容</strong>。</p>
-<p>根据封装的大小，可能有一对或两对特定的 VDDIO/VSSIO 来给I/O供电。</p>
-<p>VDDA/VSSA和VREF+/VREF- 都与ADC模块相连接。</p>
-<p><img src="https://i.loli.net/2019/03/03/5c7b5ace894e7.png" alt="Image.png"></p>
-]]></content>
+<h4 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h4><p>本题核心部分在于判断是否存在小于给定数字的一个数字，其本身与其各位数字之和等于给定数字，并不复杂。</p>
+<p>由于输入数字范围并不大，因此可以考虑用事先计算好范围内所有数字的最小元，然后通过查表的方式输出。而且建立查找表的过程也很简单，不需要计算生成元，而是从小到大遍历数值范围一遍，将数字与各位数值相加，便可作为生成元存放到对应的表中。</p>
+<p>另外，也可以每次都直接根据输入值来计算其生成元，省去了存放查找表的内存开销，但是每次都要重新计算。如果每次计算是用暴力方法遍历计算，会导致时间溢出，因此可根据题目的特点进行优化：</p>
+<p>由于生成元的数值本身加上各位数值即为输入数字，因此，根据输入数字的数量级，生成元最多比输入数值小 9x6=54（其实是9x5=45）。因此在求解生成元时，无需从 1 开始遍历，只需从比输入数值小 50 的数值开始遍历即可。至于输入小于 50 的情况也无需考虑，只是在负数的地方浪费了一点时间，不会影响平均时间复杂度。</p>
+<h4 id="解法一：查表"><a href="#解法一：查表" class="headerlink" title="解法一：查表"></a>解法一：查表</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">#define MAXM 100005</span><br><span class="line">int ans[MAXM];</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line"></span><br><span class="line">    int t, n;</span><br><span class="line">    memset(ans, 0, sizeof(ans));</span><br><span class="line">    for(int m=1; m&lt;MAXM; m++)&#123;</span><br><span class="line">        int x=m, y=m;</span><br><span class="line">        while(x&gt;0)&#123;</span><br><span class="line">            y += x%10;</span><br><span class="line">            x /= 10;</span><br><span class="line">        &#125;</span><br><span class="line">        if(y&gt;MAXM)</span><br><span class="line">            continue;</span><br><span class="line">        if(ans[y]==0 || m&lt;ans[y])</span><br><span class="line">            ans[y] = m;</span><br><span class="line">    &#125;</span><br><span class="line">//    for(int i=1; i&lt;MAXM; i++)&#123;</span><br><span class="line">//        printf(&quot;%7d %7d\n&quot;, i, ans[i]);</span><br><span class="line">//    &#125;</span><br><span class="line">    scanf(&quot;%d&quot;, &amp;t);</span><br><span class="line">    while(t--)&#123;</span><br><span class="line">        scanf(&quot;%d&quot;, &amp;n);</span><br><span class="line">        printf(&quot;%d\n&quot;, ans[n]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="解法二：暴力枚举"><a href="#解法二：暴力枚举" class="headerlink" title="解法二：暴力枚举"></a>解法二：暴力枚举</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line"></span><br><span class="line">    int t, n;</span><br><span class="line">    scanf(&quot;%d&quot;, &amp;t);</span><br><span class="line">    while(t--)&#123;</span><br><span class="line">        scanf(&quot;%d&quot;, &amp;n);</span><br><span class="line">        int x = 0;</span><br><span class="line">        int sum = 0;</span><br><span class="line">        int ans = 0;</span><br><span class="line">        for(int i=n-50; i&lt;n; i++)&#123;</span><br><span class="line">            x = i;</span><br><span class="line">            sum = x;</span><br><span class="line">            while(x&gt;0)&#123;</span><br><span class="line">                sum += x%10;</span><br><span class="line">                x /= 10;</span><br><span class="line">            &#125;</span><br><span class="line">            if( sum == n)&#123;</span><br><span class="line">                ans = i;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        printf(&quot;%d\n&quot;, ans);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
-        <tag>硬件拾忆</tag>
-        <tag>STM8</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>STM8S 复位</title>
-    <url>//blog/2019/03/03/STM8S-%E5%A4%8D%E4%BD%8D/</url>
-    <content><![CDATA[<hr>
-<p>stm8s 共 9 个复位源：</p>
-<ul>
-<li><p>NRST 引脚产生的外部复位</p>
-</li>
-<li><p>上电复位（POR）</p>
-</li>
-<li><p>掉电复位（BOR）</p>
-</li>
-<li><p>独立看门狗复位</p>
-</li>
-<li><p>窗口看门狗复位</p>
-</li>
-<li><p>软件复位 </p>
-</li>
-<li><p>SWIM 复位</p>
-</li>
-<li><p>非法操作码复位</p>
-</li>
-<li><p>EMS 复位：当一些关键的寄存器被破坏或错误加载时产生的复位</p>
-</li>
-</ul>
-<a id="more"></a>
-<hr>
-<h3 id="一、复位电路"><a href="#一、复位电路" class="headerlink" title="一、复位电路"></a>一、复位电路</h3><p><img src="https://i.loli.net/2019/03/03/5c7b5d5ae2a63.png" alt="Image.png"></p>
-<p>复位引脚 NRST 内部集成了弱上拉电阻 RPU，既可作为输入，也可作为开漏输出。</p>
-<p>一个在复位引脚上宽度最小为 500ns 的低电平脉冲即可产生一个外部复位。对于复位的检测是异步进行的，因此即使 MCU 处于停机（Halt）模式，也有可能进入复位状态。</p>
-<p>复位引脚也可以作为开漏输出用于对外部设备进行复位。</p>
-<p>无论内部复位源是什么，一旦复位，内部复位电路都会产生一个至少脉宽为 20us 的复位脉冲。当没有外部复位发生时，内部弱上拉电阻可保证复位引脚处于高电平。</p>
-<hr>
-<h3 id="二、内部复位源"><a href="#二、内部复位源" class="headerlink" title="二、内部复位源"></a>二、内部复位源</h3><p>除了 POR 和 BOR，每个内部复位源在复位状态寄存器中都有一个标志位与之相对应。复位时，根据导致复位的复位源，这些标志位被分别设置。因此，这些标志位可用于指示引起最后一次复位的复位源。通过软件写 1 可清除标志位。</p>
-<h4 id="1、上电复位（POR）和掉电复位（BOR）"><a href="#1、上电复位（POR）和掉电复位（BOR）" class="headerlink" title="1、上电复位（POR）和掉电复位（BOR）"></a>1、上电复位（POR）和掉电复位（BOR）</h4><p>上电期间，POR 保持设备处于复位状态，直到供电电压（VDD 和 VDDIO）到达 BOR 的启动电压。此时，BOR 复位取代 POR，POR 自动关闭。BOR 复位一直持续到供电电压到达工作电压。</p>
-<p>当工作电压降到们限制 VIT- 以下时，BOR 也将产生一个复位，此后 POR 模块将重新准备好以响应下一次上电复位。</p>
-<p>电压迟滞用以保证清楚地检测电压的上升和下降。</p>
-<p>即使是 MCU 处于低功耗模式，BOR 也总是保持激活状态。</p>
-<h4 id="2、非法操作码复位"><a href="#2、非法操作码复位" class="headerlink" title="2、非法操作码复位"></a>2、非法操作码复位</h4><p>为了提高设备的可靠性，防止意外行为的发生，使用了非法操作码检测系统。如果一个被执行的代码与任意操作码或预置字节均不相符，则产生一个复位。此功能与看门狗相配合，可是设备从一个意外错误或干扰中恢复。</p>
-<p>一个有效的预置字节与一个有效的操作码组成的一个非法的组合将不会产生复位。</p>
-<h4 id="3、EMS-复位"><a href="#3、EMS-复位" class="headerlink" title="3、EMS 复位"></a>3、EMS 复位</h4><p>为了避免由电磁干扰造成的对应用程序误写操作或系统挂起，大多数关键寄存器都有一个互补寄存器与之相对应。系统将会自动检测这些关键寄存器与其互补寄存器之间是否匹配。如果不匹配，则产生一个 EMS 复位，从而使应用程序恢复到正常操作。</p>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>STM8</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>STM8S 中断控制</title>
-    <url>//blog/2019/03/03/STM8S-%E4%B8%AD%E6%96%AD%E6%8E%A7%E5%88%B6/</url>
-    <content><![CDATA[<hr>
-<h3 id="ITC-简介"><a href="#ITC-简介" class="headerlink" title="ITC 简介"></a>ITC 简介</h3><h4 id="硬件中断管理"><a href="#硬件中断管理" class="headerlink" title="硬件中断管理"></a>硬件中断管理</h4><ul>
-<li><p>大多数 I/O 口都具有外部中断能力，有专用的中断向量，每个端口都可以设置边沿检测方式（上升/下降）。</p>
-</li>
-<li><p>外设中断能力</p>
-</li>
-</ul>
-<a id="more"></a>
-<h4 id="软件中断能力（TRAP）"><a href="#软件中断能力（TRAP）" class="headerlink" title="软件中断能力（TRAP）"></a>软件中断能力（TRAP）</h4><p>使用复杂中断优先级和等级管理的嵌套或并发中断管理</p>
-<ul>
-<li><p>最多 4 个软件可编程的嵌套等级</p>
-</li>
-<li><p>最多 32 个由硬件固定的中断向量</p>
-</li>
-<li><p>2 个不可屏蔽事件：RESET，TRAP</p>
-</li>
-<li><p>1 个不可屏蔽的最高级硬件中断（TLI）</p>
-</li>
-</ul>
-<h4 id="中断管理基"><a href="#中断管理基" class="headerlink" title="中断管理基"></a>中断管理基</h4><ul>
-<li><p>CPU 的 CCR 寄存器的 l1 和 l0 位</p>
-</li>
-<li><p>软件优先级寄存器（ITC_SPRx）</p>
-</li>
-<li><p>复位向量地址 0x008000 在程序存储器的起始位置。在有 boot ROM 的器件中，复位初始化程序由 STMicroelectronics 编程在 ROM 中。</p>
-</li>
-<li><p>固定的中断向量地址位于存储器地址映射的高地址（0x00 8004 到 0x00 807C），按硬件优先级顺序排列。</p>
-</li>
-</ul>
-<hr>
-<h3 id="中断屏蔽和处理流程"><a href="#中断屏蔽和处理流程" class="headerlink" title="中断屏蔽和处理流程"></a>中断屏蔽和处理流程</h3><p>中断屏蔽由 CCR 寄存器的 l1 和 l0 位和设置每个中断向量的软件优先级等级的 ITC_SPRx 寄存器管理。</p>
-<p><img src="https://i.loli.net/2019/03/03/5c7b55bed9fc8.png" alt="Image.png"></p>
-<p>当一个中断请求必须被响应时：</p>
-<p>1、正常的过程被暂停在当前指令执行的最后一条。</p>
-<p>2、PC，X，Y，A 和 CCR 寄存器入栈。</p>
-<p>3、CCR 寄存器的 l1 和 l0 位根据 ITC_SPRx 寄存器中相应的中断向量的值置位。</p>
-<p>4、PC 然后载入中断的中断向量，以响应中断，取指中断服务函数的第一条指令。</p>
-<p>中断服务函数应该以IRET指令结束，这条指令使得保存的寄存器值从栈中恢复。IRET 指令也会是 l1 和 l0 从栈中恢复，同时程序恢复正常执行过程。</p>
-<p>如果中断屏蔽位 l0 和 l1 在中断服务函数（ISR）中被使用 SIM 指令置位，使用 RIM 对中断屏蔽进行移除将造成软件优先级被设置为 0 级。</p>
-<p>为了在中断服务函数中使能或禁止中断时恢复正确的优先级，遵循 Table 8 中的步骤来使能或禁止中断。</p>
-<p><img src="https://i.loli.net/2019/03/03/5c7b55e11a877.png" alt="Image.png"></p>
-<h4 id="一、服务挂起中断"><a href="#一、服务挂起中断" class="headerlink" title="一、服务挂起中断"></a>一、服务挂起中断</h4><p>几个中断可以同时被挂起。下一个要处理的中断由以下两步操作决定：</p>
-<p>1、最高软件优先级的中断被响应。</p>
-<p>2、如果几个中断的软件优先级相同，硬件优先级最高的中断首先响应。</p>
-<p>当一个中断请求没有被立即响应的时候，它将被锁存，并在软件优先级和硬件优先级相结合为最高优先级的时候进行处理。</p>
-<p>注意：</p>
-<p>1、硬件优先级是独一无二的，而软件的不是。这允许只有一个中断的时候能继续先前的过程。</p>
-<p>2、在判定过程中，RESET，TLI 和 TRAP 被认为拥有最高软件优先级。</p>
-<p><img src="https://i.loli.net/2019/03/03/5c7b55fc57659.png" alt="Image.png"></p>
-<h4 id="二、中断源"><a href="#二、中断源" class="headerlink" title="二、中断源"></a>二、中断源</h4><p>STM8中断控制器安排了两种中断源类型。</p>
-<p>- 非可屏蔽中断：RESET，TLI 和 TRAP</p>
-<p>- 可屏蔽中断：外部中断或内部外设触发的中断</p>
-<p><strong>非可屏蔽中断源</strong></p>
-<p>在处理非可屏蔽中断源时，忽略 CCR 寄存器的 l1 和 l0 的状态。PC，X，Y，A 和 CCR 寄存器只有在一个 TRAP 中断发生时入栈。然后，相应的中断向量载入 PC 寄存器，CCR 寄存器的 l1 和 l0 设置为禁止中断。</p>
-<p>● TRAP（非可屏蔽软件中断）</p>
-<p>​     当 TRAP 指令执行时，这个软件中断源得到响应。它和 TLI 一样根据 Figure 13 的流程图来响应。</p>
-<p>​     TRAP 中断不允许处理器从 Halt 模式下退出。</p>
-<p>● RESET</p>
-<p>​     RESET 中断源拥有 STM8 最高等级的软件和硬件优先级。这意味着在复位程序的开始，所有的中断都会被禁止。它们必须被 RIM 指令重使能。</p>
-<p>​     RESET 中断允许处理器从 Halt 模式下退出。</p>
-<p>● TLI（顶级硬件中断）</p>
-<p>​     这个硬件中断发生在在的 TLI 输入端检测到一个特定的边沿时。</p>
-<p>​     TLI 服务函数中必须使用一个 TRAP 指令。</p>
-<p><strong>可屏蔽中断源</strong></p>
-<p>如果可屏蔽中断被使能，而且如果它自己在 ITC_SPRx 寄存器中的中断软件优先级比当前正在响应的中断（CCR 寄存器中的 l1 和 l0）高，该可屏蔽中断向量源开始响应。如果这两个条件之一没有满足，中断将被锁存并挂起。</p>
-<p><strong>外部中断</strong></p>
-<p>外部中断可被用来从 Halt 模式下唤醒 CPU。器件对外部中断的边沿敏感性可通过外部中断控制寄存器（EXTI_CRx）进行软件选择。</p>
-<p>当连接到同一个中断线的几个输入引脚同时被选择时，他们是逻辑或的关系。</p>
-<p>当外部电平触发中断被锁存时，如果给定的电平在中断程序的最后依然保持时，中断保持激活，除非它在程序中被禁止。</p>
-<p><strong>外设中断</strong></p>
-<p>大多数外部中断能将 MCU 从 Halt 模式下唤醒。</p>
-<p>当外设状态寄存器中的一个特定的标志位置位，并且外设控制寄存器中相应的使能位置位时，发生一个外设中断。</p>
-<p>​     </p>
-<hr>
-<h3 id="中断和低功耗模式"><a href="#中断和低功耗模式" class="headerlink" title="中断和低功耗模式"></a>中断和低功耗模式</h3><p>所有中断都能使处理器从 wait 模式中退出。</p>
-<p>只有外部中断及其他特殊中断允许处理器从 halt 和 active-halt 模式下退出。</p>
-<p>当从 halt 模式下唤醒又同时有几个中断挂起时，第一个响应的中断只能是一个能从 halt 模式退出的中断。它由 Figure14 中给出的过程精确选择。如果最高优先级的挂起中断不能将器件从 halt 模式中唤醒，将会响应下一个中断。</p>
-<p>如果 HALT 指令执行时发生了任意内部或外部中断（例如定时器），HALT 指令会被执行完但是在 HALT 指令完成之后中断会立即调用唤醒机制。这样，MCU 实际上是从 halt 模式唤醒到 run 模式，相应的延迟参考 datasheet 中的 tWUH。</p>
-<hr>
-<h3 id="活跃等级-低功耗模式控制"><a href="#活跃等级-低功耗模式控制" class="headerlink" title="活跃等级/低功耗模式控制"></a>活跃等级/低功耗模式控制</h3><p>MCU 的活跃等级通过编程 CFG_GCR 寄存器中的 AL 位来配置。</p>
-<p>这一位用来控制 MCU 的低功耗模式。在非常低功耗的应用中，MCU 的大部分时间花在 WFI，并且在特殊时刻（通过中断）来唤醒以执行特殊任务。这些再发任务中，有一些非常短，可以直接在中断服务函数（ISR）里执行，而不用回到主函数中。对于这种情况，可以在进入低功耗模式以前（同过执行 WFI 指令）将 AL 置位，然后中断函数直接返回到低功耗模式。由于寄存器上下文只保存在第一个中断中，run time/ISR 指令相应缩减。</p>
-<p>因此，在非常简单的应用中，所有操作都可以在 ISR 中执行。在更复杂的应用中，一个中断函数可以通过复位 AL 位来重新启动主函数。</p>
-<p>例如，一个应用可能需要每隔 50ms 由自动唤醒单元（AWU）来唤醒，以检查一些引脚/传感器/按键的状态。大部分时间，当这些引脚未激活时，MCU 可以返回到低功耗模式而不运行主函数。如果这些引脚的其中之一激活，ISR 将通过复位 AL 位来启动主函数。</p>
-<hr>
-<h3 id="并发和嵌套中断管理"><a href="#并发和嵌套中断管理" class="headerlink" title="并发和嵌套中断管理"></a>并发和嵌套中断管理</h3><p>STM8 器件的特色之一是有两个中断管理模式：</p>
-<p>- 并发模式</p>
-<p>- 嵌套模式</p>
-<h4 id="一、并发中断管理模式"><a href="#一、并发中断管理模式" class="headerlink" title="一、并发中断管理模式"></a>一、并发中断管理模式</h4><p>在这以模式下，所有中断都是 3 级优先级，所以它们都不能被中断，除了 TLI，RESET 或 TRAP。</p>
-<p>硬件优先级按照下面的从低到高的顺序给出：MAIN，IT4，IT3，IT2，IT1，IT0，TRAP/TLI（优先级相同），RESET。</p>
-<p><img src="https://i.loli.net/2019/03/03/5c7b56c0dcd3c.png" alt="Image.png"></p>
-<p>二、嵌套中断管理模式：</p>
-<p>在这个模式下，可以在中断函数中嵌套中断。只要有一个中断优先级低于 3 级，这个模式就会被激活。</p>
-<p>硬件优先级按下面的从低到高的顺序给出：MAIN，IT4，IT3，IT2，IT1，IT0，TRAP。</p>
-<p>每一个中断向量都可以通过设置相应的 ITC_SPRx 寄存器的 l1_x 和 l0_x 位，来配置软件优先级。l1_x 和 l0_x 位与 CCR 寄存器的 l1 和 l0 位的意义相同。</p>
-<p>不能编程为等级 0（l1_x = 1，l0_x = 0）。在这种情况下，将保持先前存储的值。例如，如果先前的值为 0xcf，编程值等于 64h，结果是 44h。</p>
-<p>RESET 和 TRAP 向量没有软件优先级。当其中一个被响应时，CCR 寄存器的 l1 和 l0 位都会置位。</p>
-<p>注意：如果中断 x 被执行时，l1_x 和 l0_x 位被修改，器件会进行以下操作：如果中断 x 仍然挂起（新的中断或标志位没有清除）且新的软件优先级比先前的一个高，那么中断 x 将重新进入。否则，中断优先级将保持不变直到下一个中断请求（在中断 x 的 IRET 之后）。</p>
-<p>在一个中断函数执行期间，HALT，POPCC，RIM，SIM 和 WFI 指令会改变当前的软件优先级，直到下一个 IRET 指令或前面提到的指令之一被发出。</p>
-<p>警告：可能会发生栈溢出，而不通知软件这个错误。</p>
-<p><img src="https://i.loli.net/2019/03/03/5c7b56e820fb8.png" alt="Image.png"></p>
-<p><img src="https://i.loli.net/2019/03/03/5c7b56f6c91b9.png" alt="Image.png"></p>
-<hr>
-<h3 id="外部中断"><a href="#外部中断" class="headerlink" title="外部中断"></a>外部中断</h3><p>五个中断向量专用于外部中断事件：</p>
-<ul>
-<li><p>PA 口有 5 个中断线：PA[6:2]</p>
-</li>
-<li><p>PB 口有 8 个中断线：PB[7:0]</p>
-</li>
-<li><p>PC 口有 8 个中断线：PC[7:0]</p>
-</li>
-<li><p>PD 口有 7 个中断线：PD[6:0]</p>
-</li>
-<li><p>PE 口有 8 个中断线：PE[7:0]</p>
-</li>
-</ul>
-<p>除了 20 脚封装的器件可以使用一个备用功能重映射操作位在 PC3 脚上获得 TLI，其他器件的 PD7 是最高级中断源（TLI）。</p>
-<p>为了触发一个中断，相应的 GPIO 端口必须配置成有中断功能的输入模式。</p>
-<p>中断的边沿敏感性必须由 EXTI_CR1 和 EXTI_CR2 寄存器配置。</p>
-<hr>
-<h3 id="中断指令"><a href="#中断指令" class="headerlink" title="中断指令"></a>中断指令</h3><p><img src="https://i.loli.net/2019/03/03/5c7b57479ebfa.png" alt="Image.png"></p>
-<p><img src="https://i.loli.net/2019/03/03/5c7b575da4506.png" alt="Image.png"></p>
-<hr>
-<h3 id="ITC（中断控制）和EXTI（外部中断）寄存器"><a href="#ITC（中断控制）和EXTI（外部中断）寄存器" class="headerlink" title="ITC（中断控制）和EXTI（外部中断）寄存器"></a>ITC（中断控制）和EXTI（外部中断）寄存器</h3><h4 id="一、CPU-状态码寄存器中断位（CCR）"><a href="#一、CPU-状态码寄存器中断位（CCR）" class="headerlink" title="一、CPU 状态码寄存器中断位（CCR）"></a>一、CPU 状态码寄存器中断位（CCR）</h4><p><img src="https://i.loli.net/2019/03/03/5c7b5840e7b1b.png" alt="Image.png"></p>
-<p>l[1:0]：软件中断优先级位</p>
-<p>这两位表示当前中断请求的软件优先级。当一个中断请求发生时，相应中断的软件优先级从软件优先级寄存器（ITC_SPRx）自动载入。</p>
-<p>l[1:0] 位也可以使用 RIM，SIM，HALT，WFI，IRET 或 PUSH/POP 指令来软件清空。</p>
-<p><img src="https://i.loli.net/2019/03/03/5c7b585894fa4.png" alt="Image.png"></p>
-<p>TLI，TRAP 和 RESET 时间可以中断一个 3 级的程序。</p>
-<h4 id="二、软件优先级寄存器-x（ITC-SPRx）"><a href="#二、软件优先级寄存器-x（ITC-SPRx）" class="headerlink" title="二、软件优先级寄存器 x（ITC_SPRx）"></a>二、软件优先级寄存器 x（ITC_SPRx）</h4><p><img src="https://i.loli.net/2019/03/03/5c7b587097956.png" alt="Image.png"></p>
-<p>由软件写入，来定义每一个中断向量的软件优先级。</p>
-<p>ITC_SPR1 的 [1：0] 位由硬件强制置 1（TLI）</p>
-<p>ITC_SPR8 的 [7：4] 位由硬件强制置 1</p>
-<p>禁止写入 10（优先级 0），如果写入 10，将保持原来的值，且中断优先级不会改变。</p>
-<h4 id="三、外部中断控制寄存器-1（EXTI-CR1）"><a href="#三、外部中断控制寄存器-1（EXTI-CR1）" class="headerlink" title="三、外部中断控制寄存器 1（EXTI_CR1）"></a>三、外部中断控制寄存器 1（EXTI_CR1）</h4><p><img src="https://i.loli.net/2019/03/03/5c7b5893277f1.png" alt="Image.png"></p>
-<h4 id="四、外部中断控制寄存器-2（EXTI-CR2）"><a href="#四、外部中断控制寄存器-2（EXTI-CR2）" class="headerlink" title="四、外部中断控制寄存器 2（EXTI_CR2）"></a>四、外部中断控制寄存器 2（EXTI_CR2）</h4><p><img src="https://i.loli.net/2019/03/03/5c7b58e6cd03b.png" alt="Image.png"></p>
-<h4 id="五、ITC-和-EXTI-寄存器映射和复位值"><a href="#五、ITC-和-EXTI-寄存器映射和复位值" class="headerlink" title="五、ITC 和 EXTI 寄存器映射和复位值"></a>五、ITC 和 EXTI 寄存器映射和复位值</h4><p><img src="https://i.loli.net/2019/03/03/5c7b59026b53a.png" alt="Image.png"></p>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>STM8</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>STM8S 电源管理</title>
-    <url>//blog/2019/03/03/STM8S-%E7%94%B5%E6%BA%90%E7%AE%A1%E7%90%86/</url>
-    <content><![CDATA[<hr>
-<p>默认情况下在系统或电源复位后，MCU 处于运行模式。在这种模式下，CPU 由 fCPU 提供时钟并执行程序代码，系统时钟分别为各个处于激活状态的外设提供时钟，MCU 功耗最大。</p>
-<a id="more"></a>
-<p>在运行模式下，为了保持 CPU 继续运行并执行代码，有以下几种途径可以降低功率消耗：</p>
-<ul>
-<li><p>降低系统时钟</p>
-</li>
-<li><p>关闭未使用外设的时钟</p>
-</li>
-<li><p>关闭所有未使用的模拟功能块</p>
-</li>
-</ul>
-<p>但是，如果 CPU 不需要保持运行，可使用下列三种低功耗模式：</p>
-<ul>
-<li><p>等待（Wait）</p>
-</li>
-<li><p>活跃停机（Active Halt）可配置为慢速或快速唤醒</p>
-</li>
-<li><p>停机（Halt）可配置为慢速或快速唤醒</p>
-</li>
-</ul>
-<p>用户可选择以上三种模式中的一种，并合理配置，以在最低功耗、最快唤醒速度和可使用的唤醒源之间获得最佳平衡点。</p>
-<hr>
-<h3 id="一、常规考虑"><a href="#一、常规考虑" class="headerlink" title="一、常规考虑"></a>一、常规考虑</h3><p>硅片中通常存在两种功耗：</p>
-<ul>
-<li><p>静态功耗：由极化电流和漏电流造成。静态功耗很小，只在停机（Halt）模式和活跃停机（Active Halt）模式下有意义。</p>
-</li>
-<li><p>动态功耗：来自于芯片上正在运行的数字模块。它取决于 VDD，时钟频率和负载电容。</p>
-</li>
-</ul>
-<p>一个 MCU 的功耗取决于：</p>
-<ul>
-<li><p>VDD 供电电压</p>
-</li>
-<li><p>模拟性能</p>
-</li>
-<li><p>MCU 大小及数字逻辑门数（漏电流及负载电容）</p>
-</li>
-<li><p>时钟频率</p>
-</li>
-<li><p>处于激活状态的外设数目</p>
-</li>
-<li><p>可用的低功耗模式及级别</p>
-</li>
-</ul>
-<p>MCU 的处理速度也很重要，这使得用户程序只需很短时间处于运行状态，而更多时间处于低功耗模式下。</p>
-<hr>
-<h3 id="二、低功耗的时钟管理"><a href="#二、低功耗的时钟管理" class="headerlink" title="二、低功耗的时钟管理"></a>二、低功耗的时钟管理</h3><h4 id="1、降低系统时钟"><a href="#1、降低系统时钟" class="headerlink" title="1、降低系统时钟"></a>1、降低系统时钟</h4><p>通过写时钟分频寄存器 CLK_CKDIVR 的位 CPUDIV[2:0]，可降低 fCPU 的时钟频率。这会降低 CPU 的速度，但同时可降低 CPU 的功耗。其它外设（由 fMASTER 提供时钟）不会受此设置影响。</p>
-<p>在运行模式下，任何时候需要恢复全速运行，将 CPUDIV[2:0] 清 0 即可。</p>
-<h4 id="2、外设时钟门控"><a href="#2、外设时钟门控" class="headerlink" title="2、外设时钟门控"></a>2、外设时钟门控</h4><p>使用时钟门控，用户可在任意时间打开或关闭 fMASTER 与各个外设的连接，在运行模式和等待模式均有效。</p>
-<hr>
-<h3 id="三、低功耗模式"><a href="#三、低功耗模式" class="headerlink" title="三、低功耗模式"></a>三、低功耗模式</h3><p><img src="https://i.loli.net/2019/03/03/5c7b6f3d4ef26.png" alt="Image.png"></p>
-<h4 id="1、等待模式（Wait）"><a href="#1、等待模式（Wait）" class="headerlink" title="1、等待模式（Wait）"></a>1、等待模式（Wait）</h4><p>在运行模式下执行 WFI（等待中断）指令，可进入等待模式。此时 CPU 停止运行，但外设与中断控制器仍保持运行，因此功耗会有所降低。等待模式可与 PCG（外设时钟门控），降低 CPU 时钟频率，以及选择低功耗时钟源（LSI，HSI）相结合使用，以进一步降低系统功耗。</p>
-<p>等待模式下，所有寄存器与 RAM 的内容保持不变，之前所定义的时钟配置也保持不变（CLK_CMSR） 。</p>
-<p>当一个内部或外部中断请求发生时，CPU 从等待模式唤醒并恢复工作。</p>
-<h4 id="2、停机模式（Halt）"><a href="#2、停机模式（Halt）" class="headerlink" title="2、停机模式（Halt）"></a>2、停机模式（Halt）</h4><p>该模式下主时钟停止。即由 fMASTER 提供时钟的 CPU 及所有外设均被关闭。因此，所有外设均没有时钟，MCU 的数字部分不消耗能量。</p>
-<p>停机模式下，所有寄存器与 RAM 的内容保持不变，默认情况下时钟配置也保持不变（CLK_CMSR）。</p>
-<p>MCU 可通过执行 HALT 指令进入停机模式。外部中断可将 MCU 从停机模式唤醒。外部中断指配置为中断输入的 GPIO 端口或具有触发外设中断能力的端口。</p>
-<p>这种模式下，仅低电压调节器（和掉电复位）处于工作状态。</p>
-<p><strong>快速时钟启动</strong></p>
-<p>HSI RC 的启动速度比 HSE 快。因此，为了减少 MCU 唤醒时间，建议在进入暂停模式前选择 HSI 作为 fMASTER 的时钟源。在进入停机模式前可通过设置内部时钟寄存器 CLK_ICKR 的 FHWU 位选择 HSI 作为 fMASTER 的时钟源，而无需时钟切换。 </p>
-<h4 id="3、活跃停机模式（Active-Halt）"><a href="#3、活跃停机模式（Active-Halt）" class="headerlink" title="3、活跃停机模式（Active Halt）"></a>3、活跃停机模式（Active Halt）</h4><p>活跃停机模式与停机模式类似，但它不需要外部中断唤醒。它使用 AWU，在一定的延时后，产生一个内部唤醒事件，延迟时间是用户可编程的。</p>
-<p>在活跃停机模式下，主振荡器，CPU 以及几乎所有外设都被停止。如果 AWU 和 IWD 已被使能，则只有 LSI RC 和 HSE 仍处于运行状态，以驱动 AWU 和 IWD 计数器。</p>
-<p>为进入活跃停机模式，需首先使能 AWU然后执行 HALT 指令。</p>
-<p><strong>主电源调节器自动关闭</strong></p>
-<p>默认情况下，为了从活跃停机模式快速唤醒，主电压调节器处于激活状态。但其电流消耗是不可忽视的。</p>
-<p>为进一步降低功耗，当 MCU 进入活跃停机模式时，主电压调节器可自动关闭。通过设置内部时钟寄存器 CLK_ICKR 的 REGAH 位可实现此功能。此时:</p>
-<p>- MCU 内核由低功耗电压调节器（LPVR）供电。</p>
-<p>- 仅 LSI 时钟源可用，因为 HSE 时钟源对于 LPVR 来说电流消耗太大。</p>
-<p>在唤醒时主电压调节器重新被打开，这需要一个比较长的唤醒时间。</p>
-<p><strong>快速唤醒时钟</strong></p>
-<p>为了缩短唤醒时间，建议使用 HSI 作为 fMASTER 的时钟源。FHWU 位也可用于缩短切换时间。</p>
-<p>在活跃停机模式下，快速唤醒时很重要的。这可以提高 CPU 的执行效率，使 MCU 处于运行状态与低功耗模式之间的时间最短，从而减少整体平均功耗。</p>
-<hr>
-<h3 id="四、附加的模拟功耗控制"><a href="#四、附加的模拟功耗控制" class="headerlink" title="四、附加的模拟功耗控制"></a>四、附加的模拟功耗控制</h3><h4 id="1、停机模式下的快速内存唤醒"><a href="#1、停机模式下的快速内存唤醒" class="headerlink" title="1、停机模式下的快速内存唤醒"></a>1、停机模式下的快速内存唤醒</h4><p>默认情况下，MCU 进入 Halt 模式后 FLASH 是处于掉电状态的。此时，漏电流可忽略，功耗是非常低的。但 FLASH 的唤醒时间较长（几us）。</p>
-<p>​    </p>
-<p>如果用户需要从 Halt 模式快速唤醒，可将 FLASH_CR1 的 HALT 位置 1。当 MCU 进入停机模式时，这将确保 FLASH 处于等待状态，唤醒时间降至几纳秒。但功耗将增至几 uA。</p>
-<h4 id="2、活跃停机模式下的超低内存功耗"><a href="#2、活跃停机模式下的超低内存功耗" class="headerlink" title="2、活跃停机模式下的超低内存功耗"></a>2、活跃停机模式下的超低内存功耗</h4><p>在活跃停机模式下，为加快唤醒时间，默认情况下 FLASH 处于工作状态，因此并没有降低功耗。</p>
-<p>为降低功耗，用户可将 FLASH_CR1 的 AHALT 位置 1。在进入活跃停机模式时，这将停止向 FLASH 供电以降低功耗，但唤醒时间将增至微秒级。</p>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>STM8</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ARM CMSIS-DSP 库简介</title>
-    <url>//blog/2019/03/04/ARM-CMSIS-DSP-%E5%BA%93%E7%AE%80%E4%BB%8B/</url>
-    <content><![CDATA[<hr>
-<p>CMSIS 的 DSP 库主要提供以下数字信号处理算法：</p>
-<p>1、BasicMathFunctions</p>
-<p>提供基本的数据运算，如加减乘除，以 _f32 结尾的函数是浮点运算，以 _q8，_q15，_q31 结尾的函数是定点运算。</p>
-<a id="more"></a>
-<p>2、FastMathFunctions</p>
-<p>主要提供 SIN，COS 以及平方根 SPRT 的运算。</p>
-<p>3、ComplexMathFunctions</p>
-<p>复杂数学运算，主要是向量，求模等运算。</p>
-<p>4、FilteringFunctions</p>
-<p>主要是滤波函数，如 IIR，FIR，LMS 等。</p>
-<p>5、MatrixFunctions</p>
-<p>主要是矩阵运算。</p>
-<p>6、TransformFunctions</p>
-<p>变换功能。包括复数 FFT（CFFT）/负数 FFT 逆运算（CIFFT）、实数 FFT（RFFT）/实数 FFT 逆运算。</p>
-<p>7、ControllerFunctions</p>
-<p>控制功能，主要为 PID 控制函数。arm_sin_cos_f32/_q31.c 函数提供 360 点正余弦函数表和任意角度的正余弦函数值计算功能。</p>
-<p>8、StatisticsFunctions</p>
-<p>统计功能函数，如求平均值、计算 RMS 等。</p>
-<p>9、SupportFunctions</p>
-<p>支持功能函数，如数据拷贝，Q 格式和浮点格式相互转换。</p>
-<p>10、CommonTables</p>
-<p>arm_common_tables.c 文件提供位翻转或相关参数表。</p>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>STM32</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Altium Designer PCB 操作总结</title>
-    <url>//blog/2019/03/04/Altium-Designer-PCB-%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<hr>
-<p>1、定原点（PCB文件原点）</p>
-<p>Edit -&gt; origin</p>
-<a id="more"></a>
-<hr>
-<p>2、定义尺寸（可以最开始定，也可以最后定）</p>
-<p>先画mechanical layer，再复制到 keep-out-layer（要粘贴时先点Edit-&gt;paste special），然后  Design -&gt; Board Shape -&gt; Redefine Board Shape</p>
-<hr>
-<p>3、测量距离</p>
-<p>ctrl+M </p>
-<hr>
-<p>4、 更换线型</p>
-<p>ctrl+space，用“&lt;”和“&gt;”可改变倒角曲率半径</p>
-<hr>
-<p>5、铺地</p>
-<p>place -&gt; polygon pour -&gt; connect to GND，选 top layer 或 bottom layer，选 pour over all same objects -&gt; 选范围 -&gt; 确定</p>
-<hr>
-<p>6、焊盘</p>
-<p>贴片焊盘用 top layer，过孔焊盘用multi layer</p>
-<hr>
-<p>7、旋转</p>
-<p>空格</p>
-<hr>
-<p>8、打开/关闭层</p>
-<p>L</p>
-<hr>
-<p>9、切换层</p>
-<p>小键盘 *</p>
-<hr>
-<p>10、添加层</p>
-<p>design -&gt;layer stack manager -&gt;点击 Toplayer 或 Bottomlayer -&gt; 信号层 add layer/内电层 add plane</p>
-<p>如果要分割，不要添加 net</p>
-<hr>
-<p>11、泪滴</p>
-<p>Tools -&gt; Teardoops</p>
-<hr>
-<p>12、铺铜皮</p>
-<p>Place -&gt; 矩形 Fill / 多边形 Solid region</p>
-<hr>
-<p>13、灌铜</p>
-<p>Place -&gt; Polygon Pour（需要设置 net，也可以不设）</p>
-<p>灌铜掏空：Place -&gt; Polygon Pour Cutout</p>
-<hr>
-<p>14、走线换层</p>
-<p>shift + ctrl +鼠标滑轮</p>
-<hr>
-<p>15、原理图更新到 PCB 时出现 unknown pin</p>
-<p>删除 PCB 图中所有 net（design -&gt; netlist）</p>
-<hr>
-<p>16、元件换层</p>
-<p>拖住按 L</p>
-<hr>
-<p>17、选中需要修整的铜皮  M+G</p>
-<p>修钝角 P+Y</p>
-<hr>
-<p>18、PCB 图中修改丝印字体</p>
-<p>任一丝印右键 -&gt; find similar objects -&gt; text width 选 same -&gt; OK -&gt; 在 PCB inspector 中修改</p>
-<hr>
-<p>19、隐藏网络飞线</p>
-<p>N -&gt; Hide Connections 选 Net</p>
-]]></content>
-      <tags>
-        <tag>软件使用</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Cadence Allegro 操作总结</title>
-    <url>//blog/2019/03/04/Cadence-Allegro-%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<hr>
-<p>1、查看快捷键</p>
-<p>命令行输入alias</p>
-<a id="more"></a>
-<hr>
-<p>2、显示丝印</p>
-<p>菜单栏 color192（四个方块）-&gt; component -&gt; silkscreen打钩</p>
-<hr>
-<p>3、关闭和显示网络飞线</p>
-<p>Display -&gt; Show Rats -&gt; All -&gt; 即可打开显示所有的网络飞线（未布线的网络）</p>
-<p>Display -&gt; Blank Rats -&gt; All -&gt; 关闭隐藏所有的网络飞线</p>
-]]></content>
-      <tags>
-        <tag>软件使用</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Altium Designer 原理图操作总结</title>
-    <url>//blog/2019/03/04/Altium-Designer-%E5%8E%9F%E7%90%86%E5%9B%BE%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<hr>
-<p>1、统一改 IC 标号</p>
-<p>Tools -&gt; Annotate Schematic -&gt; Reset All -&gt; UpdateChanges List</p>
-<a id="more"></a>
-<hr>
-<p>2、统一改封装</p>
-<p>器件右键 -&gt; Find Similar Objects -&gt; Description 选 same -&gt; Symbol Reference 选 same -&gt; OK -&gt; CTRL + A -&gt; 改 current footprint -&gt; 左击菜单外的工作台</p>
-<p>改完之后因为过滤器其他器件为灰色，此时在工作台任意位置右键，点 Filter，clear filter</p>
-<hr>
-<p>3、导出 BOM</p>
-<p>需要将每一个器件的 comment 改成对应的阻值容值，template 选 BOM Default Template 95.xlt，最后点 Export</p>
-]]></content>
-      <tags>
-        <tag>软件使用</tag>
+        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -1385,21 +945,217 @@
       </tags>
   </entry>
   <entry>
-    <title>Cadence Capture 加页码的方法</title>
-    <url>//blog/2019/03/04/Cadence-Capture-%E5%8A%A0%E9%A1%B5%E7%A0%81%E7%9A%84%E6%96%B9%E6%B3%95/</url>
+    <title>STM8S 中断控制</title>
+    <url>//blog/2019/03/03/STM8S-%E4%B8%AD%E6%96%AD%E6%8E%A7%E5%88%B6/</url>
     <content><![CDATA[<hr>
-<p>1、 选中 .dsn 文件（工程文件）</p>
-<p>2、执行 tools 菜单里的 Annotate 命令</p>
-<p>3、在弹出的 Annotate 对话框中选择 Packaging 页</p>
-<p>4、在 action 栏选择 Add Intersheet References</p>
-<p>5、点击 “确定” 按钮进入 Intersheet References 对话框，勾选第一项：Place on off page connectors</p>
+<h3 id="ITC-简介"><a href="#ITC-简介" class="headerlink" title="ITC 简介"></a>ITC 简介</h3><h4 id="硬件中断管理"><a href="#硬件中断管理" class="headerlink" title="硬件中断管理"></a>硬件中断管理</h4><ul>
+<li><p>大多数 I/O 口都具有外部中断能力，有专用的中断向量，每个端口都可以设置边沿检测方式（上升/下降）。</p>
+</li>
+<li><p>外设中断能力</p>
+</li>
+</ul>
 <a id="more"></a>
-<p>注意，在 title block 里面一定要有正确的页码，比如 1 of 8，  2 of 8 等等，这个是打页码的依据。</p>
-<p>添加 title block的方法： place -&gt; title block。</p>
-<p>如果要删除 off page connector 的页面编号，在 Annotate 对话框中，选择 Delete Intersheet References 即可删除。</p>
+<h4 id="软件中断能力（TRAP）"><a href="#软件中断能力（TRAP）" class="headerlink" title="软件中断能力（TRAP）"></a>软件中断能力（TRAP）</h4><p>使用复杂中断优先级和等级管理的嵌套或并发中断管理</p>
+<ul>
+<li><p>最多 4 个软件可编程的嵌套等级</p>
+</li>
+<li><p>最多 32 个由硬件固定的中断向量</p>
+</li>
+<li><p>2 个不可屏蔽事件：RESET，TRAP</p>
+</li>
+<li><p>1 个不可屏蔽的最高级硬件中断（TLI）</p>
+</li>
+</ul>
+<h4 id="中断管理基"><a href="#中断管理基" class="headerlink" title="中断管理基"></a>中断管理基</h4><ul>
+<li><p>CPU 的 CCR 寄存器的 l1 和 l0 位</p>
+</li>
+<li><p>软件优先级寄存器（ITC_SPRx）</p>
+</li>
+<li><p>复位向量地址 0x008000 在程序存储器的起始位置。在有 boot ROM 的器件中，复位初始化程序由 STMicroelectronics 编程在 ROM 中。</p>
+</li>
+<li><p>固定的中断向量地址位于存储器地址映射的高地址（0x00 8004 到 0x00 807C），按硬件优先级顺序排列。</p>
+</li>
+</ul>
+<hr>
+<h3 id="中断屏蔽和处理流程"><a href="#中断屏蔽和处理流程" class="headerlink" title="中断屏蔽和处理流程"></a>中断屏蔽和处理流程</h3><p>中断屏蔽由 CCR 寄存器的 l1 和 l0 位和设置每个中断向量的软件优先级等级的 ITC_SPRx 寄存器管理。</p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b55bed9fc8.png" alt="Image.png"></p>
+<p>当一个中断请求必须被响应时：</p>
+<p>1、正常的过程被暂停在当前指令执行的最后一条。</p>
+<p>2、PC，X，Y，A 和 CCR 寄存器入栈。</p>
+<p>3、CCR 寄存器的 l1 和 l0 位根据 ITC_SPRx 寄存器中相应的中断向量的值置位。</p>
+<p>4、PC 然后载入中断的中断向量，以响应中断，取指中断服务函数的第一条指令。</p>
+<p>中断服务函数应该以IRET指令结束，这条指令使得保存的寄存器值从栈中恢复。IRET 指令也会是 l1 和 l0 从栈中恢复，同时程序恢复正常执行过程。</p>
+<p>如果中断屏蔽位 l0 和 l1 在中断服务函数（ISR）中被使用 SIM 指令置位，使用 RIM 对中断屏蔽进行移除将造成软件优先级被设置为 0 级。</p>
+<p>为了在中断服务函数中使能或禁止中断时恢复正确的优先级，遵循 Table 8 中的步骤来使能或禁止中断。</p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b55e11a877.png" alt="Image.png"></p>
+<h4 id="一、服务挂起中断"><a href="#一、服务挂起中断" class="headerlink" title="一、服务挂起中断"></a>一、服务挂起中断</h4><p>几个中断可以同时被挂起。下一个要处理的中断由以下两步操作决定：</p>
+<p>1、最高软件优先级的中断被响应。</p>
+<p>2、如果几个中断的软件优先级相同，硬件优先级最高的中断首先响应。</p>
+<p>当一个中断请求没有被立即响应的时候，它将被锁存，并在软件优先级和硬件优先级相结合为最高优先级的时候进行处理。</p>
+<p>注意：</p>
+<p>1、硬件优先级是独一无二的，而软件的不是。这允许只有一个中断的时候能继续先前的过程。</p>
+<p>2、在判定过程中，RESET，TLI 和 TRAP 被认为拥有最高软件优先级。</p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b55fc57659.png" alt="Image.png"></p>
+<h4 id="二、中断源"><a href="#二、中断源" class="headerlink" title="二、中断源"></a>二、中断源</h4><p>STM8中断控制器安排了两种中断源类型。</p>
+<p>- 非可屏蔽中断：RESET，TLI 和 TRAP</p>
+<p>- 可屏蔽中断：外部中断或内部外设触发的中断</p>
+<p><strong>非可屏蔽中断源</strong></p>
+<p>在处理非可屏蔽中断源时，忽略 CCR 寄存器的 l1 和 l0 的状态。PC，X，Y，A 和 CCR 寄存器只有在一个 TRAP 中断发生时入栈。然后，相应的中断向量载入 PC 寄存器，CCR 寄存器的 l1 和 l0 设置为禁止中断。</p>
+<p>● TRAP（非可屏蔽软件中断）</p>
+<p>​     当 TRAP 指令执行时，这个软件中断源得到响应。它和 TLI 一样根据 Figure 13 的流程图来响应。</p>
+<p>​     TRAP 中断不允许处理器从 Halt 模式下退出。</p>
+<p>● RESET</p>
+<p>​     RESET 中断源拥有 STM8 最高等级的软件和硬件优先级。这意味着在复位程序的开始，所有的中断都会被禁止。它们必须被 RIM 指令重使能。</p>
+<p>​     RESET 中断允许处理器从 Halt 模式下退出。</p>
+<p>● TLI（顶级硬件中断）</p>
+<p>​     这个硬件中断发生在在的 TLI 输入端检测到一个特定的边沿时。</p>
+<p>​     TLI 服务函数中必须使用一个 TRAP 指令。</p>
+<p><strong>可屏蔽中断源</strong></p>
+<p>如果可屏蔽中断被使能，而且如果它自己在 ITC_SPRx 寄存器中的中断软件优先级比当前正在响应的中断（CCR 寄存器中的 l1 和 l0）高，该可屏蔽中断向量源开始响应。如果这两个条件之一没有满足，中断将被锁存并挂起。</p>
+<p><strong>外部中断</strong></p>
+<p>外部中断可被用来从 Halt 模式下唤醒 CPU。器件对外部中断的边沿敏感性可通过外部中断控制寄存器（EXTI_CRx）进行软件选择。</p>
+<p>当连接到同一个中断线的几个输入引脚同时被选择时，他们是逻辑或的关系。</p>
+<p>当外部电平触发中断被锁存时，如果给定的电平在中断程序的最后依然保持时，中断保持激活，除非它在程序中被禁止。</p>
+<p><strong>外设中断</strong></p>
+<p>大多数外部中断能将 MCU 从 Halt 模式下唤醒。</p>
+<p>当外设状态寄存器中的一个特定的标志位置位，并且外设控制寄存器中相应的使能位置位时，发生一个外设中断。</p>
+<p>​     </p>
+<hr>
+<h3 id="中断和低功耗模式"><a href="#中断和低功耗模式" class="headerlink" title="中断和低功耗模式"></a>中断和低功耗模式</h3><p>所有中断都能使处理器从 wait 模式中退出。</p>
+<p>只有外部中断及其他特殊中断允许处理器从 halt 和 active-halt 模式下退出。</p>
+<p>当从 halt 模式下唤醒又同时有几个中断挂起时，第一个响应的中断只能是一个能从 halt 模式退出的中断。它由 Figure14 中给出的过程精确选择。如果最高优先级的挂起中断不能将器件从 halt 模式中唤醒，将会响应下一个中断。</p>
+<p>如果 HALT 指令执行时发生了任意内部或外部中断（例如定时器），HALT 指令会被执行完但是在 HALT 指令完成之后中断会立即调用唤醒机制。这样，MCU 实际上是从 halt 模式唤醒到 run 模式，相应的延迟参考 datasheet 中的 tWUH。</p>
+<hr>
+<h3 id="活跃等级-低功耗模式控制"><a href="#活跃等级-低功耗模式控制" class="headerlink" title="活跃等级/低功耗模式控制"></a>活跃等级/低功耗模式控制</h3><p>MCU 的活跃等级通过编程 CFG_GCR 寄存器中的 AL 位来配置。</p>
+<p>这一位用来控制 MCU 的低功耗模式。在非常低功耗的应用中，MCU 的大部分时间花在 WFI，并且在特殊时刻（通过中断）来唤醒以执行特殊任务。这些再发任务中，有一些非常短，可以直接在中断服务函数（ISR）里执行，而不用回到主函数中。对于这种情况，可以在进入低功耗模式以前（同过执行 WFI 指令）将 AL 置位，然后中断函数直接返回到低功耗模式。由于寄存器上下文只保存在第一个中断中，run time/ISR 指令相应缩减。</p>
+<p>因此，在非常简单的应用中，所有操作都可以在 ISR 中执行。在更复杂的应用中，一个中断函数可以通过复位 AL 位来重新启动主函数。</p>
+<p>例如，一个应用可能需要每隔 50ms 由自动唤醒单元（AWU）来唤醒，以检查一些引脚/传感器/按键的状态。大部分时间，当这些引脚未激活时，MCU 可以返回到低功耗模式而不运行主函数。如果这些引脚的其中之一激活，ISR 将通过复位 AL 位来启动主函数。</p>
+<hr>
+<h3 id="并发和嵌套中断管理"><a href="#并发和嵌套中断管理" class="headerlink" title="并发和嵌套中断管理"></a>并发和嵌套中断管理</h3><p>STM8 器件的特色之一是有两个中断管理模式：</p>
+<p>- 并发模式</p>
+<p>- 嵌套模式</p>
+<h4 id="一、并发中断管理模式"><a href="#一、并发中断管理模式" class="headerlink" title="一、并发中断管理模式"></a>一、并发中断管理模式</h4><p>在这以模式下，所有中断都是 3 级优先级，所以它们都不能被中断，除了 TLI，RESET 或 TRAP。</p>
+<p>硬件优先级按照下面的从低到高的顺序给出：MAIN，IT4，IT3，IT2，IT1，IT0，TRAP/TLI（优先级相同），RESET。</p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b56c0dcd3c.png" alt="Image.png"></p>
+<p>二、嵌套中断管理模式：</p>
+<p>在这个模式下，可以在中断函数中嵌套中断。只要有一个中断优先级低于 3 级，这个模式就会被激活。</p>
+<p>硬件优先级按下面的从低到高的顺序给出：MAIN，IT4，IT3，IT2，IT1，IT0，TRAP。</p>
+<p>每一个中断向量都可以通过设置相应的 ITC_SPRx 寄存器的 l1_x 和 l0_x 位，来配置软件优先级。l1_x 和 l0_x 位与 CCR 寄存器的 l1 和 l0 位的意义相同。</p>
+<p>不能编程为等级 0（l1_x = 1，l0_x = 0）。在这种情况下，将保持先前存储的值。例如，如果先前的值为 0xcf，编程值等于 64h，结果是 44h。</p>
+<p>RESET 和 TRAP 向量没有软件优先级。当其中一个被响应时，CCR 寄存器的 l1 和 l0 位都会置位。</p>
+<p>注意：如果中断 x 被执行时，l1_x 和 l0_x 位被修改，器件会进行以下操作：如果中断 x 仍然挂起（新的中断或标志位没有清除）且新的软件优先级比先前的一个高，那么中断 x 将重新进入。否则，中断优先级将保持不变直到下一个中断请求（在中断 x 的 IRET 之后）。</p>
+<p>在一个中断函数执行期间，HALT，POPCC，RIM，SIM 和 WFI 指令会改变当前的软件优先级，直到下一个 IRET 指令或前面提到的指令之一被发出。</p>
+<p>警告：可能会发生栈溢出，而不通知软件这个错误。</p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b56e820fb8.png" alt="Image.png"></p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b56f6c91b9.png" alt="Image.png"></p>
+<hr>
+<h3 id="外部中断"><a href="#外部中断" class="headerlink" title="外部中断"></a>外部中断</h3><p>五个中断向量专用于外部中断事件：</p>
+<ul>
+<li><p>PA 口有 5 个中断线：PA[6:2]</p>
+</li>
+<li><p>PB 口有 8 个中断线：PB[7:0]</p>
+</li>
+<li><p>PC 口有 8 个中断线：PC[7:0]</p>
+</li>
+<li><p>PD 口有 7 个中断线：PD[6:0]</p>
+</li>
+<li><p>PE 口有 8 个中断线：PE[7:0]</p>
+</li>
+</ul>
+<p>除了 20 脚封装的器件可以使用一个备用功能重映射操作位在 PC3 脚上获得 TLI，其他器件的 PD7 是最高级中断源（TLI）。</p>
+<p>为了触发一个中断，相应的 GPIO 端口必须配置成有中断功能的输入模式。</p>
+<p>中断的边沿敏感性必须由 EXTI_CR1 和 EXTI_CR2 寄存器配置。</p>
+<hr>
+<h3 id="中断指令"><a href="#中断指令" class="headerlink" title="中断指令"></a>中断指令</h3><p><img src="https://i.loli.net/2019/03/03/5c7b57479ebfa.png" alt="Image.png"></p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b575da4506.png" alt="Image.png"></p>
+<hr>
+<h3 id="ITC（中断控制）和EXTI（外部中断）寄存器"><a href="#ITC（中断控制）和EXTI（外部中断）寄存器" class="headerlink" title="ITC（中断控制）和EXTI（外部中断）寄存器"></a>ITC（中断控制）和EXTI（外部中断）寄存器</h3><h4 id="一、CPU-状态码寄存器中断位（CCR）"><a href="#一、CPU-状态码寄存器中断位（CCR）" class="headerlink" title="一、CPU 状态码寄存器中断位（CCR）"></a>一、CPU 状态码寄存器中断位（CCR）</h4><p><img src="https://i.loli.net/2019/03/03/5c7b5840e7b1b.png" alt="Image.png"></p>
+<p>l[1:0]：软件中断优先级位</p>
+<p>这两位表示当前中断请求的软件优先级。当一个中断请求发生时，相应中断的软件优先级从软件优先级寄存器（ITC_SPRx）自动载入。</p>
+<p>l[1:0] 位也可以使用 RIM，SIM，HALT，WFI，IRET 或 PUSH/POP 指令来软件清空。</p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b585894fa4.png" alt="Image.png"></p>
+<p>TLI，TRAP 和 RESET 时间可以中断一个 3 级的程序。</p>
+<h4 id="二、软件优先级寄存器-x（ITC-SPRx）"><a href="#二、软件优先级寄存器-x（ITC-SPRx）" class="headerlink" title="二、软件优先级寄存器 x（ITC_SPRx）"></a>二、软件优先级寄存器 x（ITC_SPRx）</h4><p><img src="https://i.loli.net/2019/03/03/5c7b587097956.png" alt="Image.png"></p>
+<p>由软件写入，来定义每一个中断向量的软件优先级。</p>
+<p>ITC_SPR1 的 [1：0] 位由硬件强制置 1（TLI）</p>
+<p>ITC_SPR8 的 [7：4] 位由硬件强制置 1</p>
+<p>禁止写入 10（优先级 0），如果写入 10，将保持原来的值，且中断优先级不会改变。</p>
+<h4 id="三、外部中断控制寄存器-1（EXTI-CR1）"><a href="#三、外部中断控制寄存器-1（EXTI-CR1）" class="headerlink" title="三、外部中断控制寄存器 1（EXTI_CR1）"></a>三、外部中断控制寄存器 1（EXTI_CR1）</h4><p><img src="https://i.loli.net/2019/03/03/5c7b5893277f1.png" alt="Image.png"></p>
+<h4 id="四、外部中断控制寄存器-2（EXTI-CR2）"><a href="#四、外部中断控制寄存器-2（EXTI-CR2）" class="headerlink" title="四、外部中断控制寄存器 2（EXTI_CR2）"></a>四、外部中断控制寄存器 2（EXTI_CR2）</h4><p><img src="https://i.loli.net/2019/03/03/5c7b58e6cd03b.png" alt="Image.png"></p>
+<h4 id="五、ITC-和-EXTI-寄存器映射和复位值"><a href="#五、ITC-和-EXTI-寄存器映射和复位值" class="headerlink" title="五、ITC 和 EXTI 寄存器映射和复位值"></a>五、ITC 和 EXTI 寄存器映射和复位值</h4><p><img src="https://i.loli.net/2019/03/03/5c7b59026b53a.png" alt="Image.png"></p>
 ]]></content>
       <tags>
-        <tag>软件使用</tag>
+        <tag>硬件拾忆</tag>
+        <tag>STM8</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>STM8S 供电</title>
+    <url>//blog/2019/03/03/STM8S-%E4%BE%9B%E7%94%B5/</url>
+    <content><![CDATA[<hr>
+<p>STM8 MCU 有 4 种相对独立的供电电源：</p>
+<p>- VDD/VSS：主电源（3V 到 5.5V）</p>
+<p>- VDDIO/VSSIO：I/O 口供电电源（3V 到 5.5V ）</p>
+<p>- VDDA/VSSA：模拟部分供电电源</p>
+<p>- VREF+/VREF-：ADC 参考电源</p>
+<a id="more"></a>
+<p>VDD/VSS 引脚用来为内部主稳压器（MVR）和内部低功耗稳压器（LPVR）供电。这两个调节器的输出连在一起，向MCU的核（CPU，Flash 和 RAM）提供 1.8V 电压。</p>
+<p>在低功耗模式下系统自动从 MVR 切换到 LPVR，以减少电流消耗。</p>
+<p><strong>为了稳定 MVR，必须在 VCAP 脚接一个电容</strong>。</p>
+<p>根据封装的大小，可能有一对或两对特定的 VDDIO/VSSIO 来给I/O供电。</p>
+<p>VDDA/VSSA和VREF+/VREF- 都与ADC模块相连接。</p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b5ace894e7.png" alt="Image.png"></p>
+]]></content>
+      <tags>
+        <tag>硬件拾忆</tag>
+        <tag>STM8</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>STM8S 复位</title>
+    <url>//blog/2019/03/03/STM8S-%E5%A4%8D%E4%BD%8D/</url>
+    <content><![CDATA[<hr>
+<p>stm8s 共 9 个复位源：</p>
+<ul>
+<li><p>NRST 引脚产生的外部复位</p>
+</li>
+<li><p>上电复位（POR）</p>
+</li>
+<li><p>掉电复位（BOR）</p>
+</li>
+<li><p>独立看门狗复位</p>
+</li>
+<li><p>窗口看门狗复位</p>
+</li>
+<li><p>软件复位 </p>
+</li>
+<li><p>SWIM 复位</p>
+</li>
+<li><p>非法操作码复位</p>
+</li>
+<li><p>EMS 复位：当一些关键的寄存器被破坏或错误加载时产生的复位</p>
+</li>
+</ul>
+<a id="more"></a>
+<hr>
+<h3 id="一、复位电路"><a href="#一、复位电路" class="headerlink" title="一、复位电路"></a>一、复位电路</h3><p><img src="https://i.loli.net/2019/03/03/5c7b5d5ae2a63.png" alt="Image.png"></p>
+<p>复位引脚 NRST 内部集成了弱上拉电阻 RPU，既可作为输入，也可作为开漏输出。</p>
+<p>一个在复位引脚上宽度最小为 500ns 的低电平脉冲即可产生一个外部复位。对于复位的检测是异步进行的，因此即使 MCU 处于停机（Halt）模式，也有可能进入复位状态。</p>
+<p>复位引脚也可以作为开漏输出用于对外部设备进行复位。</p>
+<p>无论内部复位源是什么，一旦复位，内部复位电路都会产生一个至少脉宽为 20us 的复位脉冲。当没有外部复位发生时，内部弱上拉电阻可保证复位引脚处于高电平。</p>
+<hr>
+<h3 id="二、内部复位源"><a href="#二、内部复位源" class="headerlink" title="二、内部复位源"></a>二、内部复位源</h3><p>除了 POR 和 BOR，每个内部复位源在复位状态寄存器中都有一个标志位与之相对应。复位时，根据导致复位的复位源，这些标志位被分别设置。因此，这些标志位可用于指示引起最后一次复位的复位源。通过软件写 1 可清除标志位。</p>
+<h4 id="1、上电复位（POR）和掉电复位（BOR）"><a href="#1、上电复位（POR）和掉电复位（BOR）" class="headerlink" title="1、上电复位（POR）和掉电复位（BOR）"></a>1、上电复位（POR）和掉电复位（BOR）</h4><p>上电期间，POR 保持设备处于复位状态，直到供电电压（VDD 和 VDDIO）到达 BOR 的启动电压。此时，BOR 复位取代 POR，POR 自动关闭。BOR 复位一直持续到供电电压到达工作电压。</p>
+<p>当工作电压降到们限制 VIT- 以下时，BOR 也将产生一个复位，此后 POR 模块将重新准备好以响应下一次上电复位。</p>
+<p>电压迟滞用以保证清楚地检测电压的上升和下降。</p>
+<p>即使是 MCU 处于低功耗模式，BOR 也总是保持激活状态。</p>
+<h4 id="2、非法操作码复位"><a href="#2、非法操作码复位" class="headerlink" title="2、非法操作码复位"></a>2、非法操作码复位</h4><p>为了提高设备的可靠性，防止意外行为的发生，使用了非法操作码检测系统。如果一个被执行的代码与任意操作码或预置字节均不相符，则产生一个复位。此功能与看门狗相配合，可是设备从一个意外错误或干扰中恢复。</p>
+<p>一个有效的预置字节与一个有效的操作码组成的一个非法的组合将不会产生复位。</p>
+<h4 id="3、EMS-复位"><a href="#3、EMS-复位" class="headerlink" title="3、EMS 复位"></a>3、EMS 复位</h4><p>为了避免由电磁干扰造成的对应用程序误写操作或系统挂起，大多数关键寄存器都有一个互补寄存器与之相对应。系统将会自动检测这些关键寄存器与其互补寄存器之间是否匹配。如果不匹配，则产生一个 EMS 复位，从而使应用程序恢复到正常操作。</p>
+]]></content>
+      <tags>
+        <tag>硬件拾忆</tag>
+        <tag>STM8</tag>
       </tags>
   </entry>
   <entry>
@@ -1603,6 +1359,250 @@
       </tags>
   </entry>
   <entry>
+    <title>ARM CMSIS-DSP 库简介</title>
+    <url>//blog/2019/03/04/ARM-CMSIS-DSP-%E5%BA%93%E7%AE%80%E4%BB%8B/</url>
+    <content><![CDATA[<hr>
+<p>CMSIS 的 DSP 库主要提供以下数字信号处理算法：</p>
+<p>1、BasicMathFunctions</p>
+<p>提供基本的数据运算，如加减乘除，以 _f32 结尾的函数是浮点运算，以 _q8，_q15，_q31 结尾的函数是定点运算。</p>
+<a id="more"></a>
+<p>2、FastMathFunctions</p>
+<p>主要提供 SIN，COS 以及平方根 SPRT 的运算。</p>
+<p>3、ComplexMathFunctions</p>
+<p>复杂数学运算，主要是向量，求模等运算。</p>
+<p>4、FilteringFunctions</p>
+<p>主要是滤波函数，如 IIR，FIR，LMS 等。</p>
+<p>5、MatrixFunctions</p>
+<p>主要是矩阵运算。</p>
+<p>6、TransformFunctions</p>
+<p>变换功能。包括复数 FFT（CFFT）/负数 FFT 逆运算（CIFFT）、实数 FFT（RFFT）/实数 FFT 逆运算。</p>
+<p>7、ControllerFunctions</p>
+<p>控制功能，主要为 PID 控制函数。arm_sin_cos_f32/_q31.c 函数提供 360 点正余弦函数表和任意角度的正余弦函数值计算功能。</p>
+<p>8、StatisticsFunctions</p>
+<p>统计功能函数，如求平均值、计算 RMS 等。</p>
+<p>9、SupportFunctions</p>
+<p>支持功能函数，如数据拷贝，Q 格式和浮点格式相互转换。</p>
+<p>10、CommonTables</p>
+<p>arm_common_tables.c 文件提供位翻转或相关参数表。</p>
+]]></content>
+      <tags>
+        <tag>硬件拾忆</tag>
+        <tag>STM32</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>STM8S 电源管理</title>
+    <url>//blog/2019/03/03/STM8S-%E7%94%B5%E6%BA%90%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[<hr>
+<p>默认情况下在系统或电源复位后，MCU 处于运行模式。在这种模式下，CPU 由 fCPU 提供时钟并执行程序代码，系统时钟分别为各个处于激活状态的外设提供时钟，MCU 功耗最大。</p>
+<a id="more"></a>
+<p>在运行模式下，为了保持 CPU 继续运行并执行代码，有以下几种途径可以降低功率消耗：</p>
+<ul>
+<li><p>降低系统时钟</p>
+</li>
+<li><p>关闭未使用外设的时钟</p>
+</li>
+<li><p>关闭所有未使用的模拟功能块</p>
+</li>
+</ul>
+<p>但是，如果 CPU 不需要保持运行，可使用下列三种低功耗模式：</p>
+<ul>
+<li><p>等待（Wait）</p>
+</li>
+<li><p>活跃停机（Active Halt）可配置为慢速或快速唤醒</p>
+</li>
+<li><p>停机（Halt）可配置为慢速或快速唤醒</p>
+</li>
+</ul>
+<p>用户可选择以上三种模式中的一种，并合理配置，以在最低功耗、最快唤醒速度和可使用的唤醒源之间获得最佳平衡点。</p>
+<hr>
+<h3 id="一、常规考虑"><a href="#一、常规考虑" class="headerlink" title="一、常规考虑"></a>一、常规考虑</h3><p>硅片中通常存在两种功耗：</p>
+<ul>
+<li><p>静态功耗：由极化电流和漏电流造成。静态功耗很小，只在停机（Halt）模式和活跃停机（Active Halt）模式下有意义。</p>
+</li>
+<li><p>动态功耗：来自于芯片上正在运行的数字模块。它取决于 VDD，时钟频率和负载电容。</p>
+</li>
+</ul>
+<p>一个 MCU 的功耗取决于：</p>
+<ul>
+<li><p>VDD 供电电压</p>
+</li>
+<li><p>模拟性能</p>
+</li>
+<li><p>MCU 大小及数字逻辑门数（漏电流及负载电容）</p>
+</li>
+<li><p>时钟频率</p>
+</li>
+<li><p>处于激活状态的外设数目</p>
+</li>
+<li><p>可用的低功耗模式及级别</p>
+</li>
+</ul>
+<p>MCU 的处理速度也很重要，这使得用户程序只需很短时间处于运行状态，而更多时间处于低功耗模式下。</p>
+<hr>
+<h3 id="二、低功耗的时钟管理"><a href="#二、低功耗的时钟管理" class="headerlink" title="二、低功耗的时钟管理"></a>二、低功耗的时钟管理</h3><h4 id="1、降低系统时钟"><a href="#1、降低系统时钟" class="headerlink" title="1、降低系统时钟"></a>1、降低系统时钟</h4><p>通过写时钟分频寄存器 CLK_CKDIVR 的位 CPUDIV[2:0]，可降低 fCPU 的时钟频率。这会降低 CPU 的速度，但同时可降低 CPU 的功耗。其它外设（由 fMASTER 提供时钟）不会受此设置影响。</p>
+<p>在运行模式下，任何时候需要恢复全速运行，将 CPUDIV[2:0] 清 0 即可。</p>
+<h4 id="2、外设时钟门控"><a href="#2、外设时钟门控" class="headerlink" title="2、外设时钟门控"></a>2、外设时钟门控</h4><p>使用时钟门控，用户可在任意时间打开或关闭 fMASTER 与各个外设的连接，在运行模式和等待模式均有效。</p>
+<hr>
+<h3 id="三、低功耗模式"><a href="#三、低功耗模式" class="headerlink" title="三、低功耗模式"></a>三、低功耗模式</h3><p><img src="https://i.loli.net/2019/03/03/5c7b6f3d4ef26.png" alt="Image.png"></p>
+<h4 id="1、等待模式（Wait）"><a href="#1、等待模式（Wait）" class="headerlink" title="1、等待模式（Wait）"></a>1、等待模式（Wait）</h4><p>在运行模式下执行 WFI（等待中断）指令，可进入等待模式。此时 CPU 停止运行，但外设与中断控制器仍保持运行，因此功耗会有所降低。等待模式可与 PCG（外设时钟门控），降低 CPU 时钟频率，以及选择低功耗时钟源（LSI，HSI）相结合使用，以进一步降低系统功耗。</p>
+<p>等待模式下，所有寄存器与 RAM 的内容保持不变，之前所定义的时钟配置也保持不变（CLK_CMSR） 。</p>
+<p>当一个内部或外部中断请求发生时，CPU 从等待模式唤醒并恢复工作。</p>
+<h4 id="2、停机模式（Halt）"><a href="#2、停机模式（Halt）" class="headerlink" title="2、停机模式（Halt）"></a>2、停机模式（Halt）</h4><p>该模式下主时钟停止。即由 fMASTER 提供时钟的 CPU 及所有外设均被关闭。因此，所有外设均没有时钟，MCU 的数字部分不消耗能量。</p>
+<p>停机模式下，所有寄存器与 RAM 的内容保持不变，默认情况下时钟配置也保持不变（CLK_CMSR）。</p>
+<p>MCU 可通过执行 HALT 指令进入停机模式。外部中断可将 MCU 从停机模式唤醒。外部中断指配置为中断输入的 GPIO 端口或具有触发外设中断能力的端口。</p>
+<p>这种模式下，仅低电压调节器（和掉电复位）处于工作状态。</p>
+<p><strong>快速时钟启动</strong></p>
+<p>HSI RC 的启动速度比 HSE 快。因此，为了减少 MCU 唤醒时间，建议在进入暂停模式前选择 HSI 作为 fMASTER 的时钟源。在进入停机模式前可通过设置内部时钟寄存器 CLK_ICKR 的 FHWU 位选择 HSI 作为 fMASTER 的时钟源，而无需时钟切换。 </p>
+<h4 id="3、活跃停机模式（Active-Halt）"><a href="#3、活跃停机模式（Active-Halt）" class="headerlink" title="3、活跃停机模式（Active Halt）"></a>3、活跃停机模式（Active Halt）</h4><p>活跃停机模式与停机模式类似，但它不需要外部中断唤醒。它使用 AWU，在一定的延时后，产生一个内部唤醒事件，延迟时间是用户可编程的。</p>
+<p>在活跃停机模式下，主振荡器，CPU 以及几乎所有外设都被停止。如果 AWU 和 IWD 已被使能，则只有 LSI RC 和 HSE 仍处于运行状态，以驱动 AWU 和 IWD 计数器。</p>
+<p>为进入活跃停机模式，需首先使能 AWU然后执行 HALT 指令。</p>
+<p><strong>主电源调节器自动关闭</strong></p>
+<p>默认情况下，为了从活跃停机模式快速唤醒，主电压调节器处于激活状态。但其电流消耗是不可忽视的。</p>
+<p>为进一步降低功耗，当 MCU 进入活跃停机模式时，主电压调节器可自动关闭。通过设置内部时钟寄存器 CLK_ICKR 的 REGAH 位可实现此功能。此时:</p>
+<p>- MCU 内核由低功耗电压调节器（LPVR）供电。</p>
+<p>- 仅 LSI 时钟源可用，因为 HSE 时钟源对于 LPVR 来说电流消耗太大。</p>
+<p>在唤醒时主电压调节器重新被打开，这需要一个比较长的唤醒时间。</p>
+<p><strong>快速唤醒时钟</strong></p>
+<p>为了缩短唤醒时间，建议使用 HSI 作为 fMASTER 的时钟源。FHWU 位也可用于缩短切换时间。</p>
+<p>在活跃停机模式下，快速唤醒时很重要的。这可以提高 CPU 的执行效率，使 MCU 处于运行状态与低功耗模式之间的时间最短，从而减少整体平均功耗。</p>
+<hr>
+<h3 id="四、附加的模拟功耗控制"><a href="#四、附加的模拟功耗控制" class="headerlink" title="四、附加的模拟功耗控制"></a>四、附加的模拟功耗控制</h3><h4 id="1、停机模式下的快速内存唤醒"><a href="#1、停机模式下的快速内存唤醒" class="headerlink" title="1、停机模式下的快速内存唤醒"></a>1、停机模式下的快速内存唤醒</h4><p>默认情况下，MCU 进入 Halt 模式后 FLASH 是处于掉电状态的。此时，漏电流可忽略，功耗是非常低的。但 FLASH 的唤醒时间较长（几us）。</p>
+<p>​    </p>
+<p>如果用户需要从 Halt 模式快速唤醒，可将 FLASH_CR1 的 HALT 位置 1。当 MCU 进入停机模式时，这将确保 FLASH 处于等待状态，唤醒时间降至几纳秒。但功耗将增至几 uA。</p>
+<h4 id="2、活跃停机模式下的超低内存功耗"><a href="#2、活跃停机模式下的超低内存功耗" class="headerlink" title="2、活跃停机模式下的超低内存功耗"></a>2、活跃停机模式下的超低内存功耗</h4><p>在活跃停机模式下，为加快唤醒时间，默认情况下 FLASH 处于工作状态，因此并没有降低功耗。</p>
+<p>为降低功耗，用户可将 FLASH_CR1 的 AHALT 位置 1。在进入活跃停机模式时，这将停止向 FLASH 供电以降低功耗，但唤醒时间将增至微秒级。</p>
+]]></content>
+      <tags>
+        <tag>硬件拾忆</tag>
+        <tag>STM8</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Altium Designer PCB 操作总结</title>
+    <url>//blog/2019/03/04/Altium-Designer-PCB-%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<hr>
+<p>1、定原点（PCB文件原点）</p>
+<p>Edit -&gt; origin</p>
+<a id="more"></a>
+<hr>
+<p>2、定义尺寸（可以最开始定，也可以最后定）</p>
+<p>先画mechanical layer，再复制到 keep-out-layer（要粘贴时先点Edit-&gt;paste special），然后  Design -&gt; Board Shape -&gt; Redefine Board Shape</p>
+<hr>
+<p>3、测量距离</p>
+<p>ctrl+M </p>
+<hr>
+<p>4、 更换线型</p>
+<p>ctrl+space，用“&lt;”和“&gt;”可改变倒角曲率半径</p>
+<hr>
+<p>5、铺地</p>
+<p>place -&gt; polygon pour -&gt; connect to GND，选 top layer 或 bottom layer，选 pour over all same objects -&gt; 选范围 -&gt; 确定</p>
+<hr>
+<p>6、焊盘</p>
+<p>贴片焊盘用 top layer，过孔焊盘用multi layer</p>
+<hr>
+<p>7、旋转</p>
+<p>空格</p>
+<hr>
+<p>8、打开/关闭层</p>
+<p>L</p>
+<hr>
+<p>9、切换层</p>
+<p>小键盘 *</p>
+<hr>
+<p>10、添加层</p>
+<p>design -&gt;layer stack manager -&gt;点击 Toplayer 或 Bottomlayer -&gt; 信号层 add layer/内电层 add plane</p>
+<p>如果要分割，不要添加 net</p>
+<hr>
+<p>11、泪滴</p>
+<p>Tools -&gt; Teardoops</p>
+<hr>
+<p>12、铺铜皮</p>
+<p>Place -&gt; 矩形 Fill / 多边形 Solid region</p>
+<hr>
+<p>13、灌铜</p>
+<p>Place -&gt; Polygon Pour（需要设置 net，也可以不设）</p>
+<p>灌铜掏空：Place -&gt; Polygon Pour Cutout</p>
+<hr>
+<p>14、走线换层</p>
+<p>shift + ctrl +鼠标滑轮</p>
+<hr>
+<p>15、原理图更新到 PCB 时出现 unknown pin</p>
+<p>删除 PCB 图中所有 net（design -&gt; netlist）</p>
+<hr>
+<p>16、元件换层</p>
+<p>拖住按 L</p>
+<hr>
+<p>17、选中需要修整的铜皮  M+G</p>
+<p>修钝角 P+Y</p>
+<hr>
+<p>18、PCB 图中修改丝印字体</p>
+<p>任一丝印右键 -&gt; find similar objects -&gt; text width 选 same -&gt; OK -&gt; 在 PCB inspector 中修改</p>
+<hr>
+<p>19、隐藏网络飞线</p>
+<p>N -&gt; Hide Connections 选 Net</p>
+]]></content>
+      <tags>
+        <tag>软件使用</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Altium Designer 原理图操作总结</title>
+    <url>//blog/2019/03/04/Altium-Designer-%E5%8E%9F%E7%90%86%E5%9B%BE%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<hr>
+<p>1、统一改 IC 标号</p>
+<p>Tools -&gt; Annotate Schematic -&gt; Reset All -&gt; UpdateChanges List</p>
+<a id="more"></a>
+<hr>
+<p>2、统一改封装</p>
+<p>器件右键 -&gt; Find Similar Objects -&gt; Description 选 same -&gt; Symbol Reference 选 same -&gt; OK -&gt; CTRL + A -&gt; 改 current footprint -&gt; 左击菜单外的工作台</p>
+<p>改完之后因为过滤器其他器件为灰色，此时在工作台任意位置右键，点 Filter，clear filter</p>
+<hr>
+<p>3、导出 BOM</p>
+<p>需要将每一个器件的 comment 改成对应的阻值容值，template 选 BOM Default Template 95.xlt，最后点 Export</p>
+]]></content>
+      <tags>
+        <tag>软件使用</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Cadence Allegro 操作总结</title>
+    <url>//blog/2019/03/04/Cadence-Allegro-%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<hr>
+<p>1、查看快捷键</p>
+<p>命令行输入alias</p>
+<a id="more"></a>
+<hr>
+<p>2、显示丝印</p>
+<p>菜单栏 color192（四个方块）-&gt; component -&gt; silkscreen打钩</p>
+<hr>
+<p>3、关闭和显示网络飞线</p>
+<p>Display -&gt; Show Rats -&gt; All -&gt; 即可打开显示所有的网络飞线（未布线的网络）</p>
+<p>Display -&gt; Blank Rats -&gt; All -&gt; 关闭隐藏所有的网络飞线</p>
+]]></content>
+      <tags>
+        <tag>软件使用</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Cadence Capture 加页码的方法</title>
+    <url>//blog/2019/03/04/Cadence-Capture-%E5%8A%A0%E9%A1%B5%E7%A0%81%E7%9A%84%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<hr>
+<p>1、 选中 .dsn 文件（工程文件）</p>
+<p>2、执行 tools 菜单里的 Annotate 命令</p>
+<p>3、在弹出的 Annotate 对话框中选择 Packaging 页</p>
+<p>4、在 action 栏选择 Add Intersheet References</p>
+<p>5、点击 “确定” 按钮进入 Intersheet References 对话框，勾选第一项：Place on off page connectors</p>
+<a id="more"></a>
+<p>注意，在 title block 里面一定要有正确的页码，比如 1 of 8，  2 of 8 等等，这个是打页码的依据。</p>
+<p>添加 title block的方法： place -&gt; title block。</p>
+<p>如果要删除 off page connector 的页面编号，在 Annotate 对话框中，选择 Delete Intersheet References 即可删除。</p>
+]]></content>
+      <tags>
+        <tag>软件使用</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Cadence Capture 操作总结</title>
     <url>//blog/2019/03/04/Cadence-Capture-%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<hr>
@@ -1743,6 +1743,75 @@
       </tags>
   </entry>
   <entry>
+    <title>STM32 F4 GPIO</title>
+    <url>//blog/2019/03/04/STM32-F4-GPIO/</url>
+    <content><![CDATA[<hr>
+<p>1、在 RESET 期间和刚 RESET 之后，IO 端口配置为浮空输入。除了调试接口会在 RESET 之后配置为相应的上下拉模式。</p>
+<p>2、每个 AHB1 时钟周期输入寄存器 GPIOx_IDR 捕获当前引脚数据。</p>
+<a id="more"></a>
+<p>3、输出开漏模式时，只有 N-MOS 工作，写 0 时输出低，写 1 时位高阻态。</p>
+<p>输出模式下，施密特触发器输入是开启的。</p>
+<p>输出模式下读取输入寄存器可获得 IO 状态，读取输出寄存器可获得上一次写入的值。</p>
+<p>4、RESET 之后，所有 IO 连接至第二功能 0（AF0）。</p>
+<p>5、外设第二功能映射为从 AF1 到 AF13。</p>
+<p>6、RTC_REFIN 引脚应配成浮空输入。</p>
+<p>7、MCO1 和 MCO2 引脚必须配成第二功能模式。</p>
+<p>8、ADC 和 DAC 配置成模拟功能。</p>
+<p>9、通过映射到 AF15 可将 IO 用来输出 CM4 的 FPU EVENTOUT 信号。</p>
+<p>10、EVENTOUT 不能映射到P C13，PC14，PC15，PH0，PH1 和 PI8。</p>
+<p>11、每组 IO 口有 4 个控制寄存器</p>
+<table>
+<thead>
+<tr>
+<th>GPIOx_MODER</th>
+<th>select IO direction（Input，Output，AF，Analog）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GPIOx_OTYPER</td>
+<td>select output type（push-pull or open-drain）</td>
+</tr>
+<tr>
+<td>GPIOx_OSPEEDR</td>
+<td>select speed</td>
+</tr>
+<tr>
+<td>GPIOx_PUPDR</td>
+<td>select pull-up/pull-down whatever the IO direction</td>
+</tr>
+</tbody>
+</table>
+<p>12、每组 IO 口有 2 个数据寄存器。</p>
+<table>
+<thead>
+<tr>
+<th>GPIOx_IDR</th>
+<th>input</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GPIOx_ODR</td>
+<td>output</td>
+</tr>
+</tbody>
+</table>
+<p>13、GPIOx_BSRR 允许对 GPIOx_ODR 寄存器进行位元操作。set 比 reset 的优先级高。位元操作时不需要关闭中断。</p>
+<p>14、通过操作 GPIOx_AFRL 和 GPIOx_AFRH 寄存器可以将任一 IO 引脚连接至 16 种第二功能（AF0到AF15）的任意一个。</p>
+<p>15、写 GPIOx_LCKR 寄存器需要特定的读写序列，可以锁存 4 个控制寄存器、GPIOx_AFRL 和 GPIOx_AFRH 寄存器。</p>
+<p>16、使用 IO 外部中断必须配置成输入 模式。</p>
+<p>17、使用模拟功能时，输出 buffer 关闭，施密特触发器关闭，施密特触发器的输出强制为 0，上下拉电阻关闭，读输入寄存器只能读到 0。</p>
+<p>18、不使用 LSE 振荡器时，可将 PC14 和 PC15 用作普通 IO。LSE 的优先级比 GPIO 功能高，当 RCC_BDCR 寄存器的 LSEON 位置位时，LSE 振荡器打开 PC14 和 PC15 作为 OSC32_IN 和 OSC32_OFF。</p>
+<p>1.2V 域掉电时（器件进入掉电模式），或备份域有 VBAT 供电时，PC14 和 PC15 的 GPIO 功能丧失，这种情况下，处于模拟输入模式。</p>
+<p>19、RESET 后，HSE 振荡器默认关闭，此时 PH0/PH1 可以作为普通 IO，而非 OSC_IN 和 OSC_OUT 功能。通过置位 RCC_CR 寄存器的 HSEON 位可开启 HSE 振荡器。HSE 比 GPIO 优先级高。</p>
+]]></content>
+      <tags>
+        <tag>硬件拾忆</tag>
+        <tag>STM32</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>STM32 IO操作</title>
     <url>//blog/2019/03/04/STM32-IO%E6%93%8D%E4%BD%9C/</url>
     <content><![CDATA[<hr>
@@ -1797,32 +1866,6 @@
 <p><strong>IDR 和 ODR</strong></p>
 <p>​     </p>
 <p>只用了低 16 位。IDR 为只读，ODR 为读写。</p>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>STM32</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>STM32 外部中断</title>
-    <url>//blog/2019/03/04/STM32-%E5%A4%96%E9%83%A8%E4%B8%AD%E6%96%AD/</url>
-    <content><![CDATA[<hr>
-<p>STM32 的每个 IO 口都可以作为中断输入，但每一个中断线只能分配到某一个 IO 口的相应管脚，如中断 2 只能分配到 PA2 或 PB2 或 PC2 等其中的一个。</p>
-<a id="more"></a>
-<p>把 IO 口作为外部中断输入的步骤：</p>
-<p>1、初始化 IO 为输入</p>
-<p>可以上拉，下拉，或浮空输入。浮空的时候外部一定要上拉或下拉，否则中断可能不停触发。干扰打的地方，就算使用了内部上/下拉，最好外部再上/下拉一下，一定程度上防止外部干扰。</p>
-<p>2、开启 IO 口复用时钟，设置 IO 口与中断线的映射关系</p>
-<p>IO 口复用时钟在 RCC-&gt;APB2ENR 处使能（AFIOEN），在 AFIO-&gt;EXTICR 处将 EXTI.BITx 映射到 GPIO.BITx。</p>
-<p>3、开启与该 IO 口相对的线上中断/事件，设置触发条件</p>
-<p>从 EXTI-&gt;IMR 处开启中断请求，从 EXTI-&gt;EMR 处开启事件请求，从 EXTI-&gt;FTSR（下降沿）和 RTSR（上升沿）设置触发条件。</p>
-<p>触发条件只能是上升沿或下降沿。不配置 EMR 位，软硬件仿真都可以进入外部中断，配置以后，软件仿真不能进入外部中断。</p>
-<p>4、配置中断分组（NVIC），并使能中断</p>
-<p>从 SCB-&gt;AIRCR[10:8] 配置中断分组，从 NVIC-&gt;ISER 使能外部中断，从 NVIC-&gt;IP 设置优先级。见 PM0056。</p>
-<p>5、编写中断服务函数</p>
-<p>0~4 有各自的 ISR：void EXTI0_IRQHandler(void)</p>
-<p>9~5 共用 ISR：void EXTI9_5_IRQHandler(void)</p>
-<p>15~10 共用 ISR：void EXTI15_10_IRQHandler(void)</p>
 ]]></content>
       <tags>
         <tag>硬件拾忆</tag>
@@ -1912,68 +1955,158 @@
       </tags>
   </entry>
   <entry>
-    <title>STM32 F4 GPIO</title>
-    <url>//blog/2019/03/04/STM32-F4-GPIO/</url>
+    <title>STM32 外部中断</title>
+    <url>//blog/2019/03/04/STM32-%E5%A4%96%E9%83%A8%E4%B8%AD%E6%96%AD/</url>
     <content><![CDATA[<hr>
-<p>1、在 RESET 期间和刚 RESET 之后，IO 端口配置为浮空输入。除了调试接口会在 RESET 之后配置为相应的上下拉模式。</p>
-<p>2、每个 AHB1 时钟周期输入寄存器 GPIOx_IDR 捕获当前引脚数据。</p>
+<p>STM32 的每个 IO 口都可以作为中断输入，但每一个中断线只能分配到某一个 IO 口的相应管脚，如中断 2 只能分配到 PA2 或 PB2 或 PC2 等其中的一个。</p>
 <a id="more"></a>
-<p>3、输出开漏模式时，只有 N-MOS 工作，写 0 时输出低，写 1 时位高阻态。</p>
-<p>输出模式下，施密特触发器输入是开启的。</p>
-<p>输出模式下读取输入寄存器可获得 IO 状态，读取输出寄存器可获得上一次写入的值。</p>
-<p>4、RESET 之后，所有 IO 连接至第二功能 0（AF0）。</p>
-<p>5、外设第二功能映射为从 AF1 到 AF13。</p>
-<p>6、RTC_REFIN 引脚应配成浮空输入。</p>
-<p>7、MCO1 和 MCO2 引脚必须配成第二功能模式。</p>
-<p>8、ADC 和 DAC 配置成模拟功能。</p>
-<p>9、通过映射到 AF15 可将 IO 用来输出 CM4 的 FPU EVENTOUT 信号。</p>
-<p>10、EVENTOUT 不能映射到P C13，PC14，PC15，PH0，PH1 和 PI8。</p>
-<p>11、每组 IO 口有 4 个控制寄存器</p>
-<table>
-<thead>
-<tr>
-<th>GPIOx_MODER</th>
-<th>select IO direction（Input，Output，AF，Analog）</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>GPIOx_OTYPER</td>
-<td>select output type（push-pull or open-drain）</td>
-</tr>
-<tr>
-<td>GPIOx_OSPEEDR</td>
-<td>select speed</td>
-</tr>
-<tr>
-<td>GPIOx_PUPDR</td>
-<td>select pull-up/pull-down whatever the IO direction</td>
-</tr>
-</tbody>
-</table>
-<p>12、每组 IO 口有 2 个数据寄存器。</p>
-<table>
-<thead>
-<tr>
-<th>GPIOx_IDR</th>
-<th>input</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>GPIOx_ODR</td>
-<td>output</td>
-</tr>
-</tbody>
-</table>
-<p>13、GPIOx_BSRR 允许对 GPIOx_ODR 寄存器进行位元操作。set 比 reset 的优先级高。位元操作时不需要关闭中断。</p>
-<p>14、通过操作 GPIOx_AFRL 和 GPIOx_AFRH 寄存器可以将任一 IO 引脚连接至 16 种第二功能（AF0到AF15）的任意一个。</p>
-<p>15、写 GPIOx_LCKR 寄存器需要特定的读写序列，可以锁存 4 个控制寄存器、GPIOx_AFRL 和 GPIOx_AFRH 寄存器。</p>
-<p>16、使用 IO 外部中断必须配置成输入 模式。</p>
-<p>17、使用模拟功能时，输出 buffer 关闭，施密特触发器关闭，施密特触发器的输出强制为 0，上下拉电阻关闭，读输入寄存器只能读到 0。</p>
-<p>18、不使用 LSE 振荡器时，可将 PC14 和 PC15 用作普通 IO。LSE 的优先级比 GPIO 功能高，当 RCC_BDCR 寄存器的 LSEON 位置位时，LSE 振荡器打开 PC14 和 PC15 作为 OSC32_IN 和 OSC32_OFF。</p>
-<p>1.2V 域掉电时（器件进入掉电模式），或备份域有 VBAT 供电时，PC14 和 PC15 的 GPIO 功能丧失，这种情况下，处于模拟输入模式。</p>
-<p>19、RESET 后，HSE 振荡器默认关闭，此时 PH0/PH1 可以作为普通 IO，而非 OSC_IN 和 OSC_OUT 功能。通过置位 RCC_CR 寄存器的 HSEON 位可开启 HSE 振荡器。HSE 比 GPIO 优先级高。</p>
+<p>把 IO 口作为外部中断输入的步骤：</p>
+<p>1、初始化 IO 为输入</p>
+<p>可以上拉，下拉，或浮空输入。浮空的时候外部一定要上拉或下拉，否则中断可能不停触发。干扰打的地方，就算使用了内部上/下拉，最好外部再上/下拉一下，一定程度上防止外部干扰。</p>
+<p>2、开启 IO 口复用时钟，设置 IO 口与中断线的映射关系</p>
+<p>IO 口复用时钟在 RCC-&gt;APB2ENR 处使能（AFIOEN），在 AFIO-&gt;EXTICR 处将 EXTI.BITx 映射到 GPIO.BITx。</p>
+<p>3、开启与该 IO 口相对的线上中断/事件，设置触发条件</p>
+<p>从 EXTI-&gt;IMR 处开启中断请求，从 EXTI-&gt;EMR 处开启事件请求，从 EXTI-&gt;FTSR（下降沿）和 RTSR（上升沿）设置触发条件。</p>
+<p>触发条件只能是上升沿或下降沿。不配置 EMR 位，软硬件仿真都可以进入外部中断，配置以后，软件仿真不能进入外部中断。</p>
+<p>4、配置中断分组（NVIC），并使能中断</p>
+<p>从 SCB-&gt;AIRCR[10:8] 配置中断分组，从 NVIC-&gt;ISER 使能外部中断，从 NVIC-&gt;IP 设置优先级。见 PM0056。</p>
+<p>5、编写中断服务函数</p>
+<p>0~4 有各自的 ISR：void EXTI0_IRQHandler(void)</p>
+<p>9~5 共用 ISR：void EXTI9_5_IRQHandler(void)</p>
+<p>15~10 共用 ISR：void EXTI15_10_IRQHandler(void)</p>
+]]></content>
+      <tags>
+        <tag>硬件拾忆</tag>
+        <tag>STM32</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>STM32 时钟树总结</title>
+    <url>//blog/2019/03/04/STM32-%E6%97%B6%E9%92%9F%E6%A0%91%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<hr>
+<h3 id="一、时钟源"><a href="#一、时钟源" class="headerlink" title="一、时钟源"></a>一、时钟源</h3><h4 id="1、物理时钟源"><a href="#1、物理时钟源" class="headerlink" title="1、物理时钟源"></a>1、物理时钟源</h4><p>看到好多地方都说 STM32F1 有五个时钟源 HSE、HSI、LSI、LSE 和 PLL，但是我觉得 PLL 严格来讲不算一个时钟源，它是在基本的物理时钟上倍频得到的，因此我把 HSE、HSI、LSI、LSE 归结为 STM32F1 的四个基本物理时钟源。</p>
+<a id="more"></a>
+<p><img src="https://i.loli.net/2019/03/04/5c7c85c0784c9.png" alt="Image.png"></p>
+<p>STM32F1xx 有 4 个物理时钟源：</p>
+<ul>
+<li><p>HSE（High Speed External clock signal）4-16MHz</p>
+</li>
+<li><p>HSI（High Speed Internal clock signal） 8MHz</p>
+</li>
+<li><p>LSI（Low Speed Internal clock signal） 40kHz            驱动独立看门狗 IWDG 和 AWU</p>
+</li>
+<li><p>LSE（Low Speed External clock signal）32.768kHz     驱动RTC</p>
+</li>
+</ul>
+<p>其中 HSE 和 HSI 可经 PLL 倍频得到 PLL 高频时钟源（最大 72M）。</p>
+<h5 id="（1）高速外部时钟信号（HSE）"><a href="#（1）高速外部时钟信号（HSE）" class="headerlink" title="（1）高速外部时钟信号（HSE）"></a>（1）高速外部时钟信号（HSE）</h5><p>​     由以下两种时钟源产生：</p>
+<p>·    HSE 外部晶体/陶瓷谐振器</p>
+<p>·    HSE 用户外部时钟</p>
+<p><img src="https://i.loli.net/2019/03/04/5c7c842945450.png" alt="Image.png"></p>
+<p><strong>外部时钟源（HSE旁路）</strong></p>
+<p>在这个模式里，必须提供外部时钟。它的频率最高可达 25MHz。用户可通过设置在控制寄存器中的 HSEBYP 和 HSEON 位来选择这一模式。外部时钟信号（50% 占空比的方波、正弦波或三角波）必须连到 OSC_IN 引脚，同时保证 OSC_OUT 引脚悬空，如上图。</p>
+<p><strong>外部晶体/陶瓷谐振器（HSE晶体）</strong></p>
+<p>4~16MHz 外部振荡器可为系统提供更为精确的主时钟。相关的硬件配置参考上图（关于晶体/陶瓷谐振器的原理，或者遇到晶振不起振的问题，可以参考下皮尔斯振荡器）。为了减少时钟输出的失真和缩短启动稳定时间，晶体/陶瓷谐振器和负载电容器必须尽可能地靠近振荡器引脚。负载电容值必须根据所选择的振荡器来选择。时钟控制寄存器 RCC_CR 中的 HSERDY 位用来指示高速外部振荡器是否稳定。在启动时，知道这一位被硬件置“1”,时钟才被释放。如果在时钟中断寄存器 RCCC_CIR 中允许产生中断，将会产生相应中断。HSE 晶体可以通过设置时钟控制寄存器里 RCC_CR 中的 HSEON 位被启动和关闭。</p>
+<h5 id="（2）高速内部时钟信号（HSI）"><a href="#（2）高速内部时钟信号（HSI）" class="headerlink" title="（2）高速内部时钟信号（HSI）"></a>（2）高速内部时钟信号（HSI）</h5><p>HSI 时钟信号由内部 8MHz 的 RC 振荡器产生，可直接作为系统时钟或在 2 分频后作为 PLL 输入（此时最大 64M）。HSI RC 振荡器能在不需要任何外部器件的条件下提供系统时钟。它的启动时间比 HSE 晶体振荡器短。然而，即使在校准之后它的时钟频率精度仍较差。</p>
+<p>​     </p>
+<p><strong>HSI 校准：</strong></p>
+<p>制造工艺决定了不同芯片的 RC 振荡器频率会不同，这就是为什么每个芯片的 HSI 时钟频率在出厂前已经被 ST 校准到 1%（25℃）的原因。系统复位时，工厂校准值被装在到时钟控制器的 HSICAL[7:0] 位。如果用户的应用基于不同的电压或环境温度，这将会影响 RC 振荡器的精度。可以通过时钟控制寄存器里的 HSITRIM[4:0] 位来调整 HSI 频率。</p>
+<p>时钟控制寄存器中的 HSIRDY 位用来指示 HSI RC 振荡器是否稳定。在时钟启动过程中，知道这一位被硬件置“1”,HSI RC 输出时钟才被释放。HSI RC 可由时钟控制寄存器中的 HSION 位来启动和关闭。</p>
+<p>如果 HSE 晶体振荡器失效，HSI 时钟会被作为备用时钟源。</p>
+<p>​     </p>
+<h5 id="（3）低速外部时钟信号（LSE）"><a href="#（3）低速外部时钟信号（LSE）" class="headerlink" title="（3）低速外部时钟信号（LSE）"></a>（3）低速外部时钟信号（LSE）</h5><p>LSE 晶体是一个 32.768kHz 的低速外部晶体或陶瓷谐振器。它为实时时钟或其他定时功能提供一个低功耗且精确的时钟源。</p>
+<p>LSE 晶体通过在备份域控制寄存器（RCC_BDCR）里的 LSEON 位启动和关闭。</p>
+<p>在备份域控制寄存器（RCC_BDCR ）里的 LSERDY 指示 LSE 晶体振荡是否稳定。在启动阶段，知道这个位被硬件置 1 后，LSE 时钟信号才被释放出来。如果在时钟中断寄存器里被允许，可产生中断申请。</p>
+<p><strong>外部时钟源（LSE旁路）</strong></p>
+<p>在这个模式里必须提供一个 32.768kHz 频率的外部时钟源。可以通过设置在备份域控制寄存器（RCC_BDCR）里的 LSEBYP 和 LSEON 位来选择这个模式。具有 50% 占空比的外部时钟信号（方波、正弦波或三角波）必须连到 OSC32_IN 引脚，同时保证 OSC32_OUT 引脚悬空。</p>
+<p>​     </p>
+<h5 id="（4）低速内部时钟信号（LSI）"><a href="#（4）低速内部时钟信号（LSI）" class="headerlink" title="（4）低速内部时钟信号（LSI）"></a>（4）低速内部时钟信号（LSI）</h5><p>LSI RC 担当一个低功耗时钟源的角色，它可以在停机和待机模式下保持运行，为独立看门狗和自动唤醒单元提供时钟。LSI 时钟频率大约 40kHz（在 30kHz 到 60kHz 之间）。</p>
+<p>LSI RC 可以通过控制/状态寄存器（RCC_CSR）里的 LSION 位来启动或关闭。</p>
+<p>在控制/状态寄存器（RCC/CSR）里的 LSIRDY 位指示低速内部振荡器是否稳定。在启动阶段，知道这个位被硬件置 1 后，此时钟才被释放。如果在时钟中断寄存器（RCC_CIR）里被允许，将产生 LSI 中断申请。</p>
+<p><strong>LSI 校准：（只有大容量和互联型产品可以进行 LSI 校准）</strong></p>
+<p>可以通过校准内部低速振荡器 LSI 来补偿其频率便宜，从而获得精度可接受的 RTC 时间基数，以及独立看门狗 IWDG 的超时时间（当这些外设以 LSI 为时钟源）。</p>
+<p>校准可以通过使用 TIM5 的输入时钟（TIM5_CLK）测量 LSI 时钟频率实现。测量以 HSE 的精度为保证，软件可以通过调整 RTC 的 20 位预分频器来获得精确的 RTC 时钟基数，以及通过计算得到精确的独立看门狗 IWDG 的超时时间。</p>
+<p>LSI 校准步骤如下：</p>
+<ul>
+<li><p>打开 TIM5，设置通道 4 为输入捕获模式；</p>
+</li>
+<li><p>设置 AIFO_MAPR 的 TIM5_CH4_IREMAP 位为 1，在内部把 LSI 连接到 TIM5 的通道 4；</p>
+</li>
+<li><p>通过 TIM5 的捕获/比较 4 事件或者中断来测量 LSI 时钟频率；</p>
+</li>
+<li><p>根据测量结果和期望的 RTC 时间基数和独立看门狗的超时时间，设置 20 位预分频器。</p>
+</li>
+</ul>
+<h5 id="（5）PLL"><a href="#（5）PLL" class="headerlink" title="（5）PLL"></a>（5）PLL</h5><p>内部 PLL 可以用来倍频 HSI RC 的输出时钟或 HSE 晶体输出时钟。PLL 的设置（选择 HSI 振荡器除以2或者 HSE 振荡器为 PLL 输入时钟，和选择倍频因子）必须在其被激活前完成。一旦 PLL 被激活，这些参数就不能被改动。</p>
+<p>如果 PLL 中断在时钟中断寄存器里被允许，当 PLL 准备就绪时，可产生中断申请。</p>
+<p>如果需要在应用中使用 USB 接口，PLL 必须被设置为输出 48 或 72MHz 时钟，用于提供 48MHz 的 USBCLK 时钟。</p>
+<h4 id="2、系统时钟-SYSCLK"><a href="#2、系统时钟-SYSCLK" class="headerlink" title="2、系统时钟 SYSCLK"></a>2、系统时钟 SYSCLK</h4><p>STM32 的系统时钟 SYSCLK 由 SW 控制，从 HSI、PLLCLK 和 HSE 中三选一，通常选 PLLCLK。系统刚上电 的时候，使用系统内部 8MRC 时钟。SYSCLK 最大 72MHz，也可超频至 128MHz，但不建议。若使用 HSI 经 PLL 作为 SYSCLK，最大 64MHz，因为先 2 分频，PLL 最大只能 16 倍频。</p>
+<p>系统复位后，HSI 振荡器被选为系统时钟。当时钟源被直接或通过 PLL 间接作为系统时钟时，它将不能被停止。</p>
+<p>只有当目标时钟源准备就绪了，从一个时钟源到另一个时钟源的切换才会发生。在被选择时钟源没有就绪时，系统时钟的切换不会发生。直至目标时钟源就绪，才发生切换。</p>
+<p>在时钟控制寄存器（RCC_CE）里的状态位指示哪个时钟已经准备好了，哪个时钟目前被用作系统时钟。</p>
+<h3 id="二、时钟分配"><a href="#二、时钟分配" class="headerlink" title="二、时钟分配"></a>二、时钟分配</h3><h4 id="1、SYSCLK"><a href="#1、SYSCLK" class="headerlink" title="1、SYSCLK"></a>1、SYSCLK</h4><p>系统时钟 SYSCLK，它是供 STM32 中绝大部分部件工作的时钟源。系统时钟可选择为 PLL 输出、HSI 或者 HSE。系统时钟最大频率为 72MHz，它通过 AHB 分频器分频后送给各模块使用，AHB 分频器可选择 1、2、4、8、16、64、128、256、512 分频。其中 AHB 分频器输出的时钟送给 5 大模块使用：</p>
+<ul>
+<li><p>送给 AHB 总线、内核、内存和 DMA 使用的 HCLK 时钟。</p>
+</li>
+<li><p>通过 8 分频后送给 Cortex 的系统定时器时钟 SYSTICK。</p>
+</li>
+<li><p>直接送给 Cortex 的空闲运行时钟 FCLK。</p>
+</li>
+<li><p>送给 APB1 分频器。APB1 分频器可选择 1、2、4、8、16 分频，其输出一路供 APB1 外设使用(PCLK1，最大频率 36MHz)，另一路送给定时器 (Timer)2、3、4 倍频器使用。该倍频器可选择1 或者 2 倍频，时钟输出供定时器 2、3、4 使用。</p>
+</li>
+<li><p>送给 APB2 分频器。APB2 分频器可选择 1、2、4、8、16 分频，其输出一路供 APB2 外设使用(PCLK2，最大频率 72MHz)，另一路送给定时器 (Timer)1 倍频器使用。该倍频器可选择 1 或者 2 倍频，时钟输出供定时器 1 使用。另外，APB2 分频器还有一路输出供 ADC 分频器使用，分频后送给 ADC 模块使用。ADC 分频器可选择为 2、4、6、8 分频。</p>
+</li>
+</ul>
+<p>在以上的时钟输出中，有很多是带使能控制的，例如 AHB 总线时钟、内核时钟、各种 APB1 外设、 APB2 外设等等。当需要使用某模块时，记得一定要先使能对应的时钟。</p>
+<h4 id="2、具体时钟分配"><a href="#2、具体时钟分配" class="headerlink" title="2、具体时钟分配"></a>2、具体时钟分配</h4><p>CM3 的系统滴答时钟 SYSTICK，来源是 AHB 分频后再 8 分频，通常设置 AHB 不分频，所以 SYSTICK 的频率就是 SYSCLK/8。</p>
+<p>APB1（低速APB）总线上的外设时钟 PCLK1，最大为 36MHz，所有挂载在 APB1 上的外设，最大时钟都是 36MHz，定时器除外。PCLK1 的时钟由 APB1 预分频器设置，默认 2 分频（72MHz/2）。挂在这一总线的外设有： 电源接口、备份接口、CAN、USB、I2C1、I2C2、UART2~5、SPI2、SPI3、窗口看门狗(WWDG)、Timer2~7。注意 USB 模块虽然需要一个单独的 48MHz 时钟信号，但它应该不是供 USB 模块工作的时钟，而只是提供给串行接口引擎(SIE)使用的时钟。</p>
+<p>APB2（高速 APB）总线上的外设时钟 PCLK2，最大为 72MHz，所有挂载在 APB2 上的外设，最大时钟都是 72MHz。PCLK2 的时钟由 APB2 预分频器设置，默认不分频。挂在这一总线的外设有：UART1、GPIOA~G、SPI1、ADC1~3、高级定时器（1、8）第二功能 IO 口。</p>
+<p>SDIO 接口的时钟频率固定为 HCLK/2。</p>
+<p>ADC 时钟由高速 APB2 时钟经 2、4、6 或 8 分频获得。</p>
+<p>如果相应的 APB 预分频系数是 1，定时器时钟频率与所在 APB 总线频率一致，否则为与其相连的 APB 总线频率的 2 倍</p>
+<p>​     </p>
+<p>FCLK 是 CM3 的自由运行时钟。</p>
+<p>STM32 中有一个全速功能的 USB 模块，其串行接口引擎需要一个频率为 48MHz 的时钟源。该时钟源只能从 PLL 输出端获取，可以选择为 1.5 分频或者 1 分频，也就是，当需要使用 USB 模块时，PLL 必须使能，并且时钟频率配置为 48MHz 或 72MHz。</p>
+<h4 id="3、时钟安全系统（CSS）"><a href="#3、时钟安全系统（CSS）" class="headerlink" title="3、时钟安全系统（CSS）"></a>3、时钟安全系统（CSS）</h4><p>时钟安全系统可以通过软件激活。一旦其被激活，时钟监测器将在 HSE 振荡器启动延迟后被使能，并在 HSE 时钟关闭后关闭。</p>
+<p>如果 HSE 时钟发生故障，HSE 振荡器被自动关闭，时钟失效事件将被送到高级定时器（TIM1 和 TIM8）的刹车输入端，并产生时钟安全中断 CSSI，允许软件完成营救操作。此 CSSI 中断连接到 Cortex-M3 的 NMI 中断。</p>
+<p>一旦 CSS 被激活，并且 HSE 时钟出现故障，CSS 中断就产生，并且 NMI 也自动产生。NMI 将被不断执行，知道 CSS 中断挂起位被清除。因此，在NMI的处理程序中必须通过设置时钟中断寄存器（RCC_CIR）里的 CSSC 位来清除 CSS 中断。</p>
+<p>如果 HSE 振荡器被直接或间接地作为系统时钟，（间接是指作为 PLL 输入时钟而 PLL 时钟作为系统时钟），时钟故障将导致系统时钟自动切换到 HSI 振荡器，同时外部 HSE 振荡器被关闭。在时钟失效时，如果 HSE 振荡器时钟（被分频或未被分频）是用作系统时钟的 PLL 的输入时钟，PLL 也将被关闭。</p>
+<h4 id="4、RTC-时钟"><a href="#4、RTC-时钟" class="headerlink" title="4、RTC 时钟"></a>4、RTC 时钟</h4><p>通过设置备份域控制寄存器（RCC_BDCR）里的 RTCSEL[1:0] 位，RTCCLK 时钟源可以有 HSE/128、LSE 或 LSI 时钟提供。除非备份域复位，此选择不能被改变。</p>
+<p>LSE 时钟在备份域里，但 HSE 和 LSI 时钟不是。因此：</p>
+<ul>
+<li><p>如果 LSE 被选为 RTC 时钟：</p>
+<ul>
+<li>只要 VBAT 维持供电，尽管 VDD 供电被切断，RTC 仍继续工作。</li>
+</ul>
+</li>
+<li><p>如果 LSI 被选为自动唤醒单元（AWU）时钟：</p>
+<ul>
+<li>如果 VDD 供电被切断，AWU 状态不能被保证。</li>
+</ul>
+</li>
+<li><p>如果 HSE 时钟 128 分频后作为 RTC 时钟：</p>
+<ul>
+<li>如果 VDD 供电被切断或内部电压调压器被关闭（1.8V 域的供电被切断），则 RTC 状态不确定。</li>
+<li>必须设置电源控制寄存器的 DPB 位为 1（取消后备区域的写保护）。</li>
+</ul>
+</li>
+</ul>
+<h4 id="5、看门狗时钟"><a href="#5、看门狗时钟" class="headerlink" title="5、看门狗时钟"></a>5、看门狗时钟</h4><p>如果独立看门狗已经由硬件选项或软件启动，LSI 振荡器将被强制在打开状态，并且不能被关闭。在 LSI 振荡器稳定后，时钟供应给 IWDG。</p>
+<hr>
+<h3 id="三、时钟输出"><a href="#三、时钟输出" class="headerlink" title="三、时钟输出"></a>三、时钟输出</h3><p>STM32 可以选择一个时钟信号输出到 MCO 脚(PA8)上，可以选择为 PLL 输出的 2 分频、HSI、HSE、或者 SYSCLK。</p>
+<hr>
+<h3 id="四、相关寄存器"><a href="#四、相关寄存器" class="headerlink" title="四、相关寄存器"></a>四、相关寄存器</h3><p>（1）时钟控制寄存器（RCC_CR）初始化用</p>
+<p>（2）时钟配置寄存器（RCC_CFGR）初始化用</p>
+<p>（3）时钟中断寄存器（RCC_CIR）</p>
+<p>（4）APB2 外设复位寄存器（RCC_APB2RSTR）</p>
+<p>（5）APB1 外设复位寄存器（RCC_APB1RSTR）</p>
+<p>（6）AHB 外设时钟使能寄存器（RCC_AHBENR）</p>
+<p>（7）APB2 外设时钟使能寄存器（RCC_APB2ENR）</p>
+<p>（8）APB1 外设时钟使能寄存器（RCC_APB1ENR）</p>
+<p>（9）备份域控制寄存器（RCC_BDCR）</p>
+<p>（10）控制/状态寄存器（RCC_CSR）</p>
+<p>（11）RCC 寄存器地址映像</p>
+<p>RCC 地址：0x4002 1000-0x4002 13ff</p>
 ]]></content>
       <tags>
         <tag>硬件拾忆</tag>
@@ -2102,6 +2235,177 @@
       <tags>
         <tag>硬件拾忆</tag>
         <tag>STM32</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>STM8S TIM1 时基单元</title>
+    <url>//blog/2019/03/04/STM8S-TIM1-%E6%97%B6%E5%9F%BA%E5%8D%95%E5%85%83/</url>
+    <content><![CDATA[<hr>
+<h3 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h3><p>TIM1 由一个 16 位自动装载计数器组成，它由一个可编程的预分频器驱动。</p>
+<a id="more"></a>
+<p>高级控制定时器适用于许多不同的用途：</p>
+<ul>
+<li><p>基本的定时</p>
+</li>
+<li><p>测量输入信号的脉冲宽度（输入捕获）</p>
+</li>
+<li><p>产生输出波形（输出比较，PWM 和单脉冲模式）</p>
+</li>
+<li><p>对应不同事件（捕获，比较，溢出，刹车，触发）的中断</p>
+</li>
+<li><p>与 TIM5/TIM6 或者外部信号（外部时钟，复位信号，触发和使能信号）同步</p>
+</li>
+</ul>
+<p>高级控制定时器广泛适用各种控制应用，包括那些需要中间对齐模式 PWM 的应用，该模式支持互补输出和死区时间控制。</p>
+<p>高级控制定时器的时钟可以是内部信号，也可以是外部信号，通过寄存器配置来选择。</p>
+<hr>
+<h3 id="二、主要特性"><a href="#二、主要特性" class="headerlink" title="二、主要特性"></a>二、主要特性</h3><p>TIM1的特性包括：</p>
+<ul>
+<li><p>16 位向上、向下、向上/下自动装载计数器</p>
+</li>
+<li><p>允许在指定数目的计数器周期之后更新定时器寄存器的重复计数器</p>
+</li>
+<li><p>16 位可编程（可实时修改）预分频器，计数器时钟频率的分频系数为 1~65536 间的任意数值</p>
+</li>
+<li><p>同步电路，用于使用外部信号控制定时器以及定时器互联</p>
+</li>
+<li><p>多达四个独立通道可以配置成：</p>
+<ul>
+<li>输入捕获</li>
+<li>输出比较</li>
+<li>PWM 生成（边缘或中间对齐模式）</li>
+<li>六步 PWM 输出</li>
+<li>单脉冲模式输出</li>
+<li>三个支持带互补输出，并且死区时间可编程的通道</li>
+</ul>
+</li>
+<li><p>刹车输入信号可以将定时器输出信号置于复位状态或一个已知状态</p>
+</li>
+<li><p>产生中断的事件包括：</p>
+<ul>
+<li>更新：计数器向上/向下溢出，计数器初始化（通过软件或内部/外部触发）</li>
+<li>触发事件（计数器启动、停止、初始化或由内部/外部触发计数）</li>
+<li>输入捕获</li>
+<li>输出比较</li>
+<li>刹车信号输入</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://i.loli.net/2019/03/04/5c7c7c9c8156d.png" alt="Image.png"></p>
+<hr>
+<h3 id="三、时基单元"><a href="#三、时基单元" class="headerlink" title="三、时基单元"></a>三、时基单元</h3><p>时基单元包含：</p>
+<ul>
+<li><p>16位向上/向下计数器</p>
+</li>
+<li><p>16位自动重载寄存器</p>
+</li>
+<li><p>重复计数器</p>
+</li>
+<li><p>预分频器</p>
+</li>
+</ul>
+<p><img src="https://i.loli.net/2019/03/04/5c7c7cb4a5bd5.png" alt="Image.png"></p>
+<p>16 位计数器，预分频器，自动重载寄存器和重复计数器都可以通过软件读写。自动重载寄存器由预装载寄存器和影子寄存器组成。</p>
+<p>可在两种模式下写自动重载寄存器：</p>
+<ul>
+<li><p>自动预装载已使能（TIM1_CR1 寄存器的 ARPE 位置位）。在此模式下，写入自动重载寄存器的数据将被保存在预装载寄存器中，并在下一个更新事件（UEV）时传送到影子寄存器。</p>
+</li>
+<li><p>自动预装载已禁止（TIM1_CR1 寄存器的 ARPE 位清除）。在此模式下，写入自动重载寄存器的数据将立即写入影子寄存器。</p>
+</li>
+</ul>
+<p>更新事件的产生条件：</p>
+<ul>
+<li><p>计数器向下或向下溢出</p>
+</li>
+<li><p>软件置位了 TIM1_EGR 寄存器的 UG 位</p>
+</li>
+<li><p>时钟/触发控制器产生了触发事件</p>
+</li>
+</ul>
+<p>在预装载使能时（ARPE=1），如果发生了更新事件，预装载寄存器中的数值（TIM1_ARR）将写入影子寄存器中，并且 TIM1_PSCR 寄存器中的值将写入预分频器中。</p>
+<p>置位 TIM1_CR1 寄存器的 UDIS 位将禁止更新事件（UEV）。</p>
+<p>计数器由预分频器的输出 CK_CNT 驱动，而 CK_CNT 仅在 IM1_CR1 寄存器的计数器使能位（CEN）被置位时才有效。</p>
+<p>在使能了 CEN 位的一个时钟周期后，计数器才开始计数。</p>
+<h4 id="1、读写-16-位计数器"><a href="#1、读写-16-位计数器" class="headerlink" title="1、读写 16 位计数器"></a>1、读写 16 位计数器</h4><p>写计数器的操作没有缓存，并且可以在任何时候写 TIM1_CNTRH 和 TIM1_CNTRL 寄存器，因此建议不要再计数器运行时写入新的数值，以免写入错误的数值。</p>
+<p>读计数器的操作带有 8 位缓存。在用户读了高位（MS）字节后，低位（LS）字节将被自动缓存，缓存的数据在 16 位的读操作完成之前不会有变化。</p>
+<p>注意：不要使用 LDW 指令来读取 16 位计数器的值，因为此指令先读低位（LS）字节，这样读出的数值是错误的。</p>
+<p><img src="https://i.loli.net/2019/03/04/5c7c7ccdcafc7.png" alt="Image.png"></p>
+<h4 id="2、16-位-TIM1-ARR-寄存器的写操作"><a href="#2、16-位-TIM1-ARR-寄存器的写操作" class="headerlink" title="2、16 位 TIM1_ARR 寄存器的写操作"></a>2、16 位 TIM1_ARR 寄存器的写操作</h4><p>通过预装载寄存器向 TIM1_ARR 寄存器中写入 16 位的值。此操作由两条指令完成，每条指令写入 1 个字节，高位（MS）字节是必须先写入的。</p>
+<p>影子寄存器在高位（MS）字节写入后被锁定，并保持到低位（LS）字节写完。不要使用 LDW 指令，因为此指令先写低位（LS）字节，这将导致写入的数值错误。</p>
+<h4 id="3、预分频器"><a href="#3、预分频器" class="headerlink" title="3、预分频器"></a>3、预分频器</h4><p>TMI1 的预分频器基于一个由 16 位寄存器（TIM1_PSCR）控制的 16 位计数器。由于这个控制寄存器带有缓冲器，因此它能够在运行时被改变。预分频器可以将计数器的时钟频率按 1 到 65536 之间的任意值分频。</p>
+<p>计数器的频率可以由下式计算：</p>
+<p>fCK_CNT = fCK_PSC/（PSCR[15:0] + 1）</p>
+<p>预分频值由预装载寄存器写入，保存了当前使用值的影子寄存器在低位（LS）写入后被载入。</p>
+<p>需两次单独的写操作来写 16 位寄存器，高位（MS）先写。不要使用先写低位的 LDW 指令。</p>
+<p>新的预分频器的值在下一次更新事件到来时被采用。</p>
+<p>对 TIM1_PSCR 寄存器的读操作通过预装载寄存器完成，因此不需要特别的关注。</p>
+<h4 id="4、向上计数模式"><a href="#4、向上计数模式" class="headerlink" title="4、向上计数模式"></a>4、向上计数模式</h4><p>计数器从 0 计数到用户定义的比较值（TIMx_ARR 寄存器的值），然后重新从 0 开始计数并产生一个计数器溢出事件，同时，如果 TIM1_CR1 寄存器的 UDIS 位是 0，将会产生一个更新事件（UEV）。</p>
+<p><img src="https://i.loli.net/2019/03/04/5c7c7cecf2195.png" alt="Image.png"></p>
+<p>置位 TIMx_EGR 寄存器的 UG 位（通过软件方式或使用从模式控制器）同样可产生一个更新事件。</p>
+<p>使用软件置位 TIMx_CR1 寄存器的 UDIS 位，可以禁止更新事件，这样可避免在更新预装载寄存器时更新影子寄存器。在 UDIS 位被清除之前，将不产生更新事件。但是在应该产生更新事件 时，计数器仍会被清 0，同时预分频器的计数也被清 0（但预分频器的数值不变）。此外，如果设置了 TIMx_CR1 寄存器中的 URS 位（选择更新请求），设置 UG 位将产生一个更新事件 UEV，但硬件不设置 UIF 标志（即不产生中断请求）。这是为了避免在捕获模式下清除计数器时，同时产生更新和捕获中断。</p>
+<p>当发生一个更新事件时，所有的寄存器都被更新，硬件同时（依据 URS 位）设置更新标志位（TIMx_SR 寄存器的 UIF 位）：</p>
+<ul>
+<li><p>自动装载影子寄存器被重新置入预装载寄存器的值（TIMx_ARR）</p>
+</li>
+<li><p>预分频器的缓存器被置入预装载寄存器的值（TIMx_PSC 寄存器的内容）</p>
+</li>
+</ul>
+<p><img src="https://i.loli.net/2019/03/04/5c7c7d028d058.png" alt="Image.png"></p>
+<p><img src="https://i.loli.net/2019/03/04/5c7c7d11772c7.png" alt="Image.png"></p>
+<h4 id="5、向下计数模式"><a href="#5、向下计数模式" class="headerlink" title="5、向下计数模式"></a>5、向下计数模式</h4><p>计数器从自动装载的值（TIMx_ARR 寄存器的值）开始向下计数到 0，然后再从自动装载的值重新开始计数，并产生一个计数器向下溢出时间。如果 TIM1_CR1 寄存器的 UDIS 位被清除，还会产生一个更新事件（UEV）。</p>
+<p><img src="https://i.loli.net/2019/03/04/5c7c7d28e89d1.png" alt="Image.png"></p>
+<p>置位 TIMx_EGR 寄存器的 UG 位（通过软件方式或者使用从模式控制器）也同样可以产生一个更新事件。</p>
+<p>置位 TIMx_CR1 寄存器的 UDIS 位可以禁止 UEV 事件。这样可以避免在更新预装载寄存器时更新影子寄存器。因此 UDIS 位清除之前不会产生更新事件。然而，计数器仍会从当前自动加载值重新开始计数，并且预分频器的计数器重新从 0 开始（但预分频器不能被修改）。</p>
+<p> 此外，如果设置了 TIMx_CR1 寄存器中的 URS 位（选择更新请求），设置 UG 位将产生一个更新事件 UEV 但不设置 UIF 标志（因此不产生中断），这是为了表面在发生补货时间并清除计数器时，同时产生更新和捕获中断。</p>
+<p>当发生更新事件时，所有的寄存器都被更新，并且（根据 URS 位的设置）更新标志位（TIMx_SR 寄存器中的 UIF 位）也被设置：</p>
+<p>预分频器的缓存器被存入预装载的值（TIMx_PSC 寄存器的值）。</p>
+<p>当前的自动加载寄存器被更新为预装载值（TIMx_ARR 寄存器中的内容）。要注意自动装载寄存器在计数器重载入之前被更新，因此下一个周期才是预期的值。</p>
+<p>以下是一些当 TIMx_ARR = 0x36 时，计数器在不同时钟频率下的图表。</p>
+<p>下图描述了在向下计数模式下，预装载不使能时新的数值在下个周期时被写入。</p>
+<p><img src="https://i.loli.net/2019/03/04/5c7c7d487f1d4.png" alt="Image.png"></p>
+<h4 id="6、中央对齐模式（向上-向下计数）"><a href="#6、中央对齐模式（向上-向下计数）" class="headerlink" title="6、中央对齐模式（向上/向下计数）"></a>6、中央对齐模式（向上/向下计数）</h4><p>在中央对其模式。计数器从 0 开始计数到自动加载的值（TIMx_ARR寄存器）-1，产生一个溢出事件，然后向下计数到 0 并且产生一个计数器下溢事件，然后再从 0 开始重新计数。</p>
+<p>在此模式下，不能写入 TIMx_CR1中 的 DIR 方向位。它由硬件更新并指示当前的计数方向。</p>
+<p><img src="https://i.loli.net/2019/03/04/5c7c7d5c4e2f3.png" alt="Image.png"></p>
+<p>如果定时器带有重复计数器（如 TIM1），在重复了指定次数（TIM1_RCR 的值）的向上和向下溢出之后会产生更新事件（UEV）。否则每一次的向上向下溢出都会产生更新事件。</p>
+<p>置位 TIMx_EGR 寄存器的 UG 位（通过软件方式或者使用从模式控制器）也同样可以产生一个更新事件。此时，计数器重新从 0 开始计数，预分频器也重新从 0 开始计数。</p>
+<p>设置 TIMx_CR1 寄存器中的 UDIS 位可以禁止 UEV 事件。这样可以避免在更新预装载寄存器时更新影子寄存器。因此 UDIS 位被清 0 之前不会产生更新事件。然而，计数器仍会根据当前自动重加载的值，继续向上或向下计数。如果定时器带有重复计数器，由于重复寄存器没有双重的缓冲，新的重复数值将立刻生效，因此在修改时需要小心。</p>
+<p>此外，如果设置了 TIMx_CR1 寄存器中的 URS 位（选择更新请求），设置 UG 位将产生一个更新事件 UEV 但不设置 UIF 标志（因此不产生中断），这是为了避免在发生捕获事件并清除计数器时，同时产生更新和捕获中断。</p>
+<p>当发生更新事件时，所有的寄存器都被更新，并且（根据 URS 位的设置）更新标志位（TIMx_SR 寄存器中的 UIF 位）也被设置。</p>
+<p>预分频器的缓存器被加载为预装载（TIMx_PSC 寄存器）的值。</p>
+<p>当前的自动加载寄存器被更新为预装载值（TIMx_ARR 寄存器中的内容）。要注意到如果因为计数器溢出而产生更新，自动重装载寄存器将在计数器重载入之前被更新，因此下一个周期才是预期的值（计数器被装载位新的值）。以下是一些计数器在不同时钟频率下的操作的例子：</p>
+<p><img src="https://i.loli.net/2019/03/04/5c7c7d7479a01.png" alt="Image.png"></p>
+<p>使用中央对齐模式的提示：</p>
+<ul>
+<li>启动中央对齐模式时，计数器将按照原有的向上/向下的配置计数。也就是说 TIM1_CR1 寄存器中的 DIR 位将决定计数器时向上还是向下计数。此外，软件不能同时修改 DIR 和 CMS 位的值。</li>
+</ul>
+<ul>
+<li>不推荐在中央对齐模式下，计数器正在计数时写计数器的值，这将导致不能预料的后果。具体的说：<ul>
+<li>向计数器写入了比自动装载值更大的数值时（TIM1_CNT &gt; TIM1_ARR），但计数器的技术方向不发生改变。例如计数器已经向上溢出，但计数器仍然向上计数。</li>
+<li>向计数器写入了 0 或者 TIM1_ARR 的值，但更新事件不发生。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>安全使用中央对齐模式的计数器的方法是在启动计数器之前先用软件（置位 TIM1_EGR 寄存器的 UG 位）产生一个更新事件，并且不在计数器计数时修改计数器的值。</li>
+</ul>
+<h4 id="7、重复计数器"><a href="#7、重复计数器" class="headerlink" title="7、重复计数器"></a>7、重复计数器</h4><p>时基单元一节解释了计数器向上/向下溢出时更新事件（UEV）是如何产生的，然而事实上它只能在重复计数器的值达到 0 的时候产生。这个特性对产生 PWM 信号非常有用。</p>
+<p>这意味着在每 N 次计数上溢或下溢时，数据从预装载寄存器传输到影子寄存器（TIMx_ARR 自动重载入寄存器，TIMx_PSC 预装载寄存器，还有在比较模式下的捕获/比较寄存器 TIMx_CCRx），N 是 TIMx_RCR 重复计数寄存器中的值。</p>
+<p>重复计数器在下述任一条件成立时递减：</p>
+<ul>
+<li><p>向上计数模式下每次计数器向上溢出时</p>
+</li>
+<li><p>向下计数模式下每次计数器向下溢出时</p>
+</li>
+<li><p>中央对齐模式下每次上溢和下溢时</p>
+</li>
+</ul>
+<p>虽然这样限制了 PW 的最大循环周期为 128，但它能够在每个 PWM 周期 2 次更新占空比。在中央对齐模式下，因为波形是对称的，如果每个 PWM 周期中仅刷新一次比较寄存器，则最大的分辨率为 2*tCK_PSC。</p>
+<p>重复计数器是自动加载的，重复速率由 TIMx_RCR 寄存器的值定义。当更新事件由软件产生（通过设置 TIMx_EGR 中的 UG 位）或者通过硬件的从模式控制器产生，则无论重复计数器的值是多少，立即发生更新事件，并且 TIMx_RCR 寄存器中的内容被重载到重复计数器。</p>
+<p><img src="https://i.loli.net/2019/03/04/5c7c7d8ca3063.png" alt="Image.png"></p>
+]]></content>
+      <tags>
+        <tag>硬件拾忆</tag>
+        <tag>STM8</tag>
       </tags>
   </entry>
   <entry>
@@ -2307,19 +2611,6 @@
       </tags>
   </entry>
   <entry>
-    <title>送给2019</title>
-    <url>//blog/2019/03/12/%E9%80%81%E7%BB%992019/</url>
-    <content><![CDATA[<hr>
-<p>菩提本无树</p>
-<p>明镜亦非台</p>
-<p>本来无一物</p>
-<p>何处惹尘埃</p>
-]]></content>
-      <tags>
-        <tag>心花路放</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>算法复杂度度量</title>
     <url>//blog/2019/03/08/%E7%AE%97%E6%B3%95%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%BA%A6%E9%87%8F/</url>
     <content><![CDATA[<hr>
@@ -2356,42 +2647,6 @@
 ]]></content>
       <tags>
         <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>对数复杂度的常底数不需要写具体数值的原因</title>
-    <url>//blog/2019/03/13/%E5%AF%B9%E6%95%B0%E5%A4%8D%E6%9D%82%E5%BA%A6%E7%9A%84%E5%B8%B8%E5%BA%95%E6%95%B0%E4%B8%8D%E9%9C%80%E8%A6%81%E5%86%99%E5%85%B7%E4%BD%93%E6%95%B0%E5%80%BC%E7%9A%84%E5%8E%9F%E5%9B%A0/</url>
-    <content><![CDATA[<hr>
-<p>设某函数的上界可以表示为 f(x) = O(logaN)，a&gt;1 为常数。</p>
-<p>对任一常数 b&gt;1，因 lna/lnb 为常数，则由大 O 记号的性质有：</p>
-<p>f(n) = O(logaN) = O(lnb/lna * logbN) = O(logbN)</p>
-<p>所以无论常底数更换为任意常数，都只会影响常系数，而在大 O 记号中，常系数又可忽略，因此在用大 O 记号表示对数复杂度的时候，无需写常底数。</p>
-]]></content>
-      <tags>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>统计字符串中的回文子串长度</title>
-    <url>//blog/2019/03/19/%E7%BB%9F%E8%AE%A1%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2%E9%95%BF%E5%BA%A6/</url>
-    <content><![CDATA[<hr>
-<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><ul>
-<li><p>子串：字符串中连续的长度大于0的一段。 </p>
-</li>
-<li><p>回文串：若字符串的倒序与此字符串相同，则称这个字符串为回文串。  </p>
-</li>
-</ul>
-<a id="more"></a>
-<hr>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>输入输出均没有特殊格式，使用 C++ 输入输出流。</p>
-<p>分别用函数切分子串和判断是否是回文串。</p>
-<p>切分子串时使用 string 类型的 .substr() 方法。</p>
-<hr>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">bool IsPalindromeStr(string str) &#123;</span><br><span class="line">	for (int i = 0; i &lt; str.size()/2; i++) &#123;</span><br><span class="line">		if (str[i] != str[str.size()-1-i]) return false;</span><br><span class="line">	&#125;</span><br><span class="line">	return true;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int CountPalindromeStrNum(string str) &#123;</span><br><span class="line">	int count = 0;</span><br><span class="line">	for (int i = 0; i&lt;str.size(); i++) &#123;</span><br><span class="line">		for (int j = 1; j &lt; str.size()-i+1; j++) &#123;</span><br><span class="line">			string substrs = str.substr(i, j);</span><br><span class="line">			if (IsPalindromeStr(substrs)) count++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	return count;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line"></span><br><span class="line">​	string input_str;</span><br><span class="line">​	cin &gt;&gt; input_str;</span><br><span class="line">​	cout &lt;&lt; CountPalindromeStrNum(input_str) &lt;&lt; endl;</span><br><span class="line">​	return 0;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <tags>
-        <tag>算法</tag>
-        <tag>C++</tag>
       </tags>
   </entry>
   <entry>
@@ -2433,6 +2688,55 @@
 ]]></content>
       <tags>
         <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>送给2019</title>
+    <url>//blog/2019/03/12/%E9%80%81%E7%BB%992019/</url>
+    <content><![CDATA[<hr>
+<p>菩提本无树</p>
+<p>明镜亦非台</p>
+<p>本来无一物</p>
+<p>何处惹尘埃</p>
+]]></content>
+      <tags>
+        <tag>心花路放</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>对数复杂度的常底数不需要写具体数值的原因</title>
+    <url>//blog/2019/03/13/%E5%AF%B9%E6%95%B0%E5%A4%8D%E6%9D%82%E5%BA%A6%E7%9A%84%E5%B8%B8%E5%BA%95%E6%95%B0%E4%B8%8D%E9%9C%80%E8%A6%81%E5%86%99%E5%85%B7%E4%BD%93%E6%95%B0%E5%80%BC%E7%9A%84%E5%8E%9F%E5%9B%A0/</url>
+    <content><![CDATA[<hr>
+<p>设某函数的上界可以表示为 f(x) = O(logaN)，a&gt;1 为常数。</p>
+<p>对任一常数 b&gt;1，因 lna/lnb 为常数，则由大 O 记号的性质有：</p>
+<p>f(n) = O(logaN) = O(lnb/lna * logbN) = O(logbN)</p>
+<p>所以无论常底数更换为任意常数，都只会影响常系数，而在大 O 记号中，常系数又可忽略，因此在用大 O 记号表示对数复杂度的时候，无需写常底数。</p>
+]]></content>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>统计字符串中的回文子串长度</title>
+    <url>//blog/2019/03/19/%E7%BB%9F%E8%AE%A1%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2%E9%95%BF%E5%BA%A6/</url>
+    <content><![CDATA[<hr>
+<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><ul>
+<li><p>子串：字符串中连续的长度大于0的一段。 </p>
+</li>
+<li><p>回文串：若字符串的倒序与此字符串相同，则称这个字符串为回文串。  </p>
+</li>
+</ul>
+<a id="more"></a>
+<hr>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>输入输出均没有特殊格式，使用 C++ 输入输出流。</p>
+<p>分别用函数切分子串和判断是否是回文串。</p>
+<p>切分子串时使用 string 类型的 .substr() 方法。</p>
+<hr>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">bool IsPalindromeStr(string str) &#123;</span><br><span class="line">	for (int i = 0; i &lt; str.size()/2; i++) &#123;</span><br><span class="line">		if (str[i] != str[str.size()-1-i]) return false;</span><br><span class="line">	&#125;</span><br><span class="line">	return true;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int CountPalindromeStrNum(string str) &#123;</span><br><span class="line">	int count = 0;</span><br><span class="line">	for (int i = 0; i&lt;str.size(); i++) &#123;</span><br><span class="line">		for (int j = 1; j &lt; str.size()-i+1; j++) &#123;</span><br><span class="line">			string substrs = str.substr(i, j);</span><br><span class="line">			if (IsPalindromeStr(substrs)) count++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	return count;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line"></span><br><span class="line">​	string input_str;</span><br><span class="line">​	cin &gt;&gt; input_str;</span><br><span class="line">​	cout &lt;&lt; CountPalindromeStrNum(input_str) &lt;&lt; endl;</span><br><span class="line">​	return 0;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>算法</tag>
+        <tag>C++</tag>
       </tags>
   </entry>
   <entry>
@@ -2797,24 +3101,6 @@
       </tags>
   </entry>
   <entry>
-    <title>C++ 查看数据类型</title>
-    <url>//blog/2019/04/11/C-%E6%9F%A5%E7%9C%8B%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</url>
-    <content><![CDATA[<hr>
-<h4 id="使用-typeid-查看数据类型"><a href="#使用-typeid-查看数据类型" class="headerlink" title="使用 typeid() 查看数据类型"></a>使用 typeid() 查看数据类型</h4><p>使用 typeid() 需要包含 <typeinfo> 头文件 </typeinfo></p>
-<p>使用方法：</p>
-<a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;typeinfo&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">extern const char test_set_path[] = &quot;abc&quot;;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line"></span><br><span class="line">int avc = 0;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; typeid(avc).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(test_set_path).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(int).name() &lt;&lt; endl;	   </span><br><span class="line">    cout &lt;&lt; typeid(char).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(float).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(double).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(char[]).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(char[][2]).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(int[]).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(int[][2]).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(char*).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(int*).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(typeid(char).name()).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(typeid(int).name()).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(string).name() &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">i </span><br><span class="line">A4_c   </span><br><span class="line">i          </span><br><span class="line">c         </span><br><span class="line">f           </span><br><span class="line">d</span><br><span class="line">A_c</span><br><span class="line">A_A2_c</span><br><span class="line">A_i</span><br><span class="line">A_A2_i</span><br><span class="line">Pc</span><br><span class="line">Pi</span><br><span class="line">PKc</span><br><span class="line">PKc</span><br><span class="line">Ss</span><br></pre></td></tr></table></figure>
-<p>可见，typeid().name() 的返回值类型是 PKC，即 <code>const char*</code>。</p>
-<p>如果只需要对类型进行对比，可以直接 <code>if(typeid(a) == typeid(b))</code>。</p>
-]]></content>
-      <tags>
-        <tag>C++</tag>
-        <tag>编程语言</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>C++ 类的写法</title>
     <url>//blog/2019/04/11/C-%E7%B1%BB%E7%9A%84%E5%86%99%E6%B3%95/</url>
     <content><![CDATA[<hr>
@@ -2933,404 +3219,21 @@
       </tags>
   </entry>
   <entry>
-    <title>STM32 时钟树总结</title>
-    <url>//blog/2019/03/04/STM32-%E6%97%B6%E9%92%9F%E6%A0%91%E6%80%BB%E7%BB%93/</url>
+    <title>C++ 查看数据类型</title>
+    <url>//blog/2019/04/11/C-%E6%9F%A5%E7%9C%8B%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</url>
     <content><![CDATA[<hr>
-<h3 id="一、时钟源"><a href="#一、时钟源" class="headerlink" title="一、时钟源"></a>一、时钟源</h3><h4 id="1、物理时钟源"><a href="#1、物理时钟源" class="headerlink" title="1、物理时钟源"></a>1、物理时钟源</h4><p>看到好多地方都说 STM32F1 有五个时钟源 HSE、HSI、LSI、LSE 和 PLL，但是我觉得 PLL 严格来讲不算一个时钟源，它是在基本的物理时钟上倍频得到的，因此我把 HSE、HSI、LSI、LSE 归结为 STM32F1 的四个基本物理时钟源。</p>
+<h4 id="使用-typeid-查看数据类型"><a href="#使用-typeid-查看数据类型" class="headerlink" title="使用 typeid() 查看数据类型"></a>使用 typeid() 查看数据类型</h4><p>使用 typeid() 需要包含 <typeinfo> 头文件 </typeinfo></p>
+<p>使用方法：</p>
 <a id="more"></a>
-<p><img src="https://i.loli.net/2019/03/04/5c7c85c0784c9.png" alt="Image.png"></p>
-<p>STM32F1xx 有 4 个物理时钟源：</p>
-<ul>
-<li><p>HSE（High Speed External clock signal）4-16MHz</p>
-</li>
-<li><p>HSI（High Speed Internal clock signal） 8MHz</p>
-</li>
-<li><p>LSI（Low Speed Internal clock signal） 40kHz            驱动独立看门狗 IWDG 和 AWU</p>
-</li>
-<li><p>LSE（Low Speed External clock signal）32.768kHz     驱动RTC</p>
-</li>
-</ul>
-<p>其中 HSE 和 HSI 可经 PLL 倍频得到 PLL 高频时钟源（最大 72M）。</p>
-<h5 id="（1）高速外部时钟信号（HSE）"><a href="#（1）高速外部时钟信号（HSE）" class="headerlink" title="（1）高速外部时钟信号（HSE）"></a>（1）高速外部时钟信号（HSE）</h5><p>​     由以下两种时钟源产生：</p>
-<p>·    HSE 外部晶体/陶瓷谐振器</p>
-<p>·    HSE 用户外部时钟</p>
-<p><img src="https://i.loli.net/2019/03/04/5c7c842945450.png" alt="Image.png"></p>
-<p><strong>外部时钟源（HSE旁路）</strong></p>
-<p>在这个模式里，必须提供外部时钟。它的频率最高可达 25MHz。用户可通过设置在控制寄存器中的 HSEBYP 和 HSEON 位来选择这一模式。外部时钟信号（50% 占空比的方波、正弦波或三角波）必须连到 OSC_IN 引脚，同时保证 OSC_OUT 引脚悬空，如上图。</p>
-<p><strong>外部晶体/陶瓷谐振器（HSE晶体）</strong></p>
-<p>4~16MHz 外部振荡器可为系统提供更为精确的主时钟。相关的硬件配置参考上图（关于晶体/陶瓷谐振器的原理，或者遇到晶振不起振的问题，可以参考下皮尔斯振荡器）。为了减少时钟输出的失真和缩短启动稳定时间，晶体/陶瓷谐振器和负载电容器必须尽可能地靠近振荡器引脚。负载电容值必须根据所选择的振荡器来选择。时钟控制寄存器 RCC_CR 中的 HSERDY 位用来指示高速外部振荡器是否稳定。在启动时，知道这一位被硬件置“1”,时钟才被释放。如果在时钟中断寄存器 RCCC_CIR 中允许产生中断，将会产生相应中断。HSE 晶体可以通过设置时钟控制寄存器里 RCC_CR 中的 HSEON 位被启动和关闭。</p>
-<h5 id="（2）高速内部时钟信号（HSI）"><a href="#（2）高速内部时钟信号（HSI）" class="headerlink" title="（2）高速内部时钟信号（HSI）"></a>（2）高速内部时钟信号（HSI）</h5><p>HSI 时钟信号由内部 8MHz 的 RC 振荡器产生，可直接作为系统时钟或在 2 分频后作为 PLL 输入（此时最大 64M）。HSI RC 振荡器能在不需要任何外部器件的条件下提供系统时钟。它的启动时间比 HSE 晶体振荡器短。然而，即使在校准之后它的时钟频率精度仍较差。</p>
-<p>​     </p>
-<p><strong>HSI 校准：</strong></p>
-<p>制造工艺决定了不同芯片的 RC 振荡器频率会不同，这就是为什么每个芯片的 HSI 时钟频率在出厂前已经被 ST 校准到 1%（25℃）的原因。系统复位时，工厂校准值被装在到时钟控制器的 HSICAL[7:0] 位。如果用户的应用基于不同的电压或环境温度，这将会影响 RC 振荡器的精度。可以通过时钟控制寄存器里的 HSITRIM[4:0] 位来调整 HSI 频率。</p>
-<p>时钟控制寄存器中的 HSIRDY 位用来指示 HSI RC 振荡器是否稳定。在时钟启动过程中，知道这一位被硬件置“1”,HSI RC 输出时钟才被释放。HSI RC 可由时钟控制寄存器中的 HSION 位来启动和关闭。</p>
-<p>如果 HSE 晶体振荡器失效，HSI 时钟会被作为备用时钟源。</p>
-<p>​     </p>
-<h5 id="（3）低速外部时钟信号（LSE）"><a href="#（3）低速外部时钟信号（LSE）" class="headerlink" title="（3）低速外部时钟信号（LSE）"></a>（3）低速外部时钟信号（LSE）</h5><p>LSE 晶体是一个 32.768kHz 的低速外部晶体或陶瓷谐振器。它为实时时钟或其他定时功能提供一个低功耗且精确的时钟源。</p>
-<p>LSE 晶体通过在备份域控制寄存器（RCC_BDCR）里的 LSEON 位启动和关闭。</p>
-<p>在备份域控制寄存器（RCC_BDCR ）里的 LSERDY 指示 LSE 晶体振荡是否稳定。在启动阶段，知道这个位被硬件置 1 后，LSE 时钟信号才被释放出来。如果在时钟中断寄存器里被允许，可产生中断申请。</p>
-<p><strong>外部时钟源（LSE旁路）</strong></p>
-<p>在这个模式里必须提供一个 32.768kHz 频率的外部时钟源。可以通过设置在备份域控制寄存器（RCC_BDCR）里的 LSEBYP 和 LSEON 位来选择这个模式。具有 50% 占空比的外部时钟信号（方波、正弦波或三角波）必须连到 OSC32_IN 引脚，同时保证 OSC32_OUT 引脚悬空。</p>
-<p>​     </p>
-<h5 id="（4）低速内部时钟信号（LSI）"><a href="#（4）低速内部时钟信号（LSI）" class="headerlink" title="（4）低速内部时钟信号（LSI）"></a>（4）低速内部时钟信号（LSI）</h5><p>LSI RC 担当一个低功耗时钟源的角色，它可以在停机和待机模式下保持运行，为独立看门狗和自动唤醒单元提供时钟。LSI 时钟频率大约 40kHz（在 30kHz 到 60kHz 之间）。</p>
-<p>LSI RC 可以通过控制/状态寄存器（RCC_CSR）里的 LSION 位来启动或关闭。</p>
-<p>在控制/状态寄存器（RCC/CSR）里的 LSIRDY 位指示低速内部振荡器是否稳定。在启动阶段，知道这个位被硬件置 1 后，此时钟才被释放。如果在时钟中断寄存器（RCC_CIR）里被允许，将产生 LSI 中断申请。</p>
-<p><strong>LSI 校准：（只有大容量和互联型产品可以进行 LSI 校准）</strong></p>
-<p>可以通过校准内部低速振荡器 LSI 来补偿其频率便宜，从而获得精度可接受的 RTC 时间基数，以及独立看门狗 IWDG 的超时时间（当这些外设以 LSI 为时钟源）。</p>
-<p>校准可以通过使用 TIM5 的输入时钟（TIM5_CLK）测量 LSI 时钟频率实现。测量以 HSE 的精度为保证，软件可以通过调整 RTC 的 20 位预分频器来获得精确的 RTC 时钟基数，以及通过计算得到精确的独立看门狗 IWDG 的超时时间。</p>
-<p>LSI 校准步骤如下：</p>
-<ul>
-<li><p>打开 TIM5，设置通道 4 为输入捕获模式；</p>
-</li>
-<li><p>设置 AIFO_MAPR 的 TIM5_CH4_IREMAP 位为 1，在内部把 LSI 连接到 TIM5 的通道 4；</p>
-</li>
-<li><p>通过 TIM5 的捕获/比较 4 事件或者中断来测量 LSI 时钟频率；</p>
-</li>
-<li><p>根据测量结果和期望的 RTC 时间基数和独立看门狗的超时时间，设置 20 位预分频器。</p>
-</li>
-</ul>
-<h5 id="（5）PLL"><a href="#（5）PLL" class="headerlink" title="（5）PLL"></a>（5）PLL</h5><p>内部 PLL 可以用来倍频 HSI RC 的输出时钟或 HSE 晶体输出时钟。PLL 的设置（选择 HSI 振荡器除以2或者 HSE 振荡器为 PLL 输入时钟，和选择倍频因子）必须在其被激活前完成。一旦 PLL 被激活，这些参数就不能被改动。</p>
-<p>如果 PLL 中断在时钟中断寄存器里被允许，当 PLL 准备就绪时，可产生中断申请。</p>
-<p>如果需要在应用中使用 USB 接口，PLL 必须被设置为输出 48 或 72MHz 时钟，用于提供 48MHz 的 USBCLK 时钟。</p>
-<h4 id="2、系统时钟-SYSCLK"><a href="#2、系统时钟-SYSCLK" class="headerlink" title="2、系统时钟 SYSCLK"></a>2、系统时钟 SYSCLK</h4><p>STM32 的系统时钟 SYSCLK 由 SW 控制，从 HSI、PLLCLK 和 HSE 中三选一，通常选 PLLCLK。系统刚上电 的时候，使用系统内部 8MRC 时钟。SYSCLK 最大 72MHz，也可超频至 128MHz，但不建议。若使用 HSI 经 PLL 作为 SYSCLK，最大 64MHz，因为先 2 分频，PLL 最大只能 16 倍频。</p>
-<p>系统复位后，HSI 振荡器被选为系统时钟。当时钟源被直接或通过 PLL 间接作为系统时钟时，它将不能被停止。</p>
-<p>只有当目标时钟源准备就绪了，从一个时钟源到另一个时钟源的切换才会发生。在被选择时钟源没有就绪时，系统时钟的切换不会发生。直至目标时钟源就绪，才发生切换。</p>
-<p>在时钟控制寄存器（RCC_CE）里的状态位指示哪个时钟已经准备好了，哪个时钟目前被用作系统时钟。</p>
-<h3 id="二、时钟分配"><a href="#二、时钟分配" class="headerlink" title="二、时钟分配"></a>二、时钟分配</h3><h4 id="1、SYSCLK"><a href="#1、SYSCLK" class="headerlink" title="1、SYSCLK"></a>1、SYSCLK</h4><p>系统时钟 SYSCLK，它是供 STM32 中绝大部分部件工作的时钟源。系统时钟可选择为 PLL 输出、HSI 或者 HSE。系统时钟最大频率为 72MHz，它通过 AHB 分频器分频后送给各模块使用，AHB 分频器可选择 1、2、4、8、16、64、128、256、512 分频。其中 AHB 分频器输出的时钟送给 5 大模块使用：</p>
-<ul>
-<li><p>送给 AHB 总线、内核、内存和 DMA 使用的 HCLK 时钟。</p>
-</li>
-<li><p>通过 8 分频后送给 Cortex 的系统定时器时钟 SYSTICK。</p>
-</li>
-<li><p>直接送给 Cortex 的空闲运行时钟 FCLK。</p>
-</li>
-<li><p>送给 APB1 分频器。APB1 分频器可选择 1、2、4、8、16 分频，其输出一路供 APB1 外设使用(PCLK1，最大频率 36MHz)，另一路送给定时器 (Timer)2、3、4 倍频器使用。该倍频器可选择1 或者 2 倍频，时钟输出供定时器 2、3、4 使用。</p>
-</li>
-<li><p>送给 APB2 分频器。APB2 分频器可选择 1、2、4、8、16 分频，其输出一路供 APB2 外设使用(PCLK2，最大频率 72MHz)，另一路送给定时器 (Timer)1 倍频器使用。该倍频器可选择 1 或者 2 倍频，时钟输出供定时器 1 使用。另外，APB2 分频器还有一路输出供 ADC 分频器使用，分频后送给 ADC 模块使用。ADC 分频器可选择为 2、4、6、8 分频。</p>
-</li>
-</ul>
-<p>在以上的时钟输出中，有很多是带使能控制的，例如 AHB 总线时钟、内核时钟、各种 APB1 外设、 APB2 外设等等。当需要使用某模块时，记得一定要先使能对应的时钟。</p>
-<h4 id="2、具体时钟分配"><a href="#2、具体时钟分配" class="headerlink" title="2、具体时钟分配"></a>2、具体时钟分配</h4><p>CM3 的系统滴答时钟 SYSTICK，来源是 AHB 分频后再 8 分频，通常设置 AHB 不分频，所以 SYSTICK 的频率就是 SYSCLK/8。</p>
-<p>APB1（低速APB）总线上的外设时钟 PCLK1，最大为 36MHz，所有挂载在 APB1 上的外设，最大时钟都是 36MHz，定时器除外。PCLK1 的时钟由 APB1 预分频器设置，默认 2 分频（72MHz/2）。挂在这一总线的外设有： 电源接口、备份接口、CAN、USB、I2C1、I2C2、UART2~5、SPI2、SPI3、窗口看门狗(WWDG)、Timer2~7。注意 USB 模块虽然需要一个单独的 48MHz 时钟信号，但它应该不是供 USB 模块工作的时钟，而只是提供给串行接口引擎(SIE)使用的时钟。</p>
-<p>APB2（高速 APB）总线上的外设时钟 PCLK2，最大为 72MHz，所有挂载在 APB2 上的外设，最大时钟都是 72MHz。PCLK2 的时钟由 APB2 预分频器设置，默认不分频。挂在这一总线的外设有：UART1、GPIOA~G、SPI1、ADC1~3、高级定时器（1、8）第二功能 IO 口。</p>
-<p>SDIO 接口的时钟频率固定为 HCLK/2。</p>
-<p>ADC 时钟由高速 APB2 时钟经 2、4、6 或 8 分频获得。</p>
-<p>如果相应的 APB 预分频系数是 1，定时器时钟频率与所在 APB 总线频率一致，否则为与其相连的 APB 总线频率的 2 倍</p>
-<p>​     </p>
-<p>FCLK 是 CM3 的自由运行时钟。</p>
-<p>STM32 中有一个全速功能的 USB 模块，其串行接口引擎需要一个频率为 48MHz 的时钟源。该时钟源只能从 PLL 输出端获取，可以选择为 1.5 分频或者 1 分频，也就是，当需要使用 USB 模块时，PLL 必须使能，并且时钟频率配置为 48MHz 或 72MHz。</p>
-<h4 id="3、时钟安全系统（CSS）"><a href="#3、时钟安全系统（CSS）" class="headerlink" title="3、时钟安全系统（CSS）"></a>3、时钟安全系统（CSS）</h4><p>时钟安全系统可以通过软件激活。一旦其被激活，时钟监测器将在 HSE 振荡器启动延迟后被使能，并在 HSE 时钟关闭后关闭。</p>
-<p>如果 HSE 时钟发生故障，HSE 振荡器被自动关闭，时钟失效事件将被送到高级定时器（TIM1 和 TIM8）的刹车输入端，并产生时钟安全中断 CSSI，允许软件完成营救操作。此 CSSI 中断连接到 Cortex-M3 的 NMI 中断。</p>
-<p>一旦 CSS 被激活，并且 HSE 时钟出现故障，CSS 中断就产生，并且 NMI 也自动产生。NMI 将被不断执行，知道 CSS 中断挂起位被清除。因此，在NMI的处理程序中必须通过设置时钟中断寄存器（RCC_CIR）里的 CSSC 位来清除 CSS 中断。</p>
-<p>如果 HSE 振荡器被直接或间接地作为系统时钟，（间接是指作为 PLL 输入时钟而 PLL 时钟作为系统时钟），时钟故障将导致系统时钟自动切换到 HSI 振荡器，同时外部 HSE 振荡器被关闭。在时钟失效时，如果 HSE 振荡器时钟（被分频或未被分频）是用作系统时钟的 PLL 的输入时钟，PLL 也将被关闭。</p>
-<h4 id="4、RTC-时钟"><a href="#4、RTC-时钟" class="headerlink" title="4、RTC 时钟"></a>4、RTC 时钟</h4><p>通过设置备份域控制寄存器（RCC_BDCR）里的 RTCSEL[1:0] 位，RTCCLK 时钟源可以有 HSE/128、LSE 或 LSI 时钟提供。除非备份域复位，此选择不能被改变。</p>
-<p>LSE 时钟在备份域里，但 HSE 和 LSI 时钟不是。因此：</p>
-<ul>
-<li><p>如果 LSE 被选为 RTC 时钟：</p>
-<ul>
-<li>只要 VBAT 维持供电，尽管 VDD 供电被切断，RTC 仍继续工作。</li>
-</ul>
-</li>
-<li><p>如果 LSI 被选为自动唤醒单元（AWU）时钟：</p>
-<ul>
-<li>如果 VDD 供电被切断，AWU 状态不能被保证。</li>
-</ul>
-</li>
-<li><p>如果 HSE 时钟 128 分频后作为 RTC 时钟：</p>
-<ul>
-<li>如果 VDD 供电被切断或内部电压调压器被关闭（1.8V 域的供电被切断），则 RTC 状态不确定。</li>
-<li>必须设置电源控制寄存器的 DPB 位为 1（取消后备区域的写保护）。</li>
-</ul>
-</li>
-</ul>
-<h4 id="5、看门狗时钟"><a href="#5、看门狗时钟" class="headerlink" title="5、看门狗时钟"></a>5、看门狗时钟</h4><p>如果独立看门狗已经由硬件选项或软件启动，LSI 振荡器将被强制在打开状态，并且不能被关闭。在 LSI 振荡器稳定后，时钟供应给 IWDG。</p>
-<hr>
-<h3 id="三、时钟输出"><a href="#三、时钟输出" class="headerlink" title="三、时钟输出"></a>三、时钟输出</h3><p>STM32 可以选择一个时钟信号输出到 MCO 脚(PA8)上，可以选择为 PLL 输出的 2 分频、HSI、HSE、或者 SYSCLK。</p>
-<hr>
-<h3 id="四、相关寄存器"><a href="#四、相关寄存器" class="headerlink" title="四、相关寄存器"></a>四、相关寄存器</h3><p>（1）时钟控制寄存器（RCC_CR）初始化用</p>
-<p>（2）时钟配置寄存器（RCC_CFGR）初始化用</p>
-<p>（3）时钟中断寄存器（RCC_CIR）</p>
-<p>（4）APB2 外设复位寄存器（RCC_APB2RSTR）</p>
-<p>（5）APB1 外设复位寄存器（RCC_APB1RSTR）</p>
-<p>（6）AHB 外设时钟使能寄存器（RCC_AHBENR）</p>
-<p>（7）APB2 外设时钟使能寄存器（RCC_APB2ENR）</p>
-<p>（8）APB1 外设时钟使能寄存器（RCC_APB1ENR）</p>
-<p>（9）备份域控制寄存器（RCC_BDCR）</p>
-<p>（10）控制/状态寄存器（RCC_CSR）</p>
-<p>（11）RCC 寄存器地址映像</p>
-<p>RCC 地址：0x4002 1000-0x4002 13ff</p>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>STM32</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>STM8S TIM1 时基单元</title>
-    <url>//blog/2019/03/04/STM8S-TIM1-%E6%97%B6%E5%9F%BA%E5%8D%95%E5%85%83/</url>
-    <content><![CDATA[<hr>
-<h3 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h3><p>TIM1 由一个 16 位自动装载计数器组成，它由一个可编程的预分频器驱动。</p>
-<a id="more"></a>
-<p>高级控制定时器适用于许多不同的用途：</p>
-<ul>
-<li><p>基本的定时</p>
-</li>
-<li><p>测量输入信号的脉冲宽度（输入捕获）</p>
-</li>
-<li><p>产生输出波形（输出比较，PWM 和单脉冲模式）</p>
-</li>
-<li><p>对应不同事件（捕获，比较，溢出，刹车，触发）的中断</p>
-</li>
-<li><p>与 TIM5/TIM6 或者外部信号（外部时钟，复位信号，触发和使能信号）同步</p>
-</li>
-</ul>
-<p>高级控制定时器广泛适用各种控制应用，包括那些需要中间对齐模式 PWM 的应用，该模式支持互补输出和死区时间控制。</p>
-<p>高级控制定时器的时钟可以是内部信号，也可以是外部信号，通过寄存器配置来选择。</p>
-<hr>
-<h3 id="二、主要特性"><a href="#二、主要特性" class="headerlink" title="二、主要特性"></a>二、主要特性</h3><p>TIM1的特性包括：</p>
-<ul>
-<li><p>16 位向上、向下、向上/下自动装载计数器</p>
-</li>
-<li><p>允许在指定数目的计数器周期之后更新定时器寄存器的重复计数器</p>
-</li>
-<li><p>16 位可编程（可实时修改）预分频器，计数器时钟频率的分频系数为 1~65536 间的任意数值</p>
-</li>
-<li><p>同步电路，用于使用外部信号控制定时器以及定时器互联</p>
-</li>
-<li><p>多达四个独立通道可以配置成：</p>
-<ul>
-<li>输入捕获</li>
-<li>输出比较</li>
-<li>PWM 生成（边缘或中间对齐模式）</li>
-<li>六步 PWM 输出</li>
-<li>单脉冲模式输出</li>
-<li>三个支持带互补输出，并且死区时间可编程的通道</li>
-</ul>
-</li>
-<li><p>刹车输入信号可以将定时器输出信号置于复位状态或一个已知状态</p>
-</li>
-<li><p>产生中断的事件包括：</p>
-<ul>
-<li>更新：计数器向上/向下溢出，计数器初始化（通过软件或内部/外部触发）</li>
-<li>触发事件（计数器启动、停止、初始化或由内部/外部触发计数）</li>
-<li>输入捕获</li>
-<li>输出比较</li>
-<li>刹车信号输入</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://i.loli.net/2019/03/04/5c7c7c9c8156d.png" alt="Image.png"></p>
-<hr>
-<h3 id="三、时基单元"><a href="#三、时基单元" class="headerlink" title="三、时基单元"></a>三、时基单元</h3><p>时基单元包含：</p>
-<ul>
-<li><p>16位向上/向下计数器</p>
-</li>
-<li><p>16位自动重载寄存器</p>
-</li>
-<li><p>重复计数器</p>
-</li>
-<li><p>预分频器</p>
-</li>
-</ul>
-<p><img src="https://i.loli.net/2019/03/04/5c7c7cb4a5bd5.png" alt="Image.png"></p>
-<p>16 位计数器，预分频器，自动重载寄存器和重复计数器都可以通过软件读写。自动重载寄存器由预装载寄存器和影子寄存器组成。</p>
-<p>可在两种模式下写自动重载寄存器：</p>
-<ul>
-<li><p>自动预装载已使能（TIM1_CR1 寄存器的 ARPE 位置位）。在此模式下，写入自动重载寄存器的数据将被保存在预装载寄存器中，并在下一个更新事件（UEV）时传送到影子寄存器。</p>
-</li>
-<li><p>自动预装载已禁止（TIM1_CR1 寄存器的 ARPE 位清除）。在此模式下，写入自动重载寄存器的数据将立即写入影子寄存器。</p>
-</li>
-</ul>
-<p>更新事件的产生条件：</p>
-<ul>
-<li><p>计数器向下或向下溢出</p>
-</li>
-<li><p>软件置位了 TIM1_EGR 寄存器的 UG 位</p>
-</li>
-<li><p>时钟/触发控制器产生了触发事件</p>
-</li>
-</ul>
-<p>在预装载使能时（ARPE=1），如果发生了更新事件，预装载寄存器中的数值（TIM1_ARR）将写入影子寄存器中，并且 TIM1_PSCR 寄存器中的值将写入预分频器中。</p>
-<p>置位 TIM1_CR1 寄存器的 UDIS 位将禁止更新事件（UEV）。</p>
-<p>计数器由预分频器的输出 CK_CNT 驱动，而 CK_CNT 仅在 IM1_CR1 寄存器的计数器使能位（CEN）被置位时才有效。</p>
-<p>在使能了 CEN 位的一个时钟周期后，计数器才开始计数。</p>
-<h4 id="1、读写-16-位计数器"><a href="#1、读写-16-位计数器" class="headerlink" title="1、读写 16 位计数器"></a>1、读写 16 位计数器</h4><p>写计数器的操作没有缓存，并且可以在任何时候写 TIM1_CNTRH 和 TIM1_CNTRL 寄存器，因此建议不要再计数器运行时写入新的数值，以免写入错误的数值。</p>
-<p>读计数器的操作带有 8 位缓存。在用户读了高位（MS）字节后，低位（LS）字节将被自动缓存，缓存的数据在 16 位的读操作完成之前不会有变化。</p>
-<p>注意：不要使用 LDW 指令来读取 16 位计数器的值，因为此指令先读低位（LS）字节，这样读出的数值是错误的。</p>
-<p><img src="https://i.loli.net/2019/03/04/5c7c7ccdcafc7.png" alt="Image.png"></p>
-<h4 id="2、16-位-TIM1-ARR-寄存器的写操作"><a href="#2、16-位-TIM1-ARR-寄存器的写操作" class="headerlink" title="2、16 位 TIM1_ARR 寄存器的写操作"></a>2、16 位 TIM1_ARR 寄存器的写操作</h4><p>通过预装载寄存器向 TIM1_ARR 寄存器中写入 16 位的值。此操作由两条指令完成，每条指令写入 1 个字节，高位（MS）字节是必须先写入的。</p>
-<p>影子寄存器在高位（MS）字节写入后被锁定，并保持到低位（LS）字节写完。不要使用 LDW 指令，因为此指令先写低位（LS）字节，这将导致写入的数值错误。</p>
-<h4 id="3、预分频器"><a href="#3、预分频器" class="headerlink" title="3、预分频器"></a>3、预分频器</h4><p>TMI1 的预分频器基于一个由 16 位寄存器（TIM1_PSCR）控制的 16 位计数器。由于这个控制寄存器带有缓冲器，因此它能够在运行时被改变。预分频器可以将计数器的时钟频率按 1 到 65536 之间的任意值分频。</p>
-<p>计数器的频率可以由下式计算：</p>
-<p>fCK_CNT = fCK_PSC/（PSCR[15:0] + 1）</p>
-<p>预分频值由预装载寄存器写入，保存了当前使用值的影子寄存器在低位（LS）写入后被载入。</p>
-<p>需两次单独的写操作来写 16 位寄存器，高位（MS）先写。不要使用先写低位的 LDW 指令。</p>
-<p>新的预分频器的值在下一次更新事件到来时被采用。</p>
-<p>对 TIM1_PSCR 寄存器的读操作通过预装载寄存器完成，因此不需要特别的关注。</p>
-<h4 id="4、向上计数模式"><a href="#4、向上计数模式" class="headerlink" title="4、向上计数模式"></a>4、向上计数模式</h4><p>计数器从 0 计数到用户定义的比较值（TIMx_ARR 寄存器的值），然后重新从 0 开始计数并产生一个计数器溢出事件，同时，如果 TIM1_CR1 寄存器的 UDIS 位是 0，将会产生一个更新事件（UEV）。</p>
-<p><img src="https://i.loli.net/2019/03/04/5c7c7cecf2195.png" alt="Image.png"></p>
-<p>置位 TIMx_EGR 寄存器的 UG 位（通过软件方式或使用从模式控制器）同样可产生一个更新事件。</p>
-<p>使用软件置位 TIMx_CR1 寄存器的 UDIS 位，可以禁止更新事件，这样可避免在更新预装载寄存器时更新影子寄存器。在 UDIS 位被清除之前，将不产生更新事件。但是在应该产生更新事件 时，计数器仍会被清 0，同时预分频器的计数也被清 0（但预分频器的数值不变）。此外，如果设置了 TIMx_CR1 寄存器中的 URS 位（选择更新请求），设置 UG 位将产生一个更新事件 UEV，但硬件不设置 UIF 标志（即不产生中断请求）。这是为了避免在捕获模式下清除计数器时，同时产生更新和捕获中断。</p>
-<p>当发生一个更新事件时，所有的寄存器都被更新，硬件同时（依据 URS 位）设置更新标志位（TIMx_SR 寄存器的 UIF 位）：</p>
-<ul>
-<li><p>自动装载影子寄存器被重新置入预装载寄存器的值（TIMx_ARR）</p>
-</li>
-<li><p>预分频器的缓存器被置入预装载寄存器的值（TIMx_PSC 寄存器的内容）</p>
-</li>
-</ul>
-<p><img src="https://i.loli.net/2019/03/04/5c7c7d028d058.png" alt="Image.png"></p>
-<p><img src="https://i.loli.net/2019/03/04/5c7c7d11772c7.png" alt="Image.png"></p>
-<h4 id="5、向下计数模式"><a href="#5、向下计数模式" class="headerlink" title="5、向下计数模式"></a>5、向下计数模式</h4><p>计数器从自动装载的值（TIMx_ARR 寄存器的值）开始向下计数到 0，然后再从自动装载的值重新开始计数，并产生一个计数器向下溢出时间。如果 TIM1_CR1 寄存器的 UDIS 位被清除，还会产生一个更新事件（UEV）。</p>
-<p><img src="https://i.loli.net/2019/03/04/5c7c7d28e89d1.png" alt="Image.png"></p>
-<p>置位 TIMx_EGR 寄存器的 UG 位（通过软件方式或者使用从模式控制器）也同样可以产生一个更新事件。</p>
-<p>置位 TIMx_CR1 寄存器的 UDIS 位可以禁止 UEV 事件。这样可以避免在更新预装载寄存器时更新影子寄存器。因此 UDIS 位清除之前不会产生更新事件。然而，计数器仍会从当前自动加载值重新开始计数，并且预分频器的计数器重新从 0 开始（但预分频器不能被修改）。</p>
-<p> 此外，如果设置了 TIMx_CR1 寄存器中的 URS 位（选择更新请求），设置 UG 位将产生一个更新事件 UEV 但不设置 UIF 标志（因此不产生中断），这是为了表面在发生补货时间并清除计数器时，同时产生更新和捕获中断。</p>
-<p>当发生更新事件时，所有的寄存器都被更新，并且（根据 URS 位的设置）更新标志位（TIMx_SR 寄存器中的 UIF 位）也被设置：</p>
-<p>预分频器的缓存器被存入预装载的值（TIMx_PSC 寄存器的值）。</p>
-<p>当前的自动加载寄存器被更新为预装载值（TIMx_ARR 寄存器中的内容）。要注意自动装载寄存器在计数器重载入之前被更新，因此下一个周期才是预期的值。</p>
-<p>以下是一些当 TIMx_ARR = 0x36 时，计数器在不同时钟频率下的图表。</p>
-<p>下图描述了在向下计数模式下，预装载不使能时新的数值在下个周期时被写入。</p>
-<p><img src="https://i.loli.net/2019/03/04/5c7c7d487f1d4.png" alt="Image.png"></p>
-<h4 id="6、中央对齐模式（向上-向下计数）"><a href="#6、中央对齐模式（向上-向下计数）" class="headerlink" title="6、中央对齐模式（向上/向下计数）"></a>6、中央对齐模式（向上/向下计数）</h4><p>在中央对其模式。计数器从 0 开始计数到自动加载的值（TIMx_ARR寄存器）-1，产生一个溢出事件，然后向下计数到 0 并且产生一个计数器下溢事件，然后再从 0 开始重新计数。</p>
-<p>在此模式下，不能写入 TIMx_CR1中 的 DIR 方向位。它由硬件更新并指示当前的计数方向。</p>
-<p><img src="https://i.loli.net/2019/03/04/5c7c7d5c4e2f3.png" alt="Image.png"></p>
-<p>如果定时器带有重复计数器（如 TIM1），在重复了指定次数（TIM1_RCR 的值）的向上和向下溢出之后会产生更新事件（UEV）。否则每一次的向上向下溢出都会产生更新事件。</p>
-<p>置位 TIMx_EGR 寄存器的 UG 位（通过软件方式或者使用从模式控制器）也同样可以产生一个更新事件。此时，计数器重新从 0 开始计数，预分频器也重新从 0 开始计数。</p>
-<p>设置 TIMx_CR1 寄存器中的 UDIS 位可以禁止 UEV 事件。这样可以避免在更新预装载寄存器时更新影子寄存器。因此 UDIS 位被清 0 之前不会产生更新事件。然而，计数器仍会根据当前自动重加载的值，继续向上或向下计数。如果定时器带有重复计数器，由于重复寄存器没有双重的缓冲，新的重复数值将立刻生效，因此在修改时需要小心。</p>
-<p>此外，如果设置了 TIMx_CR1 寄存器中的 URS 位（选择更新请求），设置 UG 位将产生一个更新事件 UEV 但不设置 UIF 标志（因此不产生中断），这是为了避免在发生捕获事件并清除计数器时，同时产生更新和捕获中断。</p>
-<p>当发生更新事件时，所有的寄存器都被更新，并且（根据 URS 位的设置）更新标志位（TIMx_SR 寄存器中的 UIF 位）也被设置。</p>
-<p>预分频器的缓存器被加载为预装载（TIMx_PSC 寄存器）的值。</p>
-<p>当前的自动加载寄存器被更新为预装载值（TIMx_ARR 寄存器中的内容）。要注意到如果因为计数器溢出而产生更新，自动重装载寄存器将在计数器重载入之前被更新，因此下一个周期才是预期的值（计数器被装载位新的值）。以下是一些计数器在不同时钟频率下的操作的例子：</p>
-<p><img src="https://i.loli.net/2019/03/04/5c7c7d7479a01.png" alt="Image.png"></p>
-<p>使用中央对齐模式的提示：</p>
-<ul>
-<li>启动中央对齐模式时，计数器将按照原有的向上/向下的配置计数。也就是说 TIM1_CR1 寄存器中的 DIR 位将决定计数器时向上还是向下计数。此外，软件不能同时修改 DIR 和 CMS 位的值。</li>
-</ul>
-<ul>
-<li>不推荐在中央对齐模式下，计数器正在计数时写计数器的值，这将导致不能预料的后果。具体的说：<ul>
-<li>向计数器写入了比自动装载值更大的数值时（TIM1_CNT &gt; TIM1_ARR），但计数器的技术方向不发生改变。例如计数器已经向上溢出，但计数器仍然向上计数。</li>
-<li>向计数器写入了 0 或者 TIM1_ARR 的值，但更新事件不发生。</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>安全使用中央对齐模式的计数器的方法是在启动计数器之前先用软件（置位 TIM1_EGR 寄存器的 UG 位）产生一个更新事件，并且不在计数器计数时修改计数器的值。</li>
-</ul>
-<h4 id="7、重复计数器"><a href="#7、重复计数器" class="headerlink" title="7、重复计数器"></a>7、重复计数器</h4><p>时基单元一节解释了计数器向上/向下溢出时更新事件（UEV）是如何产生的，然而事实上它只能在重复计数器的值达到 0 的时候产生。这个特性对产生 PWM 信号非常有用。</p>
-<p>这意味着在每 N 次计数上溢或下溢时，数据从预装载寄存器传输到影子寄存器（TIMx_ARR 自动重载入寄存器，TIMx_PSC 预装载寄存器，还有在比较模式下的捕获/比较寄存器 TIMx_CCRx），N 是 TIMx_RCR 重复计数寄存器中的值。</p>
-<p>重复计数器在下述任一条件成立时递减：</p>
-<ul>
-<li><p>向上计数模式下每次计数器向上溢出时</p>
-</li>
-<li><p>向下计数模式下每次计数器向下溢出时</p>
-</li>
-<li><p>中央对齐模式下每次上溢和下溢时</p>
-</li>
-</ul>
-<p>虽然这样限制了 PW 的最大循环周期为 128，但它能够在每个 PWM 周期 2 次更新占空比。在中央对齐模式下，因为波形是对称的，如果每个 PWM 周期中仅刷新一次比较寄存器，则最大的分辨率为 2*tCK_PSC。</p>
-<p>重复计数器是自动加载的，重复速率由 TIMx_RCR 寄存器的值定义。当更新事件由软件产生（通过设置 TIMx_EGR 中的 UG 位）或者通过硬件的从模式控制器产生，则无论重复计数器的值是多少，立即发生更新事件，并且 TIMx_RCR 寄存器中的内容被重载到重复计数器。</p>
-<p><img src="https://i.loli.net/2019/03/04/5c7c7d8ca3063.png" alt="Image.png"></p>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>STM8</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>C++ 模板</title>
-    <url>//blog/2019/04/13/C-%E6%A8%A1%E6%9D%BF/</url>
-    <content><![CDATA[<hr>
-<h4 id="一、函数模板（Function-Template）"><a href="#一、函数模板（Function-Template）" class="headerlink" title="一、函数模板（Function Template）"></a>一、函数模板（Function Template）</h4><p>值的参数化：</p>
-<a id="more"></a>
-<ul>
-<li>在函数定义时形参数据的值是未知的，只有等到函数调用时接收了实参才能确定其值。</li>
-</ul>
-<p>类型的参数化：</p>
-<ul>
-<li>在 C++ 中，数据类型也可以通过参数来传递，在函数定义时不指明具体数据类型，函数调用时，编译器可以根据传入的实参自动推断数据类型。</li>
-</ul>
-<p>函数模板：</p>
-<ul>
-<li>建立一个函数的模板，其用到的数据类型（返回值、形参、局部变量的类型）用一个虚拟的类型代替。</li>
-</ul>
-<p>函数模板的语法：（模板头 + 使用新定义的类型参数的函数定义）</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">template &lt;typename 类型参数1 , typename 类型参数2 , ...&gt; </span><br><span class="line">返回值类型  函数名(形参列表)&#123;</span><br><span class="line">	…</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>比如：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">template&lt;typename T&gt; void Swap(T &amp;a, T &amp;b)&#123;</span><br><span class="line"></span><br><span class="line">	T temp = a;</span><br><span class="line">	a = b;</span><br><span class="line">	b = temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>函数模板也可以先声明后定义，但是声明的时候也必须带上模板头。</p>
-<p>可以用多个 typename 声明多种不同的类型参数。</p>
-<p>typename 关键字也可以使用 class 关键字代替。</p>
-<hr>
-<h4 id="二、类模板（Class-Template）"><a href="#二、类模板（Class-Template）" class="headerlink" title="二、类模板（Class Template）"></a>二、类模板（Class Template）</h4><p>类模板的定义与函数模板类似，语法如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">template&lt;typename 类型参数1, typename 类型参数2 , …&gt; class 类名&#123;</span><br><span class="line">    …</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>类的成员函数的定义时，语法为：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">template &lt;typename 类型参数1, typename 类型参数2,  …&gt;</span><br><span class="line"></span><br><span class="line">返回值类型 类名&lt;类型参数1, 类型参数2, … &gt; :: 函数名(参数表)&#123;</span><br><span class="line">	…</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在类名之后，需带上该类全部的类型参数表（不需要写 typename），函数的参数表中，用到了哪个类型参数写哪个就可以。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">template&lt;typename T&gt; class Operation&#123;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line"></span><br><span class="line">	Operation(T a, T b) :m_a(a), m_b(b)&#123;&#125;</span><br><span class="line">	T Sum();</span><br><span class="line">	bool SetValue(T a, T b);</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line"></span><br><span class="line">	T m_a;</span><br><span class="line">	T m_b;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">template&lt;typename T&gt;</span><br><span class="line">T Operation&lt;T&gt;::Sum()&#123;</span><br><span class="line"></span><br><span class="line">	T c = m_a + m_b;</span><br><span class="line">	return c;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">template&lt;typename T&gt;</span><br><span class="line">bool Operation&lt;T&gt;::SetValue(T a, T b)&#123;</span><br><span class="line"></span><br><span class="line">	m_a = a;</span><br><span class="line">	m_b = b;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line"></span><br><span class="line">	Operation&lt;float&gt; ope(2.3, 3.4);</span><br><span class="line">	float sum = ope.Sum();</span><br><span class="line">	cout &lt;&lt; sum &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">return 0;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>使用类模板创建对象时，需显示指明类型参数，例如：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Operation&lt;float&gt; ope(2.3, 3.4);</span><br></pre></td></tr></table></figure>
-<p>如果是创建对象指针，赋值时两边都要指明具体类型，且要保持一致：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Operation&lt;float&gt; *ope = new Operation&lt;float&gt;(1.2, 2.3);</span><br></pre></td></tr></table></figure>
-<p>另外，也可以仿造类模板定义结构体模板。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;typeinfo&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">extern const char test_set_path[] = &quot;abc&quot;;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line"></span><br><span class="line">int avc = 0;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; typeid(avc).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(test_set_path).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(int).name() &lt;&lt; endl;	   </span><br><span class="line">    cout &lt;&lt; typeid(char).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(float).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(double).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(char[]).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(char[][2]).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(int[]).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(int[][2]).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(char*).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(int*).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(typeid(char).name()).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(typeid(int).name()).name() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; typeid(string).name() &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">i </span><br><span class="line">A4_c   </span><br><span class="line">i          </span><br><span class="line">c         </span><br><span class="line">f           </span><br><span class="line">d</span><br><span class="line">A_c</span><br><span class="line">A_A2_c</span><br><span class="line">A_i</span><br><span class="line">A_A2_i</span><br><span class="line">Pc</span><br><span class="line">Pi</span><br><span class="line">PKc</span><br><span class="line">PKc</span><br><span class="line">Ss</span><br></pre></td></tr></table></figure>
+<p>可见，typeid().name() 的返回值类型是 PKC，即 <code>const char*</code>。</p>
+<p>如果只需要对类型进行对比，可以直接 <code>if(typeid(a) == typeid(b))</code>。</p>
 ]]></content>
       <tags>
         <tag>C++</tag>
         <tag>编程语言</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>C++ 模板的编译问题</title>
-    <url>//blog/2019/04/14/C-%E6%A8%A1%E6%9D%BF%E7%9A%84%E7%BC%96%E8%AF%91%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<hr>
-<h4 id="一、C-对模板的编译"><a href="#一、C-对模板的编译" class="headerlink" title="一、C++ 对模板的编译"></a>一、C++ 对模板的编译</h4><p>使用普通函数和类的时候，编译器只需掌握函数或类的声明即可，所以声明和定义通常分别放在 .h 和 .cpp 文件中。</p>
-<a id="more"></a>
-<p>而模板和模板的成员函数都是在用到的时候才会实例化，这就导致如果按照普通函数或类的方法去定义和声明模板类，在链接阶段，链接器将找不到模板函数或模板类成员函数的定义，因为它们所在的 .cpp 文件并未被编译。为了生成一个实例化版本，编译器需要掌握函数模板或类模板成员函数的定义，因此<strong>模板的头文件通常既包括声明，也包括定义</strong>。</p>
-<p>事实上，C++对想要将声明和定义分别放在两个文件中进行编译提供了两种方式：</p>
-<ul>
-<li>包含编译</li>
-<li>分离编译</li>
-</ul>
-<p>包含编译：<br>大部分内容与正常函数或类的定义和声明相同，只是文件包含有所区别，不需要 cpp 头部包含 .h 文件，而是<strong>用头文件包含源文件</strong>，在 .h 文件的末尾#include&lt;XXX.cpp&gt;。这样其实就相当于把所有内容都写在了头文件中，因为预编译阶段就是把 #include 的文件复制到包含位置。</p>
-<p>分离编译：<br>仍是大部分内容与正常函数或类的定义和声明相同，在定义所在的 .cpp 文件中的函数定义的最前面加上 export 关键字，以告诉编译器该定义在哪里被引用。</p>
-<p>然而在 codeblocks12.11 中使用上面两种方法时，均失败。分别报错说 .cpp 中的类名“does not name a type”，和 export 关键字没有被实现，因而将被忽略，进而导致实例化时该类模板“undefined reference”。</p>
-<p>可见，以上两种方法虽理论上可行，但实际上由于编译器的原因，并不一定能使用。</p>
-<hr>
-<h4 id="二、Codeblocks-中使用模板的方法"><a href="#二、Codeblocks-中使用模板的方法" class="headerlink" title="二、Codeblocks 中使用模板的方法"></a>二、Codeblocks 中使用模板的方法</h4><h5 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h5><p>定义和声明放在同一个 .h 文件中。这是最可靠的方式，无论哪个编译器都不会出错。只是有可能在大规模项目中导致文件特别大。</p>
-<h5 id="方法二："><a href="#方法二：" class="headerlink" title="方法二："></a>方法二：</h5><p>声明和定义放在不同的 .h 文件中，在声明文件的末尾（注意是末尾） #include 定义的 .h 文件。</p>
-<p>这样做原理上与方法一是一致的，在预编译阶段通过复制使它们成为了一个文件。</p>
-<h5 id="方法三："><a href="#方法三：" class="headerlink" title="方法三："></a>方法三：</h5><p>声明和定义分别放在 .h 和 .cpp 文件中，.cpp 文件包含 .h 文件，在 .cpp 文件中写一个函数，对该文件中涉及到的所有成员函数全部实例化一遍（如果只对部分成员函数实例化了，则剩余函数不会被编译）。</p>
-<p>这种方法的原理在于：</p>
-<ul>
-<li>如果不在 .cpp 文件中进行实例化，编译阶段编译器遇到这个 .cpp 文件，一看里面全是模板，就会将这个文件忽略，这样在链接阶段，链接器就会因为找不到模板函数的定义文件而报错。</li>
-<li>在 .cpp 文件中通过一个函数进行了实例化之后，编译阶段，编译器发现这个文件中有非模板函数，就会对其进行编译，由于它的内部对模板进行了实例化，所以，而这些模板的定义和声明又有迹可循，所以就能对它们进行编译。</li>
-</ul>
-<h5 id="方法四："><a href="#方法四：" class="headerlink" title="方法四："></a>方法四：</h5><p>声明和定义分别放在 .h 和 .cpp 文件中，.cpp 文件包含 .h 文件，在实例化模板的文件中，再统一包含这两个文件。</p>
-<p>例如，在 main() 函数中对类模板及其中的成员函数进行了实例化，则在 main() 函数所在的文件头部包含 .cpp 和 .h 文件。此方法的原理类似于方法三。</p>
-<hr>
-<p>以上四种方法都是在 codeblocks12.11 中验证过的。总体来说，还是方法一和方法二更实用一些。但是在摸索这些方法的过程中，加深对程序编译和 C++ 语言特性的理解，还是颇有好处的。</p>
-<p>参考博文及书籍：<br>《C++ primer（中文第 5 版）》<br><a href="https://blog.csdn.net/xiaoyaohuqijun/article/details/50558208" target="_blank" rel="noopener">https://blog.csdn.net/xiaoyaohuqijun/article/details/50558208</a><br><a href="https://blog.csdn.net/qq_41230365/article/details/80207842" target="_blank" rel="noopener">https://blog.csdn.net/qq_41230365/article/details/80207842</a><br><a href="https://blog.csdn.net/u012814856/article/details/84645963" target="_blank" rel="noopener">https://blog.csdn.net/u012814856/article/details/84645963</a><br><a href="https://blog.csdn.net/chenyiming_1990/article/details/9094593" target="_blank" rel="noopener">https://blog.csdn.net/chenyiming_1990/article/details/9094593</a></p>
-]]></content>
-      <tags>
-        <tag>C++</tag>
-        <tag>编程语言</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CodeBlocks 不能编译或调试的解决办法</title>
-    <url>//blog/2019/04/18/CodeBlocks-%E4%B8%8D%E8%83%BD%E7%BC%96%E8%AF%91%E6%88%96%E8%B0%83%E8%AF%95%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</url>
-    <content><![CDATA[<hr>
-<p>今天新装了最新版的 Code::Blocks17.12，下载的时候选择了完整版（带了 MinGW），编译一切正常，但是 Debug 的时候报了错：</p>
-<a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ERROR: You need to specify a debugger program in the debuggers&apos;s settings.</span><br><span class="line">(For MinGW compilers, it&apos;s &apos;gdb.exe&apos; (without the quotes))</span><br><span class="line">(For MSVC compilers, it&apos;s &apos;cdb.exe&apos; (without the quotes))</span><br></pre></td></tr></table></figure>
-<p>这是因为没有设置调试器（以前用的那个版本好像安装完就能直接调试）。</p>
-<p>如果下载的是完整版的，就按照以下步骤添加调试器路径：<br>Settings -&gt; Debugger -&gt; Default -&gt; Executable path</p>
-<p>路径为：CodeBlocks\MinGW\bin\gdb32.exe （也有可能是 gdb.exe）</p>
-<p>如果路径下没有这个文件，就从 <a href="http://www.equation.com/servlet/equation.cmd?fa=gdb" target="_blank" rel="noopener">http://www.equation.com/servlet/equation.cmd?fa=gdb</a> 下载一个。</p>
-<p>如果是没法编译，也是下载一个 MinGW ，安装，然后配置系统变量。最后在 CodeBlocks 软件中 Settings -&gt; Complier 选择 GUN GCC Compiler 编译器即可。</p>
-]]></content>
-      <tags>
-        <tag>软件使用</tag>
-        <tag>CodeBlocks</tag>
       </tags>
   </entry>
   <entry>
@@ -3838,6 +3741,85 @@
       </tags>
   </entry>
   <entry>
+    <title>C++ 模板</title>
+    <url>//blog/2019/04/13/C-%E6%A8%A1%E6%9D%BF/</url>
+    <content><![CDATA[<hr>
+<h4 id="一、函数模板（Function-Template）"><a href="#一、函数模板（Function-Template）" class="headerlink" title="一、函数模板（Function Template）"></a>一、函数模板（Function Template）</h4><p>值的参数化：</p>
+<a id="more"></a>
+<ul>
+<li>在函数定义时形参数据的值是未知的，只有等到函数调用时接收了实参才能确定其值。</li>
+</ul>
+<p>类型的参数化：</p>
+<ul>
+<li>在 C++ 中，数据类型也可以通过参数来传递，在函数定义时不指明具体数据类型，函数调用时，编译器可以根据传入的实参自动推断数据类型。</li>
+</ul>
+<p>函数模板：</p>
+<ul>
+<li>建立一个函数的模板，其用到的数据类型（返回值、形参、局部变量的类型）用一个虚拟的类型代替。</li>
+</ul>
+<p>函数模板的语法：（模板头 + 使用新定义的类型参数的函数定义）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">template &lt;typename 类型参数1 , typename 类型参数2 , ...&gt; </span><br><span class="line">返回值类型  函数名(形参列表)&#123;</span><br><span class="line">	…</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>比如：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">template&lt;typename T&gt; void Swap(T &amp;a, T &amp;b)&#123;</span><br><span class="line"></span><br><span class="line">	T temp = a;</span><br><span class="line">	a = b;</span><br><span class="line">	b = temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>函数模板也可以先声明后定义，但是声明的时候也必须带上模板头。</p>
+<p>可以用多个 typename 声明多种不同的类型参数。</p>
+<p>typename 关键字也可以使用 class 关键字代替。</p>
+<hr>
+<h4 id="二、类模板（Class-Template）"><a href="#二、类模板（Class-Template）" class="headerlink" title="二、类模板（Class Template）"></a>二、类模板（Class Template）</h4><p>类模板的定义与函数模板类似，语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">template&lt;typename 类型参数1, typename 类型参数2 , …&gt; class 类名&#123;</span><br><span class="line">    …</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>类的成员函数的定义时，语法为：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">template &lt;typename 类型参数1, typename 类型参数2,  …&gt;</span><br><span class="line"></span><br><span class="line">返回值类型 类名&lt;类型参数1, 类型参数2, … &gt; :: 函数名(参数表)&#123;</span><br><span class="line">	…</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在类名之后，需带上该类全部的类型参数表（不需要写 typename），函数的参数表中，用到了哪个类型参数写哪个就可以。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">template&lt;typename T&gt; class Operation&#123;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line"></span><br><span class="line">	Operation(T a, T b) :m_a(a), m_b(b)&#123;&#125;</span><br><span class="line">	T Sum();</span><br><span class="line">	bool SetValue(T a, T b);</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line"></span><br><span class="line">	T m_a;</span><br><span class="line">	T m_b;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">template&lt;typename T&gt;</span><br><span class="line">T Operation&lt;T&gt;::Sum()&#123;</span><br><span class="line"></span><br><span class="line">	T c = m_a + m_b;</span><br><span class="line">	return c;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">template&lt;typename T&gt;</span><br><span class="line">bool Operation&lt;T&gt;::SetValue(T a, T b)&#123;</span><br><span class="line"></span><br><span class="line">	m_a = a;</span><br><span class="line">	m_b = b;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line"></span><br><span class="line">	Operation&lt;float&gt; ope(2.3, 3.4);</span><br><span class="line">	float sum = ope.Sum();</span><br><span class="line">	cout &lt;&lt; sum &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">return 0;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用类模板创建对象时，需显示指明类型参数，例如：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Operation&lt;float&gt; ope(2.3, 3.4);</span><br></pre></td></tr></table></figure>
+<p>如果是创建对象指针，赋值时两边都要指明具体类型，且要保持一致：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Operation&lt;float&gt; *ope = new Operation&lt;float&gt;(1.2, 2.3);</span><br></pre></td></tr></table></figure>
+<p>另外，也可以仿造类模板定义结构体模板。</p>
+]]></content>
+      <tags>
+        <tag>C++</tag>
+        <tag>编程语言</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++ 模板的编译问题</title>
+    <url>//blog/2019/04/14/C-%E6%A8%A1%E6%9D%BF%E7%9A%84%E7%BC%96%E8%AF%91%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<hr>
+<h4 id="一、C-对模板的编译"><a href="#一、C-对模板的编译" class="headerlink" title="一、C++ 对模板的编译"></a>一、C++ 对模板的编译</h4><p>使用普通函数和类的时候，编译器只需掌握函数或类的声明即可，所以声明和定义通常分别放在 .h 和 .cpp 文件中。</p>
+<a id="more"></a>
+<p>而模板和模板的成员函数都是在用到的时候才会实例化，这就导致如果按照普通函数或类的方法去定义和声明模板类，在链接阶段，链接器将找不到模板函数或模板类成员函数的定义，因为它们所在的 .cpp 文件并未被编译。为了生成一个实例化版本，编译器需要掌握函数模板或类模板成员函数的定义，因此<strong>模板的头文件通常既包括声明，也包括定义</strong>。</p>
+<p>事实上，C++对想要将声明和定义分别放在两个文件中进行编译提供了两种方式：</p>
+<ul>
+<li>包含编译</li>
+<li>分离编译</li>
+</ul>
+<p>包含编译：<br>大部分内容与正常函数或类的定义和声明相同，只是文件包含有所区别，不需要 cpp 头部包含 .h 文件，而是<strong>用头文件包含源文件</strong>，在 .h 文件的末尾#include&lt;XXX.cpp&gt;。这样其实就相当于把所有内容都写在了头文件中，因为预编译阶段就是把 #include 的文件复制到包含位置。</p>
+<p>分离编译：<br>仍是大部分内容与正常函数或类的定义和声明相同，在定义所在的 .cpp 文件中的函数定义的最前面加上 export 关键字，以告诉编译器该定义在哪里被引用。</p>
+<p>然而在 codeblocks12.11 中使用上面两种方法时，均失败。分别报错说 .cpp 中的类名“does not name a type”，和 export 关键字没有被实现，因而将被忽略，进而导致实例化时该类模板“undefined reference”。</p>
+<p>可见，以上两种方法虽理论上可行，但实际上由于编译器的原因，并不一定能使用。</p>
+<hr>
+<h4 id="二、Codeblocks-中使用模板的方法"><a href="#二、Codeblocks-中使用模板的方法" class="headerlink" title="二、Codeblocks 中使用模板的方法"></a>二、Codeblocks 中使用模板的方法</h4><h5 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h5><p>定义和声明放在同一个 .h 文件中。这是最可靠的方式，无论哪个编译器都不会出错。只是有可能在大规模项目中导致文件特别大。</p>
+<h5 id="方法二："><a href="#方法二：" class="headerlink" title="方法二："></a>方法二：</h5><p>声明和定义放在不同的 .h 文件中，在声明文件的末尾（注意是末尾） #include 定义的 .h 文件。</p>
+<p>这样做原理上与方法一是一致的，在预编译阶段通过复制使它们成为了一个文件。</p>
+<h5 id="方法三："><a href="#方法三：" class="headerlink" title="方法三："></a>方法三：</h5><p>声明和定义分别放在 .h 和 .cpp 文件中，.cpp 文件包含 .h 文件，在 .cpp 文件中写一个函数，对该文件中涉及到的所有成员函数全部实例化一遍（如果只对部分成员函数实例化了，则剩余函数不会被编译）。</p>
+<p>这种方法的原理在于：</p>
+<ul>
+<li>如果不在 .cpp 文件中进行实例化，编译阶段编译器遇到这个 .cpp 文件，一看里面全是模板，就会将这个文件忽略，这样在链接阶段，链接器就会因为找不到模板函数的定义文件而报错。</li>
+<li>在 .cpp 文件中通过一个函数进行了实例化之后，编译阶段，编译器发现这个文件中有非模板函数，就会对其进行编译，由于它的内部对模板进行了实例化，所以，而这些模板的定义和声明又有迹可循，所以就能对它们进行编译。</li>
+</ul>
+<h5 id="方法四："><a href="#方法四：" class="headerlink" title="方法四："></a>方法四：</h5><p>声明和定义分别放在 .h 和 .cpp 文件中，.cpp 文件包含 .h 文件，在实例化模板的文件中，再统一包含这两个文件。</p>
+<p>例如，在 main() 函数中对类模板及其中的成员函数进行了实例化，则在 main() 函数所在的文件头部包含 .cpp 和 .h 文件。此方法的原理类似于方法三。</p>
+<hr>
+<p>以上四种方法都是在 codeblocks12.11 中验证过的。总体来说，还是方法一和方法二更实用一些。但是在摸索这些方法的过程中，加深对程序编译和 C++ 语言特性的理解，还是颇有好处的。</p>
+<p>参考博文及书籍：<br>《C++ primer（中文第 5 版）》<br><a href="https://blog.csdn.net/xiaoyaohuqijun/article/details/50558208" target="_blank" rel="noopener">https://blog.csdn.net/xiaoyaohuqijun/article/details/50558208</a><br><a href="https://blog.csdn.net/qq_41230365/article/details/80207842" target="_blank" rel="noopener">https://blog.csdn.net/qq_41230365/article/details/80207842</a><br><a href="https://blog.csdn.net/u012814856/article/details/84645963" target="_blank" rel="noopener">https://blog.csdn.net/u012814856/article/details/84645963</a><br><a href="https://blog.csdn.net/chenyiming_1990/article/details/9094593" target="_blank" rel="noopener">https://blog.csdn.net/chenyiming_1990/article/details/9094593</a></p>
+]]></content>
+      <tags>
+        <tag>C++</tag>
+        <tag>编程语言</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>常用数学符号</title>
     <url>//blog/2019/04/29/%E5%B8%B8%E7%94%A8%E6%95%B0%E5%AD%A6%E7%AC%A6%E5%8F%B7/</url>
     <content><![CDATA[<hr>
@@ -3933,9 +3915,22 @@
       </tags>
   </entry>
   <entry>
-    <title>test</title>
-    <url>//blog/2022/03/06/test/</url>
-    <content><![CDATA[]]></content>
+    <title>CodeBlocks 不能编译或调试的解决办法</title>
+    <url>//blog/2019/04/18/CodeBlocks-%E4%B8%8D%E8%83%BD%E7%BC%96%E8%AF%91%E6%88%96%E8%B0%83%E8%AF%95%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</url>
+    <content><![CDATA[<hr>
+<p>今天新装了最新版的 Code::Blocks17.12，下载的时候选择了完整版（带了 MinGW），编译一切正常，但是 Debug 的时候报了错：</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ERROR: You need to specify a debugger program in the debuggers&apos;s settings.</span><br><span class="line">(For MinGW compilers, it&apos;s &apos;gdb.exe&apos; (without the quotes))</span><br><span class="line">(For MSVC compilers, it&apos;s &apos;cdb.exe&apos; (without the quotes))</span><br></pre></td></tr></table></figure>
+<p>这是因为没有设置调试器（以前用的那个版本好像安装完就能直接调试）。</p>
+<p>如果下载的是完整版的，就按照以下步骤添加调试器路径：<br>Settings -&gt; Debugger -&gt; Default -&gt; Executable path</p>
+<p>路径为：CodeBlocks\MinGW\bin\gdb32.exe （也有可能是 gdb.exe）</p>
+<p>如果路径下没有这个文件，就从 <a href="http://www.equation.com/servlet/equation.cmd?fa=gdb" target="_blank" rel="noopener">http://www.equation.com/servlet/equation.cmd?fa=gdb</a> 下载一个。</p>
+<p>如果是没法编译，也是下载一个 MinGW ，安装，然后配置系统变量。最后在 CodeBlocks 软件中 Settings -&gt; Complier 选择 GUN GCC Compiler 编译器即可。</p>
+]]></content>
+      <tags>
+        <tag>软件使用</tag>
+        <tag>CodeBlocks</tag>
+      </tags>
   </entry>
   <entry>
     <title>Markdown 语法</title>
@@ -4116,6 +4111,11 @@
       <tags>
         <tag>算法</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>test</title>
+    <url>//blog/2022/03/06/test/</url>
+    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>AXI4 接口定义速查</title>
