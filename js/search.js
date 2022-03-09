@@ -82,8 +82,8 @@ var searchFunc = function (path, search_id, content_id) {
                     // 返回搜索结果
                     if (isMatch) {
                         // 结果标签
-                        // str += "<li><a href='" + data_url.slice(2) +
-                        str = "<li><a href='" + "zero1248.github.io/" + data_url.slice(2) +
+                        str += "<li><a href='" + data_url.slice(2) +
+                        // str = "<li><a href='" + "zero1248.github.io/" + data_url.slice(2) +
                         // str += "<li><a href='" + "zero1248.github.io/" + data_url.slice(2) +
                         // str += "<li><a href='" + data_url +
                             // "' class='search-result-title' target='_blank'>" + "> " + data_title + "</a>";
