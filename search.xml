@@ -1,127 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Git 与 Github</title>
-    <url>//blog/2019/02/20/Git%20%E4%B8%8E%20Github/</url>
-    <content><![CDATA[<hr>
-<h3 id="〇、Github-与-Git-的关系"><a href="#〇、Github-与-Git-的关系" class="headerlink" title="〇、Github 与 Git 的关系"></a>〇、Github 与 Git 的关系</h3><h4 id="1、Git-与-Github-简介"><a href="#1、Git-与-Github-简介" class="headerlink" title="1、Git 与 Github 简介"></a>1、Git 与 Github 简介</h4><ul>
-<li>Git 是一款免费、开源的分布式版本控制系统</li>
-<li>GitHub 是一个面向开源及私有软件项目的托管平台，因为只支持 Git 作为唯一的版本库格式进行托管，故名 GitHub。另外还有其他的平台，如国内的 <a href="https://gitee.com/" target="_blank" rel="noopener">码云</a> </li>
-<li>Git 负责本地的代码版本控制，而 Github 负责远程托管</li>
-</ul>
-<a id="more"></a>
-<h4 id="2、Git-的工作流程："><a href="#2、Git-的工作流程：" class="headerlink" title="2、Git 的工作流程："></a>2、Git 的工作流程：</h4><ul>
-<li><p>1）在工作目录（Working Directory）中修改文件。</p>
-</li>
-<li><p>2）暂存文件，将文件的快照放入暂存区域（Staging Area）。</p>
-</li>
-<li><p>3）提交更新，找到暂存区域的文件，将快照永久性存储到 Git 仓库目录（Repository）。</p>
-</li>
-<li><p>其中：</p>
-<ul>
-<li>Git <strong>仓库目录 </strong> 是 Git 用来保存项目的元数据和对象数据库的地方。 这是 Git 中最重要的部分，从其它计算机克隆仓库时，拷贝的就是这里的数据。</li>
-<li><strong>工作目录</strong> 是对项目的某个版本独立提取出来的内容。 这些从 Git 仓库的压缩数据库中提取出来的文件，放在磁盘上供你使用或修改。</li>
-<li><strong>暂存区域</strong> 是一个文件，保存了下次将提交的文件列表信息，一般在 Git 仓库目录中。 有时候也被称作`‘索引’’，不过一般说法还是叫暂存区域。</li>
-</ul>
-<p><a href><img src="https://i.loli.net/2019/02/22/5c6f7b352931b.png" alt="1550655399046"></a></p>
-</li>
-</ul>
-<h4 id="3、Git-与-Github关系图示："><a href="#3、Git-与-Github关系图示：" class="headerlink" title="3、Git 与 Github关系图示："></a>3、Git 与 Github关系图示：</h4><p><img src="https://i.loli.net/2019/02/22/5c6f7b3522b74.png" alt="1550656393570"></p>
-<hr>
-<h3 id="一、注册-Github-账号"><a href="#一、注册-Github-账号" class="headerlink" title="一、注册 Github 账号"></a>一、注册 Github 账号</h3><p>注册没有难度，这里不赘述，建议使用简单大方的用户名和注册邮箱，方便后期使用。</p>
-<p>网址： <a href="https://github.com/" target="_blank" rel="noopener">Github</a></p>
-<hr>
-<h3 id="二、下载安装-Git"><a href="#二、下载安装-Git" class="headerlink" title="二、下载安装 Git"></a>二、下载安装 Git</h3><p>网址： <a href="https://book.git-scm.com/downloads" target="_blank" rel="noopener">Git</a> （如果链接打不开可在网上搜索其他下载站点）</p>
-<p>软件安装也没有什么难度，安装完成之后在任意文件夹下右键出现 Git Bash Here 说明安装成功。</p>
-<p>在任意文件夹中都可以使用 Git Bash Here，既可以将所有需要代码版本管理的项目放在同一个文件夹中，也可以分散在任意地方，建议前者。</p>
-<p>关于 Git 的一些资料</p>
-<p><a href="https://book.git-scm.com/docs" target="_blank" rel="noopener">Reference Manual</a>（可查看各种 Git 指令的说明）</p>
-<p><a href="https://book.git-scm.com/book" target="_blank" rel="noopener">Pro Git</a> （Git 的详细介绍）</p>
-<hr>
-<h3 id="三、安装-Git-后的配置"><a href="#三、安装-Git-后的配置" class="headerlink" title="三、安装 Git 后的配置"></a>三、安装 Git 后的配置</h3><h4 id="1、如果是个人使用"><a href="#1、如果是个人使用" class="headerlink" title="1、如果是个人使用"></a>1、如果是个人使用</h4><p>大部分配置可以暂时忽略，仅设置用户名称和邮件地址即可：</p>
-<p>通过 Git Bash Here 进入命令行界面，输入：</p>
-<p><code>git config --global user.name &quot;YourName&quot;</code>  （引号不可省略）</p>
-<p><code>git config --global user.email YourEmail</code></p>
-<p>YourName 和 YourEmail 设置成你 Github 里注册的用户名和邮箱。</p>
-<p><strong>这里的设置是为了让 Github 根据用户名和邮箱去确定代码上传者的信息，也可以只设置其中一个。</strong></p>
-<h4 id="2、如果是团队使用"><a href="#2、如果是团队使用" class="headerlink" title="2、如果是团队使用"></a>2、如果是团队使用</h4><p>若需要设置统一的提交信息格式，可以创建一个模板文件，通过 commit.template 来设置模板文件。</p>
-<p>也可以通过 core.editor 修改编辑<strong>提交信息</strong>的默认编辑器。</p>
-<p>详情都请查看 <a href="https://book.git-scm.com/docs" target="_blank" rel="noopener">Reference Manual</a> 中的 <a href="https://book.git-scm.com/book/zh/v2/%E8%87%AA%E5%AE%9A%E4%B9%89-Git-%E9%85%8D%E7%BD%AE-Git" target="_blank" rel="noopener">自定义 Git - 配置 Git</a> ，也可以输入 <code>git config</code> 自行探索。</p>
-<hr>
-<h3 id="四、创建自己的代码仓库"><a href="#四、创建自己的代码仓库" class="headerlink" title="四、创建自己的代码仓库"></a>四、创建自己的代码仓库</h3><h4 id="1、在-Github-上创建-Repository"><a href="#1、在-Github-上创建-Repository" class="headerlink" title="1、在 Github 上创建 Repository"></a>1、在 Github 上创建 Repository</h4><p>1）点击 Github 页面右上角 “+” 号，点击 New repository</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6f7b3519899.png" alt="1550660057745"></p>
-<p>2）填写基本信息后，点击 Create repository</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6f7b3540ee4.png" alt="1550660339034"></p>
-<p>3）建成的仓库如下图</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6f7c69a0e58.png" alt="1550660390202"></p>
-<ul>
-<li><p>README.md 文件是 markdown 格式的文件，通常用来描述项目信息（可以看看其他人是怎么写的），可以后期自己建立并上传。Github 会显示根目录下的 md 文件内容。</p>
-</li>
-<li><p>如果需要删除代码仓库，点击上图中的 Settings，在页面最下方的 Danger Zone 中有 Delete  this repository 按钮。</p>
-</li>
-</ul>
-<h4 id="2、在本地建立-Repository"><a href="#2、在本地建立-Repository" class="headerlink" title="2、在本地建立 Repository"></a>2、在本地建立 Repository</h4><h5 id="添加-SSH-key"><a href="#添加-SSH-key" class="headerlink" title="添加 SSH key"></a>添加 SSH key</h5><h6 id="Github-的仓库链接有两种格式："><a href="#Github-的仓库链接有两种格式：" class="headerlink" title="Github 的仓库链接有两种格式："></a>Github 的仓库链接有两种格式：</h6><ul>
-<li>https 格式，例如 <a href="https://github.com/YourName/YourRepo.git" target="_blank" rel="noopener">https://github.com/YourName/YourRepo.git</a> </li>
-<li><p>SSH 格式，例如 <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:YourName/YourRepo.git</p>
-</li>
-<li><p>两种形式的地址都可以用于 Github 与本地 Git 建立连接，但是如果用的是 https，每次上传代码的时候，都需要输入 Github 用户名和密码，因此<strong>建议使用 SSH</strong>。</p>
-</li>
-</ul>
-<h6 id="生成-SSH-key-的步骤："><a href="#生成-SSH-key-的步骤：" class="headerlink" title="生成 SSH key 的步骤："></a>生成 SSH key 的步骤：</h6><ul>
-<li>提示： Git Bash 命令行界面中，复制/粘贴的快捷键分别是 Ctrl+Ins 和 Shift+Ins</li>
-</ul>
-<p>1&gt; 在任意文件夹内右击，选择 Git Bash Here，进入命令行界面。</p>
-<p>2&gt; 输入 <code>ssh-keygen -t rsa -C &quot;YourEmail@YourEmail.com&quot;</code></p>
-<p>​    引号内是 Github 的登录邮箱，引号不能省略。</p>
-<p>3&gt; 一般不建议修改 SSH Key 的保存目录，因此连按三下回车，选择默认路径以及无密码。从提示信息中可以找到你的电脑上 SSH Key 的保存位置。</p>
-<p>4&gt; 从 3&gt; 中的保存位置找到 id_rsa.pub 文件，通常路径为 <code>C:\Users\Administrator\.ssh</code>，用记事本或其他编辑软件打开并复制里面的内容。也可以在 Git Bash 命令行界面中输入 clip &lt; ~/.ssh/id_rsa.pub 后按回车，若无错误提示表示复制成功。</p>
-<p>5&gt; 打开 Github，鼠标指向自己的头像，选择 Settings。</p>
-<p>6&gt; 在左边栏中选择 SSH and GPG keys，点击 New SSH Key，添加复制的 SSH Key 即可。如果个人有多台电脑，为了方便区分，SSH Key 的 Title 取一个辨识度较高的名字。</p>
-<p>7&gt; Git Bash 命令行界面中输入 <code>ssh -T git@github.com</code></p>
-<p>​    问是否继续连接，输入 yes ，按回车。</p>
-<p>​    如果出现 <code>Hi YourName! You&#39;ve successfully authenticated, but GitHub does not ...</code> 说明设置成功了。</p>
-<h5 id="本地建立-Repository"><a href="#本地建立-Repository" class="headerlink" title="本地建立 Repository"></a>本地建立 Repository</h5><h6 id="方法一：（git-clone-指令）"><a href="#方法一：（git-clone-指令）" class="headerlink" title="方法一：（git clone 指令）"></a>方法一：（git clone 指令）</h6><p>使用 git clone 指令可以直接将 Github 上的代码仓库（可以是新建的，也可以是已经有内容的） clone 到本地仓库。</p>
-<p>步骤如下：</p>
-<p>1&gt; 在 Github 页面进入准备 clone 到本地的代码仓库，点击如下图①位置的 Clone or download 即可复制代码仓库链接。注意应使用 SSH 格式的链接，在②位置可以切换两种格式。</p>
-<p><img src="https://i.loli.net/2019/02/22/5c6f7b3549236.png" alt="1550770191930"></p>
-<p>2&gt; 在欲存放代码的地方进入 Git Bash（不需要自己再建立文件夹），输入 <code>git clone git@github.com:YourName/YourRepo.git</code>（复制的仓库链接），即可完成本地仓库的建立。此时可直接上传新的代码文件至 Github，具体操作见后文。 </p>
-<p>注意：如果选择了 https 格式的地址，想修改成 SSH 格式的地址，可以按照以下步骤操作：</p>
-<p>git remote rm origin # 移除当前远端服务器</p>
-<p>git remote -v # 查看当前 Github 仓库服务器地址，无返回信息说明已移除</p>
-<p>git remote add origin <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:YourName/YourRepo.git # 添加 SSH 格式地址</p>
-<p>git remote -v # 再次查看当前 Github 仓库服务器地址，是否已修改成功</p>
-<h6 id="方法二：（git-init-指令）"><a href="#方法二：（git-init-指令）" class="headerlink" title="方法二：（git init 指令）"></a>方法二：（git init 指令）</h6><p>使用 git init 指令可以在本地初始化一个代码仓库，然后与 Github 上的代码仓库进行连接，操作如下：</p>
-<p>1&gt; 在欲存放代码的地方建立项目文件夹，进入该文件夹后右击进入 Git Bash，输入 <code>git init</code>，可以看到此时在文件夹中生成了一个隐藏的 .git 文件夹，此文件夹内存放着此代码仓库的各种信息。</p>
-<p>2&gt; 如果在安装好 Git 后已经配置了用户名和邮箱，此步骤可跳过，否则输入</p>
-<p><code>git config --global user.name &quot;YourName&quot;</code>  （引号不可省略）</p>
-<p><code>git config --global user.email YourEmail</code>    </p>
-<p>3&gt; 输入 <code>git remote add origin git@github.com:yourName/yourRepo.git</code>，依旧建议使用 SSH 格式地址。此时就建立起了与 Github 服务器的连接。</p>
-<p>在方法一中，由于是直接 clone 远端的 Github 仓库的内容，所以无论是新建的 Github 仓库，还是已经上传过内容的 Github 仓库，都可以完整地克隆到本地。</p>
-<p>但在方法二中，由于是从本地先初始化了一个代码仓库，仓库中无任何内容，所以如果本地仓库中的内容和 Github 仓库中的内容不一致（例如 Github 仓库初始化时生成了 README.md 文件），就需要先把 Github 仓库中的内容下载（pull）到本地，保持两者的一致性之后，才能上传（push）代码到 Github 仓库，具体操作是输入 <code>git pull origin master</code> ，等代码下载完成，即可添加新内容并上传。</p>
-<hr>
-<h3 id="五、简单-Git-操作指令"><a href="#五、简单-Git-操作指令" class="headerlink" title="五、简单 Git 操作指令"></a>五、简单 Git 操作指令</h3><h4 id="1、push-代码到-Github"><a href="#1、push-代码到-Github" class="headerlink" title="1、push 代码到 Github"></a>1、push 代码到 Github</h4><p>假设要 push 一个名为 123.txt 的文件，在项目文件夹中进入 Git Bash，分别输入以下内容：</p>
-<p><code>git add 123.txt  # 将文件内容添加到缓存区快照</code></p>
-<p><code>git commit -m &quot;123.txt&quot; # 将改动点记录到代码仓</code></p>
-<p><code>git push origin master # 将改动提交到 Github 远端服务器，分支为 master</code></p>
-<p>说明：</p>
-<ul>
-<li><p>若一次提交多个文件，可使用 <code>git add .</code> ，注意 “.” 不能省略</p>
-</li>
-<li><p>第二行中引号内的内容是提交信息，会显示在 Github 上，如果需要提交很多信息，输入 <code>git commit</code> 即可，会弹出默认编辑器 GUN nano，如果不会使用该编辑器，可以运行 <code>git config --global core.editor &quot;F：\Program Files\Sublime Text 3\sublime text.exe&quot;</code> ，其中引号中是想修改的新编辑器的路径，根据自己电脑上的位置修改。</p>
-</li>
-<li><p>master 是指该仓库的 master 分支，关于分支的概念请参考 Git 官网。</p>
-</li>
-</ul>
-<h4 id="2、从-Github-pull-代码"><a href="#2、从-Github-pull-代码" class="headerlink" title="2、从 Github pull 代码"></a>2、从 Github pull 代码</h4><p><code>git pull origin master</code></p>
-<h4 id="3、查看工作目录状态"><a href="#3、查看工作目录状态" class="headerlink" title="3、查看工作目录状态"></a>3、查看工作目录状态</h4><p><code>git status</code></p>
-<p>以上几个指令是个人使用时最常用的指令，如果多人合作，或 fork 其他人的项目，可以从官网查询其他指令。</p>
-]]></content>
-      <tags>
-        <tag>软件使用</tag>
-        <tag>Github</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>2018 随笔</title>
     <url>//blog/2019/02/22/2018-%E9%9A%8F%E7%AC%94/</url>
     <content><![CDATA[<hr>
@@ -247,6 +126,127 @@
 ]]></content>
       <tags>
         <tag>心花路放</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git 与 Github</title>
+    <url>//blog/2019/02/20/Git%20%E4%B8%8E%20Github/</url>
+    <content><![CDATA[<hr>
+<h3 id="〇、Github-与-Git-的关系"><a href="#〇、Github-与-Git-的关系" class="headerlink" title="〇、Github 与 Git 的关系"></a>〇、Github 与 Git 的关系</h3><h4 id="1、Git-与-Github-简介"><a href="#1、Git-与-Github-简介" class="headerlink" title="1、Git 与 Github 简介"></a>1、Git 与 Github 简介</h4><ul>
+<li>Git 是一款免费、开源的分布式版本控制系统</li>
+<li>GitHub 是一个面向开源及私有软件项目的托管平台，因为只支持 Git 作为唯一的版本库格式进行托管，故名 GitHub。另外还有其他的平台，如国内的 <a href="https://gitee.com/" target="_blank" rel="noopener">码云</a> </li>
+<li>Git 负责本地的代码版本控制，而 Github 负责远程托管</li>
+</ul>
+<a id="more"></a>
+<h4 id="2、Git-的工作流程："><a href="#2、Git-的工作流程：" class="headerlink" title="2、Git 的工作流程："></a>2、Git 的工作流程：</h4><ul>
+<li><p>1）在工作目录（Working Directory）中修改文件。</p>
+</li>
+<li><p>2）暂存文件，将文件的快照放入暂存区域（Staging Area）。</p>
+</li>
+<li><p>3）提交更新，找到暂存区域的文件，将快照永久性存储到 Git 仓库目录（Repository）。</p>
+</li>
+<li><p>其中：</p>
+<ul>
+<li>Git <strong>仓库目录 </strong> 是 Git 用来保存项目的元数据和对象数据库的地方。 这是 Git 中最重要的部分，从其它计算机克隆仓库时，拷贝的就是这里的数据。</li>
+<li><strong>工作目录</strong> 是对项目的某个版本独立提取出来的内容。 这些从 Git 仓库的压缩数据库中提取出来的文件，放在磁盘上供你使用或修改。</li>
+<li><strong>暂存区域</strong> 是一个文件，保存了下次将提交的文件列表信息，一般在 Git 仓库目录中。 有时候也被称作`‘索引’’，不过一般说法还是叫暂存区域。</li>
+</ul>
+<p><a href><img src="https://i.loli.net/2019/02/22/5c6f7b352931b.png" alt="1550655399046"></a></p>
+</li>
+</ul>
+<h4 id="3、Git-与-Github关系图示："><a href="#3、Git-与-Github关系图示：" class="headerlink" title="3、Git 与 Github关系图示："></a>3、Git 与 Github关系图示：</h4><p><img src="https://i.loli.net/2019/02/22/5c6f7b3522b74.png" alt="1550656393570"></p>
+<hr>
+<h3 id="一、注册-Github-账号"><a href="#一、注册-Github-账号" class="headerlink" title="一、注册 Github 账号"></a>一、注册 Github 账号</h3><p>注册没有难度，这里不赘述，建议使用简单大方的用户名和注册邮箱，方便后期使用。</p>
+<p>网址： <a href="https://github.com/" target="_blank" rel="noopener">Github</a></p>
+<hr>
+<h3 id="二、下载安装-Git"><a href="#二、下载安装-Git" class="headerlink" title="二、下载安装 Git"></a>二、下载安装 Git</h3><p>网址： <a href="https://book.git-scm.com/downloads" target="_blank" rel="noopener">Git</a> （如果链接打不开可在网上搜索其他下载站点）</p>
+<p>软件安装也没有什么难度，安装完成之后在任意文件夹下右键出现 Git Bash Here 说明安装成功。</p>
+<p>在任意文件夹中都可以使用 Git Bash Here，既可以将所有需要代码版本管理的项目放在同一个文件夹中，也可以分散在任意地方，建议前者。</p>
+<p>关于 Git 的一些资料</p>
+<p><a href="https://book.git-scm.com/docs" target="_blank" rel="noopener">Reference Manual</a>（可查看各种 Git 指令的说明）</p>
+<p><a href="https://book.git-scm.com/book" target="_blank" rel="noopener">Pro Git</a> （Git 的详细介绍）</p>
+<hr>
+<h3 id="三、安装-Git-后的配置"><a href="#三、安装-Git-后的配置" class="headerlink" title="三、安装 Git 后的配置"></a>三、安装 Git 后的配置</h3><h4 id="1、如果是个人使用"><a href="#1、如果是个人使用" class="headerlink" title="1、如果是个人使用"></a>1、如果是个人使用</h4><p>大部分配置可以暂时忽略，仅设置用户名称和邮件地址即可：</p>
+<p>通过 Git Bash Here 进入命令行界面，输入：</p>
+<p><code>git config --global user.name &quot;YourName&quot;</code>  （引号不可省略）</p>
+<p><code>git config --global user.email YourEmail</code></p>
+<p>YourName 和 YourEmail 设置成你 Github 里注册的用户名和邮箱。</p>
+<p><strong>这里的设置是为了让 Github 根据用户名和邮箱去确定代码上传者的信息，也可以只设置其中一个。</strong></p>
+<h4 id="2、如果是团队使用"><a href="#2、如果是团队使用" class="headerlink" title="2、如果是团队使用"></a>2、如果是团队使用</h4><p>若需要设置统一的提交信息格式，可以创建一个模板文件，通过 commit.template 来设置模板文件。</p>
+<p>也可以通过 core.editor 修改编辑<strong>提交信息</strong>的默认编辑器。</p>
+<p>详情都请查看 <a href="https://book.git-scm.com/docs" target="_blank" rel="noopener">Reference Manual</a> 中的 <a href="https://book.git-scm.com/book/zh/v2/%E8%87%AA%E5%AE%9A%E4%B9%89-Git-%E9%85%8D%E7%BD%AE-Git" target="_blank" rel="noopener">自定义 Git - 配置 Git</a> ，也可以输入 <code>git config</code> 自行探索。</p>
+<hr>
+<h3 id="四、创建自己的代码仓库"><a href="#四、创建自己的代码仓库" class="headerlink" title="四、创建自己的代码仓库"></a>四、创建自己的代码仓库</h3><h4 id="1、在-Github-上创建-Repository"><a href="#1、在-Github-上创建-Repository" class="headerlink" title="1、在 Github 上创建 Repository"></a>1、在 Github 上创建 Repository</h4><p>1）点击 Github 页面右上角 “+” 号，点击 New repository</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6f7b3519899.png" alt="1550660057745"></p>
+<p>2）填写基本信息后，点击 Create repository</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6f7b3540ee4.png" alt="1550660339034"></p>
+<p>3）建成的仓库如下图</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6f7c69a0e58.png" alt="1550660390202"></p>
+<ul>
+<li><p>README.md 文件是 markdown 格式的文件，通常用来描述项目信息（可以看看其他人是怎么写的），可以后期自己建立并上传。Github 会显示根目录下的 md 文件内容。</p>
+</li>
+<li><p>如果需要删除代码仓库，点击上图中的 Settings，在页面最下方的 Danger Zone 中有 Delete  this repository 按钮。</p>
+</li>
+</ul>
+<h4 id="2、在本地建立-Repository"><a href="#2、在本地建立-Repository" class="headerlink" title="2、在本地建立 Repository"></a>2、在本地建立 Repository</h4><h5 id="添加-SSH-key"><a href="#添加-SSH-key" class="headerlink" title="添加 SSH key"></a>添加 SSH key</h5><h6 id="Github-的仓库链接有两种格式："><a href="#Github-的仓库链接有两种格式：" class="headerlink" title="Github 的仓库链接有两种格式："></a>Github 的仓库链接有两种格式：</h6><ul>
+<li>https 格式，例如 <a href="https://github.com/YourName/YourRepo.git" target="_blank" rel="noopener">https://github.com/YourName/YourRepo.git</a> </li>
+<li><p>SSH 格式，例如 <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:YourName/YourRepo.git</p>
+</li>
+<li><p>两种形式的地址都可以用于 Github 与本地 Git 建立连接，但是如果用的是 https，每次上传代码的时候，都需要输入 Github 用户名和密码，因此<strong>建议使用 SSH</strong>。</p>
+</li>
+</ul>
+<h6 id="生成-SSH-key-的步骤："><a href="#生成-SSH-key-的步骤：" class="headerlink" title="生成 SSH key 的步骤："></a>生成 SSH key 的步骤：</h6><ul>
+<li>提示： Git Bash 命令行界面中，复制/粘贴的快捷键分别是 Ctrl+Ins 和 Shift+Ins</li>
+</ul>
+<p>1&gt; 在任意文件夹内右击，选择 Git Bash Here，进入命令行界面。</p>
+<p>2&gt; 输入 <code>ssh-keygen -t rsa -C &quot;YourEmail@YourEmail.com&quot;</code></p>
+<p>​    引号内是 Github 的登录邮箱，引号不能省略。</p>
+<p>3&gt; 一般不建议修改 SSH Key 的保存目录，因此连按三下回车，选择默认路径以及无密码。从提示信息中可以找到你的电脑上 SSH Key 的保存位置。</p>
+<p>4&gt; 从 3&gt; 中的保存位置找到 id_rsa.pub 文件，通常路径为 <code>C:\Users\Administrator\.ssh</code>，用记事本或其他编辑软件打开并复制里面的内容。也可以在 Git Bash 命令行界面中输入 clip &lt; ~/.ssh/id_rsa.pub 后按回车，若无错误提示表示复制成功。</p>
+<p>5&gt; 打开 Github，鼠标指向自己的头像，选择 Settings。</p>
+<p>6&gt; 在左边栏中选择 SSH and GPG keys，点击 New SSH Key，添加复制的 SSH Key 即可。如果个人有多台电脑，为了方便区分，SSH Key 的 Title 取一个辨识度较高的名字。</p>
+<p>7&gt; Git Bash 命令行界面中输入 <code>ssh -T git@github.com</code></p>
+<p>​    问是否继续连接，输入 yes ，按回车。</p>
+<p>​    如果出现 <code>Hi YourName! You&#39;ve successfully authenticated, but GitHub does not ...</code> 说明设置成功了。</p>
+<h5 id="本地建立-Repository"><a href="#本地建立-Repository" class="headerlink" title="本地建立 Repository"></a>本地建立 Repository</h5><h6 id="方法一：（git-clone-指令）"><a href="#方法一：（git-clone-指令）" class="headerlink" title="方法一：（git clone 指令）"></a>方法一：（git clone 指令）</h6><p>使用 git clone 指令可以直接将 Github 上的代码仓库（可以是新建的，也可以是已经有内容的） clone 到本地仓库。</p>
+<p>步骤如下：</p>
+<p>1&gt; 在 Github 页面进入准备 clone 到本地的代码仓库，点击如下图①位置的 Clone or download 即可复制代码仓库链接。注意应使用 SSH 格式的链接，在②位置可以切换两种格式。</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6f7b3549236.png" alt="1550770191930"></p>
+<p>2&gt; 在欲存放代码的地方进入 Git Bash（不需要自己再建立文件夹），输入 <code>git clone git@github.com:YourName/YourRepo.git</code>（复制的仓库链接），即可完成本地仓库的建立。此时可直接上传新的代码文件至 Github，具体操作见后文。 </p>
+<p>注意：如果选择了 https 格式的地址，想修改成 SSH 格式的地址，可以按照以下步骤操作：</p>
+<p>git remote rm origin # 移除当前远端服务器</p>
+<p>git remote -v # 查看当前 Github 仓库服务器地址，无返回信息说明已移除</p>
+<p>git remote add origin <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:YourName/YourRepo.git # 添加 SSH 格式地址</p>
+<p>git remote -v # 再次查看当前 Github 仓库服务器地址，是否已修改成功</p>
+<h6 id="方法二：（git-init-指令）"><a href="#方法二：（git-init-指令）" class="headerlink" title="方法二：（git init 指令）"></a>方法二：（git init 指令）</h6><p>使用 git init 指令可以在本地初始化一个代码仓库，然后与 Github 上的代码仓库进行连接，操作如下：</p>
+<p>1&gt; 在欲存放代码的地方建立项目文件夹，进入该文件夹后右击进入 Git Bash，输入 <code>git init</code>，可以看到此时在文件夹中生成了一个隐藏的 .git 文件夹，此文件夹内存放着此代码仓库的各种信息。</p>
+<p>2&gt; 如果在安装好 Git 后已经配置了用户名和邮箱，此步骤可跳过，否则输入</p>
+<p><code>git config --global user.name &quot;YourName&quot;</code>  （引号不可省略）</p>
+<p><code>git config --global user.email YourEmail</code>    </p>
+<p>3&gt; 输入 <code>git remote add origin git@github.com:yourName/yourRepo.git</code>，依旧建议使用 SSH 格式地址。此时就建立起了与 Github 服务器的连接。</p>
+<p>在方法一中，由于是直接 clone 远端的 Github 仓库的内容，所以无论是新建的 Github 仓库，还是已经上传过内容的 Github 仓库，都可以完整地克隆到本地。</p>
+<p>但在方法二中，由于是从本地先初始化了一个代码仓库，仓库中无任何内容，所以如果本地仓库中的内容和 Github 仓库中的内容不一致（例如 Github 仓库初始化时生成了 README.md 文件），就需要先把 Github 仓库中的内容下载（pull）到本地，保持两者的一致性之后，才能上传（push）代码到 Github 仓库，具体操作是输入 <code>git pull origin master</code> ，等代码下载完成，即可添加新内容并上传。</p>
+<hr>
+<h3 id="五、简单-Git-操作指令"><a href="#五、简单-Git-操作指令" class="headerlink" title="五、简单 Git 操作指令"></a>五、简单 Git 操作指令</h3><h4 id="1、push-代码到-Github"><a href="#1、push-代码到-Github" class="headerlink" title="1、push 代码到 Github"></a>1、push 代码到 Github</h4><p>假设要 push 一个名为 123.txt 的文件，在项目文件夹中进入 Git Bash，分别输入以下内容：</p>
+<p><code>git add 123.txt  # 将文件内容添加到缓存区快照</code></p>
+<p><code>git commit -m &quot;123.txt&quot; # 将改动点记录到代码仓</code></p>
+<p><code>git push origin master # 将改动提交到 Github 远端服务器，分支为 master</code></p>
+<p>说明：</p>
+<ul>
+<li><p>若一次提交多个文件，可使用 <code>git add .</code> ，注意 “.” 不能省略</p>
+</li>
+<li><p>第二行中引号内的内容是提交信息，会显示在 Github 上，如果需要提交很多信息，输入 <code>git commit</code> 即可，会弹出默认编辑器 GUN nano，如果不会使用该编辑器，可以运行 <code>git config --global core.editor &quot;F：\Program Files\Sublime Text 3\sublime text.exe&quot;</code> ，其中引号中是想修改的新编辑器的路径，根据自己电脑上的位置修改。</p>
+</li>
+<li><p>master 是指该仓库的 master 分支，关于分支的概念请参考 Git 官网。</p>
+</li>
+</ul>
+<h4 id="2、从-Github-pull-代码"><a href="#2、从-Github-pull-代码" class="headerlink" title="2、从 Github pull 代码"></a>2、从 Github pull 代码</h4><p><code>git pull origin master</code></p>
+<h4 id="3、查看工作目录状态"><a href="#3、查看工作目录状态" class="headerlink" title="3、查看工作目录状态"></a>3、查看工作目录状态</h4><p><code>git status</code></p>
+<p>以上几个指令是个人使用时最常用的指令，如果多人合作，或 fork 其他人的项目，可以从官网查询其他指令。</p>
+]]></content>
+      <tags>
+        <tag>软件使用</tag>
+        <tag>Github</tag>
       </tags>
   </entry>
   <entry>
@@ -439,6 +439,23 @@
       </tags>
   </entry>
   <entry>
+    <title>MSP430 中断系统</title>
+    <url>//blog/2019/02/23/MSP430-%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F/</url>
+    <content><![CDATA[<hr>
+<p>中断是 MSP430 的一大特色，因为几乎每个外设模块都能产生中断，MSP430 可以在没有任务时进入超低功耗状态，有事件时中断唤醒 cpu，处理完毕再次进入超低功耗状态。 </p>
+<a id="more"></a>
+<p>整个中断的响应过程是这样的，当有中断请求时，如果 cpu 处于活动状态，先完成当前命令；如果处于低功耗，先退出，将下一条指令的 pc 值压入堆栈；如果有多个中断请求，先响应优先级高的；执行完后，等待中断请求标志位复位，要注意，单中断源的中断请求标志位自动复位，而多中断的标志位需要软件复位；然后系统总中断允许位 SR.GIE 复位，相应的中断向量值装入 pc，程序从这个地址继续执行。 </p>
+<p>这里要注意，中断允许位 SR.GIE 和中断嵌套问题。如果当你执行中断程序过程中，希望可以响应更高级别的中断请求时，必须在进入第一个中断时把 SR.GIE 置位。 </p>
+<p>其实，其他的外围模块时钟沿着时钟和中断这个核心来执行的。具体的结构我也不啰嗦了，可以参考 MSP430 系列手册。</p>
+<p>MSP430 中断格式</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#pragma vetcor = 中断向量</span><br><span class="line"></span><br><span class="line">__(两个)interrupt void 函数名(void)&#123;  //中断函数无返回值 无形参</span><br><span class="line"></span><br><span class="line">    用户程序;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>硬件拾忆</tag>
+        <tag>MSP430</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MSP430 时钟系统</title>
     <url>//blog/2019/02/22/MSP430-%E6%97%B6%E9%92%9F%E7%B3%BB%E7%BB%9F/</url>
     <content><![CDATA[<hr>
@@ -555,23 +572,6 @@
 <p><img src="https://i.loli.net/2019/02/22/5c6fa4d3283ba.png" alt="img"></p>
 <p>这些都是 ADC12 的相关寄存器的宏定义，具体使用则要看后面的注释。一般来说注释就能很清楚的表达其功能，如果表达不清楚，再参看 User’s Guide 的《Register》章节即可。</p>
 <p>在这里简要谈了 430 的学习方法，后面会推出各模块的独立编程方法。我们的目标是参看手册去编程，而不是参看例程去编程。</p>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>MSP430</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>MSP430 中断系统</title>
-    <url>//blog/2019/02/23/MSP430-%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F/</url>
-    <content><![CDATA[<hr>
-<p>中断是 MSP430 的一大特色，因为几乎每个外设模块都能产生中断，MSP430 可以在没有任务时进入超低功耗状态，有事件时中断唤醒 cpu，处理完毕再次进入超低功耗状态。 </p>
-<a id="more"></a>
-<p>整个中断的响应过程是这样的，当有中断请求时，如果 cpu 处于活动状态，先完成当前命令；如果处于低功耗，先退出，将下一条指令的 pc 值压入堆栈；如果有多个中断请求，先响应优先级高的；执行完后，等待中断请求标志位复位，要注意，单中断源的中断请求标志位自动复位，而多中断的标志位需要软件复位；然后系统总中断允许位 SR.GIE 复位，相应的中断向量值装入 pc，程序从这个地址继续执行。 </p>
-<p>这里要注意，中断允许位 SR.GIE 和中断嵌套问题。如果当你执行中断程序过程中，希望可以响应更高级别的中断请求时，必须在进入第一个中断时把 SR.GIE 置位。 </p>
-<p>其实，其他的外围模块时钟沿着时钟和中断这个核心来执行的。具体的结构我也不啰嗦了，可以参考 MSP430 系列手册。</p>
-<p>MSP430 中断格式</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#pragma vetcor = 中断向量</span><br><span class="line"></span><br><span class="line">__(两个)interrupt void 函数名(void)&#123;  //中断函数无返回值 无形参</span><br><span class="line"></span><br><span class="line">    用户程序;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <tags>
         <tag>硬件拾忆</tag>
@@ -945,28 +945,6 @@
       </tags>
   </entry>
   <entry>
-    <title>STM8S 供电</title>
-    <url>//blog/2019/03/03/STM8S-%E4%BE%9B%E7%94%B5/</url>
-    <content><![CDATA[<hr>
-<p>STM8 MCU 有 4 种相对独立的供电电源：</p>
-<p>- VDD/VSS：主电源（3V 到 5.5V）</p>
-<p>- VDDIO/VSSIO：I/O 口供电电源（3V 到 5.5V ）</p>
-<p>- VDDA/VSSA：模拟部分供电电源</p>
-<p>- VREF+/VREF-：ADC 参考电源</p>
-<a id="more"></a>
-<p>VDD/VSS 引脚用来为内部主稳压器（MVR）和内部低功耗稳压器（LPVR）供电。这两个调节器的输出连在一起，向MCU的核（CPU，Flash 和 RAM）提供 1.8V 电压。</p>
-<p>在低功耗模式下系统自动从 MVR 切换到 LPVR，以减少电流消耗。</p>
-<p><strong>为了稳定 MVR，必须在 VCAP 脚接一个电容</strong>。</p>
-<p>根据封装的大小，可能有一对或两对特定的 VDDIO/VSSIO 来给I/O供电。</p>
-<p>VDDA/VSSA和VREF+/VREF- 都与ADC模块相连接。</p>
-<p><img src="https://i.loli.net/2019/03/03/5c7b5ace894e7.png" alt="Image.png"></p>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>STM8</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>STM8S 中断控制</title>
     <url>//blog/2019/03/03/STM8S-%E4%B8%AD%E6%96%AD%E6%8E%A7%E5%88%B6/</url>
     <content><![CDATA[<hr>
@@ -1112,6 +1090,28 @@
       </tags>
   </entry>
   <entry>
+    <title>STM8S 供电</title>
+    <url>//blog/2019/03/03/STM8S-%E4%BE%9B%E7%94%B5/</url>
+    <content><![CDATA[<hr>
+<p>STM8 MCU 有 4 种相对独立的供电电源：</p>
+<p>- VDD/VSS：主电源（3V 到 5.5V）</p>
+<p>- VDDIO/VSSIO：I/O 口供电电源（3V 到 5.5V ）</p>
+<p>- VDDA/VSSA：模拟部分供电电源</p>
+<p>- VREF+/VREF-：ADC 参考电源</p>
+<a id="more"></a>
+<p>VDD/VSS 引脚用来为内部主稳压器（MVR）和内部低功耗稳压器（LPVR）供电。这两个调节器的输出连在一起，向MCU的核（CPU，Flash 和 RAM）提供 1.8V 电压。</p>
+<p>在低功耗模式下系统自动从 MVR 切换到 LPVR，以减少电流消耗。</p>
+<p><strong>为了稳定 MVR，必须在 VCAP 脚接一个电容</strong>。</p>
+<p>根据封装的大小，可能有一对或两对特定的 VDDIO/VSSIO 来给I/O供电。</p>
+<p>VDDA/VSSA和VREF+/VREF- 都与ADC模块相连接。</p>
+<p><img src="https://i.loli.net/2019/03/03/5c7b5ace894e7.png" alt="Image.png"></p>
+]]></content>
+      <tags>
+        <tag>硬件拾忆</tag>
+        <tag>STM8</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>STM8S 复位</title>
     <url>//blog/2019/03/03/STM8S-%E5%A4%8D%E4%BD%8D/</url>
     <content><![CDATA[<hr>
@@ -1156,6 +1156,106 @@
       <tags>
         <tag>硬件拾忆</tag>
         <tag>STM8</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ARM CMSIS-DSP 库简介</title>
+    <url>//blog/2019/03/04/ARM-CMSIS-DSP-%E5%BA%93%E7%AE%80%E4%BB%8B/</url>
+    <content><![CDATA[<hr>
+<p>CMSIS 的 DSP 库主要提供以下数字信号处理算法：</p>
+<p>1、BasicMathFunctions</p>
+<p>提供基本的数据运算，如加减乘除，以 _f32 结尾的函数是浮点运算，以 _q8，_q15，_q31 结尾的函数是定点运算。</p>
+<a id="more"></a>
+<p>2、FastMathFunctions</p>
+<p>主要提供 SIN，COS 以及平方根 SPRT 的运算。</p>
+<p>3、ComplexMathFunctions</p>
+<p>复杂数学运算，主要是向量，求模等运算。</p>
+<p>4、FilteringFunctions</p>
+<p>主要是滤波函数，如 IIR，FIR，LMS 等。</p>
+<p>5、MatrixFunctions</p>
+<p>主要是矩阵运算。</p>
+<p>6、TransformFunctions</p>
+<p>变换功能。包括复数 FFT（CFFT）/负数 FFT 逆运算（CIFFT）、实数 FFT（RFFT）/实数 FFT 逆运算。</p>
+<p>7、ControllerFunctions</p>
+<p>控制功能，主要为 PID 控制函数。arm_sin_cos_f32/_q31.c 函数提供 360 点正余弦函数表和任意角度的正余弦函数值计算功能。</p>
+<p>8、StatisticsFunctions</p>
+<p>统计功能函数，如求平均值、计算 RMS 等。</p>
+<p>9、SupportFunctions</p>
+<p>支持功能函数，如数据拷贝，Q 格式和浮点格式相互转换。</p>
+<p>10、CommonTables</p>
+<p>arm_common_tables.c 文件提供位翻转或相关参数表。</p>
+]]></content>
+      <tags>
+        <tag>硬件拾忆</tag>
+        <tag>STM32</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Altium Designer PCB 操作总结</title>
+    <url>//blog/2019/03/04/Altium-Designer-PCB-%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<hr>
+<p>1、定原点（PCB文件原点）</p>
+<p>Edit -&gt; origin</p>
+<a id="more"></a>
+<hr>
+<p>2、定义尺寸（可以最开始定，也可以最后定）</p>
+<p>先画mechanical layer，再复制到 keep-out-layer（要粘贴时先点Edit-&gt;paste special），然后  Design -&gt; Board Shape -&gt; Redefine Board Shape</p>
+<hr>
+<p>3、测量距离</p>
+<p>ctrl+M </p>
+<hr>
+<p>4、 更换线型</p>
+<p>ctrl+space，用“&lt;”和“&gt;”可改变倒角曲率半径</p>
+<hr>
+<p>5、铺地</p>
+<p>place -&gt; polygon pour -&gt; connect to GND，选 top layer 或 bottom layer，选 pour over all same objects -&gt; 选范围 -&gt; 确定</p>
+<hr>
+<p>6、焊盘</p>
+<p>贴片焊盘用 top layer，过孔焊盘用multi layer</p>
+<hr>
+<p>7、旋转</p>
+<p>空格</p>
+<hr>
+<p>8、打开/关闭层</p>
+<p>L</p>
+<hr>
+<p>9、切换层</p>
+<p>小键盘 *</p>
+<hr>
+<p>10、添加层</p>
+<p>design -&gt;layer stack manager -&gt;点击 Toplayer 或 Bottomlayer -&gt; 信号层 add layer/内电层 add plane</p>
+<p>如果要分割，不要添加 net</p>
+<hr>
+<p>11、泪滴</p>
+<p>Tools -&gt; Teardoops</p>
+<hr>
+<p>12、铺铜皮</p>
+<p>Place -&gt; 矩形 Fill / 多边形 Solid region</p>
+<hr>
+<p>13、灌铜</p>
+<p>Place -&gt; Polygon Pour（需要设置 net，也可以不设）</p>
+<p>灌铜掏空：Place -&gt; Polygon Pour Cutout</p>
+<hr>
+<p>14、走线换层</p>
+<p>shift + ctrl +鼠标滑轮</p>
+<hr>
+<p>15、原理图更新到 PCB 时出现 unknown pin</p>
+<p>删除 PCB 图中所有 net（design -&gt; netlist）</p>
+<hr>
+<p>16、元件换层</p>
+<p>拖住按 L</p>
+<hr>
+<p>17、选中需要修整的铜皮  M+G</p>
+<p>修钝角 P+Y</p>
+<hr>
+<p>18、PCB 图中修改丝印字体</p>
+<p>任一丝印右键 -&gt; find similar objects -&gt; text width 选 same -&gt; OK -&gt; 在 PCB inspector 中修改</p>
+<hr>
+<p>19、隐藏网络飞线</p>
+<p>N -&gt; Hide Connections 选 Net</p>
+]]></content>
+      <tags>
+        <tag>软件使用</tag>
       </tags>
   </entry>
   <entry>
@@ -1356,106 +1456,6 @@
       <tags>
         <tag>硬件拾忆</tag>
         <tag>STM8</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ARM CMSIS-DSP 库简介</title>
-    <url>//blog/2019/03/04/ARM-CMSIS-DSP-%E5%BA%93%E7%AE%80%E4%BB%8B/</url>
-    <content><![CDATA[<hr>
-<p>CMSIS 的 DSP 库主要提供以下数字信号处理算法：</p>
-<p>1、BasicMathFunctions</p>
-<p>提供基本的数据运算，如加减乘除，以 _f32 结尾的函数是浮点运算，以 _q8，_q15，_q31 结尾的函数是定点运算。</p>
-<a id="more"></a>
-<p>2、FastMathFunctions</p>
-<p>主要提供 SIN，COS 以及平方根 SPRT 的运算。</p>
-<p>3、ComplexMathFunctions</p>
-<p>复杂数学运算，主要是向量，求模等运算。</p>
-<p>4、FilteringFunctions</p>
-<p>主要是滤波函数，如 IIR，FIR，LMS 等。</p>
-<p>5、MatrixFunctions</p>
-<p>主要是矩阵运算。</p>
-<p>6、TransformFunctions</p>
-<p>变换功能。包括复数 FFT（CFFT）/负数 FFT 逆运算（CIFFT）、实数 FFT（RFFT）/实数 FFT 逆运算。</p>
-<p>7、ControllerFunctions</p>
-<p>控制功能，主要为 PID 控制函数。arm_sin_cos_f32/_q31.c 函数提供 360 点正余弦函数表和任意角度的正余弦函数值计算功能。</p>
-<p>8、StatisticsFunctions</p>
-<p>统计功能函数，如求平均值、计算 RMS 等。</p>
-<p>9、SupportFunctions</p>
-<p>支持功能函数，如数据拷贝，Q 格式和浮点格式相互转换。</p>
-<p>10、CommonTables</p>
-<p>arm_common_tables.c 文件提供位翻转或相关参数表。</p>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>STM32</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Altium Designer PCB 操作总结</title>
-    <url>//blog/2019/03/04/Altium-Designer-PCB-%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<hr>
-<p>1、定原点（PCB文件原点）</p>
-<p>Edit -&gt; origin</p>
-<a id="more"></a>
-<hr>
-<p>2、定义尺寸（可以最开始定，也可以最后定）</p>
-<p>先画mechanical layer，再复制到 keep-out-layer（要粘贴时先点Edit-&gt;paste special），然后  Design -&gt; Board Shape -&gt; Redefine Board Shape</p>
-<hr>
-<p>3、测量距离</p>
-<p>ctrl+M </p>
-<hr>
-<p>4、 更换线型</p>
-<p>ctrl+space，用“&lt;”和“&gt;”可改变倒角曲率半径</p>
-<hr>
-<p>5、铺地</p>
-<p>place -&gt; polygon pour -&gt; connect to GND，选 top layer 或 bottom layer，选 pour over all same objects -&gt; 选范围 -&gt; 确定</p>
-<hr>
-<p>6、焊盘</p>
-<p>贴片焊盘用 top layer，过孔焊盘用multi layer</p>
-<hr>
-<p>7、旋转</p>
-<p>空格</p>
-<hr>
-<p>8、打开/关闭层</p>
-<p>L</p>
-<hr>
-<p>9、切换层</p>
-<p>小键盘 *</p>
-<hr>
-<p>10、添加层</p>
-<p>design -&gt;layer stack manager -&gt;点击 Toplayer 或 Bottomlayer -&gt; 信号层 add layer/内电层 add plane</p>
-<p>如果要分割，不要添加 net</p>
-<hr>
-<p>11、泪滴</p>
-<p>Tools -&gt; Teardoops</p>
-<hr>
-<p>12、铺铜皮</p>
-<p>Place -&gt; 矩形 Fill / 多边形 Solid region</p>
-<hr>
-<p>13、灌铜</p>
-<p>Place -&gt; Polygon Pour（需要设置 net，也可以不设）</p>
-<p>灌铜掏空：Place -&gt; Polygon Pour Cutout</p>
-<hr>
-<p>14、走线换层</p>
-<p>shift + ctrl +鼠标滑轮</p>
-<hr>
-<p>15、原理图更新到 PCB 时出现 unknown pin</p>
-<p>删除 PCB 图中所有 net（design -&gt; netlist）</p>
-<hr>
-<p>16、元件换层</p>
-<p>拖住按 L</p>
-<hr>
-<p>17、选中需要修整的铜皮  M+G</p>
-<p>修钝角 P+Y</p>
-<hr>
-<p>18、PCB 图中修改丝印字体</p>
-<p>任一丝印右键 -&gt; find similar objects -&gt; text width 选 same -&gt; OK -&gt; 在 PCB inspector 中修改</p>
-<hr>
-<p>19、隐藏网络飞线</p>
-<p>N -&gt; Hide Connections 选 Net</p>
-]]></content>
-      <tags>
-        <tag>软件使用</tag>
       </tags>
   </entry>
   <entry>
@@ -1873,56 +1873,25 @@
       </tags>
   </entry>
   <entry>
-    <title>STM32 程序烧录</title>
-    <url>//blog/2019/03/04/STM32-%E7%A8%8B%E5%BA%8F%E7%83%A7%E5%BD%95/</url>
+    <title>STM32 外部中断</title>
+    <url>//blog/2019/03/04/STM32-%E5%A4%96%E9%83%A8%E4%B8%AD%E6%96%AD/</url>
     <content><![CDATA[<hr>
-<p>STM32 的程序烧录方法有多种：USB、串口、JTAG、SWD等。</p>
-<p>开发板串口烧录时，mcuisp 软件设置 DTR 低电平复位，RTS 高电平进 BootLoader，选择编程前重装文件，编程后执行，校验，不要选择使用 RamIsp。</p>
+<p>STM32 的每个 IO 口都可以作为中断输入，但每一个中断线只能分配到某一个 IO 口的相应管脚，如中断 2 只能分配到 PA2 或 PB2 或 PC2 等其中的一个。</p>
 <a id="more"></a>
-<p>JLINK v8 支持 JTAG 和 SW</p>
-<hr>
-<p>STM32 启动方式：</p>
-<table>
-<thead>
-<tr>
-<th>BOOT0</th>
-<th>BOOT1</th>
-<th>启动模式</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>X</td>
-<td>用户闪存存储器</td>
-<td>用户闪存存储器，也就是FLASH启动</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>系统存储器</td>
-<td>系统存储器启动</td>
-</tr>
-<tr>
-<td>1</td>
-<td>1</td>
-<td>SRAM 启动</td>
-<td>SRAN启动，用于在SRAM中调试代码</td>
-</tr>
-</tbody>
-</table>
-<p>用户闪存，即芯片内置的 FLASH，从用户闪存启动是正常的工作模式；</p>
-<p>SRAM，是芯片内置的 RAM 区，就是内存；</p>
-<p>系统存储器，是芯片内部一块特定的区域，芯片出厂时，在这个区域预置了一段 Bootloader，就是通常说的 ISP 程序，这个区域的内容在芯片出场后，没有人能够修改或擦除，即它是一个 ROM 区。</p>
-<p>标准的 ISP 下载步骤（串口下载）：</p>
-<p>​    ① 配置 BOOT0 为 1，BOOT1 为 0</p>
-<p>​    ② 按复位键</p>
-<p>​    ③ 通过程序下载代码</p>
-<p>​    ④ 下载完成后将 BOOT0 设置为 GND，以便每次复位后都可以运行用户代码</p>
-<p>一般不使用内置 SRAM 启动，因为 SRAM 掉电数据丢失。多数情况下 SRAM 只在调试时使用，也可以做其他用途，如故障的局部诊断，写一小段程序加载到 SRAM 中诊断板上的其他电路，或用此方法读写板上的 FLASH 或 EEPROM 等。还可以通过这种方法接触内部FLASH的读写保护，当然接触读写保护的同时，FLASH 的内容也被自动清除，以防止恶意的软件拷贝。</p>
-<p>一般 BOOT0 和 BOOT1 跳线都跳到 0。只是在 ISP 下载的情况下，BOOT0=1，BOOT1=0，下载完成后，把 BOOT0 的跳线接回 0。</p>
-<p>STM32 内部 FLASH 地址起始于 0x08000000，一般情况下，程序文件就从此地址开始写入。此外 STM32 是基于Cortex-M3 内核的微控制器，其内部通过一张“中断向量表”来响应中断，程序启动后，将首先从“中断向量表”取出复位中断向量执行复位中断程序完成启动，而这张“中断向量表”的起始地址 0x08000004，当中断来临，STM32 的内部硬件机制亦会自动将 PC 指针定位到“中断向量表”处，并根据中断源取出对应的中断向量执行中断服务程序。复位中断服务函数执行完之后，会跳转到 main 函数。</p>
+<p>把 IO 口作为外部中断输入的步骤：</p>
+<p>1、初始化 IO 为输入</p>
+<p>可以上拉，下拉，或浮空输入。浮空的时候外部一定要上拉或下拉，否则中断可能不停触发。干扰打的地方，就算使用了内部上/下拉，最好外部再上/下拉一下，一定程度上防止外部干扰。</p>
+<p>2、开启 IO 口复用时钟，设置 IO 口与中断线的映射关系</p>
+<p>IO 口复用时钟在 RCC-&gt;APB2ENR 处使能（AFIOEN），在 AFIO-&gt;EXTICR 处将 EXTI.BITx 映射到 GPIO.BITx。</p>
+<p>3、开启与该 IO 口相对的线上中断/事件，设置触发条件</p>
+<p>从 EXTI-&gt;IMR 处开启中断请求，从 EXTI-&gt;EMR 处开启事件请求，从 EXTI-&gt;FTSR（下降沿）和 RTSR（上升沿）设置触发条件。</p>
+<p>触发条件只能是上升沿或下降沿。不配置 EMR 位，软硬件仿真都可以进入外部中断，配置以后，软件仿真不能进入外部中断。</p>
+<p>4、配置中断分组（NVIC），并使能中断</p>
+<p>从 SCB-&gt;AIRCR[10:8] 配置中断分组，从 NVIC-&gt;ISER 使能外部中断，从 NVIC-&gt;IP 设置优先级。见 PM0056。</p>
+<p>5、编写中断服务函数</p>
+<p>0~4 有各自的 ISR：void EXTI0_IRQHandler(void)</p>
+<p>9~5 共用 ISR：void EXTI9_5_IRQHandler(void)</p>
+<p>15~10 共用 ISR：void EXTI15_10_IRQHandler(void)</p>
 ]]></content>
       <tags>
         <tag>硬件拾忆</tag>
@@ -2012,42 +1981,56 @@
       </tags>
   </entry>
   <entry>
-    <title>STM32 外部中断</title>
-    <url>//blog/2019/03/04/STM32-%E5%A4%96%E9%83%A8%E4%B8%AD%E6%96%AD/</url>
+    <title>STM32 程序烧录</title>
+    <url>//blog/2019/03/04/STM32-%E7%A8%8B%E5%BA%8F%E7%83%A7%E5%BD%95/</url>
     <content><![CDATA[<hr>
-<p>STM32 的每个 IO 口都可以作为中断输入，但每一个中断线只能分配到某一个 IO 口的相应管脚，如中断 2 只能分配到 PA2 或 PB2 或 PC2 等其中的一个。</p>
+<p>STM32 的程序烧录方法有多种：USB、串口、JTAG、SWD等。</p>
+<p>开发板串口烧录时，mcuisp 软件设置 DTR 低电平复位，RTS 高电平进 BootLoader，选择编程前重装文件，编程后执行，校验，不要选择使用 RamIsp。</p>
 <a id="more"></a>
-<p>把 IO 口作为外部中断输入的步骤：</p>
-<p>1、初始化 IO 为输入</p>
-<p>可以上拉，下拉，或浮空输入。浮空的时候外部一定要上拉或下拉，否则中断可能不停触发。干扰打的地方，就算使用了内部上/下拉，最好外部再上/下拉一下，一定程度上防止外部干扰。</p>
-<p>2、开启 IO 口复用时钟，设置 IO 口与中断线的映射关系</p>
-<p>IO 口复用时钟在 RCC-&gt;APB2ENR 处使能（AFIOEN），在 AFIO-&gt;EXTICR 处将 EXTI.BITx 映射到 GPIO.BITx。</p>
-<p>3、开启与该 IO 口相对的线上中断/事件，设置触发条件</p>
-<p>从 EXTI-&gt;IMR 处开启中断请求，从 EXTI-&gt;EMR 处开启事件请求，从 EXTI-&gt;FTSR（下降沿）和 RTSR（上升沿）设置触发条件。</p>
-<p>触发条件只能是上升沿或下降沿。不配置 EMR 位，软硬件仿真都可以进入外部中断，配置以后，软件仿真不能进入外部中断。</p>
-<p>4、配置中断分组（NVIC），并使能中断</p>
-<p>从 SCB-&gt;AIRCR[10:8] 配置中断分组，从 NVIC-&gt;ISER 使能外部中断，从 NVIC-&gt;IP 设置优先级。见 PM0056。</p>
-<p>5、编写中断服务函数</p>
-<p>0~4 有各自的 ISR：void EXTI0_IRQHandler(void)</p>
-<p>9~5 共用 ISR：void EXTI9_5_IRQHandler(void)</p>
-<p>15~10 共用 ISR：void EXTI15_10_IRQHandler(void)</p>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>STM32</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>STM32 程序编译</title>
-    <url>//blog/2019/03/04/STM32-%E7%A8%8B%E5%BA%8F%E7%BC%96%E8%AF%91/</url>
-    <content><![CDATA[<hr>
-<p>Code：表示程序所占用 FLASH 的大小（FLASH）</p>
-<p>RO-data：Read Only-data，表示程序定义的常量（FLASH）</p>
-<p>RW-data：Read Write-data，表示已被初始化的变量（SRAM）</p>
-<p>ZI-data：Zero Init-data，表示未被初始化的变量（SRAM）</p>
-<a id="more"></a>
-<p>程序的大小不是 .hex 文件的大小，而是编译后 Code 和 RO-data 之和。</p>
-<p>在 startup_stm32f10x_hd.s 里面，定义了堆栈（Heap+Stack）大小为 0x600，也就是 1536 字节，usart.c 里定义了 200 字节大小的接收缓冲，共占用 1736 字节的 SRAM。</p>
+<p>JLINK v8 支持 JTAG 和 SW</p>
+<hr>
+<p>STM32 启动方式：</p>
+<table>
+<thead>
+<tr>
+<th>BOOT0</th>
+<th>BOOT1</th>
+<th>启动模式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>X</td>
+<td>用户闪存存储器</td>
+<td>用户闪存存储器，也就是FLASH启动</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>系统存储器</td>
+<td>系统存储器启动</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>SRAM 启动</td>
+<td>SRAN启动，用于在SRAM中调试代码</td>
+</tr>
+</tbody>
+</table>
+<p>用户闪存，即芯片内置的 FLASH，从用户闪存启动是正常的工作模式；</p>
+<p>SRAM，是芯片内置的 RAM 区，就是内存；</p>
+<p>系统存储器，是芯片内部一块特定的区域，芯片出厂时，在这个区域预置了一段 Bootloader，就是通常说的 ISP 程序，这个区域的内容在芯片出场后，没有人能够修改或擦除，即它是一个 ROM 区。</p>
+<p>标准的 ISP 下载步骤（串口下载）：</p>
+<p>​    ① 配置 BOOT0 为 1，BOOT1 为 0</p>
+<p>​    ② 按复位键</p>
+<p>​    ③ 通过程序下载代码</p>
+<p>​    ④ 下载完成后将 BOOT0 设置为 GND，以便每次复位后都可以运行用户代码</p>
+<p>一般不使用内置 SRAM 启动，因为 SRAM 掉电数据丢失。多数情况下 SRAM 只在调试时使用，也可以做其他用途，如故障的局部诊断，写一小段程序加载到 SRAM 中诊断板上的其他电路，或用此方法读写板上的 FLASH 或 EEPROM 等。还可以通过这种方法接触内部FLASH的读写保护，当然接触读写保护的同时，FLASH 的内容也被自动清除，以防止恶意的软件拷贝。</p>
+<p>一般 BOOT0 和 BOOT1 跳线都跳到 0。只是在 ISP 下载的情况下，BOOT0=1，BOOT1=0，下载完成后，把 BOOT0 的跳线接回 0。</p>
+<p>STM32 内部 FLASH 地址起始于 0x08000000，一般情况下，程序文件就从此地址开始写入。此外 STM32 是基于Cortex-M3 内核的微控制器，其内部通过一张“中断向量表”来响应中断，程序启动后，将首先从“中断向量表”取出复位中断向量执行复位中断程序完成启动，而这张“中断向量表”的起始地址 0x08000004，当中断来临，STM32 的内部硬件机制亦会自动将 PC 指针定位到“中断向量表”处，并根据中断源取出对应的中断向量执行中断服务程序。复位中断服务函数执行完之后，会跳转到 main 函数。</p>
 ]]></content>
       <tags>
         <tag>硬件拾忆</tag>
@@ -2185,6 +2168,51 @@
       <tags>
         <tag>硬件拾忆</tag>
         <tag>STM32</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>STM32 程序编译</title>
+    <url>//blog/2019/03/04/STM32-%E7%A8%8B%E5%BA%8F%E7%BC%96%E8%AF%91/</url>
+    <content><![CDATA[<hr>
+<p>Code：表示程序所占用 FLASH 的大小（FLASH）</p>
+<p>RO-data：Read Only-data，表示程序定义的常量（FLASH）</p>
+<p>RW-data：Read Write-data，表示已被初始化的变量（SRAM）</p>
+<p>ZI-data：Zero Init-data，表示未被初始化的变量（SRAM）</p>
+<a id="more"></a>
+<p>程序的大小不是 .hex 文件的大小，而是编译后 Code 和 RO-data 之和。</p>
+<p>在 startup_stm32f10x_hd.s 里面，定义了堆栈（Heap+Stack）大小为 0x600，也就是 1536 字节，usart.c 里定义了 200 字节大小的接收缓冲，共占用 1736 字节的 SRAM。</p>
+]]></content>
+      <tags>
+        <tag>硬件拾忆</tag>
+        <tag>STM32</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>STM8S 自动唤醒 AWU</title>
+    <url>//blog/2019/03/04/STM8S-%E8%87%AA%E5%8A%A8%E5%94%A4%E9%86%92-AWU/</url>
+    <content><![CDATA[<hr>
+<h3 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h3><p>AWU 是用来当 MCU 进入低功耗的 Active Halt 模式时提供一个内部的唤醒时间基准。该时间基准的时钟是由内部的低速 RC 振荡器时钟（LSI）或通过预分频的 HSE 晶振时钟来提供的。</p>
+<a id="more"></a>
+<p><strong>LSI 时钟测量</strong></p>
+<p>在使用 LSI 低速内部时钟时，为了确保最好的精度，它的频率可以通过 TIM3 的输入捕获 1 来测定。</p>
+<p><img src="https://i.loli.net/2019/03/04/5c7c75c9bab66.png" alt="Image.png"></p>
+<p>注意：LS 低速时钟源的选择是通过编程 CKAWUSEL 选项位来实现的。</p>
+<hr>
+<h3 id="二、AWU-功能描述"><a href="#二、AWU-功能描述" class="headerlink" title="二、AWU 功能描述"></a>二、AWU 功能描述</h3><h4 id="1、AUW-操作"><a href="#1、AUW-操作" class="headerlink" title="1、AUW 操作"></a>1、AUW 操作</h4><p>为了使用 AWU 功能，按顺序执行如下步骤：</p>
+<p><img src="https://i.loli.net/2019/03/04/5c7c75eb5d4df.png" alt="Image.png"></p>
+<p><strong>空闲模式</strong></p>
+<p>如果不使用 AWU，必须载入‘0000’值到 AWU_TBR 的 AWUTB[3:0] 来降低功耗。</p>
+<h4 id="2、时基选择"><a href="#2、时基选择" class="headerlink" title="2、时基选择"></a>2、时基选择</h4><p><img src="https://i.loli.net/2019/03/04/5c7c760388799.png" alt="Image.png"></p>
+<h4 id="3、LSI-低速内部时钟频率检测"><a href="#3、LSI-低速内部时钟频率检测" class="headerlink" title="3、LSI 低速内部时钟频率检测"></a>3、LSI 低速内部时钟频率检测</h4><p>在经过出厂校验后，在全温度范围内低速内部 RC（LSI）振荡器的频率离散性是 128kHz±12.5%。为了获得精确的 AWU 时间间隔或蜂鸣器输出，必须精确测量 LSI 频率。</p>
+<p><img src="https://i.loli.net/2019/03/04/5c7c761d6ced8.png" alt="Image.png"></p>
+<hr>
+<h3 id="三、AWU寄存器"><a href="#三、AWU寄存器" class="headerlink" title="三、AWU寄存器"></a>三、AWU寄存器</h3><p>控制/状态寄存器     AWU_CSR</p>
+<p>异步预分频寄存器   AWU_APR</p>
+<p>时基选择寄存器      AWU_TBR</p>
+]]></content>
+      <tags>
+        <tag>硬件拾忆</tag>
+        <tag>STM8</tag>
       </tags>
   </entry>
   <entry>
@@ -2402,34 +2430,6 @@
 <p>虽然这样限制了 PW 的最大循环周期为 128，但它能够在每个 PWM 周期 2 次更新占空比。在中央对齐模式下，因为波形是对称的，如果每个 PWM 周期中仅刷新一次比较寄存器，则最大的分辨率为 2*tCK_PSC。</p>
 <p>重复计数器是自动加载的，重复速率由 TIMx_RCR 寄存器的值定义。当更新事件由软件产生（通过设置 TIMx_EGR 中的 UG 位）或者通过硬件的从模式控制器产生，则无论重复计数器的值是多少，立即发生更新事件，并且 TIMx_RCR 寄存器中的内容被重载到重复计数器。</p>
 <p><img src="https://i.loli.net/2019/03/04/5c7c7d8ca3063.png" alt="Image.png"></p>
-]]></content>
-      <tags>
-        <tag>硬件拾忆</tag>
-        <tag>STM8</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>STM8S 自动唤醒 AWU</title>
-    <url>//blog/2019/03/04/STM8S-%E8%87%AA%E5%8A%A8%E5%94%A4%E9%86%92-AWU/</url>
-    <content><![CDATA[<hr>
-<h3 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h3><p>AWU 是用来当 MCU 进入低功耗的 Active Halt 模式时提供一个内部的唤醒时间基准。该时间基准的时钟是由内部的低速 RC 振荡器时钟（LSI）或通过预分频的 HSE 晶振时钟来提供的。</p>
-<a id="more"></a>
-<p><strong>LSI 时钟测量</strong></p>
-<p>在使用 LSI 低速内部时钟时，为了确保最好的精度，它的频率可以通过 TIM3 的输入捕获 1 来测定。</p>
-<p><img src="https://i.loli.net/2019/03/04/5c7c75c9bab66.png" alt="Image.png"></p>
-<p>注意：LS 低速时钟源的选择是通过编程 CKAWUSEL 选项位来实现的。</p>
-<hr>
-<h3 id="二、AWU-功能描述"><a href="#二、AWU-功能描述" class="headerlink" title="二、AWU 功能描述"></a>二、AWU 功能描述</h3><h4 id="1、AUW-操作"><a href="#1、AUW-操作" class="headerlink" title="1、AUW 操作"></a>1、AUW 操作</h4><p>为了使用 AWU 功能，按顺序执行如下步骤：</p>
-<p><img src="https://i.loli.net/2019/03/04/5c7c75eb5d4df.png" alt="Image.png"></p>
-<p><strong>空闲模式</strong></p>
-<p>如果不使用 AWU，必须载入‘0000’值到 AWU_TBR 的 AWUTB[3:0] 来降低功耗。</p>
-<h4 id="2、时基选择"><a href="#2、时基选择" class="headerlink" title="2、时基选择"></a>2、时基选择</h4><p><img src="https://i.loli.net/2019/03/04/5c7c760388799.png" alt="Image.png"></p>
-<h4 id="3、LSI-低速内部时钟频率检测"><a href="#3、LSI-低速内部时钟频率检测" class="headerlink" title="3、LSI 低速内部时钟频率检测"></a>3、LSI 低速内部时钟频率检测</h4><p>在经过出厂校验后，在全温度范围内低速内部 RC（LSI）振荡器的频率离散性是 128kHz±12.5%。为了获得精确的 AWU 时间间隔或蜂鸣器输出，必须精确测量 LSI 频率。</p>
-<p><img src="https://i.loli.net/2019/03/04/5c7c761d6ced8.png" alt="Image.png"></p>
-<hr>
-<h3 id="三、AWU寄存器"><a href="#三、AWU寄存器" class="headerlink" title="三、AWU寄存器"></a>三、AWU寄存器</h3><p>控制/状态寄存器     AWU_CSR</p>
-<p>异步预分频寄存器   AWU_APR</p>
-<p>时基选择寄存器      AWU_TBR</p>
 ]]></content>
       <tags>
         <tag>硬件拾忆</tag>
@@ -2954,27 +2954,6 @@
       </tags>
   </entry>
   <entry>
-    <title>C++ 数组内容初始化</title>
-    <url>//blog/2019/04/11/C-%E6%95%B0%E7%BB%84%E5%86%85%E5%AE%B9%E5%88%9D%E5%A7%8B%E5%8C%96/</url>
-    <content><![CDATA[<hr>
-<p><strong>使用 memset 函数</strong></p>
-<p>需要包含 <cstring> 或 &lt;string.h&gt; 或 &lt;memory.h&gt;</cstring></p>
-<p>原型：</p>
-<a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">memset(void *s,int ch,size_t n);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>void *s 传入数组名或某指针</li>
-<li>ch 传入欲初始化的内容</li>
-<li>n 传入欲初始化的地址范围（以字节为单位）</li>
-</ul>
-<p>用法：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">memset(bucket, 0, len*sizeof(ElemType_SqList));</span><br></pre></td></tr></table></figure></p>
-]]></content>
-      <tags>
-        <tag>C++</tag>
-        <tag>编程语言</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>C++ 数据类型</title>
     <url>//blog/2019/04/11/C-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</url>
     <content><![CDATA[<hr>
@@ -3101,6 +3080,27 @@
       </tags>
   </entry>
   <entry>
+    <title>C++ 数组内容初始化</title>
+    <url>//blog/2019/04/11/C-%E6%95%B0%E7%BB%84%E5%86%85%E5%AE%B9%E5%88%9D%E5%A7%8B%E5%8C%96/</url>
+    <content><![CDATA[<hr>
+<p><strong>使用 memset 函数</strong></p>
+<p>需要包含 <cstring> 或 &lt;string.h&gt; 或 &lt;memory.h&gt;</cstring></p>
+<p>原型：</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">memset(void *s,int ch,size_t n);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>void *s 传入数组名或某指针</li>
+<li>ch 传入欲初始化的内容</li>
+<li>n 传入欲初始化的地址范围（以字节为单位）</li>
+</ul>
+<p>用法：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">memset(bucket, 0, len*sizeof(ElemType_SqList));</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <tags>
+        <tag>C++</tag>
+        <tag>编程语言</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>C++ 查看数据类型</title>
     <url>//blog/2019/04/11/C-%E6%9F%A5%E7%9C%8B%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</url>
     <content><![CDATA[<hr>
@@ -3112,6 +3112,203 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">i </span><br><span class="line">A4_c   </span><br><span class="line">i          </span><br><span class="line">c         </span><br><span class="line">f           </span><br><span class="line">d</span><br><span class="line">A_c</span><br><span class="line">A_A2_c</span><br><span class="line">A_i</span><br><span class="line">A_A2_i</span><br><span class="line">Pc</span><br><span class="line">Pi</span><br><span class="line">PKc</span><br><span class="line">PKc</span><br><span class="line">Ss</span><br></pre></td></tr></table></figure>
 <p>可见，typeid().name() 的返回值类型是 PKC，即 <code>const char*</code>。</p>
 <p>如果只需要对类型进行对比，可以直接 <code>if(typeid(a) == typeid(b))</code>。</p>
+]]></content>
+      <tags>
+        <tag>C++</tag>
+        <tag>编程语言</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++ 模板</title>
+    <url>//blog/2019/04/13/C-%E6%A8%A1%E6%9D%BF/</url>
+    <content><![CDATA[<hr>
+<h4 id="一、函数模板（Function-Template）"><a href="#一、函数模板（Function-Template）" class="headerlink" title="一、函数模板（Function Template）"></a>一、函数模板（Function Template）</h4><p>值的参数化：</p>
+<a id="more"></a>
+<ul>
+<li>在函数定义时形参数据的值是未知的，只有等到函数调用时接收了实参才能确定其值。</li>
+</ul>
+<p>类型的参数化：</p>
+<ul>
+<li>在 C++ 中，数据类型也可以通过参数来传递，在函数定义时不指明具体数据类型，函数调用时，编译器可以根据传入的实参自动推断数据类型。</li>
+</ul>
+<p>函数模板：</p>
+<ul>
+<li>建立一个函数的模板，其用到的数据类型（返回值、形参、局部变量的类型）用一个虚拟的类型代替。</li>
+</ul>
+<p>函数模板的语法：（模板头 + 使用新定义的类型参数的函数定义）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">template &lt;typename 类型参数1 , typename 类型参数2 , ...&gt; </span><br><span class="line">返回值类型  函数名(形参列表)&#123;</span><br><span class="line">	…</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>比如：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">template&lt;typename T&gt; void Swap(T &amp;a, T &amp;b)&#123;</span><br><span class="line"></span><br><span class="line">	T temp = a;</span><br><span class="line">	a = b;</span><br><span class="line">	b = temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>函数模板也可以先声明后定义，但是声明的时候也必须带上模板头。</p>
+<p>可以用多个 typename 声明多种不同的类型参数。</p>
+<p>typename 关键字也可以使用 class 关键字代替。</p>
+<hr>
+<h4 id="二、类模板（Class-Template）"><a href="#二、类模板（Class-Template）" class="headerlink" title="二、类模板（Class Template）"></a>二、类模板（Class Template）</h4><p>类模板的定义与函数模板类似，语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">template&lt;typename 类型参数1, typename 类型参数2 , …&gt; class 类名&#123;</span><br><span class="line">    …</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>类的成员函数的定义时，语法为：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">template &lt;typename 类型参数1, typename 类型参数2,  …&gt;</span><br><span class="line"></span><br><span class="line">返回值类型 类名&lt;类型参数1, 类型参数2, … &gt; :: 函数名(参数表)&#123;</span><br><span class="line">	…</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在类名之后，需带上该类全部的类型参数表（不需要写 typename），函数的参数表中，用到了哪个类型参数写哪个就可以。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">template&lt;typename T&gt; class Operation&#123;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line"></span><br><span class="line">	Operation(T a, T b) :m_a(a), m_b(b)&#123;&#125;</span><br><span class="line">	T Sum();</span><br><span class="line">	bool SetValue(T a, T b);</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line"></span><br><span class="line">	T m_a;</span><br><span class="line">	T m_b;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">template&lt;typename T&gt;</span><br><span class="line">T Operation&lt;T&gt;::Sum()&#123;</span><br><span class="line"></span><br><span class="line">	T c = m_a + m_b;</span><br><span class="line">	return c;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">template&lt;typename T&gt;</span><br><span class="line">bool Operation&lt;T&gt;::SetValue(T a, T b)&#123;</span><br><span class="line"></span><br><span class="line">	m_a = a;</span><br><span class="line">	m_b = b;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line"></span><br><span class="line">	Operation&lt;float&gt; ope(2.3, 3.4);</span><br><span class="line">	float sum = ope.Sum();</span><br><span class="line">	cout &lt;&lt; sum &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">return 0;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用类模板创建对象时，需显示指明类型参数，例如：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Operation&lt;float&gt; ope(2.3, 3.4);</span><br></pre></td></tr></table></figure>
+<p>如果是创建对象指针，赋值时两边都要指明具体类型，且要保持一致：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Operation&lt;float&gt; *ope = new Operation&lt;float&gt;(1.2, 2.3);</span><br></pre></td></tr></table></figure>
+<p>另外，也可以仿造类模板定义结构体模板。</p>
+]]></content>
+      <tags>
+        <tag>C++</tag>
+        <tag>编程语言</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++ 模板的编译问题</title>
+    <url>//blog/2019/04/14/C-%E6%A8%A1%E6%9D%BF%E7%9A%84%E7%BC%96%E8%AF%91%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<hr>
+<h4 id="一、C-对模板的编译"><a href="#一、C-对模板的编译" class="headerlink" title="一、C++ 对模板的编译"></a>一、C++ 对模板的编译</h4><p>使用普通函数和类的时候，编译器只需掌握函数或类的声明即可，所以声明和定义通常分别放在 .h 和 .cpp 文件中。</p>
+<a id="more"></a>
+<p>而模板和模板的成员函数都是在用到的时候才会实例化，这就导致如果按照普通函数或类的方法去定义和声明模板类，在链接阶段，链接器将找不到模板函数或模板类成员函数的定义，因为它们所在的 .cpp 文件并未被编译。为了生成一个实例化版本，编译器需要掌握函数模板或类模板成员函数的定义，因此<strong>模板的头文件通常既包括声明，也包括定义</strong>。</p>
+<p>事实上，C++对想要将声明和定义分别放在两个文件中进行编译提供了两种方式：</p>
+<ul>
+<li>包含编译</li>
+<li>分离编译</li>
+</ul>
+<p>包含编译：<br>大部分内容与正常函数或类的定义和声明相同，只是文件包含有所区别，不需要 cpp 头部包含 .h 文件，而是<strong>用头文件包含源文件</strong>，在 .h 文件的末尾#include&lt;XXX.cpp&gt;。这样其实就相当于把所有内容都写在了头文件中，因为预编译阶段就是把 #include 的文件复制到包含位置。</p>
+<p>分离编译：<br>仍是大部分内容与正常函数或类的定义和声明相同，在定义所在的 .cpp 文件中的函数定义的最前面加上 export 关键字，以告诉编译器该定义在哪里被引用。</p>
+<p>然而在 codeblocks12.11 中使用上面两种方法时，均失败。分别报错说 .cpp 中的类名“does not name a type”，和 export 关键字没有被实现，因而将被忽略，进而导致实例化时该类模板“undefined reference”。</p>
+<p>可见，以上两种方法虽理论上可行，但实际上由于编译器的原因，并不一定能使用。</p>
+<hr>
+<h4 id="二、Codeblocks-中使用模板的方法"><a href="#二、Codeblocks-中使用模板的方法" class="headerlink" title="二、Codeblocks 中使用模板的方法"></a>二、Codeblocks 中使用模板的方法</h4><h5 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h5><p>定义和声明放在同一个 .h 文件中。这是最可靠的方式，无论哪个编译器都不会出错。只是有可能在大规模项目中导致文件特别大。</p>
+<h5 id="方法二："><a href="#方法二：" class="headerlink" title="方法二："></a>方法二：</h5><p>声明和定义放在不同的 .h 文件中，在声明文件的末尾（注意是末尾） #include 定义的 .h 文件。</p>
+<p>这样做原理上与方法一是一致的，在预编译阶段通过复制使它们成为了一个文件。</p>
+<h5 id="方法三："><a href="#方法三：" class="headerlink" title="方法三："></a>方法三：</h5><p>声明和定义分别放在 .h 和 .cpp 文件中，.cpp 文件包含 .h 文件，在 .cpp 文件中写一个函数，对该文件中涉及到的所有成员函数全部实例化一遍（如果只对部分成员函数实例化了，则剩余函数不会被编译）。</p>
+<p>这种方法的原理在于：</p>
+<ul>
+<li>如果不在 .cpp 文件中进行实例化，编译阶段编译器遇到这个 .cpp 文件，一看里面全是模板，就会将这个文件忽略，这样在链接阶段，链接器就会因为找不到模板函数的定义文件而报错。</li>
+<li>在 .cpp 文件中通过一个函数进行了实例化之后，编译阶段，编译器发现这个文件中有非模板函数，就会对其进行编译，由于它的内部对模板进行了实例化，所以，而这些模板的定义和声明又有迹可循，所以就能对它们进行编译。</li>
+</ul>
+<h5 id="方法四："><a href="#方法四：" class="headerlink" title="方法四："></a>方法四：</h5><p>声明和定义分别放在 .h 和 .cpp 文件中，.cpp 文件包含 .h 文件，在实例化模板的文件中，再统一包含这两个文件。</p>
+<p>例如，在 main() 函数中对类模板及其中的成员函数进行了实例化，则在 main() 函数所在的文件头部包含 .cpp 和 .h 文件。此方法的原理类似于方法三。</p>
+<hr>
+<p>以上四种方法都是在 codeblocks12.11 中验证过的。总体来说，还是方法一和方法二更实用一些。但是在摸索这些方法的过程中，加深对程序编译和 C++ 语言特性的理解，还是颇有好处的。</p>
+<p>参考博文及书籍：<br>《C++ primer（中文第 5 版）》<br><a href="https://blog.csdn.net/xiaoyaohuqijun/article/details/50558208" target="_blank" rel="noopener">https://blog.csdn.net/xiaoyaohuqijun/article/details/50558208</a><br><a href="https://blog.csdn.net/qq_41230365/article/details/80207842" target="_blank" rel="noopener">https://blog.csdn.net/qq_41230365/article/details/80207842</a><br><a href="https://blog.csdn.net/u012814856/article/details/84645963" target="_blank" rel="noopener">https://blog.csdn.net/u012814856/article/details/84645963</a><br><a href="https://blog.csdn.net/chenyiming_1990/article/details/9094593" target="_blank" rel="noopener">https://blog.csdn.net/chenyiming_1990/article/details/9094593</a></p>
+]]></content>
+      <tags>
+        <tag>C++</tag>
+        <tag>编程语言</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C++ 类的写法</title>
+    <url>//blog/2019/04/11/C-%E7%B1%BB%E7%9A%84%E5%86%99%E6%B3%95/</url>
+    <content><![CDATA[<hr>
+<h4 id="一、类的声明"><a href="#一、类的声明" class="headerlink" title="一、类的声明"></a>一、类的声明</h4><p>类的声明可以放在头文件中，如：</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Student&#123;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line"></span><br><span class="line">    // 成员变量</span><br><span class="line">    char *name;</span><br><span class="line">    string stu_num;   // 学号</span><br><span class="line">    int age;</span><br><span class="line">    float score;</span><br><span class="line">    </span><br><span class="line">    // 成员函数</span><br><span class="line">    void Print_Info();  // 输出该生的信息</span><br><span class="line"></span><br><span class="line">&#125;; // 要加分号</span><br></pre></td></tr></table></figure>
+<p>使用 class 关键字定义类。类的内部包括成员变量和成员函数。</p>
+<p>类只是一个模板（Template），编译后不占用内存，因此不能在声明或定义时对成员变量进行初始化，必须创建对象后才能赋值。</p>
+<p>根据成员的属性，可分为三类：</p>
+<ul>
+<li>public 公有，外部可访问</li>
+<li>pravite 私有，外部不可访问，不可在派生类中使用</li>
+<li>protected 受保护，外部不可访问，可在派生类中使用</li>
+</ul>
+<p>以上三种修饰符都只能修饰类成员，不能修饰类，且可以在类中多次出现，但为了直观简洁，最好每种只出现一次。</p>
+<p>在类的内部，三种类型的成员都可以互相访问，但在类的外部，只能通过对象访问 public 属性的成员。基类中的 protected 成员可以在派生类中使用。访问权限由高到低：public &gt; protected &gt; private。</p>
+<p>private 关键字的作用在于隐藏类的内部实现，不希望外部知道、只在类内使用或对外部没有影响的成员都建议声明为 private。需要对外暴露的接口都声明为 public。如果没有写 public 和 private，则默认 private。</p>
+<p>另外，类的声明和定义可以写在一起，即在声明时就定义成员函数，也可以把成员函数的定义放在类声明之外，声明中只对成员函数做声明，而不做定义。</p>
+<hr>
+<h4 id="二、类的定义"><a href="#二、类的定义" class="headerlink" title="二、类的定义"></a>二、类的定义</h4><p>类的定义通常即指成员函数的定义，一般可以放在放在 .cpp 文件中。成员函数定义在类外时，必须加上 <code>::</code>（域解析符，或作用域限定符），用来连接类名和函数名，指明当前函数属于哪个类。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">void Student::Print_Info()&#123;</span><br><span class="line">    cout &lt;&lt; &quot;姓名&quot; &lt;&lt; &quot;: &quot; &lt;&lt; name &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; &quot;学号&quot; &lt;&lt; &quot;: &quot; &lt;&lt; stu_num &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; &quot;年龄&quot; &lt;&lt; &quot;: &quot; &lt;&lt; age &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; &quot;成绩&quot; &lt;&lt; &quot;: &quot; &lt;&lt; score &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>即便成员函数定义在类外，也必须在类中作声明，且类的位置应在函数定义之前。</p>
+<p>若将成员函数定义在类内，则默认其位内联函数（将函数调用处用函数体替代），若想将定义在类外的成员函数变成内联函数，则在函数前加 <code>inline</code> 即可。</p>
+<hr>
+<h4 id="三、创建对象"><a href="#三、创建对象" class="headerlink" title="三、创建对象"></a>三、创建对象</h4><h5 id="1、对象声明-定义"><a href="#1、对象声明-定义" class="headerlink" title="1、对象声明/定义"></a>1、对象声明/定义</h5><p>类可以看做是一种数据类型，类似于 C 语言中声明了一个新的结构体类型。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Student LiLei;             // 创建单个对象</span><br><span class="line">Student HanMeimei;           // 创建单个对象，class 可省略</span><br><span class="line">Student students[100];        // 创建对象数组</span><br></pre></td></tr></table></figure>
+<h5 id="2、访问成员"><a href="#2、访问成员" class="headerlink" title="2、访问成员"></a>2、访问成员</h5><p>对象的访问与结构体成员访问类似，使用 <code>.</code> 来访问：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int main()&#123;</span><br><span class="line"></span><br><span class="line">    Student LiLei;</span><br><span class="line">    class Student HanMeimei;</span><br><span class="line">    Student students[100];</span><br><span class="line"></span><br><span class="line">    LiLei.name = (char*)&quot;LiLei&quot;;</span><br><span class="line">    LiLei.stu_num = &quot;010013&quot;;</span><br><span class="line">    LiLei.age = 23;</span><br><span class="line">    LiLei.score = 90.5;</span><br><span class="line"></span><br><span class="line">    LiLei.Print_Info();</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="3、使用对象指针"><a href="#3、使用对象指针" class="headerlink" title="3、使用对象指针"></a>3、使用对象指针</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 静态分配，即指向栈中已创建的对象</span><br><span class="line">Student LiLei;</span><br><span class="line">Student *pStu = &amp;LiLei;</span><br><span class="line"></span><br><span class="line">//动态分配，即通过 new 在堆上动态创建对象</span><br><span class="line">Student *pStu1 = new Student; // 需匹配相应的 delete 进行回收</span><br></pre></td></tr></table></figure>
+<p>栈中的对象都有名字，且栈内存由程序进行管理，不是必须使用指针指向它。而堆内存由程序员管理，且创建出来的对象没有名字，所以必须有指针指向它，才能进行操作。</p>
+<p>动态分配的对象使用完毕后必须用 delete 进行回收释放。</p>
+<p>通过指针访问成员：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Student HanMeimei;</span><br><span class="line">Student *pStu = &amp;HanMeimei;</span><br><span class="line"></span><br><span class="line">pStu -&gt; name = (char*)&quot;HanMeimei&quot;;</span><br><span class="line">pStu -&gt; stu_num = &quot;010014&quot;;</span><br><span class="line">pStu -&gt; age = 23;</span><br><span class="line">pStu -&gt; score = 91.5;</span><br><span class="line">pStu -&gt; Print_Info();</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="四、类的封装"><a href="#四、类的封装" class="headerlink" title="四、类的封装"></a>四、类的封装</h4><p>实际项目开发中，成员变量以及只在类内部使用的成员函数都建议声明为 private，而只将允许通过对象调用的成员函数声明为 public。</p>
+<p>一般约定，private 的成员变量以 m_ 开头，以区别于成员函数的变量。private 的成员变量的作用域是整个类内部。</p>
+<p>则相应的可将上面的类修改为：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class Student&#123;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line">	void Set_Name(char *name);</span><br><span class="line">	void Set_StuNum(string m_stu_num);</span><br><span class="line">	void Set_Age(int age);</span><br><span class="line">	void Set_Score(float score);</span><br><span class="line">    void Print_Info();  // 输出该生的信息</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">	char *m_name;</span><br><span class="line">    string m_stu_num;   // 学号</span><br><span class="line">    int m_age;</span><br><span class="line">    float m_score;</span><br><span class="line"></span><br><span class="line">&#125;; // 要加分号</span><br><span class="line"></span><br><span class="line">void Student::Set_Name(char *name)&#123;</span><br><span class="line"></span><br><span class="line">	m_name = name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Student::Set_StuNum(string stu_num)&#123;</span><br><span class="line"></span><br><span class="line">	m_stu_num = stu_num;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Student::Set_Age(int age)&#123;</span><br><span class="line"></span><br><span class="line">	m_age = age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Student::Set_Score(float score)&#123;</span><br><span class="line"></span><br><span class="line">	m_score = score;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Student::Print_Info()&#123;</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; &quot;姓名&quot; &lt;&lt; &quot;: &quot; &lt;&lt; m_name &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;学号&quot; &lt;&lt; &quot;: &quot; &lt;&lt; m_stu_num &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;年龄&quot; &lt;&lt; &quot;: &quot; &lt;&lt; m_age &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;成绩&quot; &lt;&lt; &quot;: &quot; &lt;&lt; m_score &lt;&lt; endl &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line"></span><br><span class="line">	Student LiLei;</span><br><span class="line">	class Student HanMeimei;</span><br><span class="line">	Student students[100];</span><br><span class="line"></span><br><span class="line">	Student *pStu = &amp;HanMeimei;</span><br><span class="line">	// Student *pStu1 = new Student;</span><br><span class="line">	// delete pStu1;</span><br><span class="line"></span><br><span class="line">	LiLei.Set_Name((char*)&quot;LiLei&quot;);</span><br><span class="line">	LiLei.Set_StuNum(&quot;010013&quot;);</span><br><span class="line">	LiLei.Set_Age(23);</span><br><span class="line">	LiLei.Set_Score(90.5);</span><br><span class="line"></span><br><span class="line">	pStu -&gt; Set_Name((char*)&quot;HanMeimei&quot;);</span><br><span class="line">	pStu -&gt; Set_StuNum(&quot;010014&quot;);</span><br><span class="line">	pStu -&gt; Set_Age(23);</span><br><span class="line">	pStu -&gt; Set_Score(91.5);</span><br><span class="line"></span><br><span class="line">	LiLei.Print_Info();</span><br><span class="line">	pStu -&gt; Print_Info();</span><br><span class="line"></span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里因为成员变量的属性改为了 private，不能通过对象从外部修改，因此增加了 public 属性的 set 函数来修改其值，相应的可以定义 get 函数来获取相应的成员变量值。</p>
+<p>另外也可以通过定义构造函数来初始化成员变量。</p>
+<hr>
+<h4 id="五、构造函数"><a href="#五、构造函数" class="headerlink" title="五、构造函数"></a>五、构造函数</h4><h5 id="1、构造函数"><a href="#1、构造函数" class="headerlink" title="1、构造函数"></a>1、构造函数</h5><p>可通过定义构造函数，使得类在实例化为对象时，可以通过传参来初始化。构造函数没有返回值，且必须是 public 属性的。</p>
+<p>构造函数没有返回值，也没有 return 语句，且构造函数名应与类名同名。</p>
+<p>在栈上创建对象时，实参位于对象名之后，如：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Student LiLei((char *)&quot;LiLei&quot;, &quot;010013&quot;, 23, 90.5);</span><br></pre></td></tr></table></figure>
+<p>在堆上创建对象时，实参位于类名之后，如：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Student *pStu1 = new Student(&quot;LiHua&quot;, &quot;010015&quot;, 23, 92.5);</span><br></pre></td></tr></table></figure></p>
+<p>构造函数支持重载，可以重载多个构造函数，创建对象时根据实参判断调用哪一个构造函数。</p>
+<p>一旦在类中定义了构造函数，构造函数的调用将是强制性的，创建时一定会调用，否则将是错误的。</p>
+<p>如果用户没有定义构造函数，编译器会自动生成一个默认的构造函数。</p>
+<p>如果定义了没有参数的构造函数，在创建对象时，可以不用写括号（用户不定义构造函数时即是这样调用了默认构造函数），例如，如果定义了 <code>Student::Student();</code>，则创建对象时，可以写成 <code>Student stu();</code> 或 <code>Student stu;</code>。</p>
+<p>例程：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class Student&#123;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line">	Student(char* name, string stu_num, int age, float score);</span><br><span class="line">	Student();</span><br><span class="line">	void Set_Name(char *name);</span><br><span class="line">	void Set_StuNum(string m_stu_num);</span><br><span class="line">	void Set_Age(int age);</span><br><span class="line">	void Set_Score(float score);</span><br><span class="line">	void Print_Info();  // 输出该生的信息</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">	char *m_name;</span><br><span class="line">	string m_stu_num;   // 学号</span><br><span class="line">	int m_age;</span><br><span class="line">	float m_score;</span><br><span class="line"></span><br><span class="line">&#125;; // 要加分号</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Student::Student(char* name, string stu_num, int age, float score)&#123;</span><br><span class="line"></span><br><span class="line">	m_name = name;</span><br><span class="line">	m_stu_num = stu_num;</span><br><span class="line">	m_age = age;</span><br><span class="line">	m_score = score;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Student::Student()&#123;</span><br><span class="line"></span><br><span class="line">	m_name = NULL;</span><br><span class="line">	m_stu_num = &quot;NULL&quot;;</span><br><span class="line">	m_age = 0;</span><br><span class="line">	m_score = 0.0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Student::Set_Name(char *name)&#123;</span><br><span class="line"></span><br><span class="line">	m_name = name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Student::Set_StuNum(string stu_num)&#123;</span><br><span class="line"></span><br><span class="line">	m_stu_num = stu_num;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Student::Set_Age(int age)&#123;</span><br><span class="line"></span><br><span class="line">	m_age = age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Student::Set_Score(float score)&#123;</span><br><span class="line"></span><br><span class="line">	m_score = score;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Student::Print_Info()&#123;</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; &quot;姓名&quot; &lt;&lt; &quot;: &quot; &lt;&lt; m_name &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;学号&quot; &lt;&lt; &quot;: &quot; &lt;&lt; m_stu_num &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;年龄&quot; &lt;&lt; &quot;: &quot; &lt;&lt; m_age &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;成绩&quot; &lt;&lt; &quot;: &quot; &lt;&lt; m_score &lt;&lt; endl &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line"></span><br><span class="line">	Student LiLei((char *)&quot;LiLei&quot;, &quot;010013&quot;, 23, 90.5);</span><br><span class="line">	class Student HanMeimei((char *)&quot;HanMeimei&quot;, &quot;010014&quot;, 23, 91.5);</span><br><span class="line">	//Student students[100]; //此处将报错，因为没有调用构造函数</span><br><span class="line"></span><br><span class="line">	Student *pStu = &amp;HanMeimei;</span><br><span class="line">	// Student *pStu1 = new Student(&quot;LiHua&quot;, &quot;010015&quot;, 23, 92.5);</span><br><span class="line">	// delete pStu1;</span><br><span class="line"></span><br><span class="line">	LiLei.Print_Info();</span><br><span class="line">	pStu -&gt; Print_Info();</span><br><span class="line"></span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="2、参数初始化表"><a href="#2、参数初始化表" class="headerlink" title="2、参数初始化表"></a>2、参数初始化表</h5><p>构造函数除了可以像正常函数一样使用函数体对成员变量一一赋值，还可以通过参数初始化表进行初始化。这种方法书写方便，效率上并无提升。例如：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Student::Student(char* name, string stu_num, int age, float score)</span><br><span class="line">: m_name(name), m_stu_num(stu_num), m_age(age), m_score(score)&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>参数初始化表可以用于全部成员变量，也可以只用于部分成员变量。参数初始化表的初始化顺序只与类中成员变量的顺序有关。</p>
+<p><strong>const 成员变量只能用参数初始化表的方式来初始化。</strong></p>
+<hr>
+<h4 id="六、析构函数"><a href="#六、析构函数" class="headerlink" title="六、析构函数"></a>六、析构函数</h4><p>析构函数（Destructor）也是一种特殊的成员函数，没有返回值，不需要显示调用（也无法显示调用），而是在销毁对象时自动执行。</p>
+<p>与构造函数类似，析构函数的函数名与类名相同，但要在类名前加一个 <code>~</code> 符号。</p>
+<p>析构函数没有参数，不能被重载，一个类只能有一个析构函数。如果用户不定义，编译器会自动生成一个默认析构函数。</p>
+<p>例如在构造函数中分配了堆内存：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">m_array = new int[len];</span><br></pre></td></tr></table></figure>
+<p>则在析构函数中需要释放相应的内存：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">delete[] m_array;</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="七、this-指针"><a href="#七、this-指针" class="headerlink" title="七、this 指针"></a>七、this 指针</h4><p>this 是一个 C++ 关键字，用于指向当前对象，通过它可以访问当前对象的所有成员。</p>
+<p>this 是一个 const 指针，只能用在类的内部。通常可用在成员变量与成员函数的参数重名时。</p>
+<p>用 <code>this -&gt; 成员变量</code>  表示该变量是成员变量，而不是函数参数。</p>
+<p>this 其实是存在对象内部的存放对象地址的 const 指针变量，所以只能用在内部，只有通过对象调用成员函数时才给 this 赋值。</p>
+<p>成员函数最终会被变异成与对象无关的普通函数，对象只保留成员变量，因此通过 this 将成员函数与成员变量进行关联。</p>
+<hr>
+<h4 id="八、静态成员变量"><a href="#八、静态成员变量" class="headerlink" title="八、静态成员变量"></a>八、静态成员变量</h4><p>不同对象之间的相同成员变量是相互独立的，若想要不同的对象共享数据，可使用 static 定义静态成员变量。例如：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Student&#123;</span><br><span class="line">public:</span><br><span class="line">    static string m_teacher;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>静态成员变量必须在类声明的外部进行初始化（放在构造函数中也不行），且必须带上数据类型，形式为：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int Student::m_teacher = &quot;Miss Wang&quot;;</span><br></pre></td></tr></table></figure>
+<p>静态成员变量有三种访问方式：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 通过类访问</span><br><span class="line">Student::m_teacher = &quot;Mr Li&quot;;</span><br><span class="line"></span><br><span class="line">// 通过对象访问</span><br><span class="line">Student LiLei((char *)&quot;LiLei&quot;, &quot;010013&quot;, 23, 90.5);</span><br><span class="line">LiLei.m_teacher = &quot;Miss Zhao&quot;;</span><br><span class="line"></span><br><span class="line">// 通过对象指针访问</span><br><span class="line">Student *pStu = new Student(&quot;HanMeimei&quot;, &quot;010014&quot;, 23, 92.5);</span><br><span class="line">pStu -&gt; m_teacher = &quot;Mr Gao&quot;;</span><br></pre></td></tr></table></figure>
+<p>static 静态成员变量不属于某个对象，而属于类，因此不占用对象内存，而在所有对象外部（内存中的全局数据区）开辟内存，不创建对象也可以访问。</p>
+<p>静态成员变量的访问需要遵循 public、private、protected 关键字的访问权限限制，如果属性设为 private，将不能在外部进行访问，只能通过成员函数访问。</p>
+<hr>
+<h4 id="九、静态成员函数"><a href="#九、静态成员函数" class="headerlink" title="九、静态成员函数"></a>九、静态成员函数</h4><p>在类中，除了静态成员变量，还可以声明静态成员函数。</p>
+<p>静态成员函数只能访问静态成员，</p>
+<p>静态成员函数没有 this 指针，不知道指向哪个对象，可以通过类来直接调用（也可以通过对象调用）。同时，无法访问对象的（普通）成员变量和调用对象的（普通）成员函数，只能访问静态成员变量和调用静态成员函数。</p>
+<p>和静态成员变量类似，静态成员函数在声明时要加 static，在定义时不能加 static。</p>
+<p><strong>静态成员函数的主要目的就是访问静态成员。</strong>（当然普通成员函数也可以访问静态成员，但是加上 static 意义更明确）</p>
+<hr>
+<h4 id="十、类中的-const-关键字"><a href="#十、类中的-const-关键字" class="headerlink" title="十、类中的 const 关键字"></a>十、类中的 const 关键字</h4><p>如果不希望数据被修改，可以用 const 修饰，包括成员变量、成员函数和对象。</p>
+<h5 id="1、const-成员变量"><a href="#1、const-成员变量" class="headerlink" title="1、const 成员变量"></a>1、const 成员变量</h5><p>const 成员变量的初始化只能通过参数初始化表。初始化之后不能修改。</p>
+<h5 id="2、const-成员函数"><a href="#2、const-成员函数" class="headerlink" title="2、const 成员函数"></a>2、const 成员函数</h5><p>const 成员函数<strong>可以使用类中的所有成员变量，但是不能修改它们的值</strong>。</p>
+<p>const 成员函数<strong>定义和声明时都要在函数头部的结尾处加上 const 关键字</strong>，如：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">float Get_Score() const;  // 声明</span><br><span class="line"></span><br><span class="line">float Student::Get_Score() const&#123;  // 定义</span><br><span class="line">    return m_score;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="3、const-对象"><a href="#3、const-对象" class="headerlink" title="3、const 对象"></a>3、const 对象</h5><p>const 对象也叫常对象，常对象只能访问类的 const 成员。</p>
+<p>定义常对象时，const 关键字和类名谁前谁后都可以，通常把 const 放在前。</p>
+<hr>
+<h4 id="十一、friend-友元函数和友元类"><a href="#十一、friend-友元函数和友元类" class="headerlink" title="十一、friend 友元函数和友元类"></a>十一、friend 友元函数和友元类</h4><p>通过对象可以访问 public 成员，只有本类中的函数可以访问本类的 private 成员。</p>
+<p>通过友元（friend），可以让其他类中的成员函数以及全局范围的函数访问当前类的 private 成员。</p>
+<p>友元的关系是单向的。友元的关系不能传递。</p>
+<p>一般不建议声明友元类，声明友元函数更为安全。</p>
+<h5 id="1、友元函数"><a href="#1、友元函数" class="headerlink" title="1、友元函数"></a>1、友元函数</h5><p>在当前类以外定义的、不属于当前类的函数，也可以在本类中声名，但要在前面加 friend 关键字，以构成友元函数。友元函数可以访问当前类中的所有成员，包括 public、private、protected 属性的。</p>
+<p>调用友元函数时，不需要通过对象，直接按照普通函数的方式调用即可。</p>
+<p>友元函数不能直接访问成员，需要通过对象或对象的指针来访问。</p>
+<p>类 A 使用其他类 B 的成员函数作为友元函数的时候，需要提前声明类 A。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">friend void Get_Info(Student *pStu);  // 将全局函数作为友元函数</span><br><span class="line"></span><br><span class="line">friend string Student::Get_Teacher();  // 将 Student 类 的 Get_Teacher 函数作为友元函数</span><br></pre></td></tr></table></figure>
+<p>一个函数可以被多个类声明为友元函数。</p>
+<h5 id="2、友元类"><a href="#2、友元类" class="headerlink" title="2、友元类"></a>2、友元类</h5><p>友元类中的所有成员函数都是另一个类的友元函数。</p>
+<p>友元类声明语句：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">friend class Student;</span><br></pre></td></tr></table></figure>
+<h4 id="十二、类和结构体的区别"><a href="#十二、类和结构体的区别" class="headerlink" title="十二、类和结构体的区别"></a>十二、类和结构体的区别</h4><p>相比较 C 语言而言，C++ 对 struct 进行了扩充，使其可以定义成员函数，因此也具备定义一个类的能力。但是在 C++ 中，最好还是使用 class 来定义类。</p>
+<p>class 的成员默认是 private 属性，struct 的成员默认是 public 属性。</p>
+<p>class 继承默认是 private 继承，struct 的继承默认是 public继承。</p>
+<p>class 可使用模板，struct 不能使用模板。</p>
 ]]></content>
       <tags>
         <tag>C++</tag>
@@ -3620,203 +3817,6 @@
 ]]></content>
       <tags>
         <tag>CS基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>C++ 类的写法</title>
-    <url>//blog/2019/04/11/C-%E7%B1%BB%E7%9A%84%E5%86%99%E6%B3%95/</url>
-    <content><![CDATA[<hr>
-<h4 id="一、类的声明"><a href="#一、类的声明" class="headerlink" title="一、类的声明"></a>一、类的声明</h4><p>类的声明可以放在头文件中，如：</p>
-<a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Student&#123;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line"></span><br><span class="line">    // 成员变量</span><br><span class="line">    char *name;</span><br><span class="line">    string stu_num;   // 学号</span><br><span class="line">    int age;</span><br><span class="line">    float score;</span><br><span class="line">    </span><br><span class="line">    // 成员函数</span><br><span class="line">    void Print_Info();  // 输出该生的信息</span><br><span class="line"></span><br><span class="line">&#125;; // 要加分号</span><br></pre></td></tr></table></figure>
-<p>使用 class 关键字定义类。类的内部包括成员变量和成员函数。</p>
-<p>类只是一个模板（Template），编译后不占用内存，因此不能在声明或定义时对成员变量进行初始化，必须创建对象后才能赋值。</p>
-<p>根据成员的属性，可分为三类：</p>
-<ul>
-<li>public 公有，外部可访问</li>
-<li>pravite 私有，外部不可访问，不可在派生类中使用</li>
-<li>protected 受保护，外部不可访问，可在派生类中使用</li>
-</ul>
-<p>以上三种修饰符都只能修饰类成员，不能修饰类，且可以在类中多次出现，但为了直观简洁，最好每种只出现一次。</p>
-<p>在类的内部，三种类型的成员都可以互相访问，但在类的外部，只能通过对象访问 public 属性的成员。基类中的 protected 成员可以在派生类中使用。访问权限由高到低：public &gt; protected &gt; private。</p>
-<p>private 关键字的作用在于隐藏类的内部实现，不希望外部知道、只在类内使用或对外部没有影响的成员都建议声明为 private。需要对外暴露的接口都声明为 public。如果没有写 public 和 private，则默认 private。</p>
-<p>另外，类的声明和定义可以写在一起，即在声明时就定义成员函数，也可以把成员函数的定义放在类声明之外，声明中只对成员函数做声明，而不做定义。</p>
-<hr>
-<h4 id="二、类的定义"><a href="#二、类的定义" class="headerlink" title="二、类的定义"></a>二、类的定义</h4><p>类的定义通常即指成员函数的定义，一般可以放在放在 .cpp 文件中。成员函数定义在类外时，必须加上 <code>::</code>（域解析符，或作用域限定符），用来连接类名和函数名，指明当前函数属于哪个类。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">void Student::Print_Info()&#123;</span><br><span class="line">    cout &lt;&lt; &quot;姓名&quot; &lt;&lt; &quot;: &quot; &lt;&lt; name &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; &quot;学号&quot; &lt;&lt; &quot;: &quot; &lt;&lt; stu_num &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; &quot;年龄&quot; &lt;&lt; &quot;: &quot; &lt;&lt; age &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; &quot;成绩&quot; &lt;&lt; &quot;: &quot; &lt;&lt; score &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>即便成员函数定义在类外，也必须在类中作声明，且类的位置应在函数定义之前。</p>
-<p>若将成员函数定义在类内，则默认其位内联函数（将函数调用处用函数体替代），若想将定义在类外的成员函数变成内联函数，则在函数前加 <code>inline</code> 即可。</p>
-<hr>
-<h4 id="三、创建对象"><a href="#三、创建对象" class="headerlink" title="三、创建对象"></a>三、创建对象</h4><h5 id="1、对象声明-定义"><a href="#1、对象声明-定义" class="headerlink" title="1、对象声明/定义"></a>1、对象声明/定义</h5><p>类可以看做是一种数据类型，类似于 C 语言中声明了一个新的结构体类型。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Student LiLei;             // 创建单个对象</span><br><span class="line">Student HanMeimei;           // 创建单个对象，class 可省略</span><br><span class="line">Student students[100];        // 创建对象数组</span><br></pre></td></tr></table></figure>
-<h5 id="2、访问成员"><a href="#2、访问成员" class="headerlink" title="2、访问成员"></a>2、访问成员</h5><p>对象的访问与结构体成员访问类似，使用 <code>.</code> 来访问：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int main()&#123;</span><br><span class="line"></span><br><span class="line">    Student LiLei;</span><br><span class="line">    class Student HanMeimei;</span><br><span class="line">    Student students[100];</span><br><span class="line"></span><br><span class="line">    LiLei.name = (char*)&quot;LiLei&quot;;</span><br><span class="line">    LiLei.stu_num = &quot;010013&quot;;</span><br><span class="line">    LiLei.age = 23;</span><br><span class="line">    LiLei.score = 90.5;</span><br><span class="line"></span><br><span class="line">    LiLei.Print_Info();</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="3、使用对象指针"><a href="#3、使用对象指针" class="headerlink" title="3、使用对象指针"></a>3、使用对象指针</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 静态分配，即指向栈中已创建的对象</span><br><span class="line">Student LiLei;</span><br><span class="line">Student *pStu = &amp;LiLei;</span><br><span class="line"></span><br><span class="line">//动态分配，即通过 new 在堆上动态创建对象</span><br><span class="line">Student *pStu1 = new Student; // 需匹配相应的 delete 进行回收</span><br></pre></td></tr></table></figure>
-<p>栈中的对象都有名字，且栈内存由程序进行管理，不是必须使用指针指向它。而堆内存由程序员管理，且创建出来的对象没有名字，所以必须有指针指向它，才能进行操作。</p>
-<p>动态分配的对象使用完毕后必须用 delete 进行回收释放。</p>
-<p>通过指针访问成员：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Student HanMeimei;</span><br><span class="line">Student *pStu = &amp;HanMeimei;</span><br><span class="line"></span><br><span class="line">pStu -&gt; name = (char*)&quot;HanMeimei&quot;;</span><br><span class="line">pStu -&gt; stu_num = &quot;010014&quot;;</span><br><span class="line">pStu -&gt; age = 23;</span><br><span class="line">pStu -&gt; score = 91.5;</span><br><span class="line">pStu -&gt; Print_Info();</span><br></pre></td></tr></table></figure>
-<hr>
-<h4 id="四、类的封装"><a href="#四、类的封装" class="headerlink" title="四、类的封装"></a>四、类的封装</h4><p>实际项目开发中，成员变量以及只在类内部使用的成员函数都建议声明为 private，而只将允许通过对象调用的成员函数声明为 public。</p>
-<p>一般约定，private 的成员变量以 m_ 开头，以区别于成员函数的变量。private 的成员变量的作用域是整个类内部。</p>
-<p>则相应的可将上面的类修改为：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class Student&#123;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line">	void Set_Name(char *name);</span><br><span class="line">	void Set_StuNum(string m_stu_num);</span><br><span class="line">	void Set_Age(int age);</span><br><span class="line">	void Set_Score(float score);</span><br><span class="line">    void Print_Info();  // 输出该生的信息</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">	char *m_name;</span><br><span class="line">    string m_stu_num;   // 学号</span><br><span class="line">    int m_age;</span><br><span class="line">    float m_score;</span><br><span class="line"></span><br><span class="line">&#125;; // 要加分号</span><br><span class="line"></span><br><span class="line">void Student::Set_Name(char *name)&#123;</span><br><span class="line"></span><br><span class="line">	m_name = name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Student::Set_StuNum(string stu_num)&#123;</span><br><span class="line"></span><br><span class="line">	m_stu_num = stu_num;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Student::Set_Age(int age)&#123;</span><br><span class="line"></span><br><span class="line">	m_age = age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Student::Set_Score(float score)&#123;</span><br><span class="line"></span><br><span class="line">	m_score = score;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Student::Print_Info()&#123;</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; &quot;姓名&quot; &lt;&lt; &quot;: &quot; &lt;&lt; m_name &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;学号&quot; &lt;&lt; &quot;: &quot; &lt;&lt; m_stu_num &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;年龄&quot; &lt;&lt; &quot;: &quot; &lt;&lt; m_age &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;成绩&quot; &lt;&lt; &quot;: &quot; &lt;&lt; m_score &lt;&lt; endl &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line"></span><br><span class="line">	Student LiLei;</span><br><span class="line">	class Student HanMeimei;</span><br><span class="line">	Student students[100];</span><br><span class="line"></span><br><span class="line">	Student *pStu = &amp;HanMeimei;</span><br><span class="line">	// Student *pStu1 = new Student;</span><br><span class="line">	// delete pStu1;</span><br><span class="line"></span><br><span class="line">	LiLei.Set_Name((char*)&quot;LiLei&quot;);</span><br><span class="line">	LiLei.Set_StuNum(&quot;010013&quot;);</span><br><span class="line">	LiLei.Set_Age(23);</span><br><span class="line">	LiLei.Set_Score(90.5);</span><br><span class="line"></span><br><span class="line">	pStu -&gt; Set_Name((char*)&quot;HanMeimei&quot;);</span><br><span class="line">	pStu -&gt; Set_StuNum(&quot;010014&quot;);</span><br><span class="line">	pStu -&gt; Set_Age(23);</span><br><span class="line">	pStu -&gt; Set_Score(91.5);</span><br><span class="line"></span><br><span class="line">	LiLei.Print_Info();</span><br><span class="line">	pStu -&gt; Print_Info();</span><br><span class="line"></span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这里因为成员变量的属性改为了 private，不能通过对象从外部修改，因此增加了 public 属性的 set 函数来修改其值，相应的可以定义 get 函数来获取相应的成员变量值。</p>
-<p>另外也可以通过定义构造函数来初始化成员变量。</p>
-<hr>
-<h4 id="五、构造函数"><a href="#五、构造函数" class="headerlink" title="五、构造函数"></a>五、构造函数</h4><h5 id="1、构造函数"><a href="#1、构造函数" class="headerlink" title="1、构造函数"></a>1、构造函数</h5><p>可通过定义构造函数，使得类在实例化为对象时，可以通过传参来初始化。构造函数没有返回值，且必须是 public 属性的。</p>
-<p>构造函数没有返回值，也没有 return 语句，且构造函数名应与类名同名。</p>
-<p>在栈上创建对象时，实参位于对象名之后，如：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Student LiLei((char *)&quot;LiLei&quot;, &quot;010013&quot;, 23, 90.5);</span><br></pre></td></tr></table></figure>
-<p>在堆上创建对象时，实参位于类名之后，如：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Student *pStu1 = new Student(&quot;LiHua&quot;, &quot;010015&quot;, 23, 92.5);</span><br></pre></td></tr></table></figure></p>
-<p>构造函数支持重载，可以重载多个构造函数，创建对象时根据实参判断调用哪一个构造函数。</p>
-<p>一旦在类中定义了构造函数，构造函数的调用将是强制性的，创建时一定会调用，否则将是错误的。</p>
-<p>如果用户没有定义构造函数，编译器会自动生成一个默认的构造函数。</p>
-<p>如果定义了没有参数的构造函数，在创建对象时，可以不用写括号（用户不定义构造函数时即是这样调用了默认构造函数），例如，如果定义了 <code>Student::Student();</code>，则创建对象时，可以写成 <code>Student stu();</code> 或 <code>Student stu;</code>。</p>
-<p>例程：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class Student&#123;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line">	Student(char* name, string stu_num, int age, float score);</span><br><span class="line">	Student();</span><br><span class="line">	void Set_Name(char *name);</span><br><span class="line">	void Set_StuNum(string m_stu_num);</span><br><span class="line">	void Set_Age(int age);</span><br><span class="line">	void Set_Score(float score);</span><br><span class="line">	void Print_Info();  // 输出该生的信息</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">	char *m_name;</span><br><span class="line">	string m_stu_num;   // 学号</span><br><span class="line">	int m_age;</span><br><span class="line">	float m_score;</span><br><span class="line"></span><br><span class="line">&#125;; // 要加分号</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Student::Student(char* name, string stu_num, int age, float score)&#123;</span><br><span class="line"></span><br><span class="line">	m_name = name;</span><br><span class="line">	m_stu_num = stu_num;</span><br><span class="line">	m_age = age;</span><br><span class="line">	m_score = score;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Student::Student()&#123;</span><br><span class="line"></span><br><span class="line">	m_name = NULL;</span><br><span class="line">	m_stu_num = &quot;NULL&quot;;</span><br><span class="line">	m_age = 0;</span><br><span class="line">	m_score = 0.0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Student::Set_Name(char *name)&#123;</span><br><span class="line"></span><br><span class="line">	m_name = name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Student::Set_StuNum(string stu_num)&#123;</span><br><span class="line"></span><br><span class="line">	m_stu_num = stu_num;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Student::Set_Age(int age)&#123;</span><br><span class="line"></span><br><span class="line">	m_age = age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Student::Set_Score(float score)&#123;</span><br><span class="line"></span><br><span class="line">	m_score = score;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void Student::Print_Info()&#123;</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; &quot;姓名&quot; &lt;&lt; &quot;: &quot; &lt;&lt; m_name &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;学号&quot; &lt;&lt; &quot;: &quot; &lt;&lt; m_stu_num &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;年龄&quot; &lt;&lt; &quot;: &quot; &lt;&lt; m_age &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; &quot;成绩&quot; &lt;&lt; &quot;: &quot; &lt;&lt; m_score &lt;&lt; endl &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line"></span><br><span class="line">	Student LiLei((char *)&quot;LiLei&quot;, &quot;010013&quot;, 23, 90.5);</span><br><span class="line">	class Student HanMeimei((char *)&quot;HanMeimei&quot;, &quot;010014&quot;, 23, 91.5);</span><br><span class="line">	//Student students[100]; //此处将报错，因为没有调用构造函数</span><br><span class="line"></span><br><span class="line">	Student *pStu = &amp;HanMeimei;</span><br><span class="line">	// Student *pStu1 = new Student(&quot;LiHua&quot;, &quot;010015&quot;, 23, 92.5);</span><br><span class="line">	// delete pStu1;</span><br><span class="line"></span><br><span class="line">	LiLei.Print_Info();</span><br><span class="line">	pStu -&gt; Print_Info();</span><br><span class="line"></span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="2、参数初始化表"><a href="#2、参数初始化表" class="headerlink" title="2、参数初始化表"></a>2、参数初始化表</h5><p>构造函数除了可以像正常函数一样使用函数体对成员变量一一赋值，还可以通过参数初始化表进行初始化。这种方法书写方便，效率上并无提升。例如：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Student::Student(char* name, string stu_num, int age, float score)</span><br><span class="line">: m_name(name), m_stu_num(stu_num), m_age(age), m_score(score)&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>参数初始化表可以用于全部成员变量，也可以只用于部分成员变量。参数初始化表的初始化顺序只与类中成员变量的顺序有关。</p>
-<p><strong>const 成员变量只能用参数初始化表的方式来初始化。</strong></p>
-<hr>
-<h4 id="六、析构函数"><a href="#六、析构函数" class="headerlink" title="六、析构函数"></a>六、析构函数</h4><p>析构函数（Destructor）也是一种特殊的成员函数，没有返回值，不需要显示调用（也无法显示调用），而是在销毁对象时自动执行。</p>
-<p>与构造函数类似，析构函数的函数名与类名相同，但要在类名前加一个 <code>~</code> 符号。</p>
-<p>析构函数没有参数，不能被重载，一个类只能有一个析构函数。如果用户不定义，编译器会自动生成一个默认析构函数。</p>
-<p>例如在构造函数中分配了堆内存：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">m_array = new int[len];</span><br></pre></td></tr></table></figure>
-<p>则在析构函数中需要释放相应的内存：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">delete[] m_array;</span><br></pre></td></tr></table></figure>
-<hr>
-<h4 id="七、this-指针"><a href="#七、this-指针" class="headerlink" title="七、this 指针"></a>七、this 指针</h4><p>this 是一个 C++ 关键字，用于指向当前对象，通过它可以访问当前对象的所有成员。</p>
-<p>this 是一个 const 指针，只能用在类的内部。通常可用在成员变量与成员函数的参数重名时。</p>
-<p>用 <code>this -&gt; 成员变量</code>  表示该变量是成员变量，而不是函数参数。</p>
-<p>this 其实是存在对象内部的存放对象地址的 const 指针变量，所以只能用在内部，只有通过对象调用成员函数时才给 this 赋值。</p>
-<p>成员函数最终会被变异成与对象无关的普通函数，对象只保留成员变量，因此通过 this 将成员函数与成员变量进行关联。</p>
-<hr>
-<h4 id="八、静态成员变量"><a href="#八、静态成员变量" class="headerlink" title="八、静态成员变量"></a>八、静态成员变量</h4><p>不同对象之间的相同成员变量是相互独立的，若想要不同的对象共享数据，可使用 static 定义静态成员变量。例如：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Student&#123;</span><br><span class="line">public:</span><br><span class="line">    static string m_teacher;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>静态成员变量必须在类声明的外部进行初始化（放在构造函数中也不行），且必须带上数据类型，形式为：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int Student::m_teacher = &quot;Miss Wang&quot;;</span><br></pre></td></tr></table></figure>
-<p>静态成员变量有三种访问方式：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 通过类访问</span><br><span class="line">Student::m_teacher = &quot;Mr Li&quot;;</span><br><span class="line"></span><br><span class="line">// 通过对象访问</span><br><span class="line">Student LiLei((char *)&quot;LiLei&quot;, &quot;010013&quot;, 23, 90.5);</span><br><span class="line">LiLei.m_teacher = &quot;Miss Zhao&quot;;</span><br><span class="line"></span><br><span class="line">// 通过对象指针访问</span><br><span class="line">Student *pStu = new Student(&quot;HanMeimei&quot;, &quot;010014&quot;, 23, 92.5);</span><br><span class="line">pStu -&gt; m_teacher = &quot;Mr Gao&quot;;</span><br></pre></td></tr></table></figure>
-<p>static 静态成员变量不属于某个对象，而属于类，因此不占用对象内存，而在所有对象外部（内存中的全局数据区）开辟内存，不创建对象也可以访问。</p>
-<p>静态成员变量的访问需要遵循 public、private、protected 关键字的访问权限限制，如果属性设为 private，将不能在外部进行访问，只能通过成员函数访问。</p>
-<hr>
-<h4 id="九、静态成员函数"><a href="#九、静态成员函数" class="headerlink" title="九、静态成员函数"></a>九、静态成员函数</h4><p>在类中，除了静态成员变量，还可以声明静态成员函数。</p>
-<p>静态成员函数只能访问静态成员，</p>
-<p>静态成员函数没有 this 指针，不知道指向哪个对象，可以通过类来直接调用（也可以通过对象调用）。同时，无法访问对象的（普通）成员变量和调用对象的（普通）成员函数，只能访问静态成员变量和调用静态成员函数。</p>
-<p>和静态成员变量类似，静态成员函数在声明时要加 static，在定义时不能加 static。</p>
-<p><strong>静态成员函数的主要目的就是访问静态成员。</strong>（当然普通成员函数也可以访问静态成员，但是加上 static 意义更明确）</p>
-<hr>
-<h4 id="十、类中的-const-关键字"><a href="#十、类中的-const-关键字" class="headerlink" title="十、类中的 const 关键字"></a>十、类中的 const 关键字</h4><p>如果不希望数据被修改，可以用 const 修饰，包括成员变量、成员函数和对象。</p>
-<h5 id="1、const-成员变量"><a href="#1、const-成员变量" class="headerlink" title="1、const 成员变量"></a>1、const 成员变量</h5><p>const 成员变量的初始化只能通过参数初始化表。初始化之后不能修改。</p>
-<h5 id="2、const-成员函数"><a href="#2、const-成员函数" class="headerlink" title="2、const 成员函数"></a>2、const 成员函数</h5><p>const 成员函数<strong>可以使用类中的所有成员变量，但是不能修改它们的值</strong>。</p>
-<p>const 成员函数<strong>定义和声明时都要在函数头部的结尾处加上 const 关键字</strong>，如：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">float Get_Score() const;  // 声明</span><br><span class="line"></span><br><span class="line">float Student::Get_Score() const&#123;  // 定义</span><br><span class="line">    return m_score;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="3、const-对象"><a href="#3、const-对象" class="headerlink" title="3、const 对象"></a>3、const 对象</h5><p>const 对象也叫常对象，常对象只能访问类的 const 成员。</p>
-<p>定义常对象时，const 关键字和类名谁前谁后都可以，通常把 const 放在前。</p>
-<hr>
-<h4 id="十一、friend-友元函数和友元类"><a href="#十一、friend-友元函数和友元类" class="headerlink" title="十一、friend 友元函数和友元类"></a>十一、friend 友元函数和友元类</h4><p>通过对象可以访问 public 成员，只有本类中的函数可以访问本类的 private 成员。</p>
-<p>通过友元（friend），可以让其他类中的成员函数以及全局范围的函数访问当前类的 private 成员。</p>
-<p>友元的关系是单向的。友元的关系不能传递。</p>
-<p>一般不建议声明友元类，声明友元函数更为安全。</p>
-<h5 id="1、友元函数"><a href="#1、友元函数" class="headerlink" title="1、友元函数"></a>1、友元函数</h5><p>在当前类以外定义的、不属于当前类的函数，也可以在本类中声名，但要在前面加 friend 关键字，以构成友元函数。友元函数可以访问当前类中的所有成员，包括 public、private、protected 属性的。</p>
-<p>调用友元函数时，不需要通过对象，直接按照普通函数的方式调用即可。</p>
-<p>友元函数不能直接访问成员，需要通过对象或对象的指针来访问。</p>
-<p>类 A 使用其他类 B 的成员函数作为友元函数的时候，需要提前声明类 A。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">friend void Get_Info(Student *pStu);  // 将全局函数作为友元函数</span><br><span class="line"></span><br><span class="line">friend string Student::Get_Teacher();  // 将 Student 类 的 Get_Teacher 函数作为友元函数</span><br></pre></td></tr></table></figure>
-<p>一个函数可以被多个类声明为友元函数。</p>
-<h5 id="2、友元类"><a href="#2、友元类" class="headerlink" title="2、友元类"></a>2、友元类</h5><p>友元类中的所有成员函数都是另一个类的友元函数。</p>
-<p>友元类声明语句：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">friend class Student;</span><br></pre></td></tr></table></figure>
-<h4 id="十二、类和结构体的区别"><a href="#十二、类和结构体的区别" class="headerlink" title="十二、类和结构体的区别"></a>十二、类和结构体的区别</h4><p>相比较 C 语言而言，C++ 对 struct 进行了扩充，使其可以定义成员函数，因此也具备定义一个类的能力。但是在 C++ 中，最好还是使用 class 来定义类。</p>
-<p>class 的成员默认是 private 属性，struct 的成员默认是 public 属性。</p>
-<p>class 继承默认是 private 继承，struct 的继承默认是 public继承。</p>
-<p>class 可使用模板，struct 不能使用模板。</p>
-]]></content>
-      <tags>
-        <tag>C++</tag>
-        <tag>编程语言</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>C++ 模板</title>
-    <url>//blog/2019/04/13/C-%E6%A8%A1%E6%9D%BF/</url>
-    <content><![CDATA[<hr>
-<h4 id="一、函数模板（Function-Template）"><a href="#一、函数模板（Function-Template）" class="headerlink" title="一、函数模板（Function Template）"></a>一、函数模板（Function Template）</h4><p>值的参数化：</p>
-<a id="more"></a>
-<ul>
-<li>在函数定义时形参数据的值是未知的，只有等到函数调用时接收了实参才能确定其值。</li>
-</ul>
-<p>类型的参数化：</p>
-<ul>
-<li>在 C++ 中，数据类型也可以通过参数来传递，在函数定义时不指明具体数据类型，函数调用时，编译器可以根据传入的实参自动推断数据类型。</li>
-</ul>
-<p>函数模板：</p>
-<ul>
-<li>建立一个函数的模板，其用到的数据类型（返回值、形参、局部变量的类型）用一个虚拟的类型代替。</li>
-</ul>
-<p>函数模板的语法：（模板头 + 使用新定义的类型参数的函数定义）</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">template &lt;typename 类型参数1 , typename 类型参数2 , ...&gt; </span><br><span class="line">返回值类型  函数名(形参列表)&#123;</span><br><span class="line">	…</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>比如：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">template&lt;typename T&gt; void Swap(T &amp;a, T &amp;b)&#123;</span><br><span class="line"></span><br><span class="line">	T temp = a;</span><br><span class="line">	a = b;</span><br><span class="line">	b = temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>函数模板也可以先声明后定义，但是声明的时候也必须带上模板头。</p>
-<p>可以用多个 typename 声明多种不同的类型参数。</p>
-<p>typename 关键字也可以使用 class 关键字代替。</p>
-<hr>
-<h4 id="二、类模板（Class-Template）"><a href="#二、类模板（Class-Template）" class="headerlink" title="二、类模板（Class Template）"></a>二、类模板（Class Template）</h4><p>类模板的定义与函数模板类似，语法如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">template&lt;typename 类型参数1, typename 类型参数2 , …&gt; class 类名&#123;</span><br><span class="line">    …</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>类的成员函数的定义时，语法为：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">template &lt;typename 类型参数1, typename 类型参数2,  …&gt;</span><br><span class="line"></span><br><span class="line">返回值类型 类名&lt;类型参数1, 类型参数2, … &gt; :: 函数名(参数表)&#123;</span><br><span class="line">	…</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在类名之后，需带上该类全部的类型参数表（不需要写 typename），函数的参数表中，用到了哪个类型参数写哪个就可以。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">template&lt;typename T&gt; class Operation&#123;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line"></span><br><span class="line">	Operation(T a, T b) :m_a(a), m_b(b)&#123;&#125;</span><br><span class="line">	T Sum();</span><br><span class="line">	bool SetValue(T a, T b);</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line"></span><br><span class="line">	T m_a;</span><br><span class="line">	T m_b;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">template&lt;typename T&gt;</span><br><span class="line">T Operation&lt;T&gt;::Sum()&#123;</span><br><span class="line"></span><br><span class="line">	T c = m_a + m_b;</span><br><span class="line">	return c;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">template&lt;typename T&gt;</span><br><span class="line">bool Operation&lt;T&gt;::SetValue(T a, T b)&#123;</span><br><span class="line"></span><br><span class="line">	m_a = a;</span><br><span class="line">	m_b = b;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line"></span><br><span class="line">	Operation&lt;float&gt; ope(2.3, 3.4);</span><br><span class="line">	float sum = ope.Sum();</span><br><span class="line">	cout &lt;&lt; sum &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">return 0;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>使用类模板创建对象时，需显示指明类型参数，例如：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Operation&lt;float&gt; ope(2.3, 3.4);</span><br></pre></td></tr></table></figure>
-<p>如果是创建对象指针，赋值时两边都要指明具体类型，且要保持一致：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Operation&lt;float&gt; *ope = new Operation&lt;float&gt;(1.2, 2.3);</span><br></pre></td></tr></table></figure>
-<p>另外，也可以仿造类模板定义结构体模板。</p>
-]]></content>
-      <tags>
-        <tag>C++</tag>
-        <tag>编程语言</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>C++ 模板的编译问题</title>
-    <url>//blog/2019/04/14/C-%E6%A8%A1%E6%9D%BF%E7%9A%84%E7%BC%96%E8%AF%91%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<hr>
-<h4 id="一、C-对模板的编译"><a href="#一、C-对模板的编译" class="headerlink" title="一、C++ 对模板的编译"></a>一、C++ 对模板的编译</h4><p>使用普通函数和类的时候，编译器只需掌握函数或类的声明即可，所以声明和定义通常分别放在 .h 和 .cpp 文件中。</p>
-<a id="more"></a>
-<p>而模板和模板的成员函数都是在用到的时候才会实例化，这就导致如果按照普通函数或类的方法去定义和声明模板类，在链接阶段，链接器将找不到模板函数或模板类成员函数的定义，因为它们所在的 .cpp 文件并未被编译。为了生成一个实例化版本，编译器需要掌握函数模板或类模板成员函数的定义，因此<strong>模板的头文件通常既包括声明，也包括定义</strong>。</p>
-<p>事实上，C++对想要将声明和定义分别放在两个文件中进行编译提供了两种方式：</p>
-<ul>
-<li>包含编译</li>
-<li>分离编译</li>
-</ul>
-<p>包含编译：<br>大部分内容与正常函数或类的定义和声明相同，只是文件包含有所区别，不需要 cpp 头部包含 .h 文件，而是<strong>用头文件包含源文件</strong>，在 .h 文件的末尾#include&lt;XXX.cpp&gt;。这样其实就相当于把所有内容都写在了头文件中，因为预编译阶段就是把 #include 的文件复制到包含位置。</p>
-<p>分离编译：<br>仍是大部分内容与正常函数或类的定义和声明相同，在定义所在的 .cpp 文件中的函数定义的最前面加上 export 关键字，以告诉编译器该定义在哪里被引用。</p>
-<p>然而在 codeblocks12.11 中使用上面两种方法时，均失败。分别报错说 .cpp 中的类名“does not name a type”，和 export 关键字没有被实现，因而将被忽略，进而导致实例化时该类模板“undefined reference”。</p>
-<p>可见，以上两种方法虽理论上可行，但实际上由于编译器的原因，并不一定能使用。</p>
-<hr>
-<h4 id="二、Codeblocks-中使用模板的方法"><a href="#二、Codeblocks-中使用模板的方法" class="headerlink" title="二、Codeblocks 中使用模板的方法"></a>二、Codeblocks 中使用模板的方法</h4><h5 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h5><p>定义和声明放在同一个 .h 文件中。这是最可靠的方式，无论哪个编译器都不会出错。只是有可能在大规模项目中导致文件特别大。</p>
-<h5 id="方法二："><a href="#方法二：" class="headerlink" title="方法二："></a>方法二：</h5><p>声明和定义放在不同的 .h 文件中，在声明文件的末尾（注意是末尾） #include 定义的 .h 文件。</p>
-<p>这样做原理上与方法一是一致的，在预编译阶段通过复制使它们成为了一个文件。</p>
-<h5 id="方法三："><a href="#方法三：" class="headerlink" title="方法三："></a>方法三：</h5><p>声明和定义分别放在 .h 和 .cpp 文件中，.cpp 文件包含 .h 文件，在 .cpp 文件中写一个函数，对该文件中涉及到的所有成员函数全部实例化一遍（如果只对部分成员函数实例化了，则剩余函数不会被编译）。</p>
-<p>这种方法的原理在于：</p>
-<ul>
-<li>如果不在 .cpp 文件中进行实例化，编译阶段编译器遇到这个 .cpp 文件，一看里面全是模板，就会将这个文件忽略，这样在链接阶段，链接器就会因为找不到模板函数的定义文件而报错。</li>
-<li>在 .cpp 文件中通过一个函数进行了实例化之后，编译阶段，编译器发现这个文件中有非模板函数，就会对其进行编译，由于它的内部对模板进行了实例化，所以，而这些模板的定义和声明又有迹可循，所以就能对它们进行编译。</li>
-</ul>
-<h5 id="方法四："><a href="#方法四：" class="headerlink" title="方法四："></a>方法四：</h5><p>声明和定义分别放在 .h 和 .cpp 文件中，.cpp 文件包含 .h 文件，在实例化模板的文件中，再统一包含这两个文件。</p>
-<p>例如，在 main() 函数中对类模板及其中的成员函数进行了实例化，则在 main() 函数所在的文件头部包含 .cpp 和 .h 文件。此方法的原理类似于方法三。</p>
-<hr>
-<p>以上四种方法都是在 codeblocks12.11 中验证过的。总体来说，还是方法一和方法二更实用一些。但是在摸索这些方法的过程中，加深对程序编译和 C++ 语言特性的理解，还是颇有好处的。</p>
-<p>参考博文及书籍：<br>《C++ primer（中文第 5 版）》<br><a href="https://blog.csdn.net/xiaoyaohuqijun/article/details/50558208" target="_blank" rel="noopener">https://blog.csdn.net/xiaoyaohuqijun/article/details/50558208</a><br><a href="https://blog.csdn.net/qq_41230365/article/details/80207842" target="_blank" rel="noopener">https://blog.csdn.net/qq_41230365/article/details/80207842</a><br><a href="https://blog.csdn.net/u012814856/article/details/84645963" target="_blank" rel="noopener">https://blog.csdn.net/u012814856/article/details/84645963</a><br><a href="https://blog.csdn.net/chenyiming_1990/article/details/9094593" target="_blank" rel="noopener">https://blog.csdn.net/chenyiming_1990/article/details/9094593</a></p>
-]]></content>
-      <tags>
-        <tag>C++</tag>
-        <tag>编程语言</tag>
       </tags>
   </entry>
   <entry>
