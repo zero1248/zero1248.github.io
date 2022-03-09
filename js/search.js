@@ -119,15 +119,16 @@ var searchFunc = function (path, search_id, content_id) {
                             str += "<p class=\"search-result\">" + match_content +
                                 "...</p>"
                         }
-                        str += "</li>";
+                        // str += "</li>";
                     }
                 });
-                str += "</ul>";
-                if (str.indexOf('<li>') === -1) {
-                    return $resultContent.innerHTML = BTN +
-                        "<ul><span class='local-search-empty'>没有找到内容，更换下搜索词试试吧~<span></ul>";
-                }
-                $resultContent.innerHTML = BTN + str;
+                // str += "</ul>";
+                // if (str.indexOf('<li>') === -1) {
+                    // return $resultContent.innerHTML = BTN +
+                        // "<ul><span class='local-search-empty'>没有找到内容，更换下搜索词试试吧~<span></ul>";
+                // }
+                // $resultContent.innerHTML = BTN + str;
+                $resultContent.innerHTML = str;
             });
         }
     });
