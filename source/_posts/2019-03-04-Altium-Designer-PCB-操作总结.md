@@ -1,8 +1,9 @@
 ---
 title: Altium Designer PCB 操作总结
-date: 2019-03-04 18:28:14
 tags:
-    - 软件使用
+  - 软件使用
+abbrlink: 3f43eab6
+date: 2019-03-04 18:28:14
 ---
 
 ---

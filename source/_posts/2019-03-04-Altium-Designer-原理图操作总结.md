@@ -1,8 +1,9 @@
 ---
 title: Altium Designer 原理图操作总结
-date: 2019-03-04 18:17:53
 tags:
-    - 软件使用
+  - 软件使用
+abbrlink: a140eeab
+date: 2019-03-04 18:17:53
 ---
 
 ---

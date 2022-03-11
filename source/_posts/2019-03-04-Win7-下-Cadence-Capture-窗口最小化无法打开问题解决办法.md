@@ -1,8 +1,9 @@
 ---
 title: Win7 下 Cadence Capture 窗口最小化无法打开问题解决办法
-date: 2019-03-04 17:53:15
 tags:
-    - 软件使用
+  - 软件使用
+abbrlink: d0c66c85
+date: 2019-03-04 17:53:15
 ---
 
 ---

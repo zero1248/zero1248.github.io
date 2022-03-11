@@ -1,9 +1,10 @@
 ---
 title: Numpy 中 linspace() 与 arange() 的区别
-date: 2019-05-07 19:09:31
 tags:
-    - 编程语言
-    - Python
+  - 编程语言
+  - Python
+abbrlink: 98889d59
+date: 2019-05-07 19:09:31
 ---
 
 ---

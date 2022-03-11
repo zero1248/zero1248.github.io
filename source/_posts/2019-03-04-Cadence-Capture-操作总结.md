@@ -1,8 +1,9 @@
 ---
 title: Cadence Capture 操作总结
-date: 2019-03-04 17:00:14
 tags:
-    - 软件使用
+  - 软件使用
+abbrlink: 3922d180
+date: 2019-03-04 17:00:14
 ---
 
 ---

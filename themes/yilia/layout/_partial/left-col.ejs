@@ -19,6 +19,10 @@
 	        <%}%>
 			</ul>
 		</nav>
+        <nav>
+            <a>总文章数 <%=site.posts.length%></a>
+            <a>总字数 <span class="post-count"><%= totalcount(site, '0,0.0a') %></span></a>
+        </nav>
 		<nav class="header-smart-menu">
     		<% for (var i in theme.smart_menu){ %>
     			<% if(theme.smart_menu[i]){ %>
@@ -33,5 +37,6 @@
 		        <%}%>
 			</div>
 		</nav>
+        
 	</header>		
 </div>

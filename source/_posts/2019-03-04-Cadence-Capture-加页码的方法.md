@@ -1,8 +1,9 @@
 ---
 title: Cadence Capture 加页码的方法
-date: 2019-03-04 17:43:48
 tags:
-    - 软件使用
+  - 软件使用
+abbrlink: d55e31d2
+date: 2019-03-04 17:43:48
 ---
 
 ---

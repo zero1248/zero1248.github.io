@@ -19,13 +19,13 @@
 // 
 
 var searchFunc = function (path, search_id, content_id) {
-    'use strict';
+    'use strict'; //使用严格模式
     var BTN = "<i id='local-search-close'>x</i>";
     $.ajax({
         url: path,
         dataType: "xml",
         success: function (xmlResponse) {
-            // get the contents from search data
+            // 从 xml 中获取相应的标题等数据
             var datas = $("entry", xmlResponse).map(function () {
                 return {
                     title: $("title", this).text(),
@@ -34,17 +34,19 @@ var searchFunc = function (path, search_id, content_id) {
                 };
             }).get();
 
+            // ID 选择器
             var $input = document.getElementById(search_id);
             var $resultContent = document.getElementById(content_id);
 
             $input.addEventListener('input', function () {
+                // var str = '';
                 var str = '<ul class=\"search-result-list\">';
                 var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
                 $resultContent.innerHTML = "";
                 if (this.value.trim().length <= 0) {
                     return;
                 }
-                // perform local searching
+                // 本地搜索主要部分
                 datas.forEach(function (data) {
                     var isMatch = true;
                     var content_index = [];
@@ -57,8 +59,8 @@ var searchFunc = function (path, search_id, content_id) {
                     var index_title = -1;
                     var index_content = -1;
                     var first_occur = -1;
-                    // only match artiles with not empty contents
-                    if (data_content !== '') {
+                    // 只匹配非空文章
+                    if (data_title != '' && data_content !== '') {
                         keywords.forEach(function (keyword, i) {
                             index_title = data_title.indexOf(keyword);
                             index_content = data_content.indexOf(keyword);
@@ -78,15 +80,18 @@ var searchFunc = function (path, search_id, content_id) {
                     } else {
                         isMatch = false;
                     }
-                    // show search results
+                    // 返回搜索结果
                     if (isMatch) {
-                        str += "<li><a href='" + data_url.slice(2) +
+                        // 结果标签
+                        // str += "<li><a href='" + data_url.slice(2) +
+                        // str = "<li><a href='" + "zero1248.github.io/" + data_url.slice(2) +
                         // str += "<li><a href='" + "zero1248.github.io/" + data_url.slice(2) +
-                        // str += "<li><a href='" + data_url +
-                            "' class='search-result-title'>" + data_title + "</a>";
+                        str += "<li><a href='" + data_url +
+                            // "' class='search-result-title' target='_blank'>" + "> " + data_title + "</a>";
+                        "' class='search-result-title'>" + data_title + "</a>";
                         var content = data.content.trim().replace(/<[^>]+>/g, "");
                         if (first_occur >= 0) {
-                            // cut out 100 characters
+                            // 拿出含有搜索字的部分
                             var start = first_occur - 20;
                             var end = first_occur + 80;
 
@@ -104,7 +109,7 @@ var searchFunc = function (path, search_id, content_id) {
 
                             var match_content = content.substr(start, end);
 
-                            // highlight all keywords
+                            // 列出搜索关键字，定义class加高亮
                             keywords.forEach(function (keyword) {
                                 var regS = new RegExp(keyword, "gi");
                                 match_content = match_content.replace(regS,

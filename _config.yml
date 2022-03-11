@@ -14,9 +14,14 @@ timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yoursite.com
+url: https://zero1248.github.io
+
 root: /
-permalink: /blog/:year/:month/:day/:title/
+# permalink: /blog/:year/:month/:day/:title/
+permalink: article/:abbrlink.html
+abbrlink:
+  alg: crc32  # 算法：crc16(default) and crc32
+  rep: hex    # 进制：dec(default) and hex
 permalink_defaults: 
 
 
@@ -27,8 +32,12 @@ tag_dir: tags
 archive_dir: archives
 category_dir: categories
 code_dir: downloads/code
-i18n_dir: :lang
+i18n_dir: :lang 
+
+# 跳过渲染
 skip_render:
+ - 'README.md'
+ - 'docs/*.md'
 
 # Writing
 new_post_name: :year-:month-:day-:title.md # File name of new posts
@@ -37,7 +46,10 @@ titlecase: false # Transform title into titlecase
 external_link: true # Open external links in new tab
 filename_case: 0
 render_drafts: false
-post_asset_folder: false
+
+post_asset_folder: true   # enable image source folder
+
+
 relative_link: false
 future: true
 highlight:
@@ -116,7 +128,8 @@ jsonContent:
     updated: false
     comments: false
     link: false
-    permalink: false
+    # permalink: false
+    permalink: true
     excerpt: false
     categories: false
     tags: true
@@ -126,3 +139,30 @@ jsonContent:
 search:
   path: search.xml
   field: all
+
+# hexo-neat  github:https://github.com/rozbo/hexo-neat
+# 博文压缩，exclude表示不包括，即不压缩的内容
+neat_enable: true
+# 压缩html
+# 不要跳过 .md、.swig 文件
+neat_html:
+  enable: true
+  exclude:
+    # - '**/google4cc750c2e2103b7c.html' #忽略Google的站点(https://yansheng836.github.io) 验证文件，Google不同网站的验证文件都一样。
+    # - '**/baidu_verify_QgSK2r2blo.html' #忽略百度的站点(https://yansheng836.github.io) 验证文件，百度的就每个网站一个内容。
+# 压缩css  
+neat_css:
+  enable: true
+  exclude:
+    - '**/*.min.css'
+# 压缩js
+neat_js:
+  enable: true
+  mangle: true
+  output:
+  compress:
+  exclude:
+    - '**/*.min.js'
+    - '**/jquery.fancybox.pack.js'
+    - '**/index.js'
+    # - '**/ins.js'   #忽略压缩/source/photos/ins.js文件，不然会出现错误，相册会显示不出来

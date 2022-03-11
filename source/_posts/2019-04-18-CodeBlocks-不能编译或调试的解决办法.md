@@ -1,9 +1,10 @@
 ---
 title: CodeBlocks 不能编译或调试的解决办法
-date: 2019-04-18 22:11:34
 tags:
-    - 软件使用
-    - CodeBlocks
+  - 软件使用
+  - CodeBlocks
+abbrlink: e6474535
+date: 2019-04-18 22:11:34
 ---
 
 ---

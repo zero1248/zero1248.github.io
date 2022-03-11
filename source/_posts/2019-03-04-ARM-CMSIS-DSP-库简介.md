@@ -1,9 +1,10 @@
 ---
 title: ARM CMSIS-DSP 库简介
-date: 2019-03-04 16:39:33
 tags:
-    - 硬件拾忆
-    - STM32
+  - 硬件拾忆
+  - STM32
+abbrlink: 5d8cceea
+date: 2019-03-04 16:39:33
 ---
 
 ---

@@ -1,9 +1,10 @@
 ---
 title: STM8S Boot ROM
-date: 2019-03-02 23:40:01
 tags:
-    - 硬件拾忆
-    - STM8
+  - 硬件拾忆
+  - STM8
+abbrlink: fc6550d2
+date: 2019-03-02 23:40:01
 ---
 
 ---

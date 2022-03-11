@@ -1,9 +1,10 @@
 ---
 title: STM8S Flash 程序存储器和数据 EEPROM
-date: 2019-03-03 10:06:18
 tags:
-    - 硬件拾忆
-    - STM8
+  - 硬件拾忆
+  - STM8
+abbrlink: 52dc6b9c
+date: 2019-03-03 10:06:18
 ---
 
 ---

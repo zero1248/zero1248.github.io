@@ -1,9 +1,10 @@
 ---
 title: STM8S Memory and register map
-date: 2019-03-02 23:44:59
 tags:
-    - 硬件拾忆
-    - STM8
+  - 硬件拾忆
+  - STM8
+abbrlink: 1c2bfc5d
+date: 2019-03-02 23:44:59
 ---
 
 ---

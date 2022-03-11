@@ -1,8 +1,9 @@
 ---
 title: Cadence Allegro 操作总结
-date: 2019-03-04 18:03:59
 tags:
-    - 软件使用
+  - 软件使用
+abbrlink: d5da8179
+date: 2019-03-04 18:03:59
 ---
 
 ---

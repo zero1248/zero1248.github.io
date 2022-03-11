@@ -1,8 +1,9 @@
 ---
 title: UVa1583（DigitGenerator）解决思路
-date: 2019-03-02 22:46:23
 tags:
-    - 算法
+  - 算法
+abbrlink: 251da63b
+date: 2019-03-02 22:46:23
 ---
 
 ---
