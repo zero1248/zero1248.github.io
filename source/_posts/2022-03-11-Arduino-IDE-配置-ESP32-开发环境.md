@@ -1,7 +1,7 @@
 ---
 title: Arduino IDE 配置 ESP32 开发环境
 tags:
-  - 硬件拾亿
+  - 硬件拾忆
   - Arduino
   - ESP32
 abbrlink: 64d1c9e3
@@ -44,7 +44,7 @@ Arduino IDE 默认是不支持 ESP32 开发板的，但是可以通过开发板�
 
 ---
 
-二、方法二：手动安装
+#### 二、方法二：手动安装
 
 1、用 `${Arduino}` 表示 Arduino 软件的安装目录。
 在 `${Arduino}/hardware` 文件夹下建一个文件夹 espressif，然后将 arduino-esp32（[espressif/arduino-esp32: Arduino core for the ESP32 (github.com)](https://github.com/espressif/arduino-esp32)） 克隆到这里（git clone 或者 下载安装包都可以）。
@@ -57,7 +57,7 @@ Arduino IDE 默认是不支持 ESP32 开发板的，但是可以通过开发板�
 
 ![Image](Image-16469667911374.png)
 
-#### 编译的时候又报错，说找不到 xtensa-esp32-elf-g++ 编译器。。。
+编译的时候又报错，说找不到 xtensa-esp32-elf-g++ 编译器。。。
 
 3、上一步的问题在于，运行 tools 文件夹下的 get.exe 的时候其实没有运行成功，而是中断了（因为要下载东西，估计也是网络问题）。这个程序的功能是下载几个东西，中断后下载失败。
 

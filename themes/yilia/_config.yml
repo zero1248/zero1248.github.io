@@ -136,5 +136,7 @@ friends:
 aboutme: 溪柴火软蛮毡暖<br>我与狸奴不出门<br>
 
 
-
+# 不算子访问统计
+busuanzi:
+  enable: true
 
