@@ -1,9 +1,10 @@
 ---
 title: Xilinx XDMA 驱动测试
-date: 2022-05-13 03:17:01
 tags:
-    - FPGA
-    - XDMA
+  - FPGA
+  - XDMA
+abbrlink: b435e21
+date: 2022-05-13 03:17:01
 ---
 
 Xilinx 对 XDMA IP 核提供了官方驱动及测试代码。下载地址为：
